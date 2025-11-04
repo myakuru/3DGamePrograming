@@ -1,0 +1,797 @@
+{
+	"asset":
+	{
+		"version": "2.0",
+		"generator": "Unreal Engine 5.5.4"
+	},
+	"scene": 0,
+	"accessors": [
+		{
+			"bufferView": 0,
+			"count": 2376,
+			"type": "SCALAR",
+			"componentType": 5123
+		},
+		{
+			"bufferView": 1,
+			"count": 2376,
+			"type": "VEC3",
+			"componentType": 5126,
+			"min": [ 1.28746005e-05, -1.0511226e-21, -1.71661341e-05 ],
+			"max": [ 647.999878, 4.84959973e-14, 791.999756 ]
+		},
+		{
+			"bufferView": 2,
+			"count": 2376,
+			"type": "VEC3",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 3,
+			"count": 2376,
+			"type": "VEC2",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 4,
+			"count": 56520,
+			"type": "SCALAR",
+			"componentType": 5123
+		},
+		{
+			"bufferView": 5,
+			"count": 56520,
+			"type": "VEC3",
+			"componentType": 5126,
+			"min": [ 2.13958693, -2.87783551, 2.66705489 ],
+			"max": [ 645.860168, 237.654541, 789.332642 ]
+		},
+		{
+			"bufferView": 6,
+			"count": 56520,
+			"type": "VEC3",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 7,
+			"count": 56520,
+			"type": "VEC2",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 8,
+			"count": 1632,
+			"type": "SCALAR",
+			"componentType": 5123
+		},
+		{
+			"bufferView": 9,
+			"count": 1632,
+			"type": "VEC3",
+			"componentType": 5126,
+			"min": [ 45.8031807, -1.06817079, 95.7214737 ],
+			"max": [ 602.196594, 231.439514, 696.278259 ]
+		},
+		{
+			"bufferView": 10,
+			"count": 1632,
+			"type": "VEC3",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 11,
+			"count": 1632,
+			"type": "VEC2",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 12,
+			"count": 7272,
+			"type": "SCALAR",
+			"componentType": 5123
+		},
+		{
+			"bufferView": 13,
+			"count": 7272,
+			"type": "VEC3",
+			"componentType": 5126,
+			"min": [ 7.1167016, 52.4593239, 8.34878349 ],
+			"max": [ 640.883118, 228.934753, 783.65094 ]
+		},
+		{
+			"bufferView": 14,
+			"count": 7272,
+			"type": "VEC3",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 15,
+			"count": 7272,
+			"type": "VEC2",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 16,
+			"count": 3294,
+			"type": "SCALAR",
+			"componentType": 5123
+		},
+		{
+			"bufferView": 17,
+			"count": 3294,
+			"type": "VEC3",
+			"componentType": 5126,
+			"min": [ 11.5662661, -0.606516063, 2.66705489 ],
+			"max": [ 642.011841, 119.505127, 789.332642 ]
+		},
+		{
+			"bufferView": 18,
+			"count": 3294,
+			"type": "VEC3",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 19,
+			"count": 3294,
+			"type": "VEC2",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 20,
+			"count": 1596,
+			"type": "SCALAR",
+			"componentType": 5123
+		},
+		{
+			"bufferView": 21,
+			"count": 1596,
+			"type": "VEC3",
+			"componentType": 5126,
+			"min": [ 6.97727823, 2.97691083, 153.981552 ],
+			"max": [ 641.022461, 208.152924, 638.018188 ]
+		},
+		{
+			"bufferView": 22,
+			"count": 1596,
+			"type": "VEC3",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 23,
+			"count": 1596,
+			"type": "VEC2",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 24,
+			"count": 11694,
+			"type": "SCALAR",
+			"componentType": 5123
+		},
+		{
+			"bufferView": 25,
+			"count": 11694,
+			"type": "VEC3",
+			"componentType": 5126,
+			"min": [ 2.41809034, -0.665129364, 4.01977634 ],
+			"max": [ 645.581665, 110.823677, 787.979919 ]
+		},
+		{
+			"bufferView": 26,
+			"count": 11694,
+			"type": "VEC3",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 27,
+			"count": 11694,
+			"type": "VEC2",
+			"componentType": 5126
+		}
+	],
+	"buffers": [
+		{
+			"uri": "Map.bin",
+			"byteLength": 2869056
+		}
+	],
+	"bufferViews": [
+		{
+			"buffer": 0,
+			"byteLength": 4752,
+			"target": 34963
+		},
+		{
+			"buffer": 0,
+			"byteLength": 28512,
+			"byteOffset": 4752,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 28512,
+			"byteOffset": 33264,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 19008,
+			"byteOffset": 61776,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 113040,
+			"byteOffset": 80784,
+			"target": 34963
+		},
+		{
+			"buffer": 0,
+			"byteLength": 678240,
+			"byteOffset": 193824,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 678240,
+			"byteOffset": 872064,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 452160,
+			"byteOffset": 1550304,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 3264,
+			"byteOffset": 2002464,
+			"target": 34963
+		},
+		{
+			"buffer": 0,
+			"byteLength": 19584,
+			"byteOffset": 2005728,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 19584,
+			"byteOffset": 2025312,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 13056,
+			"byteOffset": 2044896,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 14544,
+			"byteOffset": 2057952,
+			"target": 34963
+		},
+		{
+			"buffer": 0,
+			"byteLength": 87264,
+			"byteOffset": 2072496,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 87264,
+			"byteOffset": 2159760,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 58176,
+			"byteOffset": 2247024,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 6588,
+			"byteOffset": 2305200,
+			"target": 34963
+		},
+		{
+			"buffer": 0,
+			"byteLength": 39528,
+			"byteOffset": 2311788,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 39528,
+			"byteOffset": 2351316,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 26352,
+			"byteOffset": 2390844,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 3192,
+			"byteOffset": 2417196,
+			"target": 34963
+		},
+		{
+			"buffer": 0,
+			"byteLength": 19152,
+			"byteOffset": 2420388,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 19152,
+			"byteOffset": 2439540,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 12768,
+			"byteOffset": 2458692,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 23388,
+			"byteOffset": 2471460,
+			"target": 34963
+		},
+		{
+			"buffer": 0,
+			"byteLength": 140328,
+			"byteOffset": 2494848,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 140328,
+			"byteOffset": 2635176,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 93552,
+			"byteOffset": 2775504,
+			"target": 34962
+		}
+	],
+	"images": [
+		{
+			"uri": "T_Roads_D.png"
+		},
+		{
+			"uri": "T_Roads_ORM_Linear.png"
+		},
+		{
+			"uri": "T_Roads_N.png"
+		},
+		{
+			"uri": "T_BuildingsAtlas_D.png"
+		},
+		{
+			"uri": "T_BuildingsAtlas_ORM_Linear.png"
+		},
+		{
+			"uri": "T_BuildingsAtlas_N.png"
+		},
+		{
+			"uri": "T_BGBuildingsFacade3_D.png"
+		},
+		{
+			"uri": "T_BGBuildingsFacade3_ORM.png"
+		},
+		{
+			"uri": "T_BGBuildingsFacade3_N.png"
+		},
+		{
+			"uri": "T_BuildingAtlas2_D.png"
+		},
+		{
+			"uri": "T_BuildingAtlas2_ORM.png"
+		},
+		{
+			"uri": "T_BuildingAtlas2_N.png"
+		},
+		{
+			"uri": "T_BGBuildingsFacade2_D.png"
+		},
+		{
+			"uri": "T_BGBuildingsFacade2_ORM_Linear.png"
+		},
+		{
+			"uri": "T_BGBuildingsFacade2_N.png"
+		},
+		{
+			"uri": "T_BGBuildingsFacade4_D.png"
+		},
+		{
+			"uri": "T_BGBuildingsFacade4_ORM.png"
+		},
+		{
+			"uri": "T_BGBuildingsFacade4_N.png"
+		},
+		{
+			"uri": "T_BGBuildingsFacade1_D.png"
+		},
+		{
+			"uri": "T_BGBuildingsFacade1_ORM.png"
+		},
+		{
+			"uri": "T_BGBuildingsFacade1_N.png"
+		}
+	],
+	"materials": [
+		{
+			"name": "MI_Roads",
+			"pbrMetallicRoughness":
+			{
+				"baseColorTexture":
+				{
+					"index": 0
+				},
+				"metallicRoughnessTexture":
+				{
+					"index": 1
+				}
+			},
+			"normalTexture":
+			{
+				"index": 2
+			},
+			"occlusionTexture":
+			{
+				"index": 1
+			},
+			"doubleSided": true
+		},
+		{
+			"name": "MI_BackgroundbuildingAtlas",
+			"pbrMetallicRoughness":
+			{
+				"baseColorTexture":
+				{
+					"index": 3
+				},
+				"metallicRoughnessTexture":
+				{
+					"index": 4
+				}
+			},
+			"normalTexture":
+			{
+				"index": 5
+			},
+			"occlusionTexture":
+			{
+				"index": 4
+			},
+			"doubleSided": true
+		},
+		{
+			"name": "MI_Facade3",
+			"pbrMetallicRoughness":
+			{
+				"baseColorTexture":
+				{
+					"index": 6
+				},
+				"metallicRoughnessTexture":
+				{
+					"index": 7
+				}
+			},
+			"normalTexture":
+			{
+				"index": 8
+			},
+			"occlusionTexture":
+			{
+				"index": 7
+			},
+			"doubleSided": true
+		},
+		{
+			"name": "MI_BuildingsAtlas2",
+			"pbrMetallicRoughness":
+			{
+				"baseColorTexture":
+				{
+					"index": 9
+				},
+				"metallicRoughnessTexture":
+				{
+					"index": 10
+				}
+			},
+			"normalTexture":
+			{
+				"index": 11
+			},
+			"occlusionTexture":
+			{
+				"index": 10
+			},
+			"doubleSided": true
+		},
+		{
+			"name": "MI_BuildingsFacade2",
+			"pbrMetallicRoughness":
+			{
+				"baseColorTexture":
+				{
+					"index": 12
+				},
+				"metallicRoughnessTexture":
+				{
+					"index": 13
+				}
+			},
+			"normalTexture":
+			{
+				"index": 14
+			},
+			"occlusionTexture":
+			{
+				"index": 13
+			},
+			"doubleSided": true
+		},
+		{
+			"name": "MI_BuildingsFacade4",
+			"pbrMetallicRoughness":
+			{
+				"baseColorTexture":
+				{
+					"index": 15
+				},
+				"metallicRoughnessTexture":
+				{
+					"index": 16
+				}
+			},
+			"normalTexture":
+			{
+				"index": 17
+			},
+			"occlusionTexture":
+			{
+				"index": 16
+			},
+			"doubleSided": true
+		},
+		{
+			"name": "MI_BGBuildingsFacade1",
+			"pbrMetallicRoughness":
+			{
+				"baseColorTexture":
+				{
+					"index": 18
+				},
+				"metallicRoughnessTexture":
+				{
+					"index": 19
+				}
+			},
+			"normalTexture":
+			{
+				"index": 20
+			},
+			"occlusionTexture":
+			{
+				"index": 19
+			},
+			"doubleSided": true
+		}
+	],
+	"meshes": [
+		{
+			"name": "SM_CityPiece",
+			"primitives": [
+				{
+					"attributes":
+					{
+						"POSITION": 1,
+						"NORMAL": 2,
+						"TEXCOORD_0": 3
+					},
+					"indices": 0,
+					"material": 0
+				},
+				{
+					"attributes":
+					{
+						"POSITION": 5,
+						"NORMAL": 6,
+						"TEXCOORD_0": 7
+					},
+					"indices": 4,
+					"material": 1
+				},
+				{
+					"attributes":
+					{
+						"POSITION": 9,
+						"NORMAL": 10,
+						"TEXCOORD_0": 11
+					},
+					"indices": 8,
+					"material": 2
+				},
+				{
+					"attributes":
+					{
+						"POSITION": 13,
+						"NORMAL": 14,
+						"TEXCOORD_0": 15
+					},
+					"indices": 12,
+					"material": 3
+				},
+				{
+					"attributes":
+					{
+						"POSITION": 17,
+						"NORMAL": 18,
+						"TEXCOORD_0": 19
+					},
+					"indices": 16,
+					"material": 4
+				},
+				{
+					"attributes":
+					{
+						"POSITION": 21,
+						"NORMAL": 22,
+						"TEXCOORD_0": 23
+					},
+					"indices": 20,
+					"material": 5
+				},
+				{
+					"attributes":
+					{
+						"POSITION": 25,
+						"NORMAL": 26,
+						"TEXCOORD_0": 27
+					},
+					"indices": 24,
+					"material": 6
+				}
+			]
+		}
+	],
+	"nodes": [
+		{
+			"name": "SM_CityPiece",
+			"mesh": 0
+		}
+	],
+	"samplers": [
+		{
+			"minFilter": 9987,
+			"magFilter": 9729
+		}
+	],
+	"scenes": [
+		{
+			"name": "proto",
+			"nodes": [ 0 ]
+		}
+	],
+	"textures": [
+		{
+			"name": "T_Roads_D",
+			"sampler": 0,
+			"source": 0
+		},
+		{
+			"name": "T_Roads_ORM_Linear",
+			"sampler": 0,
+			"source": 1
+		},
+		{
+			"name": "T_Roads_N",
+			"sampler": 0,
+			"source": 2
+		},
+		{
+			"name": "T_BuildingsAtlas_D",
+			"sampler": 0,
+			"source": 3
+		},
+		{
+			"name": "T_BuildingsAtlas_ORM_Linear",
+			"sampler": 0,
+			"source": 4
+		},
+		{
+			"name": "T_BuildingsAtlas_N",
+			"sampler": 0,
+			"source": 5
+		},
+		{
+			"name": "T_BGBuildingsFacade3_D",
+			"sampler": 0,
+			"source": 6
+		},
+		{
+			"name": "T_BGBuildingsFacade3_ORM",
+			"sampler": 0,
+			"source": 7
+		},
+		{
+			"name": "T_BGBuildingsFacade3_N",
+			"sampler": 0,
+			"source": 8
+		},
+		{
+			"name": "T_BuildingAtlas2_D",
+			"sampler": 0,
+			"source": 9
+		},
+		{
+			"name": "T_BuildingAtlas2_ORM",
+			"sampler": 0,
+			"source": 10
+		},
+		{
+			"name": "T_BuildingAtlas2_N",
+			"sampler": 0,
+			"source": 11
+		},
+		{
+			"name": "T_BGBuildingsFacade2_D",
+			"sampler": 0,
+			"source": 12
+		},
+		{
+			"name": "T_BGBuildingsFacade2_ORM_Linear",
+			"sampler": 0,
+			"source": 13
+		},
+		{
+			"name": "T_BGBuildingsFacade2_N",
+			"sampler": 0,
+			"source": 14
+		},
+		{
+			"name": "T_BGBuildingsFacade4_D",
+			"sampler": 0,
+			"source": 15
+		},
+		{
+			"name": "T_BGBuildingsFacade4_ORM",
+			"sampler": 0,
+			"source": 16
+		},
+		{
+			"name": "T_BGBuildingsFacade4_N",
+			"sampler": 0,
+			"source": 17
+		},
+		{
+			"name": "T_BGBuildingsFacade1_D",
+			"sampler": 0,
+			"source": 18
+		},
+		{
+			"name": "T_BGBuildingsFacade1_ORM",
+			"sampler": 0,
+			"source": 19
+		},
+		{
+			"name": "T_BGBuildingsFacade1_N",
+			"sampler": 0,
+			"source": 20
+		}
+	]
+}
