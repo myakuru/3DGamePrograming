@@ -1,6 +1,6 @@
 [
   {
-    "Name": "class TPSCamera",
+    "Name": "class SkySphere",
     "color": {
       "w": 1.0,
       "x": 1.0,
@@ -8,16 +8,420 @@
       "z": 1.0
     },
     "deg": {
-      "x": -21.60000991821289,
-      "y": 294.75091552734375,
+      "x": 0.0,
+      "y": 0.0,
       "z": 0.0
     },
-    "moveSpeed": 1000.0,
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Models\\Sky\\coudy.gltf",
+    "pos": {
+      "x": 0.8999999761581421,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 30.0,
+      "y": 30.0,
+      "z": 30.0
+    },
+    "type": 35
+  },
+  {
+    "DashTime": 0.0,
+    "DashTime1": 0.0,
+    "DashTime2": 0.0,
+    "GravitySpeed": -0.004999999888241291,
+    "JustGrayScale": true,
+    "JustSlowMoScale": 0.30000001192092896,
+    "Name": "class Player",
+    "cameraShake": {
+      "x": 0.0,
+      "y": 0.30000001192092896
+    },
+    "cameraShakeTime": 0.0,
+    "color": {
+      "w": 1.0,
+      "x": 0.6078431606292725,
+      "y": 0.6078431606292725,
+      "z": 0.6078431606292725
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 145.0,
+      "z": 0.0
+    },
+    "degree": {
+      "x": 0.0,
+      "y": 145.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": true
+    },
+    "fixedFps": 60.0,
+    "moveSpeed": 0.14000000059604645,
+    "path": "Asset\\Models\\Player\\Perula\\Player\\Perula.gltf",
+    "pointLightColor": {
+      "x": 0.3970588445663452,
+      "y": 0.8935984969139099,
+      "z": 1.0
+    },
+    "pointLightOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "pointLightOn": true,
+    "pointLightRadius": 2.0,
+    "pos": {
+      "x": -15.749870300292969,
+      "y": 100.99999237060547,
+      "z": -6.5119781494140625
+    },
+    "rotateSpeed": 30.0,
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 38
+  },
+  {
+    "Name": "class Katana",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "handWeaponDeg": {
+      "x": 157.39999389648438,
+      "y": -1.7000000476837158,
+      "z": 118.30000305175781
+    },
+    "katanaHandOffset": {
+      "x": -0.029999999329447746,
+      "y": -0.009999999776482582,
+      "z": -0.47999998927116394
+    },
+    "katanaOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "path": "Asset\\Models\\Weapon\\Katana_P\\katana_p.gltf",
+    "pos": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rimLightColor": {
+      "x": 0.019607843831181526,
+      "y": 19.60784339904785,
+      "z": 19.60784339904785
+    },
+    "rimLightPower": 2.0,
+    "rimLightUVOffsetSpeed": 0.029999999329447746,
+    "scale": {
+      "x": 0.550000011920929,
+      "y": 0.550000011920929,
+      "z": 0.550000011920929
+    },
+    "trailColor": {
+      "w": 0.7843137383460999,
+      "x": 0.47058823704719543,
+      "y": 0.9686274528503418,
+      "z": 1.0
+    },
+    "trailKatanaPoint": 250.0,
+    "trailScale": {
+      "x": 0.10000000149011612,
+      "y": 0.10000000149011612,
+      "z": 0.10000000149011612
+    },
+    "type": 32,
+    "weaponDeg": {
+      "x": -1.0,
+      "y": 1.100000023841858,
+      "z": -72.0
+    }
+  },
+  {
+    "Name": "class PlayerCamera",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 28.64993667602539,
+      "y": 160.8478240966797,
+      "z": 0.0
+    },
+    "fov": 70.0,
+    "m_cameraPos": {
+      "x": -15.749866485595703,
+      "y": 100.99999237060547,
+      "z": -6.51197624206543
+    },
+    "moveSpeed": 50.0,
     "path": "Asset/Models/Sky/Sky.gltf",
     "pos": {
-      "x": -346.058837890625,
-      "y": 206.37950134277344,
-      "z": 30.050323486328125
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotationSmooth": 8.0,
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "smooth": 8.0,
+    "targetLookAt": {
+      "x": 0.0,
+      "y": 1.0,
+      "z": -2.5000007152557373
+    },
+    "type": 32
+  },
+  {
+    "Name": "class NormalUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\GameUI\\PlayerUI.png",
+    "pos": {
+      "x": -360.0,
+      "y": 300.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.5,
+      "y": 0.5,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class HpBar",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\GameUI\\HpBar.png",
+    "pos": {
+      "x": -517.9000244140625,
+      "y": 353.29998779296875,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.29499998688697815,
+      "y": 0.29499998688697815,
+      "z": 0.0
+    },
+    "type": 7
+  },
+  {
+    "Name": "class NumBer",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -537.0,
+      "y": 276.1000061035156,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.05000000074505806,
+      "y": 0.5,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class NormalUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\Time\\sura.png",
+    "pos": {
+      "x": -404.3999938964844,
+      "y": 277.20001220703125,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.5,
+      "y": 0.5,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class NowHp",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": false,
+    "path": "Asset\\Textures\\Time\\Hp.png",
+    "pos": {
+      "x": -608.2000122070313,
+      "y": 276.20001220703125,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.05000000074505806,
+      "y": 0.5,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class SpecialMove",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": false,
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -612.7000122070313,
+      "y": 153.6999969482422,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.10000000149011612,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class NormalUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\Time\\PTS.png",
+    "pos": {
+      "x": -346.5,
+      "y": 178.10000610351563,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.7099999785423279,
+      "y": 0.699999988079071,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class NormalUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\GameUI\\Panti.png",
+    "pos": {
+      "x": 235.1999969482422,
+      "y": -200.0,
+      "z": 0.0
     },
     "scale": {
       "x": 1.0,
@@ -27,8 +431,1697 @@
     "type": 32
   },
   {
+    "Name": "class NormalUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\GameUI\\Avoid.png",
+    "pos": {
+      "x": 295.20001220703125,
+      "y": -200.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class Winner",
+    "color": {
+      "w": 1.0,
+      "x": 0.9607843160629272,
+      "y": 0.8780871033668518,
+      "z": 0.02354861982166767
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "distance": 5.0,
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": true,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "gradientColor": {
+      "w": 1.0,
+      "x": 0.970588207244873,
+      "y": 0.39461633563041687,
+      "z": 0.03806228190660477
+    },
+    "path": "Asset\\Textures\\GameUI\\WINNER.png",
+    "pos": {
+      "x": 29.18685531616211,
+      "y": 11.069735527038574,
+      "z": -71.65547180175781
+    },
+    "scale": {
+      "x": 11.0,
+      "y": 7.0,
+      "z": 2.0
+    },
+    "type": 18
+  },
+  {
+    "Name": "class FieldEffect",
+    "color": {
+      "w": 1.0,
+      "x": 0.9705877304077148,
+      "y": 0.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": true,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Textures\\Effect\\star.png",
+    "pos": {
+      "x": 26.5,
+      "y": 22.600000381469727,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.10000000149011612,
+      "y": 0.10000000149011612,
+      "z": 1.0
+    },
+    "type": 7
+  },
+  {
+    "Name": "class WeaponKatanaScabbard",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "handWeaponDeg": {
+      "x": 157.39999389648438,
+      "y": -1.7000000476837158,
+      "z": 118.30000305175781
+    },
+    "katanaHandOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "katanaOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "path": "Asset\\Models\\Weapon\\Sheath_p\\sheath_p.gltf",
+    "pos": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rimLightColor": {
+      "x": 19.60784339904785,
+      "y": 19.60784339904785,
+      "z": 19.60784339904785
+    },
+    "rimLightPower": 2.0,
+    "rimLightUVOffsetSpeed": 0.05000000074505806,
+    "scale": {
+      "x": 0.550000011920929,
+      "y": 0.550000011920929,
+      "z": 0.550000011920929
+    },
+    "type": 26,
+    "weaponDeg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "EffectSpeed": 6.0,
+    "Name": "class EffectPlay",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": -90.0,
+      "z": 0.0
+    },
+    "distance": 11.0,
+    "effectColor": {
+      "w": 0.3921568691730499,
+      "x": 0.7843137383460999,
+      "y": 0.7843137383460999,
+      "z": 0.7843137383460999
+    },
+    "path": "Asset\\Data\\Effect\\EVFX_Slash\\VFX\\effects\\Charge0.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 0.10000000149011612,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 9
+  },
+  {
+    "EffectSpeed": 6.0,
+    "Name": "class AttacEffect1",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": -90.0,
+      "z": 0.0
+    },
+    "distance": 3.5,
+    "effectColor": {
+      "w": 0.3921568691730499,
+      "x": 0.7843137383460999,
+      "y": 0.7843137383460999,
+      "z": 0.7843137383460999
+    },
+    "path": "Asset\\Data\\Effect\\EVFX_Slash\\VFX\\effects\\EVFX02_13_ArcBlade.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 0.10000000149011612,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.5
+    },
+    "type": 9
+  },
+  {
+    "EffectSpeed": 4.0,
+    "Name": "class SmokeEffect",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "distance": 0.0,
+    "effectColor": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\EVFX_Slash\\VFX\\Smoke\\EVFXForge01_10_FrostforgeSlash.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.5,
+      "y": 0.10000000149011612,
+      "z": 0.5
+    },
+    "type": 14
+  },
+  {
+    "EffectSpeed": 10.0,
+    "Name": "class ShineEffect",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "distance": 0.0,
+    "effectColor": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\SampleEffect\\ZZZshine.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 0.4000000059604645,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.5,
+      "y": 0.10000000149011612,
+      "z": 0.10000000149011612
+    },
+    "type": 13
+  },
+  {
+    "EffectSpeed": 4.0,
+    "Name": "class GroundFreezes",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "distance": 0.0,
+    "effectColor": {
+      "w": 0.3921568691730499,
+      "x": 0.7843137383460999,
+      "y": 0.7843137383460999,
+      "z": 0.7843137383460999
+    },
+    "path": "Asset\\Data\\Effect\\SampleEffect\\GroundFreezes.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 0.20000000298023224,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.5,
+      "y": 0.10000000149011612,
+      "z": 0.5
+    },
+    "type": 12
+  },
+  {
+    "EffectSpeed": 10.0,
+    "Name": "class ShineEffectBlue",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "distance": -0.10000000149011612,
+    "effectColor": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\SampleEffect\\ZZZshine2.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 0.30000001192092896,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.10000000149011612,
+      "y": 0.10000000149011612,
+      "z": 0.10000000149011612
+    },
+    "type": 13
+  },
+  {
+    "EffectSpeed": 5.0,
+    "Name": "class SwordFlash",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": -180.0,
+      "z": 0.0
+    },
+    "distance": 0.5,
+    "effectColor": {
+      "w": 0.3921568691730499,
+      "x": 0.7843137383460999,
+      "y": 0.7843137383460999,
+      "z": 0.7843137383460999
+    },
+    "path": "Asset\\Data\\Effect\\SampleEffect\\SwordFlash.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 0.5,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.30000001192092896,
+      "y": 0.30000001192092896,
+      "z": 0.30000001192092896
+    },
+    "type": 16
+  },
+  {
+    "EffectSpeed": 7.0,
+    "Name": "class Rotation",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "distance": 0.0,
+    "effectColor": {
+      "w": 0.3921568691730499,
+      "x": 0.6470588445663452,
+      "y": 0.7404845356941223,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\EVFX_Slash\\VFX\\effects\\EVFX02_15_SweepBlade.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 0.800000011920929,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.3499999940395355,
+      "y": 0.3499999940395355,
+      "z": 0.3499999940395355
+    },
+    "type": 13
+  },
+  {
+    "EffectSpeed": 3.0,
+    "Name": "class SlashAttack2Effect",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "distance": 3.5,
+    "effectColor": {
+      "w": 0.3921568691730499,
+      "x": 0.7058823108673096,
+      "y": 0.8529414534568787,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\Shine\\VFX\\EVFXForge15_10_ShineforgeSlash.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.5
+    },
+    "type": 16
+  },
+  {
+    "EffectSpeed": 3.0,
+    "Name": "class AvoidAttackSlashEffect",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "distance": 0.0,
+    "effectColor": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\SampleEffect\\SwordFlash.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 10
+  },
+  {
+    "EffectSpeed": 10.0,
+    "Name": "class ESkillEffect",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": -90.0,
+      "z": 0.0
+    },
+    "distance": 0.0,
+    "effectColor": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\Storm\\EVFXForge05_10_StormforgeSlash.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 0.5,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.6000000238418579,
+      "y": 0.6000000238418579,
+      "z": 0.6000000238418579
+    },
+    "type": 32
+  },
+  {
+    "EffectSpeed": 10.0,
+    "Name": "class SpecialAttack",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": -90.0,
+      "z": 0.0
+    },
+    "distance": 0.0,
+    "effectColor": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\EVFX_Slash\\VFX\\effects\\SLASH.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.5
+    },
+    "type": 21
+  },
+  {
+    "Name": "class EnemySword",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": true,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "handWeaponDeg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "katanaHandOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "katanaOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "path": "Asset\\Models\\Weapon\\EnemySword\\EnemySowrd.gltf",
+    "pos": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 42,
+    "weaponDeg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "Name": "class EnemyShield",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": true,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "handWeaponDeg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "katanaHandOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "katanaOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "path": "Asset\\Models\\Weapon\\Shield\\Shield.gltf",
+    "pos": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32,
+    "weaponDeg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "EffectSpeed": 5.0,
+    "Name": "class EnemyShineBlue",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "distance": 0.0,
+    "effectColor": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\SampleEffect\\ZZZshineEnemy.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 1.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.5
+    },
+    "type": 32
+  },
+  {
+    "EffectSpeed": 10.0,
+    "Name": "class SpecialAttack1",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "distance": 7.0,
+    "effectColor": {
+      "w": 0.019607843831181526,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\Spellblade\\Last.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 3.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "EffectSpeed": 5.0,
+    "Name": "class SpeedAttackEffect",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": -90.0,
+      "z": 0.0
+    },
+    "distance": 2.0,
+    "effectColor": {
+      "w": 0.3921568691730499,
+      "x": 0.7843137383460999,
+      "y": 0.7843137383460999,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\Spellblade\\EVFXParagon01_02_FleetingBlade.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 1.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.5
+    },
+    "type": 32
+  },
+  {
+    "Name": "class EnemyHp",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": false,
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.5,
+      "y": 5.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class NotChargeUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\GameUI\\NotCharge.png",
+    "pos": {
+      "x": -780.0,
+      "y": 370.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.029999999329447746,
+      "y": 0.029999999329447746,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class NotCharge1UI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\GameUI\\NotCharge.png",
+    "pos": {
+      "x": -740.0,
+      "y": 370.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.029999999329447746,
+      "y": 0.029999999329447746,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class NotCharge2UI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": false,
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -700.0,
+      "y": 370.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.029999999329447746,
+      "y": 0.029999999329447746,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "EffectSpeed": 18.0,
+    "Name": "class JustAvoidAttackEffect",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": -90.0,
+      "z": 0.0
+    },
+    "distance": 2.0,
+    "effectColor": {
+      "w": 0.11764705926179886,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\Spellblade\\SlashAll.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 1.5,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 2.5,
+      "y": 2.5,
+      "z": 1.5
+    },
+    "type": 32
+  },
+  {
+    "EffectSpeed": 4.099999904632568,
+    "Name": "class JustAvoidAttackEffect1",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "distance": 3.0,
+    "effectColor": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\Shine\\VFX\\EVFXForge15_10_ShineforgeSlash.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": -1.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 0.10000000149011612
+    },
+    "type": 32
+  },
+  {
+    "Name": "class BlackBanner",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\Title\\GameStart.png",
+    "pos": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.2999999523162842,
+      "y": 1.2999999523162842,
+      "z": 0.5
+    },
+    "type": 39
+  },
+  {
+    "EffectSpeed": 10.0,
+    "Name": "class BossAttack_1stEffect",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": -90.0,
+      "z": 0.0
+    },
+    "distance": 2.0,
+    "effectColor": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\Spellblade\\EVFXParagon01_07_FloodwovenBlade.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 0.5,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.5
+    },
+    "type": 32
+  },
+  {
+    "EffectSpeed": 5.0,
+    "Name": "class BossEnemyEnterEffect",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "distance": 0.0,
+    "effectColor": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\Flood\\EVFXForge09_06_FountainSurge.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 0.20000000298023224,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "EffectSpeed": 10.0,
+    "Name": "class BossWaterAttackEffect",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": -90.0,
+      "z": 0.0
+    },
+    "distance": 10.0,
+    "effectColor": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\Flood\\EVFXForge09_07_1TidalCurrent.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 1.5,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.5
+    },
+    "type": 32
+  },
+  {
+    "EffectSpeed": 10.0,
+    "Name": "class BossWaterFallAttack",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "distance": 3.0,
+    "effectColor": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\Flood\\EVFXForge09_15_DrowningCataract.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.5
+    },
+    "type": 32
+  },
+  {
+    "EffectSpeed": 17.899999618530273,
+    "Name": "class ChargeAttackEffect",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "distance": 0.0,
+    "effectColor": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\Spellblade\\SlashAll.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 1.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.5,
+      "y": 1.5,
+      "z": 1.5
+    },
+    "type": 32
+  },
+  {
+    "EffectSpeed": 18.0,
+    "Name": "class ChargeAttackEffect_end",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "distance": 0.0,
+    "effectColor": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\Spellblade\\SlashAll.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 2.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 2.5,
+      "y": 2.5,
+      "z": 2.5
+    },
+    "type": 32
+  },
+  {
+    "Name": "class NormalUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\GameUI\\SkillBar.png",
+    "pos": {
+      "x": -317.0,
+      "y": 372.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.18000000715255737,
+      "y": 0.18000000715255737,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class SkillBar",
+    "color": {
+      "w": 1.0,
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.5
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\GameUI\\SkileBar.png",
+    "pos": {
+      "x": -328.20001220703125,
+      "y": 283.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.550000011920929,
+      "y": 0.550000011920929,
+      "z": 1.0
+    },
+    "type": 57
+  },
+  {
+    "Name": "class NormalUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\GameUI\\SkillLimit.png",
+    "pos": {
+      "x": -390.5,
+      "y": 400.8999938964844,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.09000000357627869,
+      "y": 0.09000000357627869,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "DawnPos": {
+      "x": 0.0,
+      "y": 173.3000030517578,
+      "z": 0.0
+    },
+    "DawnTimer": 50.0,
+    "Name": "class ScoreBackBar",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\GameUI\\Designer.png",
+    "pos": {
+      "x": 333.5,
+      "y": 173.06417846679688,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "DawnPos": {
+      "x": 0.0,
+      "y": 170.0,
+      "z": 0.0
+    },
+    "DawnTimer": 50.0,
+    "Name": "class Scoring",
+    "color": {
+      "w": 1.0,
+      "x": 0.1899999976158142,
+      "y": 0.6200000047683716,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\GameUI\\Score.png",
+    "pos": {
+      "x": 654.0,
+      "y": 169.96209716796875,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.30000001192092896,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "DawnPos": {
+      "x": 0.0,
+      "y": 237.0,
+      "z": 0.0
+    },
+    "DawnTimer": 70.0,
+    "Name": "class ScaleMoving",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\GameUI\\Bar.png",
+    "pos": {
+      "x": 470.0,
+      "y": 236.7448272705078,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.699999988079071,
+      "y": 0.5,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "DawnPos": {
+      "x": 0.0,
+      "y": 280.0,
+      "z": 0.0
+    },
+    "DawnTimer": 85.0,
+    "Name": "class Timer",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\Time\\Digit01.png",
+    "pos": {
+      "x": 650.0,
+      "y": 279.9141845703125,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.014999999664723873,
+      "y": 0.15000000596046448,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class SkillUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": 357.0,
+      "y": -200.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class NormalUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\GameUI\\E_Button.png",
+    "pos": {
+      "x": 476.20001220703125,
+      "y": -330.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.5,
+      "y": 0.5,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class NormalUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\GameUI\\Left_Click.png",
+    "pos": {
+      "x": 323.29998779296875,
+      "y": -342.5,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.44999998807907104,
+      "y": 0.44999998807907104,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class NormalUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\GameUI\\Right_Click.png",
+    "pos": {
+      "x": 407.0,
+      "y": -344.1000061035156,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.44999998807907104,
+      "y": 0.44999998807907104,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class SpecialAttackUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": 420.0,
+      "y": -110.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class NormalUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\GameUI\\Q_Button.png",
+    "pos": {
+      "x": 560.0,
+      "y": -215.89999389648438,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.5,
+      "y": 0.5,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "EffectSpeed": 11.0,
+    "Name": "class SpecialAttackSmoke",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "distance": 5.0,
+    "effectColor": {
+      "w": 0.3921568691730499,
+      "x": 0.38235294818878174,
+      "y": 0.38235294818878174,
+      "z": 0.38235294818878174
+    },
+    "path": "Asset\\Data\\Effect\\Spellblade\\SmokeWindow.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.4000000059604645,
+      "y": 0.10000000149011612,
+      "z": 0.4000000059604645
+    },
+    "type": 32
+  },
+  {
+    "Name": "class BossEnemyBlackBarUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": false,
+    "path": "Asset\\Textures\\EnemyUI\\BossBlackBar.png",
+    "pos": {
+      "x": 412.6000061035156,
+      "y": 328.3999938964844,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.4000000059604645,
+      "y": 0.4000000059604645,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class BossEnemyUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": false,
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": 625.4000244140625,
+      "y": 328.20001220703125,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.4000000059604645,
+      "y": 0.4000000059604645,
+      "z": 1.0
+    },
+    "type": 48
+  },
+  {
+    "Name": "class Collision",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Models\\Collition\\Collition.gltf",
+    "pos": {
+      "x": -22.799999237060547,
+      "y": 101.0999984741211,
+      "z": 23.899999618530273
+    },
+    "scale": {
+      "x": 3.640000104904175,
+      "y": 1.0,
+      "z": 3.5
+    },
+    "type": 33
+  },
+  {
     "GravitySpeed": 0.0,
-    "Name": "class BossEnemy",
+    "Name": "class Enemy",
     "color": {
       "w": 1.0,
       "x": 1.0,
@@ -41,7 +2134,7 @@
       "z": 0.0
     },
     "dissolveColor": {
-      "x": 0.0,
+      "x": 1.0,
       "y": 0.0,
       "z": 0.0
     },
@@ -56,12 +2149,12 @@
       "GenerateDepthMapFromLight": false
     },
     "fixedFps": 60.0,
-    "moveSpeed": 0.10000000149011612,
-    "path": "Asset/Models/Sky/Sky.gltf",
+    "moveSpeed": 0.05000000074505806,
+    "path": "Asset\\Models\\Enemy\\Aetherius\\Aetherius.gltf",
     "pos": {
-      "x": 15.0,
-      "y": 9.800000190734863,
-      "z": -58.0
+      "x": -13.920150756835938,
+      "y": 101.19999694824219,
+      "z": 15.859644889831543
     },
     "rotationspeed": 10.0,
     "scale": {
@@ -72,8 +2165,7 @@
     "type": 32
   },
   {
-    "GravitySpeed": 0.0,
-    "Name": "class BossEnemy",
+    "Name": "class Collision",
     "color": {
       "w": 1.0,
       "x": 1.0,
@@ -81,37 +2173,544 @@
       "z": 1.0
     },
     "deg": {
-      "x": 0.0,
+      "x": 90.0,
       "y": 0.0,
-      "z": 0.0
+      "z": -90.0
     },
-    "dissolveColor": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "dissolvePower": 1.0,
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
       "DrawGrayScale": false,
-      "DrawLit": true,
+      "DrawLit": false,
       "DrawToon": false,
       "DrawUnLit": false,
       "GenerateDepthMapFromLight": false
     },
-    "fixedFps": 60.0,
-    "moveSpeed": 0.10000000149011612,
-    "path": "Asset/Models/Sky/Sky.gltf",
+    "path": "Asset\\Models\\Collition\\Collition.gltf",
     "pos": {
-      "x": 15.0,
-      "y": 9.800000190734863,
-      "z": -58.0
+      "x": -25.299999237060547,
+      "y": 100.0,
+      "z": -2.5999999046325684
     },
-    "rotationspeed": 10.0,
     "scale": {
       "x": 1.0,
       "y": 1.0,
+      "z": 1.0
+    },
+    "type": 34
+  },
+  {
+    "Name": "class Collision",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 90.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Models\\Collition\\Collition.gltf",
+    "pos": {
+      "x": -32.29999923706055,
+      "y": 100.0,
+      "z": 7.400000095367432
+    },
+    "scale": {
+      "x": 0.699999988079071,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 34
+  },
+  {
+    "Name": "class Collision",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": -90.0,
+      "y": 0.0,
+      "z": 90.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Models\\Collition\\Collition.gltf",
+    "pos": {
+      "x": 7.900000095367432,
+      "y": 100.0,
+      "z": 17.0
+    },
+    "scale": {
+      "x": 2.869999885559082,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 34
+  },
+  {
+    "Name": "class Collision",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 90.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Models\\Collition\\Collition.gltf",
+    "pos": {
+      "x": -10.600000381469727,
+      "y": 100.0,
+      "z": -6.699999809265137
+    },
+    "scale": {
+      "x": 1.9299999475479126,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 34
+  },
+  {
+    "Name": "class Collision",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 90.0,
+      "y": 0.0,
+      "z": -90.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Models\\Collition\\Collition.gltf",
+    "pos": {
+      "x": -34.29999923706055,
+      "y": 100.0,
+      "z": 10.699999809265137
+    },
+    "scale": {
+      "x": 1.1799999475479126,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 34
+  },
+  {
+    "Name": "class Collision",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 90.0,
+      "y": 0.0,
+      "z": -130.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Models\\Collition\\Collition.gltf",
+    "pos": {
+      "x": -29.100000381469727,
+      "y": 100.0,
+      "z": 25.5
+    },
+    "scale": {
+      "x": 1.5800000429153442,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 34
+  },
+  {
+    "Name": "class Collision",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 90.0,
+      "y": 0.0,
+      "z": -180.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Models\\Collition\\Collition.gltf",
+    "pos": {
+      "x": -6.900000095367432,
+      "y": 100.0,
+      "z": 37.20000076293945
+    },
+    "scale": {
+      "x": 1.6100000143051147,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 34
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Textures\\GameUI\\Collison.png",
+    "pos": {
+      "x": 8.399999618530273,
+      "y": 102.0,
+      "z": 2.0999999046325684
+    },
+    "scale": {
+      "x": 0.20000000298023224,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Textures\\GameUI\\Collison.png",
+    "pos": {
+      "x": 8.300000190734863,
+      "y": 102.0,
+      "z": -1.600000023841858
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Textures\\GameUI\\Collison.png",
+    "pos": {
+      "x": 8.199999809265137,
+      "y": 102.0,
+      "z": -5.5
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Textures\\GameUI\\Collison.png",
+    "pos": {
+      "x": 6.300000190734863,
+      "y": 102.0,
+      "z": -7.199999809265137
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Textures\\GameUI\\Collison.png",
+    "pos": {
+      "x": 3.799999952316284,
+      "y": 102.0,
+      "z": -7.099999904632568
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Textures\\GameUI\\Collison.png",
+    "pos": {
+      "x": -0.20000000298023224,
+      "y": 102.0,
+      "z": -6.900000095367432
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Textures\\GameUI\\Collison.png",
+    "pos": {
+      "x": -4.099999904632568,
+      "y": 102.0,
+      "z": -6.900000095367432
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 1.0,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Textures\\GameUI\\Collison.png",
+    "pos": {
+      "x": -12.600000381469727,
+      "y": 102.0,
+      "z": -6.699999809265137
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 1.0,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Textures\\GameUI\\Collison.png",
+    "pos": {
+      "x": -15.800000190734863,
+      "y": 102.0,
+      "z": -6.699999809265137
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
       "z": 1.0
     },
     "type": 32
@@ -125,16 +2724,16 @@
       "z": 1.0
     },
     "deg": {
-      "x": 12.150031089782715,
-      "y": 318.5994567871094,
+      "x": 20.999914169311523,
+      "y": 1.6412291526794434,
       "z": 0.0
     },
     "moveSpeed": 50.0,
     "path": "Asset/Models/Sky/Sky.gltf",
     "pos": {
-      "x": 4.499302387237549,
-      "y": 108.78255462646484,
-      "z": -7.69006872177124
+      "x": -16.58425521850586,
+      "y": 107.82762908935547,
+      "z": 24.283109664916992
     },
     "scale": {
       "x": 1.0,
@@ -167,7 +2766,7 @@
     },
     "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_0.gltf",
     "pos": {
-      "x": 0.0,
+      "x": -494.29998779296875,
       "y": 0.0,
       "z": 0.0
     },
@@ -204,7 +2803,7 @@
     "pos": {
       "x": 0.0,
       "y": 0.0,
-      "z": 0.0
+      "z": -413.8999938964844
     },
     "scale": {
       "x": 1.0,
@@ -237,9 +2836,9 @@
     },
     "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_2.gltf",
     "pos": {
-      "x": 0.0,
+      "x": 358.0,
       "y": 0.0,
-      "z": 0.0
+      "z": 370.1000061035156
     },
     "scale": {
       "x": 1.0,
@@ -693,7 +3292,7 @@
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_1st\\BuildingMap_3_0\\BuildingMap_3_0.gltf",
     "pos": {
       "x": -47.900001525878906,
-      "y": 100.55000305175781,
+      "y": 100.0,
       "z": 0.0
     },
     "scale": {
@@ -895,7 +3494,7 @@
       "DrawBright": false,
       "DrawGradation": false,
       "DrawGrayScale": false,
-      "DrawLit": true,
+      "DrawLit": false,
       "DrawToon": false,
       "DrawUnLit": false,
       "GenerateDepthMapFromLight": false
@@ -1034,11 +3633,11 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_3rd\\BuildingMap_2_0\\BuildingMap_2_0.gltf",
     "pos": {
@@ -1073,13 +3672,48 @@
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_3rd\\BuildingMap_3_0\\BuildingMap_3_0.gltf",
     "pos": {
       "x": -47.20000076293945,
       "y": 109.37000274658203,
       "z": 7.730000019073486
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class Map",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": true,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Models\\3DAssets\\Crane\\Crane.gltf",
+    "pos": {
+      "x": -29.899999618530273,
+      "y": 101.0,
+      "z": 1.5
     },
     "scale": {
       "x": 1.0,

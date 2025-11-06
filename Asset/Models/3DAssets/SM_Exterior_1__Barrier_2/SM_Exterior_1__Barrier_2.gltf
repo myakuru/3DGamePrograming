@@ -1,0 +1,155 @@
+{
+	"asset":
+	{
+		"version": "2.0",
+		"generator": "Unreal Engine 5.5.4"
+	},
+	"scene": 0,
+	"accessors": [
+		{
+			"bufferView": 0,
+			"count": 384,
+			"type": "SCALAR",
+			"componentType": 5123
+		},
+		{
+			"bufferView": 1,
+			"count": 384,
+			"type": "VEC3",
+			"componentType": 5126,
+			"min": [ -0.526128113, -4.82132477e-18, -0.087312676 ],
+			"max": [ 1.02612817, 0.962128818, 0.0787380785 ]
+		},
+		{
+			"bufferView": 2,
+			"count": 384,
+			"type": "VEC3",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 3,
+			"count": 384,
+			"type": "VEC2",
+			"componentType": 5126
+		}
+	],
+	"buffers": [
+		{
+			"uri": "SM_Exterior_1__Barrier_2.bin",
+			"byteLength": 13056
+		}
+	],
+	"bufferViews": [
+		{
+			"buffer": 0,
+			"byteLength": 768,
+			"target": 34963
+		},
+		{
+			"buffer": 0,
+			"byteLength": 4608,
+			"byteOffset": 768,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 4608,
+			"byteOffset": 5376,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 3072,
+			"byteOffset": 9984,
+			"target": 34962
+		}
+	],
+	"images": [
+		{
+			"uri": "T_Metal_Props_BC.png"
+		},
+		{
+			"uri": "T_Metal_Props_ORM.png"
+		},
+		{
+			"uri": "T_Metal_Props_N.png"
+		}
+	],
+	"materials": [
+		{
+			"name": "MI_Metal_Props",
+			"pbrMetallicRoughness":
+			{
+				"baseColorTexture":
+				{
+					"index": 0
+				},
+				"metallicRoughnessTexture":
+				{
+					"index": 1
+				}
+			},
+			"normalTexture":
+			{
+				"index": 2
+			},
+			"occlusionTexture":
+			{
+				"index": 1
+			},
+			"doubleSided": true
+		}
+	],
+	"meshes": [
+		{
+			"name": "SM_Exterior_1__Barrier_2",
+			"primitives": [
+				{
+					"attributes":
+					{
+						"POSITION": 1,
+						"NORMAL": 2,
+						"TEXCOORD_0": 3
+					},
+					"indices": 0,
+					"material": 0
+				}
+			]
+		}
+	],
+	"nodes": [
+		{
+			"name": "SM_Exterior_1__Barrier_11",
+			"mesh": 0
+		}
+	],
+	"samplers": [
+		{
+			"minFilter": 9987,
+			"magFilter": 9729
+		}
+	],
+	"scenes": [
+		{
+			"name": "proto",
+			"nodes": [ 0 ]
+		}
+	],
+	"textures": [
+		{
+			"name": "T_Metal_Props_BC",
+			"sampler": 0,
+			"source": 0
+		},
+		{
+			"name": "T_Metal_Props_ORM",
+			"sampler": 0,
+			"source": 1
+		},
+		{
+			"name": "T_Metal_Props_N",
+			"sampler": 0,
+			"source": 2
+		}
+	]
+}

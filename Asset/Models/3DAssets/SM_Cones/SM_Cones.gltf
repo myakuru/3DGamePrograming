@@ -1,0 +1,156 @@
+{
+	"asset":
+	{
+		"version": "2.0",
+		"generator": "Unreal Engine 5.5.4"
+	},
+	"scene": 0,
+	"accessors": [
+		{
+			"bufferView": 0,
+			"count": 912,
+			"type": "SCALAR",
+			"componentType": 5123
+		},
+		{
+			"bufferView": 1,
+			"count": 912,
+			"type": "VEC3",
+			"componentType": 5126,
+			"min": [ -0.240984261, -0.00294198794, -0.24106361 ],
+			"max": [ 0.241039023, 0.649370492, 0.240959585 ]
+		},
+		{
+			"bufferView": 2,
+			"count": 912,
+			"type": "VEC3",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 3,
+			"count": 912,
+			"type": "VEC2",
+			"componentType": 5126
+		}
+	],
+	"buffers": [
+		{
+			"uri": "SM_Cones.bin",
+			"byteLength": 31008
+		}
+	],
+	"bufferViews": [
+		{
+			"buffer": 0,
+			"byteLength": 1824,
+			"target": 34963
+		},
+		{
+			"buffer": 0,
+			"byteLength": 10944,
+			"byteOffset": 1824,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 10944,
+			"byteOffset": 12768,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 7296,
+			"byteOffset": 23712,
+			"target": 34962
+		}
+	],
+	"images": [
+		{
+			"uri": "T_Table_BC.png"
+		},
+		{
+			"uri": "T_Table_ORM.png"
+		},
+		{
+			"uri": "T_Table_N.png"
+		}
+	],
+	"materials": [
+		{
+			"name": "MI_Atlas_2",
+			"pbrMetallicRoughness":
+			{
+				"baseColorTexture":
+				{
+					"index": 0
+				},
+				"metallicRoughnessTexture":
+				{
+					"index": 1
+				}
+			},
+			"normalTexture":
+			{
+				"index": 2
+			},
+			"occlusionTexture":
+			{
+				"index": 1
+			},
+			"doubleSided": true
+		}
+	],
+	"meshes": [
+		{
+			"name": "SM_Cones_C2",
+			"primitives": [
+				{
+					"attributes":
+					{
+						"POSITION": 1,
+						"NORMAL": 2,
+						"TEXCOORD_0": 3
+					},
+					"indices": 0,
+					"material": 0
+				}
+			]
+		}
+	],
+	"nodes": [
+		{
+			"name": "SM_Cones_C8",
+			"rotation": [ -0, -0.043619439, 0, 0.999048233 ],
+			"mesh": 0
+		}
+	],
+	"samplers": [
+		{
+			"minFilter": 9987,
+			"magFilter": 9729
+		}
+	],
+	"scenes": [
+		{
+			"name": "proto",
+			"nodes": [ 0 ]
+		}
+	],
+	"textures": [
+		{
+			"name": "T_Table_BC",
+			"sampler": 0,
+			"source": 0
+		},
+		{
+			"name": "T_Table_ORM",
+			"sampler": 0,
+			"source": 1
+		},
+		{
+			"name": "T_Table_N",
+			"sampler": 0,
+			"source": 2
+		}
+	]
+}

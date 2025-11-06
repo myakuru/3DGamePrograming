@@ -53,6 +53,9 @@ public:
 			DirectX::XMConvertToRadians(m_degree.z)
 		);
 		m_mWorld.Translation(m_position);
+
+		SortChild();
+
 	}
 	virtual void Update() {}
 	virtual void PostUpdate() {}
@@ -142,21 +145,12 @@ public:
 	const std::string &GetNameClass() const { return m_className; }
 
 	// 親子関係の作成
-	virtual void AddChild(std::weak_ptr<KdGameObject> a_child)
-	{
-		std::shared_ptr<KdGameObject> _child = a_child.lock();
-		if (!_child)return;
+	virtual void AddChild(std::weak_ptr<KdGameObject> a_child);
 
-		// 自分の子には入れれないようにする(子の子も同様)
-		//if (!SearchChild(_child->GetNameClass(), a_child).expired())return;
+	virtual void EraceChild(std::weak_ptr<KdGameObject>& _child);
 
-		// すでに親がいる場合は親の子リストから削除
-		//if (_child->GetParent().lock())EraceChild(a_child);
-
-		_child->SetParent(GetMyAdls());                        // 子に親のアドレスを渡す
-
-		m_childObjects.push_back(_child->GetMyAdls());        // 自分の子リストに追加
-	}
+	void SortChild();
+	bool SearchChild(const std::shared_ptr<KdGameObject>& _temp);
 
 	// 自分のアドレスを返す
 	virtual std::shared_ptr<KdGameObject> GetMyAdls() { return shared_from_this(); }

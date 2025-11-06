@@ -1,981 +1,925 @@
 {
-	"asset":
-	{
-		"version": "2.0",
-		"generator": "Unreal Engine 5.5.4"
+	"asset":{
+		"generator":"Khronos glTF Blender I/O v4.3.47",
+		"version":"2.0"
 	},
-	"scene": 0,
-	"accessors": [
+	"scene":0,
+	"scenes":[
 		{
-			"bufferView": 0,
-			"count": 2376,
-			"type": "SCALAR",
-			"componentType": 5123
-		},
-		{
-			"bufferView": 1,
-			"count": 1490,
-			"type": "VEC3",
-			"componentType": 5126,
-			"min": [ 1.28746005e-05, -1.0511226e-21, -1.71661341e-05 ],
-			"max": [ 647.999878, 4.84959973e-14, 791.999756 ]
-		},
-		{
-			"bufferView": 2,
-			"count": 1490,
-			"type": "VEC3",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 3,
-			"count": 1490,
-			"type": "VEC4",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 4,
-			"count": 1490,
-			"type": "VEC2",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 5,
-			"count": 1490,
-			"type": "VEC2",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 6,
-			"count": 1632,
-			"type": "SCALAR",
-			"componentType": 5123
-		},
-		{
-			"bufferView": 7,
-			"count": 868,
-			"type": "VEC3",
-			"componentType": 5126,
-			"min": [ 45.8031807, -1.06817079, 95.7214737 ],
-			"max": [ 602.196594, 231.439514, 696.278259 ]
-		},
-		{
-			"bufferView": 8,
-			"count": 868,
-			"type": "VEC3",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 9,
-			"count": 868,
-			"type": "VEC4",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 10,
-			"count": 868,
-			"type": "VEC2",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 11,
-			"count": 868,
-			"type": "VEC2",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 12,
-			"count": 56520,
-			"type": "SCALAR",
-			"componentType": 5123
-		},
-		{
-			"bufferView": 13,
-			"count": 32936,
-			"type": "VEC3",
-			"componentType": 5126,
-			"min": [ 2.13958693, -2.87783551, 2.66705489 ],
-			"max": [ 645.860168, 237.654541, 789.332642 ]
-		},
-		{
-			"bufferView": 14,
-			"count": 32936,
-			"type": "VEC3",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 15,
-			"count": 32936,
-			"type": "VEC4",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 16,
-			"count": 32936,
-			"type": "VEC2",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 17,
-			"count": 32936,
-			"type": "VEC2",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 18,
-			"count": 7272,
-			"type": "SCALAR",
-			"componentType": 5123
-		},
-		{
-			"bufferView": 19,
-			"count": 3468,
-			"type": "VEC3",
-			"componentType": 5126,
-			"min": [ 7.1167016, 52.4593239, 8.34878349 ],
-			"max": [ 640.883118, 228.934753, 783.65094 ]
-		},
-		{
-			"bufferView": 20,
-			"count": 3468,
-			"type": "VEC3",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 21,
-			"count": 3468,
-			"type": "VEC4",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 22,
-			"count": 3468,
-			"type": "VEC2",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 23,
-			"count": 3468,
-			"type": "VEC2",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 24,
-			"count": 3294,
-			"type": "SCALAR",
-			"componentType": 5123
-		},
-		{
-			"bufferView": 25,
-			"count": 1608,
-			"type": "VEC3",
-			"componentType": 5126,
-			"min": [ 11.5662661, -0.606516063, 2.66705489 ],
-			"max": [ 642.011841, 119.505127, 789.332642 ]
-		},
-		{
-			"bufferView": 26,
-			"count": 1608,
-			"type": "VEC3",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 27,
-			"count": 1608,
-			"type": "VEC4",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 28,
-			"count": 1608,
-			"type": "VEC2",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 29,
-			"count": 1608,
-			"type": "VEC2",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 30,
-			"count": 1596,
-			"type": "SCALAR",
-			"componentType": 5123
-		},
-		{
-			"bufferView": 31,
-			"count": 828,
-			"type": "VEC3",
-			"componentType": 5126,
-			"min": [ 6.97727823, 2.97691083, 153.981552 ],
-			"max": [ 641.022461, 208.152924, 638.018188 ]
-		},
-		{
-			"bufferView": 32,
-			"count": 828,
-			"type": "VEC3",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 33,
-			"count": 828,
-			"type": "VEC4",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 34,
-			"count": 828,
-			"type": "VEC2",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 35,
-			"count": 828,
-			"type": "VEC2",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 36,
-			"count": 11694,
-			"type": "SCALAR",
-			"componentType": 5123
-		},
-		{
-			"bufferView": 37,
-			"count": 7210,
-			"type": "VEC3",
-			"componentType": 5126,
-			"min": [ 2.41809034, -0.665129364, 4.01977634 ],
-			"max": [ 645.581665, 110.823677, 787.979919 ]
-		},
-		{
-			"bufferView": 38,
-			"count": 7210,
-			"type": "VEC3",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 39,
-			"count": 7210,
-			"type": "VEC4",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 40,
-			"count": 7210,
-			"type": "VEC2",
-			"componentType": 5126
-		},
-		{
-			"bufferView": 41,
-			"count": 7210,
-			"type": "VEC2",
-			"componentType": 5126
+			"name":"Scene",
+			"nodes":[
+				0
+			]
 		}
 	],
-	"buffers": [
+	"nodes":[
 		{
-			"uri": "BuildingSphere_0.bin",
-			"byteLength": 2879616
+			"mesh":0,
+			"name":"cityPiece2"
 		}
 	],
-	"bufferViews": [
+	"materials":[
 		{
-			"buffer": 0,
-			"byteLength": 4752,
-			"target": 34963
+			"doubleSided":true,
+			"name":"MI_Roads",
+			"normalTexture":{
+				"index":0
+			},
+			"occlusionTexture":{
+				"index":1
+			},
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":2
+				},
+				"metallicRoughnessTexture":{
+					"index":1
+				}
+			}
 		},
 		{
-			"buffer": 0,
-			"byteLength": 17880,
-			"byteOffset": 4752,
-			"target": 34962
+			"doubleSided":true,
+			"name":"MI_Facade3",
+			"normalTexture":{
+				"index":3
+			},
+			"occlusionTexture":{
+				"index":4
+			},
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":5
+				},
+				"metallicRoughnessTexture":{
+					"index":4
+				}
+			}
 		},
 		{
-			"buffer": 0,
-			"byteLength": 17880,
-			"byteOffset": 22632,
-			"target": 34962
+			"doubleSided":true,
+			"name":"MI_BackgroundbuildingAtlas",
+			"normalTexture":{
+				"index":6
+			},
+			"occlusionTexture":{
+				"index":7
+			},
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":8
+				},
+				"metallicRoughnessTexture":{
+					"index":7
+				}
+			}
 		},
 		{
-			"buffer": 0,
-			"byteLength": 23840,
-			"byteOffset": 40512,
-			"target": 34962
+			"doubleSided":true,
+			"name":"MI_BuildingsAtlas2",
+			"normalTexture":{
+				"index":9
+			},
+			"occlusionTexture":{
+				"index":10
+			},
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":11
+				},
+				"metallicRoughnessTexture":{
+					"index":10
+				}
+			}
 		},
 		{
-			"buffer": 0,
-			"byteLength": 11920,
-			"byteOffset": 64352,
-			"target": 34962
+			"doubleSided":true,
+			"name":"MI_BuildingsFacade2",
+			"normalTexture":{
+				"index":12
+			},
+			"occlusionTexture":{
+				"index":13
+			},
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":14
+				},
+				"metallicRoughnessTexture":{
+					"index":13
+				}
+			}
 		},
 		{
-			"buffer": 0,
-			"byteLength": 11920,
-			"byteOffset": 76272,
-			"target": 34962
+			"doubleSided":true,
+			"name":"MI_BuildingsFacade4",
+			"normalTexture":{
+				"index":15
+			},
+			"occlusionTexture":{
+				"index":16
+			},
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":17
+				},
+				"metallicRoughnessTexture":{
+					"index":16
+				}
+			}
 		},
 		{
-			"buffer": 0,
-			"byteLength": 3264,
-			"byteOffset": 88192,
-			"target": 34963
-		},
-		{
-			"buffer": 0,
-			"byteLength": 10416,
-			"byteOffset": 91456,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 10416,
-			"byteOffset": 101872,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 13888,
-			"byteOffset": 112288,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 6944,
-			"byteOffset": 126176,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 6944,
-			"byteOffset": 133120,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 113040,
-			"byteOffset": 140064,
-			"target": 34963
-		},
-		{
-			"buffer": 0,
-			"byteLength": 395232,
-			"byteOffset": 253104,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 395232,
-			"byteOffset": 648336,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 526976,
-			"byteOffset": 1043568,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 263488,
-			"byteOffset": 1570544,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 263488,
-			"byteOffset": 1834032,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 14544,
-			"byteOffset": 2097520,
-			"target": 34963
-		},
-		{
-			"buffer": 0,
-			"byteLength": 41616,
-			"byteOffset": 2112064,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 41616,
-			"byteOffset": 2153680,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 55488,
-			"byteOffset": 2195296,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 27744,
-			"byteOffset": 2250784,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 27744,
-			"byteOffset": 2278528,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 6588,
-			"byteOffset": 2306272,
-			"target": 34963
-		},
-		{
-			"buffer": 0,
-			"byteLength": 19296,
-			"byteOffset": 2312860,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 19296,
-			"byteOffset": 2332156,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 25728,
-			"byteOffset": 2351452,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 12864,
-			"byteOffset": 2377180,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 12864,
-			"byteOffset": 2390044,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 3192,
-			"byteOffset": 2402908,
-			"target": 34963
-		},
-		{
-			"buffer": 0,
-			"byteLength": 9936,
-			"byteOffset": 2406100,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 9936,
-			"byteOffset": 2416036,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 13248,
-			"byteOffset": 2425972,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 6624,
-			"byteOffset": 2439220,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 6624,
-			"byteOffset": 2445844,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 23388,
-			"byteOffset": 2452468,
-			"target": 34963
-		},
-		{
-			"buffer": 0,
-			"byteLength": 86520,
-			"byteOffset": 2475856,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 86520,
-			"byteOffset": 2562376,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 115360,
-			"byteOffset": 2648896,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 57680,
-			"byteOffset": 2764256,
-			"target": 34962
-		},
-		{
-			"buffer": 0,
-			"byteLength": 57680,
-			"byteOffset": 2821936,
-			"target": 34962
+			"doubleSided":true,
+			"name":"MI_BGBuildingsFacade1",
+			"normalTexture":{
+				"index":18
+			},
+			"occlusionTexture":{
+				"index":19
+			},
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":20
+				},
+				"metallicRoughnessTexture":{
+					"index":19
+				}
+			}
 		}
 	],
-	"images": [
+	"meshes":[
 		{
-			"uri": "T_Roads_D.png"
-		},
-		{
-			"uri": "T_Roads_ORM_Linear.png"
-		},
-		{
-			"uri": "T_Roads_N.png"
-		},
-		{
-			"uri": "T_BGBuildingsFacade3_D.png"
-		},
-		{
-			"uri": "T_BGBuildingsFacade3_ORM.png"
-		},
-		{
-			"uri": "T_BGBuildingsFacade3_N.png"
-		},
-		{
-			"uri": "T_BuildingsAtlas_D.png"
-		},
-		{
-			"uri": "T_BuildingsAtlas_ORM_Linear.png"
-		},
-		{
-			"uri": "T_BuildingsAtlas_N.png"
-		},
-		{
-			"uri": "T_BuildingAtlas2_D.png"
-		},
-		{
-			"uri": "T_BuildingAtlas2_ORM.png"
-		},
-		{
-			"uri": "T_BuildingAtlas2_N.png"
-		},
-		{
-			"uri": "T_BGBuildingsFacade2_D.png"
-		},
-		{
-			"uri": "T_BGBuildingsFacade2_ORM_Linear.png"
-		},
-		{
-			"uri": "T_BGBuildingsFacade2_N.png"
-		},
-		{
-			"uri": "T_BGBuildingsFacade4_D.png"
-		},
-		{
-			"uri": "T_BGBuildingsFacade4_ORM.png"
-		},
-		{
-			"uri": "T_BGBuildingsFacade4_N.png"
-		},
-		{
-			"uri": "T_BGBuildingsFacade1_D.png"
-		},
-		{
-			"uri": "T_BGBuildingsFacade1_ORM.png"
-		},
-		{
-			"uri": "T_BGBuildingsFacade1_N.png"
-		}
-	],
-	"materials": [
-		{
-			"name": "MI_Roads",
-			"pbrMetallicRoughness":
-			{
-				"baseColorTexture":
+			"name":"SM_CityPiece",
+			"primitives":[
 				{
-					"index": 0
-				},
-				"metallicRoughnessTexture":
-				{
-					"index": 1
-				}
-			},
-			"normalTexture":
-			{
-				"index": 2
-			},
-			"occlusionTexture":
-			{
-				"index": 1
-			},
-			"doubleSided": true
-		},
-		{
-			"name": "MI_Facade3",
-			"pbrMetallicRoughness":
-			{
-				"baseColorTexture":
-				{
-					"index": 3
-				},
-				"metallicRoughnessTexture":
-				{
-					"index": 4
-				}
-			},
-			"normalTexture":
-			{
-				"index": 5
-			},
-			"occlusionTexture":
-			{
-				"index": 4
-			},
-			"doubleSided": true
-		},
-		{
-			"name": "MI_BackgroundbuildingAtlas",
-			"pbrMetallicRoughness":
-			{
-				"baseColorTexture":
-				{
-					"index": 6
-				},
-				"metallicRoughnessTexture":
-				{
-					"index": 7
-				}
-			},
-			"normalTexture":
-			{
-				"index": 8
-			},
-			"occlusionTexture":
-			{
-				"index": 7
-			},
-			"doubleSided": true
-		},
-		{
-			"name": "MI_BuildingsAtlas2",
-			"pbrMetallicRoughness":
-			{
-				"baseColorTexture":
-				{
-					"index": 9
-				},
-				"metallicRoughnessTexture":
-				{
-					"index": 10
-				}
-			},
-			"normalTexture":
-			{
-				"index": 11
-			},
-			"occlusionTexture":
-			{
-				"index": 10
-			},
-			"doubleSided": true
-		},
-		{
-			"name": "MI_BuildingsFacade2",
-			"pbrMetallicRoughness":
-			{
-				"baseColorTexture":
-				{
-					"index": 12
-				},
-				"metallicRoughnessTexture":
-				{
-					"index": 13
-				}
-			},
-			"normalTexture":
-			{
-				"index": 14
-			},
-			"occlusionTexture":
-			{
-				"index": 13
-			},
-			"doubleSided": true
-		},
-		{
-			"name": "MI_BuildingsFacade4",
-			"pbrMetallicRoughness":
-			{
-				"baseColorTexture":
-				{
-					"index": 15
-				},
-				"metallicRoughnessTexture":
-				{
-					"index": 16
-				}
-			},
-			"normalTexture":
-			{
-				"index": 17
-			},
-			"occlusionTexture":
-			{
-				"index": 16
-			},
-			"doubleSided": true
-		},
-		{
-			"name": "MI_BGBuildingsFacade1",
-			"pbrMetallicRoughness":
-			{
-				"baseColorTexture":
-				{
-					"index": 18
-				},
-				"metallicRoughnessTexture":
-				{
-					"index": 19
-				}
-			},
-			"normalTexture":
-			{
-				"index": 20
-			},
-			"occlusionTexture":
-			{
-				"index": 19
-			},
-			"doubleSided": true
-		}
-	],
-	"meshes": [
-		{
-			"name": "SM_CityPiece",
-			"primitives": [
-				{
-					"attributes":
-					{
-						"POSITION": 1,
-						"NORMAL": 2,
-						"TANGENT": 3,
-						"TEXCOORD_0": 4,
-						"TEXCOORD_1": 5
+					"attributes":{
+						"POSITION":0,
+						"NORMAL":1,
+						"TEXCOORD_0":2,
+						"TEXCOORD_1":3
 					},
-					"indices": 0,
-					"material": 0
+					"indices":4,
+					"material":0
 				},
 				{
-					"attributes":
-					{
-						"POSITION": 7,
-						"NORMAL": 8,
-						"TANGENT": 9,
-						"TEXCOORD_0": 10,
-						"TEXCOORD_1": 11
+					"attributes":{
+						"POSITION":5,
+						"NORMAL":6,
+						"TEXCOORD_0":7,
+						"TEXCOORD_1":8
 					},
-					"indices": 6,
-					"material": 1
+					"indices":9,
+					"material":1
 				},
 				{
-					"attributes":
-					{
-						"POSITION": 13,
-						"NORMAL": 14,
-						"TANGENT": 15,
-						"TEXCOORD_0": 16,
-						"TEXCOORD_1": 17
+					"attributes":{
+						"POSITION":10,
+						"NORMAL":11,
+						"TEXCOORD_0":12,
+						"TEXCOORD_1":13
 					},
-					"indices": 12,
-					"material": 2
+					"indices":14,
+					"material":2
 				},
 				{
-					"attributes":
-					{
-						"POSITION": 19,
-						"NORMAL": 20,
-						"TANGENT": 21,
-						"TEXCOORD_0": 22,
-						"TEXCOORD_1": 23
+					"attributes":{
+						"POSITION":15,
+						"NORMAL":16,
+						"TEXCOORD_0":17,
+						"TEXCOORD_1":18
 					},
-					"indices": 18,
-					"material": 3
+					"indices":19,
+					"material":3
 				},
 				{
-					"attributes":
-					{
-						"POSITION": 25,
-						"NORMAL": 26,
-						"TANGENT": 27,
-						"TEXCOORD_0": 28,
-						"TEXCOORD_1": 29
+					"attributes":{
+						"POSITION":20,
+						"NORMAL":21,
+						"TEXCOORD_0":22,
+						"TEXCOORD_1":23
 					},
-					"indices": 24,
-					"material": 4
+					"indices":24,
+					"material":4
 				},
 				{
-					"attributes":
-					{
-						"POSITION": 31,
-						"NORMAL": 32,
-						"TANGENT": 33,
-						"TEXCOORD_0": 34,
-						"TEXCOORD_1": 35
+					"attributes":{
+						"POSITION":25,
+						"NORMAL":26,
+						"TEXCOORD_0":27,
+						"TEXCOORD_1":28
 					},
-					"indices": 30,
-					"material": 5
+					"indices":29,
+					"material":5
 				},
 				{
-					"attributes":
-					{
-						"POSITION": 37,
-						"NORMAL": 38,
-						"TANGENT": 39,
-						"TEXCOORD_0": 40,
-						"TEXCOORD_1": 41
+					"attributes":{
+						"POSITION":30,
+						"NORMAL":31,
+						"TEXCOORD_0":32,
+						"TEXCOORD_1":33
 					},
-					"indices": 36,
-					"material": 6
+					"indices":34,
+					"material":6
 				}
 			]
 		}
 	],
-	"nodes": [
+	"textures":[
 		{
-			"name": "cityPiece2",
-			"rotation": [ -0, -0.70710665, 0, 0.707106948 ],
-			"scale": [ 1, 0.71875, 1 ],
-			"mesh": 0
+			"sampler":0,
+			"source":0
+		},
+		{
+			"sampler":0,
+			"source":1
+		},
+		{
+			"sampler":0,
+			"source":2
+		},
+		{
+			"sampler":0,
+			"source":3
+		},
+		{
+			"sampler":0,
+			"source":4
+		},
+		{
+			"sampler":0,
+			"source":5
+		},
+		{
+			"sampler":0,
+			"source":6
+		},
+		{
+			"sampler":0,
+			"source":7
+		},
+		{
+			"sampler":0,
+			"source":8
+		},
+		{
+			"sampler":0,
+			"source":9
+		},
+		{
+			"sampler":0,
+			"source":10
+		},
+		{
+			"sampler":0,
+			"source":11
+		},
+		{
+			"sampler":0,
+			"source":12
+		},
+		{
+			"sampler":0,
+			"source":13
+		},
+		{
+			"sampler":0,
+			"source":14
+		},
+		{
+			"sampler":0,
+			"source":15
+		},
+		{
+			"sampler":0,
+			"source":16
+		},
+		{
+			"sampler":0,
+			"source":17
+		},
+		{
+			"sampler":0,
+			"source":18
+		},
+		{
+			"sampler":0,
+			"source":19
+		},
+		{
+			"sampler":0,
+			"source":20
 		}
 	],
-	"samplers": [
+	"images":[
 		{
-			"minFilter": 9987,
-			"magFilter": 9729
+			"mimeType":"image/png",
+			"name":"T_Roads_N",
+			"uri":"T_Roads_N.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_Roads_ORM_Linear",
+			"uri":"T_Roads_ORM_Linear.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_Roads_D",
+			"uri":"T_Roads_D.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BGBuildingsFacade3_N",
+			"uri":"T_BGBuildingsFacade3_N.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BGBuildingsFacade3_ORM",
+			"uri":"T_BGBuildingsFacade3_ORM.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BGBuildingsFacade3_D",
+			"uri":"T_BGBuildingsFacade3_D.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BuildingsAtlas_N",
+			"uri":"T_BuildingsAtlas_N.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BuildingsAtlas_ORM_Linear",
+			"uri":"T_BuildingsAtlas_ORM_Linear.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BuildingsAtlas_D",
+			"uri":"T_BuildingsAtlas_D.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BuildingAtlas2_N",
+			"uri":"T_BuildingAtlas2_N.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BuildingAtlas2_ORM",
+			"uri":"T_BuildingAtlas2_ORM.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BuildingAtlas2_D",
+			"uri":"T_BuildingAtlas2_D.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BGBuildingsFacade2_N",
+			"uri":"T_BGBuildingsFacade2_N.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BGBuildingsFacade2_ORM_Linear",
+			"uri":"T_BGBuildingsFacade2_ORM_Linear.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BGBuildingsFacade2_D",
+			"uri":"T_BGBuildingsFacade2_D.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BGBuildingsFacade4_N",
+			"uri":"T_BGBuildingsFacade4_N.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BGBuildingsFacade4_ORM",
+			"uri":"T_BGBuildingsFacade4_ORM.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BGBuildingsFacade4_D",
+			"uri":"T_BGBuildingsFacade4_D.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BGBuildingsFacade1_N",
+			"uri":"T_BGBuildingsFacade1_N.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BGBuildingsFacade1_ORM",
+			"uri":"T_BGBuildingsFacade1_ORM.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"T_BGBuildingsFacade1_D",
+			"uri":"T_BGBuildingsFacade1_D.png"
 		}
 	],
-	"scenes": [
+	"accessors":[
 		{
-			"name": "proto",
-			"nodes": [ 0 ]
+			"bufferView":0,
+			"componentType":5126,
+			"count":1490,
+			"max":[
+				393.6819763183594,
+				3.485649675795052e-14,
+				337.3450012207031
+			],
+			"min":[
+				-398.3180236816406,
+				-7.55494386093119e-22,
+				-310.6551818847656
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":1,
+			"componentType":5126,
+			"count":1490,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":2,
+			"componentType":5126,
+			"count":1490,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":3,
+			"componentType":5126,
+			"count":1490,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":4,
+			"componentType":5123,
+			"count":2376,
+			"type":"SCALAR"
+		},
+		{
+			"bufferView":5,
+			"componentType":5126,
+			"count":868,
+			"max":[
+				297.96044921875,
+				166.34715270996094,
+				291.5415954589844
+			],
+			"min":[
+				-302.5964660644531,
+				-0.7677477598190308,
+				-264.85186767578125
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":6,
+			"componentType":5126,
+			"count":868,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":7,
+			"componentType":5126,
+			"count":868,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":8,
+			"componentType":5126,
+			"count":868,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":9,
+			"componentType":5123,
+			"count":1632,
+			"type":"SCALAR"
+		},
+		{
+			"bufferView":10,
+			"componentType":5126,
+			"count":32975,
+			"max":[
+				391.01483154296875,
+				170.814208984375,
+				335.2051086425781
+			],
+			"min":[
+				-395.6508483886719,
+				-2.06844425201416,
+				-308.5154113769531
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":11,
+			"componentType":5126,
+			"count":32975,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":12,
+			"componentType":5126,
+			"count":32975,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":13,
+			"componentType":5126,
+			"count":32975,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":14,
+			"componentType":5123,
+			"count":56520,
+			"type":"SCALAR"
+		},
+		{
+			"bufferView":15,
+			"componentType":5126,
+			"count":3489,
+			"max":[
+				385.33319091796875,
+				164.54685974121094,
+				330.2279357910156
+			],
+			"min":[
+				-389.9692077636719,
+				37.70513916015625,
+				-303.5382080078125
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":16,
+			"componentType":5126,
+			"count":3489,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":17,
+			"componentType":5126,
+			"count":3489,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":18,
+			"componentType":5126,
+			"count":3489,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":19,
+			"componentType":5123,
+			"count":7272,
+			"type":"SCALAR"
+		},
+		{
+			"bufferView":20,
+			"componentType":5126,
+			"count":1624,
+			"max":[
+				391.01483154296875,
+				85.8943099975586,
+				331.3566589355469
+			],
+			"min":[
+				-395.6508483886719,
+				-0.4359334111213684,
+				-299.0886535644531
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":21,
+			"componentType":5126,
+			"count":1624,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":22,
+			"componentType":5126,
+			"count":1624,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":23,
+			"componentType":5126,
+			"count":1624,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":24,
+			"componentType":5123,
+			"count":3294,
+			"type":"SCALAR"
+		},
+		{
+			"bufferView":25,
+			"componentType":5126,
+			"count":836,
+			"max":[
+				239.7003936767578,
+				149.6099090576172,
+				330.3674011230469
+			],
+			"min":[
+				-244.33645629882812,
+				2.1396546363830566,
+				-303.6777648925781
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":26,
+			"componentType":5126,
+			"count":836,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":27,
+			"componentType":5126,
+			"count":836,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":28,
+			"componentType":5126,
+			"count":836,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":29,
+			"componentType":5123,
+			"count":1596,
+			"type":"SCALAR"
+		},
+		{
+			"bufferView":30,
+			"componentType":5126,
+			"count":7210,
+			"max":[
+				389.6621398925781,
+				79.6545181274414,
+				334.9266052246094
+			],
+			"min":[
+				-394.2981262207031,
+				-0.4780617356300354,
+				-308.2369079589844
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":31,
+			"componentType":5126,
+			"count":7210,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":32,
+			"componentType":5126,
+			"count":7210,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":33,
+			"componentType":5126,
+			"count":7210,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":34,
+			"componentType":5123,
+			"count":11694,
+			"type":"SCALAR"
 		}
 	],
-	"textures": [
+	"bufferViews":[
 		{
-			"name": "T_Roads_D",
-			"sampler": 0,
-			"source": 0
+			"buffer":0,
+			"byteLength":17880,
+			"byteOffset":0,
+			"target":34962
 		},
 		{
-			"name": "T_Roads_ORM_Linear",
-			"sampler": 0,
-			"source": 1
+			"buffer":0,
+			"byteLength":17880,
+			"byteOffset":17880,
+			"target":34962
 		},
 		{
-			"name": "T_Roads_N",
-			"sampler": 0,
-			"source": 2
+			"buffer":0,
+			"byteLength":11920,
+			"byteOffset":35760,
+			"target":34962
 		},
 		{
-			"name": "T_BGBuildingsFacade3_D",
-			"sampler": 0,
-			"source": 3
+			"buffer":0,
+			"byteLength":11920,
+			"byteOffset":47680,
+			"target":34962
 		},
 		{
-			"name": "T_BGBuildingsFacade3_ORM",
-			"sampler": 0,
-			"source": 4
+			"buffer":0,
+			"byteLength":4752,
+			"byteOffset":59600,
+			"target":34963
 		},
 		{
-			"name": "T_BGBuildingsFacade3_N",
-			"sampler": 0,
-			"source": 5
+			"buffer":0,
+			"byteLength":10416,
+			"byteOffset":64352,
+			"target":34962
 		},
 		{
-			"name": "T_BuildingsAtlas_D",
-			"sampler": 0,
-			"source": 6
+			"buffer":0,
+			"byteLength":10416,
+			"byteOffset":74768,
+			"target":34962
 		},
 		{
-			"name": "T_BuildingsAtlas_ORM_Linear",
-			"sampler": 0,
-			"source": 7
+			"buffer":0,
+			"byteLength":6944,
+			"byteOffset":85184,
+			"target":34962
 		},
 		{
-			"name": "T_BuildingsAtlas_N",
-			"sampler": 0,
-			"source": 8
+			"buffer":0,
+			"byteLength":6944,
+			"byteOffset":92128,
+			"target":34962
 		},
 		{
-			"name": "T_BuildingAtlas2_D",
-			"sampler": 0,
-			"source": 9
+			"buffer":0,
+			"byteLength":3264,
+			"byteOffset":99072,
+			"target":34963
 		},
 		{
-			"name": "T_BuildingAtlas2_ORM",
-			"sampler": 0,
-			"source": 10
+			"buffer":0,
+			"byteLength":395700,
+			"byteOffset":102336,
+			"target":34962
 		},
 		{
-			"name": "T_BuildingAtlas2_N",
-			"sampler": 0,
-			"source": 11
+			"buffer":0,
+			"byteLength":395700,
+			"byteOffset":498036,
+			"target":34962
 		},
 		{
-			"name": "T_BGBuildingsFacade2_D",
-			"sampler": 0,
-			"source": 12
+			"buffer":0,
+			"byteLength":263800,
+			"byteOffset":893736,
+			"target":34962
 		},
 		{
-			"name": "T_BGBuildingsFacade2_ORM_Linear",
-			"sampler": 0,
-			"source": 13
+			"buffer":0,
+			"byteLength":263800,
+			"byteOffset":1157536,
+			"target":34962
 		},
 		{
-			"name": "T_BGBuildingsFacade2_N",
-			"sampler": 0,
-			"source": 14
+			"buffer":0,
+			"byteLength":113040,
+			"byteOffset":1421336,
+			"target":34963
 		},
 		{
-			"name": "T_BGBuildingsFacade4_D",
-			"sampler": 0,
-			"source": 15
+			"buffer":0,
+			"byteLength":41868,
+			"byteOffset":1534376,
+			"target":34962
 		},
 		{
-			"name": "T_BGBuildingsFacade4_ORM",
-			"sampler": 0,
-			"source": 16
+			"buffer":0,
+			"byteLength":41868,
+			"byteOffset":1576244,
+			"target":34962
 		},
 		{
-			"name": "T_BGBuildingsFacade4_N",
-			"sampler": 0,
-			"source": 17
+			"buffer":0,
+			"byteLength":27912,
+			"byteOffset":1618112,
+			"target":34962
 		},
 		{
-			"name": "T_BGBuildingsFacade1_D",
-			"sampler": 0,
-			"source": 18
+			"buffer":0,
+			"byteLength":27912,
+			"byteOffset":1646024,
+			"target":34962
 		},
 		{
-			"name": "T_BGBuildingsFacade1_ORM",
-			"sampler": 0,
-			"source": 19
+			"buffer":0,
+			"byteLength":14544,
+			"byteOffset":1673936,
+			"target":34963
 		},
 		{
-			"name": "T_BGBuildingsFacade1_N",
-			"sampler": 0,
-			"source": 20
+			"buffer":0,
+			"byteLength":19488,
+			"byteOffset":1688480,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":19488,
+			"byteOffset":1707968,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":12992,
+			"byteOffset":1727456,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":12992,
+			"byteOffset":1740448,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":6588,
+			"byteOffset":1753440,
+			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":10032,
+			"byteOffset":1760028,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":10032,
+			"byteOffset":1770060,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":6688,
+			"byteOffset":1780092,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":6688,
+			"byteOffset":1786780,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":3192,
+			"byteOffset":1793468,
+			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":86520,
+			"byteOffset":1796660,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":86520,
+			"byteOffset":1883180,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":57680,
+			"byteOffset":1969700,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":57680,
+			"byteOffset":2027380,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":23388,
+			"byteOffset":2085060,
+			"target":34963
+		}
+	],
+	"samplers":[
+		{
+			"magFilter":9729,
+			"minFilter":9987
+		}
+	],
+	"buffers":[
+		{
+			"byteLength":2108448,
+			"uri":"BuildingSphere_0.bin"
 		}
 	]
 }

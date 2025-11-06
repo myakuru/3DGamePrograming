@@ -235,3 +235,72 @@ bool KdGameObject::CheckBoxBit(std::string _name, UINT& _ID, UINT _checkID)
 	else _ID &= (~_checkID);
 	return change;
 }
+
+void KdGameObject::AddChild(std::weak_ptr<KdGameObject> a_child)
+{
+	std::shared_ptr<KdGameObject> _child = a_child.lock();
+	if (!_child)return;
+
+	// 自分の子には入れれないようにする(子の子も同様)
+	if (SearchChild(_child->GetMyAdls()))return;
+
+	// すでに親がいる場合は親の子リストから削除
+	if (_child->GetParent().lock())EraceChild(a_child);
+
+	_child->SetParent(GetMyAdls());                        // 子に親のアドレスを渡す
+
+	m_childObjects.push_back(_child->GetMyAdls());        // 自分の子リストに追加
+}
+
+void KdGameObject::EraceChild(std::weak_ptr<KdGameObject>& _child)
+{
+	if (auto child = _child.lock(); child)
+	{
+		auto peaent = child->GetParent().lock();
+		if (!peaent) return;
+
+		auto& childList = peaent->GetChild();
+		if (childList.empty()) return;
+
+		for (auto it = childList.begin(); it != childList.end();)
+		{
+			if (it->lock() == child)
+			{
+				it = childList.erase(it);
+				return;
+			}
+		}
+
+	}
+}
+
+void KdGameObject::SortChild()
+{
+	if (m_childObjects.empty()) return;
+
+	auto it = m_childObjects.begin();
+
+	while (it != m_childObjects.end())
+	{
+		auto child = it->lock();
+		if (child)
+		{
+			++it;
+		}
+		else
+		{
+			it = m_childObjects.erase(it);
+		}
+	}
+}
+
+bool KdGameObject::SearchChild(const std::shared_ptr<KdGameObject>& _temp)
+{
+	if (std::shared_ptr<KdGameObject> _parent = GetParent().lock(); _parent)
+	{
+		if (_parent == _temp) return true;
+		else if (_parent->SearchChild(_temp)) return true;
+	}
+
+	return false;
+}

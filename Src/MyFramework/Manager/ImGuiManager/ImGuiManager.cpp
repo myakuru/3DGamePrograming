@@ -107,9 +107,14 @@ void ImGuiManager::DrawObjectTreeList(std::list<std::shared_ptr<KdGameObject>>& 
 	for (const auto& obj : _list)
 	{
 		if (!obj) continue;
+		if (obj->GetParent().lock()) continue;
+
 		// ノード描画は MakeTreeNode に一本化
 		MakeTreeNode(obj);
 	}
+
+	
+
 }
 
 void ImGuiManager::TreeNode()
@@ -130,8 +135,31 @@ void ImGuiManager::TreeNode()
 			// マップオブジェクトリストの描画(カリング対応)
 			DrawObjectTreeList(scene->GetMapObjectList(), m_openObject);
 		}
+		ImGui::EndChild();
+
+		std::weak_ptr<KdGameObject> temp;
+
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Child"))
+			{
+				temp = (*(std::shared_ptr<KdGameObject>*)payload->Data);
+			}
+			ImGui::EndDragDropTarget();
+		}
+
+		if (!temp.expired())
+		{
+			if (const auto& spTemp = temp.lock(); spTemp)
+			{
+				if (auto palent = spTemp->GetParent().lock(); palent)
+				{
+					palent->EraceChild(temp);
+				}
+				spTemp->SetParent(std::weak_ptr<KdGameObject>());
+			}
+		}
 	}
-	ImGui::EndChild();
 }
 
 void ImGuiManager::ShowInspector()
@@ -326,9 +354,6 @@ void ImGuiManager::MakeTreeNode(const std::shared_ptr<KdGameObject>& parentObj)
 {
 	if (!parentObj) return;
 
-	// 選択中なら最初から開く
-	ImGui::SetNextItemOpen(parentObj == m_openObject.lock(), ImGuiCond_Always);
-
 	ImGui::PushID(parentObj.get());
 
 	const bool opened = ImGui::TreeNodeEx(parentObj->GetNameClass().c_str());
@@ -342,8 +367,7 @@ void ImGuiManager::MakeTreeNode(const std::shared_ptr<KdGameObject>& parentObj)
 	// ドラッグ元
 	if (ImGui::BeginDragDropSource())
 	{
-		KdGameObject* raw = parentObj.get();
-		ImGui::SetDragDropPayload("Child", &raw, sizeof(raw));
+		ImGui::SetDragDropPayload("Child", &parentObj, sizeof(parentObj));
 		ImGui::Text("%s", parentObj->GetNameClass().c_str());
 		ImGui::EndDragDropSource();
 	}
@@ -353,26 +377,9 @@ void ImGuiManager::MakeTreeNode(const std::shared_ptr<KdGameObject>& parentObj)
 	{
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Child"))
 		{
-			auto dropped = *static_cast<KdGameObject* const*>(payload->Data);
-			if (dropped && dropped != parentObj.get())
-			{
-				// 共有所有権を復元して親子化
-				std::shared_ptr<KdGameObject> childSp;
-				try
-				{
-					childSp = dropped->shared_from_this();
-				}
-				catch (...)
-				{
-					childSp.reset();
-				}
+			auto& child = *(std::weak_ptr<KdGameObject>*) payload->Data;
 
-				if (childSp)
-				{
-					std::weak_ptr<KdGameObject> w = childSp;
-					parentObj->AddChild(w);
-				}
-			}
+			parentObj->AddChild(child);
 		}
 		ImGui::EndDragDropTarget();
 	}

@@ -29,8 +29,6 @@ void Player::Init()
 
 	StateInit();
 
-	m_position = Math::Vector3(31.0f,10.0f, -75.0f);
-
 	m_pCollider = std::make_unique<KdCollider>();
 
 	m_pCollider->RegisterCollisionShape("PlayerSphere", sphere, KdCollider::TypeDamage);

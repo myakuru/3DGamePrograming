@@ -1,0 +1,151 @@
+{
+	"asset":
+	{
+		"version": "2.0",
+		"generator": "Unreal Engine 5.5.4"
+	},
+	"scene": 0,
+	"accessors": [
+		{
+			"bufferView": 0,
+			"count": 9660,
+			"type": "SCALAR",
+			"componentType": 5123
+		},
+		{
+			"bufferView": 1,
+			"count": 9660,
+			"type": "VEC3",
+			"componentType": 5126,
+			"min": [ -0.166919664, 5.76900199e-08, -0.613854825 ],
+			"max": [ 0.388072461, 1.19584322, 0.554316163 ]
+		},
+		{
+			"bufferView": 2,
+			"count": 9660,
+			"type": "VEC3",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 3,
+			"count": 9660,
+			"type": "VEC2",
+			"componentType": 5126
+		}
+	],
+	"buffers": [
+		{
+			"uri": "SM_Props_Cement_Polisher.bin",
+			"byteLength": 328440
+		}
+	],
+	"bufferViews": [
+		{
+			"buffer": 0,
+			"byteLength": 19320,
+			"target": 34963
+		},
+		{
+			"buffer": 0,
+			"byteLength": 115920,
+			"byteOffset": 19320,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 115920,
+			"byteOffset": 135240,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 77280,
+			"byteOffset": 251160,
+			"target": 34962
+		}
+	],
+	"images": [
+		{
+			"uri": "M_Cement_Polisher_MetallicRoughness.png"
+		},
+		{
+			"uri": "T_CemPolish_A.png"
+		},
+		{
+			"uri": "T_CemPolish_N.png"
+		}
+	],
+	"materials": [
+		{
+			"name": "M_Cement_Polisher",
+			"pbrMetallicRoughness":
+			{
+				"baseColorTexture":
+				{
+					"index": 0
+				},
+				"metallicRoughnessTexture":
+				{
+					"index": 1
+				}
+			},
+			"normalTexture":
+			{
+				"index": 2
+			},
+			"doubleSided": true
+		}
+	],
+	"meshes": [
+		{
+			"name": "SM_Props_Cement_Polisher",
+			"primitives": [
+				{
+					"attributes":
+					{
+						"POSITION": 1,
+						"NORMAL": 2,
+						"TEXCOORD_0": 3
+					},
+					"indices": 0,
+					"material": 0
+				}
+			]
+		}
+	],
+	"nodes": [
+		{
+			"name": "SM_Props_Cement_Polisher",
+			"mesh": 0
+		}
+	],
+	"samplers": [
+		{
+			"minFilter": 9987,
+			"magFilter": 9729
+		}
+	],
+	"scenes": [
+		{
+			"name": "ThirdPersonMap",
+			"nodes": [ 0 ]
+		}
+	],
+	"textures": [
+		{
+			"name": "T_CemPolish_A",
+			"sampler": 0,
+			"source": 1
+		},
+		{
+			"name": "M_Cement_Polisher_MetallicRoughness",
+			"sampler": 0,
+			"source": 0
+		},
+		{
+			"name": "T_CemPolish_N",
+			"sampler": 0,
+			"source": 2
+		}
+	]
+}

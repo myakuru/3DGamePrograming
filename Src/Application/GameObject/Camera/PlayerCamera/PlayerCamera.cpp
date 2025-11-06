@@ -101,7 +101,7 @@ void PlayerCamera::PostUpdate()
 
 	if (SceneManager::Instance().m_gameClear && !SceneManager::Instance().IsIntroCamera())
 	{
-		UpdateWinnerCamera();
+		//UpdateWinnerCamera();
 	}
 
 	// 最終的にカメラ行列適用

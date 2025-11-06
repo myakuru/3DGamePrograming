@@ -1,0 +1,156 @@
+{
+	"asset":
+	{
+		"version": "2.0",
+		"generator": "Unreal Engine 5.5.4"
+	},
+	"scene": 0,
+	"accessors": [
+		{
+			"bufferView": 0,
+			"count": 3948,
+			"type": "SCALAR",
+			"componentType": 5123
+		},
+		{
+			"bufferView": 1,
+			"count": 3948,
+			"type": "VEC3",
+			"componentType": 5126,
+			"min": [ -0.52071619, 0.00461508473, -0.675091684 ],
+			"max": [ 0.520390451, 2.53350997, 0.577679098 ]
+		},
+		{
+			"bufferView": 2,
+			"count": 3948,
+			"type": "VEC3",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 3,
+			"count": 3948,
+			"type": "VEC2",
+			"componentType": 5126
+		}
+	],
+	"buffers": [
+		{
+			"uri": "SM_wc.bin",
+			"byteLength": 134232
+		}
+	],
+	"bufferViews": [
+		{
+			"buffer": 0,
+			"byteLength": 7896,
+			"target": 34963
+		},
+		{
+			"buffer": 0,
+			"byteLength": 47376,
+			"byteOffset": 7896,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 47376,
+			"byteOffset": 55272,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 31584,
+			"byteOffset": 102648,
+			"target": 34962
+		}
+	],
+	"images": [
+		{
+			"uri": "wc_wc_BaseColor.png"
+		},
+		{
+			"uri": "wc_orm.png"
+		},
+		{
+			"uri": "wc_wc_Normal.png"
+		}
+	],
+	"materials": [
+		{
+			"name": "MI_WC",
+			"pbrMetallicRoughness":
+			{
+				"baseColorTexture":
+				{
+					"index": 0
+				},
+				"metallicRoughnessTexture":
+				{
+					"index": 1
+				}
+			},
+			"normalTexture":
+			{
+				"index": 2
+			},
+			"occlusionTexture":
+			{
+				"index": 1
+			},
+			"doubleSided": true
+		}
+	],
+	"meshes": [
+		{
+			"name": "SM_wc",
+			"primitives": [
+				{
+					"attributes":
+					{
+						"POSITION": 1,
+						"NORMAL": 2,
+						"TEXCOORD_0": 3
+					},
+					"indices": 0,
+					"material": 0
+				}
+			]
+		}
+	],
+	"nodes": [
+		{
+			"name": "wc",
+			"rotation": [ 0, 0.382683903, -0, 0.923879325 ],
+			"mesh": 0
+		}
+	],
+	"samplers": [
+		{
+			"minFilter": 9987,
+			"magFilter": 9729
+		}
+	],
+	"scenes": [
+		{
+			"name": "proto",
+			"nodes": [ 0 ]
+		}
+	],
+	"textures": [
+		{
+			"name": "wc_wc_BaseColor",
+			"sampler": 0,
+			"source": 0
+		},
+		{
+			"name": "wc_orm",
+			"sampler": 0,
+			"source": 1
+		},
+		{
+			"name": "wc_wc_Normal",
+			"sampler": 0,
+			"source": 2
+		}
+	]
+}
