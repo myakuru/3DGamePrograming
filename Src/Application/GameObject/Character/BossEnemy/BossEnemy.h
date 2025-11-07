@@ -4,7 +4,7 @@ class BossEnemyStateBase;
 class Player;
 class EnemySword;
 class EnemyShield;
-class BossEnemy :public CharaBase
+class BossEnemy :public CharacterBase
 {
 public:
 	// クラスごとに一意なTypeIDを持たせる

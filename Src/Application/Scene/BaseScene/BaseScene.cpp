@@ -221,7 +221,9 @@ void BaseScene::Draw()
 	}
 	KdShaderManager::Instance().m_StandardShader.EndEffect();
 
+#if defined(NDEBUG)
 	KdEffekseerManager::GetInstance().Draw();
+#endif
 
 	m_drawObjectList.clear();
 }

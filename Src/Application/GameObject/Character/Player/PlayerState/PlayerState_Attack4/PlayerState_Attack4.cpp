@@ -42,9 +42,9 @@ void PlayerState_Attack4::StateStart()
 
 	m_player->SetAnimeSpeed(70.0f);
 
-	if (CharacterData::Instance().GetPlayerStatus().chargeCount < 3)
+	if (m_playerData.GetPlayerStatus().chargeCount < 3)
 	{
-		CharacterData::Instance().SetPlayerStatus().chargeCount++;
+		m_playerData.SetPlayerStatus().chargeCount++;
 	}
 
 	KdAudioManager::Instance().Play("Asset/Sound/Player/Attack4.WAV", false)->SetVolume(0.5f);
@@ -103,18 +103,18 @@ void PlayerState_Attack4::StateUpdate()
 	// Eキー先行入力の予約
 	if (KeyboardManager::GetInstance().IsKeyJustPressed('E'))
 	{
-		if (CharacterData::Instance().GetPlayerStatus().skillPoint >= 30)
+		if (m_playerData.GetPlayerStatus().skillPoint >= 30)
 		{
 			m_EButtonkeyInput = true;
-			CharacterData::Instance().SetPlayerStatus().skillPoint -= 30;
+			m_playerData.SetPlayerStatus().skillPoint -= 30;
 		}
 	}
 
 	if (KeyboardManager::GetInstance().IsKeyJustPressed('Q'))
 	{
-		if (CharacterData::Instance().GetPlayerStatus().specialPoint == CharacterData::Instance().GetPlayerStatus().specialPointMax)
+		if (m_playerData.GetPlayerStatus().specialPoint == m_playerData.GetPlayerStatus().specialPointMax)
 		{
-			CharacterData::Instance().SetPlayerStatus().specialPoint = 0;
+			m_playerData.SetPlayerStatus().specialPoint = 0;
 			auto specialAttackState = std::make_shared<PlayerState_SpecialAttackCutIn>();
 			m_player->ChangeState(specialAttackState);
 			return;
@@ -175,7 +175,7 @@ void PlayerState_Attack4::StateUpdate()
 			const float lDuration = isPressed ? KeyboardManager::GetInstance().GetKeyPressDuration(VK_LBUTTON) : 0.0f;
 
 			// 現在のチャージ残数
-			int& chargeCount = CharacterData::Instance().SetPlayerStatus().chargeCount;
+			int& chargeCount = m_playerData.SetPlayerStatus().chargeCount;
 
 			// 1) 先行入力を最優先で消費してAttack1へ
 			if (m_LButtonkeyInput)

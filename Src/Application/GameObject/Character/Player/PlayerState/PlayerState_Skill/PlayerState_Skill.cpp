@@ -27,9 +27,9 @@ void PlayerState_Skill::StateStart()
 	m_player->AddAfterImage(true, 10, 0.05f, { 0.0f,0.5f,1.0f,0.5f }, 0.5f);
 
 
-	if (CharacterData::Instance().GetPlayerStatus().chargeCount < 3)
+	if (m_playerData.GetPlayerStatus().chargeCount < 3)
 	{
-		CharacterData::Instance().SetPlayerStatus().chargeCount++;
+		m_playerData.SetPlayerStatus().chargeCount++;
 	}
 }
 

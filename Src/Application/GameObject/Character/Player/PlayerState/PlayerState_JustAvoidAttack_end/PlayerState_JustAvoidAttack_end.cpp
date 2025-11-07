@@ -45,9 +45,9 @@ void PlayerState_JustAvoidAttack_end::StateStart()
 	SceneManager::Instance().GetObjectWeakPtr(m_bossEnemy);
 
 	// Chargeカウントを1増やす（最大3まで）
-	if (CharacterData::Instance().GetPlayerStatus().chargeCount < 3)
+	if (m_playerData.GetPlayerStatus().chargeCount < 3)
 	{
-		CharacterData::Instance().SetPlayerStatus().chargeCount++;
+		m_playerData.SetPlayerStatus().chargeCount++;
 	}
 }
 

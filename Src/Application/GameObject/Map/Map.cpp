@@ -18,5 +18,4 @@ void Map::DrawGrayScale()
 	if (!SceneManager::Instance().GetDrawGrayScale()) return;
 
 	SelectDraw3dModel::DrawGrayScale();
-
 }

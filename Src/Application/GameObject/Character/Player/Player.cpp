@@ -20,7 +20,7 @@ const uint32_t Player::TypeID = KdGameObject::GenerateTypeID();
 
 void Player::Init()
 {
-	CharaBase::Init();
+	CharacterBase::Init();
 
 	m_animator->SetAnimation(m_modelWork->GetData()->GetAnimation("Idle"));
 
@@ -53,6 +53,11 @@ void Player::Init()
 	m_dissever =0.0f;
 
 	m_isHit = false;
+
+	m_characterData->SetCharacterData().hp = 1000;
+	m_characterData->SetCharacterData().maxHp = 1000;
+	m_characterData->SetCharacterData().attack = 0;
+
 }
 
 void Player::PreUpdate()
@@ -227,8 +232,8 @@ void Player::Update()
 
 	// スキル・スペシャル使用可能判定
 	{
-		m_useSkill = (CharacterData::Instance().GetPlayerStatus().skillPoint >= 30.0);
-		m_useSpecial = (CharacterData::Instance().SetPlayerStatus().specialPoint == CharacterData::Instance().GetPlayerStatus().specialPointMax);
+		m_useSkill = (m_characterData->GetPlayerStatus().skillPoint >= 30.0);
+		m_useSpecial = (m_characterData->SetPlayerStatus().specialPoint == m_characterData->GetPlayerStatus().specialPointMax);
 	}
 
 	if (m_justAvoid)
@@ -343,13 +348,13 @@ void Player::UpdateAttackCollision(float _radius, float _distance, int _attackCo
 					if (obj->GetTypeID() == Enemy::TypeID)
 					{
 						auto e = std::static_pointer_cast<Enemy>(obj);
-						e->Damage(CharacterData::Instance().GetCharacterData().attack);
+						e->Damage(m_characterData->GetCharacterData().attack);
 						e->SetEnemyHit(true);
 					}
 					else if (obj->GetTypeID() == BossEnemy::TypeID)
 					{
 						auto b = std::static_pointer_cast<BossEnemy>(obj);
-						b->Damage(CharacterData::Instance().GetCharacterData().attack);
+						b->Damage(m_characterData->GetCharacterData().attack);
 						b->SetEnemyHit(true);
 					}
 					hitAny = true;
@@ -364,17 +369,17 @@ void Player::UpdateAttackCollision(float _radius, float _distance, int _attackCo
 				camera->StartShake(_cameraShakePow, _cameraTime);
 			}
 
-			if (CharacterData::Instance().GetPlayerStatus().skillPoint <= 100)
+			if (m_characterData->GetPlayerStatus().skillPoint <= 100)
 			{
-				CharacterData::Instance().SetPlayerStatus().skillPoint += _attackCount / 4;
+				m_characterData->SetPlayerStatus().skillPoint += _attackCount / 4;
 			}
 
 			// specialPoint を絶対に3000 を超えないように飽和加算
 			constexpr int kAbsoluteSpecialMax = 3000;
-			const int upper = std::min(CharacterData::Instance().GetPlayerStatus().specialPointMax, kAbsoluteSpecialMax);
+			const int upper = std::min(m_characterData->GetPlayerStatus().specialPointMax, kAbsoluteSpecialMax);
 			const int add = _attackCount * 20;
 
-			CharacterData::Instance().SetPlayerStatus().specialPoint = std::min(CharacterData::Instance().GetPlayerStatus().specialPoint + add, upper);
+			m_characterData->SetPlayerStatus().specialPoint = std::min(m_characterData->GetPlayerStatus().specialPoint + add, upper);
 		}
 
 		m_chargeAttackCount++;
@@ -389,7 +394,7 @@ void Player::UpdateAttackCollision(float _radius, float _distance, int _attackCo
 
 void Player::ImGuiInspector()
 {
-	CharaBase::ImGuiInspector();
+	CharacterBase::ImGuiInspector();
 
 	ImGui::Text(U8("プレイヤーの設定"));
 
@@ -432,7 +437,7 @@ void Player::ImGuiInspector()
 
 void Player::JsonInput(const nlohmann::json& _json)
 {
-	CharaBase::JsonInput(_json);
+	CharacterBase::JsonInput(_json);
 	if (_json.contains("GravitySpeed")) m_gravitySpeed = _json["GravitySpeed"].get<float>();
 	if (_json.contains("fixedFps")) m_fixedFrameRate = _json["fixedFps"].get<float>();
 	if (_json.contains("moveSpeed")) m_moveSpeed = _json["moveSpeed"].get<float>();
@@ -454,7 +459,7 @@ void Player::JsonInput(const nlohmann::json& _json)
 
 void Player::JsonSave(nlohmann::json& _json) const
 {
-	CharaBase::JsonSave(_json);
+	CharacterBase::JsonSave(_json);
 	_json["GravitySpeed"] = m_gravitySpeed;
 	_json["fixedFps"] = m_fixedFrameRate;
 	_json["moveSpeed"] = m_moveSpeed;
@@ -500,8 +505,8 @@ void Player::UpdateMoveDirectionFromInput()
 
 void Player::TakeDamage(int damage)
 {
-	CharacterData::Instance().SetCharacterData().hp -= damage;
-	if (CharacterData::Instance().GetCharacterData().hp < 0) CharacterData::Instance().SetCharacterData().hp = 0;
+	m_characterData->SetCharacterData().hp -= damage;
+	if (m_characterData->GetCharacterData().hp < 0) m_characterData->SetCharacterData().hp = 0;
 }
 
 void Player::CaptureAfterImage()

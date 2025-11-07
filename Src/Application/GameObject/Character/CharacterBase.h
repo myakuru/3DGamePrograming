@@ -4,11 +4,12 @@
 class EnemyStateBase;
 class PlayerCamera;
 class Collision;
-class CharaBase:public SelectDraw3dModel
+class CharacterData;
+class CharacterBase:public SelectDraw3dModel
 {
 public:
-	CharaBase() = default;
-	~CharaBase() override = default;
+	CharacterBase() = default;
+	~CharacterBase() override = default;
 
 	/// <summary>
 	/// 移動ベクトルを設定します。
@@ -110,5 +111,8 @@ protected:
 	float kBumpSphereRadius = 0.2f;					// 壁にめり込むのを防ぐための球の半径
 	float kBumpSphereYOffset = 0.3f;				// プレイヤー中心(腰程度)の高さ
 	float kCollisionMargin = 0.01f;					// 壁にめり込まないための余白
+
+
+	std::shared_ptr<CharacterData> m_characterData; // キャラクターデータ(HPなどなど)
 
 };

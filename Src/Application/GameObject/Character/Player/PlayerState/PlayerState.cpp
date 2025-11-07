@@ -119,6 +119,8 @@ void PlayerStateBase::StateStart()
 	m_time = 0.0f;
 	m_animeTime = 0.0f;
 	m_maxAnimeTime = 0.0f;
+
+	m_playerData = m_player->GetStatus();
 }
 
 void PlayerStateBase::StateUpdate()

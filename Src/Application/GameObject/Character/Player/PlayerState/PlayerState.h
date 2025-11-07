@@ -59,4 +59,6 @@ protected:
 	Math::Vector3                  m_nearestEnemyPos = Math::Vector3::Zero;
 	float                          m_minDistSq = std::numeric_limits<float>::max();
 
+	CharacterData m_playerData;
+
 };

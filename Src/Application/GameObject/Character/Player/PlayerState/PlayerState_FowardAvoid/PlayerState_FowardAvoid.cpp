@@ -128,9 +128,9 @@ void PlayerState_ForwardAvoid::StateUpdate()
 		// Eキー先行入力の予約
 		if (KeyboardManager::GetInstance().IsKeyJustPressed('E'))
 		{
-			if (CharacterData::Instance().GetPlayerStatus().skillPoint >= 30)
+			if (m_playerData.GetPlayerStatus().skillPoint >= 30)
 			{
-				CharacterData::Instance().SetPlayerStatus().skillPoint -= 30;
+				m_playerData.SetPlayerStatus().skillPoint -= 30;
 				auto state = std::make_shared<PlayerState_Skill>();
 				m_player->ChangeState(state);
 				return;
@@ -139,9 +139,9 @@ void PlayerState_ForwardAvoid::StateUpdate()
 
 		if (KeyboardManager::GetInstance().IsKeyJustPressed('Q'))
 		{
-			if (CharacterData::Instance().GetPlayerStatus().specialPoint == CharacterData::Instance().GetPlayerStatus().specialPointMax)
+			if (m_playerData.GetPlayerStatus().specialPoint == m_playerData.GetPlayerStatus().specialPointMax)
 			{
-				CharacterData::Instance().SetPlayerStatus().specialPoint = 0;
+				m_playerData.SetPlayerStatus().specialPoint = 0;
 				auto specialAttackState = std::make_shared<PlayerState_SpecialAttackCutIn>();
 				m_player->ChangeState(specialAttackState);
 				return;

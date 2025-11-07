@@ -93,7 +93,6 @@ void EffekseerEffectBase::EffectUpdate()
 void EffekseerEffectBase::DrawEffect()
 {
 	// Effekseerの描画
-	//KdEffekseerManager::GetInstance().Draw();
 }
 
 void EffekseerEffectBase::DrawLit()

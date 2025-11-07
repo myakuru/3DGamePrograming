@@ -304,6 +304,7 @@
     <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack_end\BossEnemyState_WaterAttack_end.h" />
     <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterFall\BossEnemyState_WaterFall.h" />
     <ClInclude Include="Src\Application\GameObject\Character\CharacterBase.h" />
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\EnemyBase.h" />
     <ClInclude Include="Src\Application\GameObject\Character\Enemy\Enemy.h" />
     <ClInclude Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyStateBase.h" />
     <ClInclude Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack1\EnemyState_Attack1.h" />
@@ -391,9 +392,6 @@
     <ClInclude Include="Src\Application\GameObject\HUD\NormalUI\NormalUI.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\NowHp\NowHp.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\Number\NumBer.h" />
-    <ClInclude Include="Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge1\NotCharge1.h" />
-    <ClInclude Include="Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge2\NotCharge2UI.h" />
-    <ClInclude Include="Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge\NotChargeUI.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\ScaleMoving\ScaleMoving.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\ScoreBackBar\ScoreBackBar.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\Scoring\Scoring.h" />
@@ -506,6 +504,7 @@
     <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack_end\BossEnemyState_WaterAttack_end.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterFall\BossEnemyState_WaterFall.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\CharacterBase.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\EnemyBase.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\Enemy\Enemy.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyStateBase.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack1\EnemyState_Attack1.cpp" />
@@ -592,9 +591,6 @@
     <ClCompile Include="Src\Application\GameObject\HUD\NormalUI\NormalUI.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\NowHp\NowHp.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\Number\NumBer.cpp" />
-    <ClCompile Include="Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge1\NotCharge1.cpp" />
-    <ClCompile Include="Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge2\NotCharge2UI.cpp" />
-    <ClCompile Include="Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge\NotChargeUI.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\ScaleMoving\ScaleMoving.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\ScoreBackBar\ScoreBackBar.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\Scoring\Scoring.cpp" />

@@ -6,7 +6,7 @@ class Katana;
 class WeaponKatanaScabbard;
 class PlayerStateBase;
 
-class Player :public CharaBase
+class Player :public CharacterBase
 {
 public:
 
@@ -129,6 +129,12 @@ public:
 
 	// 必殺技が打てるかどうか
 	bool GetUseSpecial() const { return m_useSpecial; }
+
+	// キャラクターデーターの取得
+	const CharacterData& GetStatus() const
+	{
+		return *m_characterData;
+	}
 
 private:
 

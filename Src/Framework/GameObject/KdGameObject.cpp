@@ -16,6 +16,7 @@ void KdGameObject::Init()
 		DirectX::XMConvertToRadians(m_degree.x),
 		DirectX::XMConvertToRadians(m_degree.z)
 	);
+
 	m_mWorld.Translation(m_position);
 
 

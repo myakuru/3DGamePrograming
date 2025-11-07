@@ -4,6 +4,7 @@
 
 class Enemy;
 class PlayerCamera;
+class CharacterData;
 
 class EnemyHp : public SelectDraw2DTexture
 {
@@ -56,5 +57,6 @@ private:
 
 	Math::Vector3 m_blackBarPos = Math::Vector3(0, 0, 0);
 
+	std::shared_ptr< CharacterData> m_characterData;
 
 };

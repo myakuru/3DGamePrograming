@@ -1,6 +1,7 @@
 ﻿#include "EnemyState_Idle.h"
 #include"../../../Player/Player.h"
 #include"../EnemyState_Run/EnemyState_Run.h"
+#include "../../../../../Scene/SceneManager.h"
 
 void EnemyState_Idle::StateStart()
 {
@@ -8,6 +9,8 @@ void EnemyState_Idle::StateStart()
 	m_enemy->GetAnimator()->SetAnimation(anime);
 
 	m_enemy->SetAnimeSpeed(60.0f);
+
+	SceneManager::Instance().GetObjectWeakPtr(m_enemy->GetPlayerWeakPtr());
 
 }
 

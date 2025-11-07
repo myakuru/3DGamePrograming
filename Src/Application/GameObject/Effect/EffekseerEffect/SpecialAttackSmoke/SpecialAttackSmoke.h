@@ -8,8 +8,4 @@ public:
 	SpecialAttackSmoke() { m_typeID = TypeID; }
 	~SpecialAttackSmoke() override = default;
 
-private:
-
-	void DrawLit() override;
-
 };

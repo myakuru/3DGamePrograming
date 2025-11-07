@@ -1,21 +1,11 @@
-﻿#include "Enemy.h"
-#include"../Player/Player.h"
-#include"../../../Scene/SceneManager.h"
-#include"EnemyState/EnemyState_Idle/EnemyState_Idle.h"
-#include"EnemyState/EnemyState_Hit/EnemyState_Hit.h"
-#include"../../Camera/PlayerCamera/PlayerCamera.h"
-#include"../../Weapon/EnemySword/EnemySword.h"
-#include"../../Weapon/EnemyShield/EnemyShield.h"
-#include"../../Collition/Collition.h"
+﻿#include "EnemyBase.h"
+#include "../Player/Player.h"
 #include"../../../main.h"
-#include"../../../../MyFramework/Manager/JsonManager/JsonManager.h"
-#include"EnemyState/EnemyState_Dath/EnemyState_Dath.h"
-
+#include"../../../Scene/SceneManager.h"
 #include"../../../Data/CharacterData/CharacterData.h"
+#include"../../../../MyFramework/Manager/JsonManager/JsonManager.h"
 
-const uint32_t Enemy::TypeID = KdGameObject::GenerateTypeID();
-
-void Enemy::Init()
+void EnemyBase::Init()
 {
 	CharacterBase::Init();
 
@@ -29,114 +19,29 @@ void Enemy::Init()
 
 	m_pCollider->RegisterCollisionShape("PlayerSphere", sphere, KdCollider::TypeEnemyHit);
 
-	StateInit();
-
 	m_isAtkPlayer = false;
+
 	m_dissever = 0.0f;
 
 	m_invincible = false;
 
 	m_Expired = false;
-
-	// 要変更
-	m_characterData->SetCharacterData().hp = 100;
-	m_characterData->SetCharacterData().maxHp = 100;
-	m_characterData->SetCharacterData().attack = 10;
-
 }
 
-void Enemy::Update()
+void EnemyBase::Update()
 {
-	// 自分の武器が未割り当て/消滅なら一度だけ取得して所有者に設定する
-
-	if (m_wpSword.expired())
-	{
-		SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemySword, m_object);
-		for (auto& w : m_object)
-		{
-			if (auto weapon = w.lock())
-			{
-				if (weapon->GetTypeID() == EnemySword::TypeID)
-				{
-					auto castedEnemySword = std::static_pointer_cast<EnemySword>(weapon);
-					if (castedEnemySword->GetOwnerEnemy().expired())
-					{
-						castedEnemySword->SetOwnerEnemy(std::static_pointer_cast<Enemy>(shared_from_this()));
-						m_wpSword = castedEnemySword;
-						break;
-					}
-				}
-			}
-		}
-		m_object.clear();
-	}
-
-	if (m_wpShield.expired())
-	{
-		SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyShield, m_object);
-		for (auto& w : m_object)
-		{
-			if (auto weapon = w.lock())
-			{
-				if (weapon->GetTypeID() == EnemyShield::TypeID)
-				{
-					auto castedEnemyShield = std::static_pointer_cast<EnemyShield>(weapon);
-					if (castedEnemyShield->GetOwnerEnemy().expired())
-					{
-						castedEnemyShield->SetOwnerEnemy(std::static_pointer_cast<Enemy>(shared_from_this()));
-						m_wpShield = castedEnemyShield;
-						break;
-					}
-				}
-			}
-		}
-		m_object.clear();
-	}
-
-	CharacterBase::Update();
-
-	// ヒット処理。
-	if (m_isHit)
-	{
-		m_isHit = false;
-
-		if (m_invincible) return;
-
-		// ダメージステートに変更
-		auto spDamageState = std::make_shared<EnemyState_Hit>();
-		ChangeState(spDamageState);
-		return;
-	}
-
-	// 自分が所有する剣のみ行列を更新
-	if (auto sword = m_wpSword.lock())
-	{
-		if (auto rightHandNode = m_modelWork->FindWorkNode("weapon_r"); rightHandNode)
-		{
-			sword->SetEnemyRightHandMatrix(rightHandNode->m_worldTransform);
-			sword->SetEnemyMatrix(m_mWorld);
-		}
-	}
-
-	// 自分が所有する盾のみ行列を更新
-	if (auto shield = m_wpShield.lock())
-	{
-		if (auto leftHandNode = m_modelWork->FindWorkNode("weapon_l"); leftHandNode)
-		{
-			shield->SetEnemyLeftHandMatrix(leftHandNode->m_worldTransform);
-			shield->SetEnemyMatrix(m_mWorld);
-		}
-	}
 }
 
-void Enemy::DrawLit()
+void EnemyBase::DrawLit()
 {
 	//ディゾルブ処理
-	KdShaderManager::Instance().m_StandardShader.SetDissolve(m_dissever,&m_dissolvePower, &m_dissolveColor);
+	KdShaderManager::Instance().m_StandardShader.SetDissolve(m_dissever, &m_dissolvePower, &m_dissolveColor);
 	SelectDraw3dModel::DrawLit();
 }
 
-void Enemy::UpdateAttackCollision(float _radius, float _distance, int _attackCount, float _attackTimer, float _activeBeginSec, float _activeEndSec)
+void EnemyBase::UpdateAttackCollision(float _radius, float _distance,
+	int _attackCount, float _attackTimer,
+	float _activeBeginSec, float _activeEndSec)
 {
 	Math::Vector3 forward = Math::Vector3::TransformNormal(Math::Vector3::Forward, Math::Matrix::CreateFromQuaternion(m_rotation));
 	forward.Normalize();
@@ -209,7 +114,7 @@ void Enemy::UpdateAttackCollision(float _radius, float _distance, int _attackCou
 	{
 		if (auto playerPtr = players.lock())
 		{
-			if(playerPtr->GetTypeID() != Player::TypeID) continue;
+			if (playerPtr->GetTypeID() != Player::TypeID) continue;
 
 			auto castedPlayer = std::static_pointer_cast<Player>(playerPtr);
 
@@ -277,10 +182,9 @@ void Enemy::UpdateAttackCollision(float _radius, float _distance, int _attackCou
 	}
 
 	m_object.clear();
-
 }
 
-void Enemy::PostUpdate()
+void EnemyBase::PostUpdate()
 {
 	// 球判定
 	// 球判定用の変数
@@ -301,7 +205,7 @@ void Enemy::PostUpdate()
 
 	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, m_object);
 
-	for(auto & weakCol : m_object)
+	for (auto& weakCol : m_object)
 	{
 		if (auto col = weakCol.lock(); col)
 		{
@@ -330,21 +234,21 @@ void Enemy::PostUpdate()
 		}
 	}
 
-	 if (hit)
-    {
-        // 正規化して押し出す方向を求める
-        hitDir.Normalize();
+	if (hit)
+	{
+		// 正規化して押し出す方向を求める
+		hitDir.Normalize();
 
-        // Y方向の押し出しを無効化（XZ平面のみ）
-        hitDir.y = 0.0f;
-        hitDir.Normalize();
+		// Y方向の押し出しを無効化（XZ平面のみ）
+		hitDir.y = 0.0f;
+		hitDir.Normalize();
 
-        //当たってたらその方向から押し出す
-        m_position += hitDir * maxOverLap;
-    }
+		//当たってたらその方向から押し出す
+		m_position += hitDir * maxOverLap;
+	}
 }
 
-void Enemy::ImGuiInspector()
+void EnemyBase::ImGuiInspector()
 {
 	CharacterBase::ImGuiInspector();
 
@@ -361,7 +265,7 @@ void Enemy::ImGuiInspector()
 	ImGui::DragFloat(U8("ディゾルブ進行度"), &m_dissolvePower, 0.01f, 0.0f, 1.0f);
 }
 
-void Enemy::JsonInput(const nlohmann::json& _json)
+void EnemyBase::JsonInput(const nlohmann::json& _json)
 {
 	CharacterBase::JsonInput(_json);
 	if (_json.contains("GravitySpeed")) m_gravitySpeed = _json["GravitySpeed"].get<float>();
@@ -372,7 +276,7 @@ void Enemy::JsonInput(const nlohmann::json& _json)
 	if (_json.contains("dissolvePower")) m_dissolvePower = _json["dissolvePower"].get<float>();
 }
 
-void Enemy::JsonSave(nlohmann::json& _json) const
+void EnemyBase::JsonSave(nlohmann::json& _json) const
 {
 	CharacterBase::JsonSave(_json);
 	_json["GravitySpeed"] = m_gravitySpeed;
@@ -383,7 +287,7 @@ void Enemy::JsonSave(nlohmann::json& _json) const
 	_json["dissolvePower"] = m_dissolvePower;
 }
 
-void Enemy::UpdateQuaternion(Math::Vector3& _moveVector)
+void EnemyBase::UpdateQuaternion(Math::Vector3& _moveVector)
 {
 	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
 
@@ -396,65 +300,4 @@ void Enemy::UpdateQuaternion(Math::Vector3& _moveVector)
 
 	// 滑らかに回転させる
 	m_rotation = Math::Quaternion::Slerp(m_rotation, targetRotation, deltaTime * m_fixedFrameRate);
-}
-
-void Enemy::StateInit()
-{
-	m_isAtkPlayer = false;
-	m_hitOnce = false;
-
-	// 初期状態を設定
-	auto state = std::make_shared<EnemyState_Idle>();
-	ChangeState(state);
-}
-
-void Enemy::ChangeState(std::shared_ptr<EnemyStateBase> _state)
-{
-	_state->SetEnemy(this);
-	m_stateManager.ChangeState(_state);
-}
-
-void Enemy::Damage(int _damage)
-{
-	if (m_Expired) return;
-
-	m_getDamage = _damage;
-
-	m_characterData->SetCharacterData().hp -= _damage;
-
-	if (m_characterData->GetCharacterData().hp < 0)
-	{
-		m_characterData->SetCharacterData().hp = 0;
-	}
-
-	if (m_characterData->GetCharacterData().hp == 0)
-	{
-		//　死亡処理
-		m_Expired = true;
-		m_isHit = false;
-		m_invincible = true; // 不要な追加ヒット抑止
-
-		auto spDeathState = std::make_shared<EnemyState_Death>();
-		ChangeState(spDeathState);
-		return;
-	}
-	
-}
-
-const CharacterData& Enemy::GetEnemyStatus()
-{
-	return *m_characterData;
-}
-
-void Enemy::SetDissolve(float v)
-{
-	// 0～1にクランプ
-	if (v < 0.0f) v = 0.0f;
-	else if (v > 1.0f) v = 1.0f;
-	m_dissever = v;
-}
-
-float Enemy::GetDissolve() const
-{
-	return m_dissever;
 }

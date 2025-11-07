@@ -100,7 +100,7 @@ void Katana::DrawRimLight()
 		auto& stdSh = KdShaderManager::Instance().m_StandardShader;
 		// 青い武器風
 		stdSh.SetRimLight(m_rimLightPower, m_rimLightColor);
-		// スパークル用の時間オフセット
+		// UVスクロール用の時間オフセット
 		stdSh.SetUVOffset({ m_rimLightUVOffset, -m_rimLightUVOffset });
 
 		stdSh.DrawModel(*m_model, m_swordData.m_weaponMatrix, m_color);

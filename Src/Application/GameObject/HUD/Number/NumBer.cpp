@@ -1,6 +1,7 @@
 ﻿#include "NumBer.h"
 #include"../../../Scene/SceneManager.h"
 #include"../../../Data/CharacterData/CharacterData.h"
+#include"../../Character/Player/Player.h"
 
 const uint32_t NumBer::TypeID = KdGameObject::GenerateTypeID();
 
@@ -11,14 +12,17 @@ void NumBer::Init()
 	m_texture = KdAssets::Instance().m_textures.GetData("Asset/Textures/Time/Hp.png");
 
 	m_displayTime = 10000;
+
+	SceneManager::Instance().GetObjectWeakPtr<Player>(m_player);
+
 }
 
 void NumBer::Update()
 {
-
-	int hp = CharacterData::Instance().GetCharacterData().hp;
-
-	m_displayTime = hp;
+	if (auto playerStatus = m_player.lock(); playerStatus)
+	{
+		m_displayTime = playerStatus->GetStatus().GetCharacterData().hp;
+	}
 }
 
 void NumBer::DrawSprite()

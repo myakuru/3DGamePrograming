@@ -1,6 +1,7 @@
 ﻿#include "NowHp.h"
 #include"../../../Scene/SceneManager.h"
 #include"../../../Data/CharacterData/CharacterData.h"
+#include"../../Character/Player/Player.h"
 
 const uint32_t NowHp::TypeID = KdGameObject::GenerateTypeID();
 
@@ -8,12 +9,17 @@ void NowHp::Init()
 {
 	m_displayTime = 10000;
 	m_texture = KdAssets::Instance().m_textures.GetData("Asset/Textures/Time/Hp.png");
+
+	SceneManager::Instance().GetObjectWeakPtr(m_player);
 }
 
 void NowHp::Update()
 {
-	int hp = CharacterData::Instance().GetCharacterData().hp;
-	m_displayTime = hp;
+	if (auto playerStatus = m_player.lock(); playerStatus)
+	{
+		// HPが増加しているかどうかをチェック
+		m_displayTime = playerStatus->GetStatus().GetCharacterData().hp;
+	}	
 }
 
 void NowHp::DrawSprite()

@@ -15,7 +15,7 @@ const uint32_t BossEnemy::TypeID = KdGameObject::GenerateTypeID();
 
 void BossEnemy::Init()
 {
-	CharaBase::Init();
+	CharacterBase::Init();
 
 	m_modelWork->SetModelData("Asset/Models/Enemy/BossEnemy/BossEnemy.gltf");
 
@@ -85,7 +85,7 @@ void BossEnemy::Update()
 	// クールダウン処理
 	TickCooldowns(Application::Instance().GetDeltaTime());
 
-	CharaBase::Update();
+	CharacterBase::Update();
 
 	// ヒット処理。
 	if (m_isHit)
@@ -113,7 +113,7 @@ void BossEnemy::DrawLit()
 {
 	//ディゾルブ処理
 	KdShaderManager::Instance().m_StandardShader.SetDissolve(m_dissever, &m_dissolvePower, &m_dissolveColor);
-	CharaBase::DrawLit();
+	CharacterBase::DrawLit();
 }
 
 void BossEnemy::UpdateAttackCollision(float _radius, float _distance, int _attackCount, float _attackTimer, float _activeBeginSec, float _activeEndSec)
@@ -313,7 +313,7 @@ void BossEnemy::PostUpdate()
 
 void BossEnemy::ImGuiInspector()
 {
-	CharaBase::ImGuiInspector();
+	CharacterBase::ImGuiInspector();
 
 	ImGui::DragFloat(U8("重力の大きさ"), &m_gravitySpeed, 0.01f);
 	ImGui::DragFloat(U8("アニメーション速度"), &m_fixedFrameRate, 1.f);
@@ -339,7 +339,7 @@ void BossEnemy::ImGuiInspector()
 
 void BossEnemy::JsonInput(const nlohmann::json& _json)
 {
-	CharaBase::JsonInput(_json);
+	CharacterBase::JsonInput(_json);
 	if (_json.contains("GravitySpeed")) m_gravitySpeed = _json["GravitySpeed"].get<float>();
 	if (_json.contains("fixedFps")) m_fixedFrameRate = _json["fixedFps"].get<float>();
 	if (_json.contains("moveSpeed")) m_moveSpeed = _json["moveSpeed"].get<float>();
@@ -350,7 +350,7 @@ void BossEnemy::JsonInput(const nlohmann::json& _json)
 
 void BossEnemy::JsonSave(nlohmann::json& _json) const
 {
-	CharaBase::JsonSave(_json);
+	CharacterBase::JsonSave(_json);
 	_json["GravitySpeed"] = m_gravitySpeed;
 	_json["fixedFps"] = m_fixedFrameRate;
 	_json["moveSpeed"] = m_moveSpeed;

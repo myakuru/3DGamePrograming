@@ -47,18 +47,8 @@ void PlayerState_Attack::StateStart()
 void PlayerState_Attack::StateUpdate()
 {
 
-	// アニメーション時間のデバッグ表示
-	{
-		m_animeTime = m_player->GetAnimator()->GetPlayProgress();
-
-		m_maxAnimeTime = m_player->GetAnimator()->GetMaxAnimationTime();
-
-		if (m_animeTime > m_maxAnimeTime)
-		{
-			KdDebugGUI::Instance().AddLog(U8("Attackアニメ時間: %f"), m_animeTime);
-			KdDebugGUI::Instance().AddLog("\n");
-		}
-	}
+	// アニメーション時間の取得
+	m_animeTime = m_player->GetAnimator()->GetPlayProgress();
 
 	float deltaTime = Application::Instance().GetDeltaTime();
 
@@ -97,9 +87,9 @@ void PlayerState_Attack::StateUpdate()
 
 	if (KeyboardManager::GetInstance().IsKeyJustPressed('Q'))
 	{
-		if (CharacterData::Instance().GetPlayerStatus().specialPoint == CharacterData::Instance().GetPlayerStatus().specialPointMax)
+		if (m_playerData.GetPlayerStatus().specialPoint == m_playerData.GetPlayerStatus().specialPointMax)
 		{
-			CharacterData::Instance().SetPlayerStatus().specialPoint = 0;
+			m_playerData.SetPlayerStatus().specialPoint = 0;
 			auto specialAttackState = std::make_shared<PlayerState_SpecialAttackCutIn>();
 			m_player->ChangeState(specialAttackState);
 			return;
@@ -109,10 +99,10 @@ void PlayerState_Attack::StateUpdate()
 	// Eキー先行入力の予約
 	if (KeyboardManager::GetInstance().IsKeyJustPressed('E'))
 	{
-		if (CharacterData::Instance().GetPlayerStatus().skillPoint >= 30)
+		if (m_playerData.GetPlayerStatus().skillPoint >= 30)
 		{
 			m_EButtonkeyInput = true;
-			CharacterData::Instance().SetPlayerStatus().skillPoint -= 30;
+			m_playerData.SetPlayerStatus().skillPoint -= 30;
 		}
 	}
 
@@ -153,7 +143,7 @@ void PlayerState_Attack::StateUpdate()
 			const float lDuration = isPressed ? KeyboardManager::GetInstance().GetKeyPressDuration(VK_LBUTTON) : 0.0f;
 
 			// 現在のチャージ残数
-			int& chargeCount = CharacterData::Instance().SetPlayerStatus().chargeCount;
+			int& chargeCount = m_playerData.SetPlayerStatus().chargeCount;
 
 			// 1) 先行入力を最優先で消費してAttack1へ
 			if (m_LButtonkeyInput)

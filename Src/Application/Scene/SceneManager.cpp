@@ -61,9 +61,6 @@
 #include"../GameObject/Effect/EffekseerEffect/SpecialAttack1/SpecialAttack1.h"
 #include"../GameObject/Effect/EffekseerEffect/SpeedAttackEffect/SpeedAttackEffect.h"
 #include"../GameObject/HUD/EnemyHp/EnemyHp.h"
-#include"../GameObject/HUD/PlayerChargeUI/NotCharge/NotChargeUI.h"
-#include"../GameObject/HUD/PlayerChargeUI/NotCharge1/NotCharge1.h"
-#include"../GameObject/HUD/PlayerChargeUI/NotCharge2/NotCharge2UI.h"
 #include"../GameObject/Effect/BillBoardEffect/MapGard/MapGard.h"
 #include"../GameObject/Character/BossEnemy/BossEnemy.h"
 #include"../GameObject/Field/UpDownField/UpDownField.h"
@@ -118,9 +115,6 @@ void SceneManager::Register() const
 	RegisterObject::GetInstance().Register<ResultScore>();
 	RegisterObject::GetInstance().Register<Winner>();
 	RegisterObject::GetInstance().Register<EnemyHp>();
-	RegisterObject::GetInstance().Register<NotChargeUI>();
-	RegisterObject::GetInstance().Register<NotCharge1UI>();
-	RegisterObject::GetInstance().Register<NotCharge2UI>();
 	RegisterObject::GetInstance().Register<SkillBar>();
 	RegisterObject::GetInstance().Register<ChallengeResults>();
 	RegisterObject::GetInstance().Register<ScoreBackBar>();

@@ -4,20 +4,23 @@
 #include"../Camera/PlayerCamera/PlayerCamera.h"
 #include"../Collition/Collition.h"
 #include"../../Scene/BaseScene/BaseScene.h"
+#include"../../Data/CharacterData/CharacterData.h"
 
-void CharaBase::Init()
+void CharacterBase::Init()
 {
 	KdGameObject::Init();
 	m_pDebugWire = std::make_unique<KdDebugWireFrame>();
 	ModelLoad(m_path);
+
+	m_characterData = std::make_shared<CharacterData>();
 }
 
-std::shared_ptr<KdModelWork> CharaBase::GetAnimeModel()
+std::shared_ptr<KdModelWork> CharacterBase::GetAnimeModel()
 {
 	return m_modelWork;
 }
 
-void CharaBase::UpdateQuaternion(Math::Vector3& _moveVector)
+void CharacterBase::UpdateQuaternion(Math::Vector3& _moveVector)
 {
 	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
 
@@ -43,7 +46,7 @@ void CharaBase::UpdateQuaternion(Math::Vector3& _moveVector)
 	m_rotation = Math::Quaternion::Slerp(m_rotation, targetRotation, deltaTime * m_rotateSpeed);
 }
 
-void CharaBase::UpdateQuaternionDirect(const Math::Vector3& direction)
+void CharacterBase::UpdateQuaternionDirect(const Math::Vector3& direction)
 {
 	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
 	if (direction == Math::Vector3::Zero) return;
@@ -58,7 +61,7 @@ void CharaBase::UpdateQuaternionDirect(const Math::Vector3& direction)
 	m_rotation = Math::Quaternion::Slerp(m_rotation, targetRotation, deltaTime * m_rotateSpeed);
 }
 
-void CharaBase::Update()
+void CharacterBase::Update()
 {
 	KdGameObject::Update();
 
@@ -88,7 +91,7 @@ void CharaBase::Update()
 	m_mWorld = scale * quaternion * translation;
 }
 
-void CharaBase::PostUpdate()
+void CharacterBase::PostUpdate()
 {
 	// ====================================================
 	// レイの当り判定::::::::::::::::::::ここから::::::::::::::
@@ -214,7 +217,7 @@ void CharaBase::PostUpdate()
 	}
 }
 
-bool CharaBase::ModelLoad(std::string _path)
+bool CharacterBase::ModelLoad(std::string _path)
 {
 	if (m_modelWork)
 	{
@@ -224,17 +227,17 @@ bool CharaBase::ModelLoad(std::string _path)
 	return false;
 }
 
-void CharaBase::ImGuiInspector()
+void CharacterBase::ImGuiInspector()
 {
 	SelectDraw3dModel::ImGuiInspector();
 }
 
-void CharaBase::JsonInput(const nlohmann::json& _json)
+void CharacterBase::JsonInput(const nlohmann::json& _json)
 {
 	SelectDraw3dModel::JsonInput(_json);
 }
 
-void CharaBase::JsonSave(nlohmann::json& _json) const
+void CharacterBase::JsonSave(nlohmann::json& _json) const
 {
 	SelectDraw3dModel::JsonSave(_json);
 }

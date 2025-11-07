@@ -253,18 +253,6 @@
     <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer">
       <UniqueIdentifier>{3058bc22-3a5a-44bc-8b4a-179627fd214d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\GameObject\HUD\PlayerChargeUI">
-      <UniqueIdentifier>{0252c1a2-a4a3-46cb-ba76-ef12e649467c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge">
-      <UniqueIdentifier>{9b68d6d0-c652-49d8-a1da-1bd37757c170}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge1">
-      <UniqueIdentifier>{be1b3a25-3095-4f25-bb5f-85193cd4f8f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge2">
-      <UniqueIdentifier>{038b7fd5-a6af-4e73-a9fb-35c23f629dd4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard">
       <UniqueIdentifier>{c193f2f4-8991-47cb-9655-cc875a1151a3}</UniqueIdentifier>
     </Filter>
@@ -525,6 +513,9 @@
     </Filter>
     <Filter Include="Src\MyFramework\Manager\ImGuiManager">
       <UniqueIdentifier>{879c7b19-c6b0-4933-a569-763119b37800}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase">
+      <UniqueIdentifier>{e10ff7ef-e9c2-496b-9d43-0c69bcb0cb9c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -999,15 +990,6 @@
     <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer\PlayerCameraState_LookPlayer.h">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge\NotChargeUI.h">
-      <Filter>Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge1\NotCharge1.h">
-      <Filter>Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge1</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge2\NotCharge2UI.h">
-      <Filter>Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge2</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeAttack1\PlayerState_ChargeAttack1.h">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttack1</Filter>
     </ClInclude>
@@ -1148,6 +1130,9 @@
     </ClInclude>
     <ClInclude Include="Src\Application\Scene\ConstructionSiteStage\ConstructionSiteStage.h">
       <Filter>Src\Application\Scene\ConstructionSiteStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\EnemyBase.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1574,15 +1559,6 @@
     <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer\PlayerCameraState_LookPlayer.cpp">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge\NotChargeUI.cpp">
-      <Filter>Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge1\NotCharge1.cpp">
-      <Filter>Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge1</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge2\NotCharge2UI.cpp">
-      <Filter>Src\Application\GameObject\HUD\PlayerChargeUI\NotCharge2</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeAttack1\PlayerState_ChargeAttack1.cpp">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttack1</Filter>
     </ClCompile>
@@ -1717,6 +1693,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Scene\ConstructionSiteStage\ConstructionSiteStage.cpp">
       <Filter>Src\Application\Scene\ConstructionSiteStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\EnemyBase.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

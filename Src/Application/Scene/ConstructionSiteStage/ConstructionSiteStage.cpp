@@ -10,7 +10,6 @@
 
 void ConstructionSiteStage::Event()
 {
-
 	// 敵を探して、いなかったらゲームクリアさせる
 	SearchEnemy();
 

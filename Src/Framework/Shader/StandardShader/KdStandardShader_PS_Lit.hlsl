@@ -112,6 +112,9 @@ float4 main(VSOutput In) : SV_Target0
 
 	// UV座標（0～1）から 射影座標（-1～1）へ変換
 	wN = wN * 2.0 - 1.0;
+
+	// 法線マップをリターンする
+	//return float4(normalize(wN), 1.0);
 	
 	{
 		// 3種の法線から法線行列を作成

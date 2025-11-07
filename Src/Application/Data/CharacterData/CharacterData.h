@@ -5,19 +5,10 @@ public:
 	CharacterData() = default;
 	~CharacterData() = default;
 
+private:
+
 	void JsonInput(const nlohmann::json& _json);
 	void JsonSave(nlohmann::json& _json) const;
-
-	/// <summary>
-	/// キャラクターデータの取得
-	/// </summary>
-	static CharacterData& Instance()
-	{
-		static CharacterData instance;
-		return instance;
-	}
-
-private:
 
 	struct s_CharacterData
 	{
@@ -27,6 +18,7 @@ private:
 	};
 
 public:
+
 	struct s_PlayerStatus
 	{
 		int chargeCount = 0;		// チャージ攻撃の回数

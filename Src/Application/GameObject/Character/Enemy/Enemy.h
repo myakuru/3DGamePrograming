@@ -3,7 +3,7 @@
 class Player;
 class EnemySword;
 class EnemyShield;
-class Enemy :public CharaBase
+class Enemy :public CharacterBase
 {
 public:
 	// クラスごとに一意なTypeIDを持たせる
@@ -24,7 +24,7 @@ public:
 	void StateInit();
 	void ChangeState(std::shared_ptr<EnemyStateBase> _state);
 
-	const std::weak_ptr<Player>& GetPlayerWeakPtr() const
+	std::weak_ptr<Player>& GetPlayerWeakPtr()
 	{
 		return m_wpPlayer;
 	}
@@ -63,15 +63,7 @@ public:
 		return m_getDamage;
 	}
 
-	struct EnemyStatus
-	{
-		int hp = 150000;			// 体力
-		int attack = 100;			// 攻撃力
-		int maxHp = 150000;			// 最大体力
-	};
-
-	const EnemyStatus& GetStatus() { return m_status; }
-
+	const CharacterData& GetEnemyStatus();
 
 	// 回避成功フラグの取得
 	bool GetJustAvoidSuccess() const { return m_justAvoidSuccess; }
@@ -114,8 +106,6 @@ private:
 
 	float m_attackRadius = 1.5f;		// 攻撃判定の半径
 	float m_attackFrame = 0.0f;			// 攻撃判定フレーム
-
-	EnemyStatus m_status;				// 敵のステータス
 
 	std::weak_ptr<EnemySword>  m_wpSword;
 	std::weak_ptr<EnemyShield> m_wpShield;

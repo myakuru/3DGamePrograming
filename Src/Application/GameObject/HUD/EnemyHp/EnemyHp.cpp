@@ -3,6 +3,7 @@
 #include"../../../main.h"
 #include"../../../GameObject/Character/Enemy/Enemy.h"
 #include"../../Camera/PlayerCamera/PlayerCamera.h"
+#include"../../../Data/CharacterData/CharacterData.h"
 
 const uint32_t EnemyHp::TypeID = KdGameObject::GenerateTypeID();
 
@@ -49,10 +50,12 @@ void EnemyHp::Update()
 
 					// Hpバーの表示割合を計算
 					float hpRate = 0.0f;
-					const auto& enemyStatus = castedEnemy->GetStatus();
-					if (enemyStatus.maxHp > 0)
+
+					const auto& enemyStatus = castedEnemy->GetEnemyStatus();
+
+					if (enemyStatus.GetCharacterData().hp > 0)
 					{
-						hpRate = static_cast<float>(enemyStatus.hp) / static_cast<float>(enemyStatus.maxHp);
+						hpRate = static_cast<float>(enemyStatus.GetCharacterData().hp) / static_cast<float>(enemyStatus.GetCharacterData().maxHp);
 					}
 
 					// Hpバーの表示割合に応じてレクトを作成
