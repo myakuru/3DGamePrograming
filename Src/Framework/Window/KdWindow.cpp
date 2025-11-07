@@ -38,17 +38,17 @@ bool KdWindow::Create(int clientWidth, int clientHeight, std::string_view titleN
 
 	//ウィンドウの作成
 	m_hWnd = CreateWindow(
-		wndClsName.c_str(),									// ウィンドウクラス名
+		wndClsName.c_str(),										// ウィンドウクラス名
 		sjis_to_wide(titleName.data()).c_str(),					// ウィンドウのタイトル
-		WS_OVERLAPPEDWINDOW - WS_THICKFRAME - WS_MAXIMIZEBOX,				// ウィンドウタイプを標準タイプに	
-		0,													// ウィンドウの位置（Ｘ座標）
-		0,													// ウィンドウの位置（Ｙ座標）						
-		clientWidth,										// ウィンドウの幅
-		clientHeight,										// ウィンドウの高さ			
-		nullptr,											// 親ウィンドウのハンドル
-		nullptr,											// メニューのハンドル
-		hInst,												// インスタンスハンドル 
-		this);												// 追加情報
+		WS_OVERLAPPEDWINDOW - WS_THICKFRAME - WS_MAXIMIZEBOX,	// ウィンドウタイプを標準タイプに	
+		0,														// ウィンドウの位置（Ｘ座標）
+		0,														// ウィンドウの位置（Ｙ座標）						
+		clientWidth,											// ウィンドウの幅
+		clientHeight,											// ウィンドウの高さ			
+		nullptr,												// 親ウィンドウのハンドル
+		nullptr,												// メニューのハンドル
+		hInst,													// インスタンスハンドル 
+		this);													// 追加情報
 
 	if (m_hWnd == nullptr) {
 		return false;

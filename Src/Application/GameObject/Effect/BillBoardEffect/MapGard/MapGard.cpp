@@ -16,7 +16,7 @@ void MapGard::Init()
 
 	m_scale = { 0.15f,0.8f,1.0f };
 
-	m_position.y = 10.7f;
+	m_position.y = 102.0f;
 
 }
 

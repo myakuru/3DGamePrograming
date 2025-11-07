@@ -145,9 +145,9 @@ public:
 	const std::string &GetNameClass() const { return m_className; }
 
 	// 親子関係の作成
-	virtual void AddChild(std::weak_ptr<KdGameObject> a_child);
+	virtual void AddChild(const std::shared_ptr<KdGameObject>& a_child);
 
-	virtual void EraceChild(std::weak_ptr<KdGameObject>& _child);
+	virtual void EraceChild(const std::shared_ptr<KdGameObject>& child);
 
 	void SortChild();
 	bool SearchChild(const std::shared_ptr<KdGameObject>& _temp);
@@ -155,8 +155,9 @@ public:
 	// 自分のアドレスを返す
 	virtual std::shared_ptr<KdGameObject> GetMyAdls() { return shared_from_this(); }
 	virtual void SetParent(const std::weak_ptr<KdGameObject>& a_obj) { m_parentObjects = a_obj; }
+	// 循環参照を避けるために親はweak_ptrで返す
 	virtual std::weak_ptr<KdGameObject>& GetParent() { return m_parentObjects; }
-	virtual std::list<std::weak_ptr<KdGameObject>>& GetChild() { return m_childObjects; }
+	virtual std::list<std::shared_ptr<KdGameObject>>& GetChild() { return m_childObjects; }
 
 protected:
 
@@ -203,7 +204,7 @@ protected:
 
 	float m_dissever = 0.0f;			// ディゾルブ値
 
-	std::list<std::weak_ptr<KdGameObject>> m_childObjects; // 子オブジェクトを格納するリスト
+	std::list<std::shared_ptr<KdGameObject>> m_childObjects;  // 子オブジェクトを格納するリスト
 	std::weak_ptr<KdGameObject> m_parentObjects; // 親オブジェクトを格納するリスト
 
 	// 位置

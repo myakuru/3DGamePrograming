@@ -15,7 +15,8 @@ public:
 	std::shared_ptr<KdGameObject> AddJsonObject
 	(
 		const std::string& _className,
-		const nlohmann::json& _json = nlohmann::json()
+		const nlohmann::json& _json = nlohmann::json(),
+		bool _addToScene = true
 	)	const;
 	// Jsonのファイルを生成する。
 	void JsonSerialize(const nlohmann::json& _json, const std::string& _path) const;

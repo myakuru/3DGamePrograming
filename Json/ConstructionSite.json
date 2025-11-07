@@ -74,7 +74,7 @@
     },
     "fixedFps": 60.0,
     "moveSpeed": 0.14000000059604645,
-    "path": "Asset\\Models\\Player\\Perula\\Player\\Perula.gltf",
+    "path": "Asset\\Models\\Player\\Perula\\Perula.gltf",
     "pointLightColor": {
       "x": 0.3970588445663452,
       "y": 0.8935984969139099,
@@ -88,9 +88,9 @@
     "pointLightOn": true,
     "pointLightRadius": 2.0,
     "pos": {
-      "x": -15.749870300292969,
+      "x": 5.903492450714111,
       "y": 100.99999237060547,
-      "z": -6.5119781494140625
+      "z": -5.324080467224121
     },
     "rotateSpeed": 30.0,
     "scale": {
@@ -183,15 +183,15 @@
       "z": 1.0
     },
     "deg": {
-      "x": 28.64993667602539,
-      "y": 160.8478240966797,
+      "x": 0.0,
+      "y": 320.0,
       "z": 0.0
     },
     "fov": 70.0,
     "m_cameraPos": {
-      "x": -15.749866485595703,
+      "x": 5.903492450714111,
       "y": 100.99999237060547,
-      "z": -6.51197624206543
+      "z": -5.324080467224121
     },
     "moveSpeed": 50.0,
     "path": "Asset/Models/Sky/Sky.gltf",
@@ -1006,9 +1006,9 @@
     "Name": "class EnemySword",
     "color": {
       "w": 1.0,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
+      "x": 3.9215686321258545,
+      "y": 3.9215686321258545,
+      "z": 3.9215686321258545
     },
     "deg": {
       "x": 0.0,
@@ -1061,9 +1061,9 @@
     "Name": "class EnemyShield",
     "color": {
       "w": 1.0,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
+      "x": 3.9215686321258545,
+      "y": 3.9215686321258545,
+      "z": 3.9215686321258545
     },
     "deg": {
       "x": 0.0,
@@ -1227,7 +1227,7 @@
       "y": 0.0,
       "z": 0.0
     },
-    "drawFlags": false,
+    "drawFlags": true,
     "path": "Asset/Models/Sky/Sky.gltf",
     "pos": {
       "x": 0.0,
@@ -1745,9 +1745,9 @@
     "Name": "class Scoring",
     "color": {
       "w": 1.0,
-      "x": 0.1899999976158142,
-      "y": 0.6200000047683716,
-      "z": 1.0
+      "x": 1.0,
+      "y": 0.4300000071525574,
+      "z": 0.03999999910593033
     },
     "deg": {
       "x": 0.0,
@@ -2123,7 +2123,7 @@
     "GravitySpeed": 0.0,
     "Name": "class Enemy",
     "color": {
-      "w": 1.0,
+      "w": 1.9607843160629272,
       "x": 1.0,
       "y": 1.0,
       "z": 1.0
@@ -2152,9 +2152,9 @@
     "moveSpeed": 0.05000000074505806,
     "path": "Asset\\Models\\Enemy\\Aetherius\\Aetherius.gltf",
     "pos": {
-      "x": -13.920150756835938,
+      "x": -14.032205581665039,
       "y": 101.19999694824219,
-      "z": 15.859644889831543
+      "z": 14.892317771911621
     },
     "rotationspeed": 10.0,
     "scale": {
@@ -2412,7 +2412,7 @@
   {
     "Name": "class MapGard",
     "color": {
-      "w": 0.5,
+      "w": 0.800000011920929,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -2437,8 +2437,8 @@
       "z": 2.0999999046325684
     },
     "scale": {
-      "x": 0.20000000298023224,
-      "y": 1.0,
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
       "z": 1.0
     },
     "type": 32
@@ -2446,7 +2446,7 @@
   {
     "Name": "class MapGard",
     "color": {
-      "w": 0.5,
+      "w": 1.0,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -2480,7 +2480,7 @@
   {
     "Name": "class MapGard",
     "color": {
-      "w": 0.5,
+      "w": 1.0,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -2514,7 +2514,7 @@
   {
     "Name": "class MapGard",
     "color": {
-      "w": 0.5,
+      "w": 1.0,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -2548,7 +2548,7 @@
   {
     "Name": "class MapGard",
     "color": {
-      "w": 0.5,
+      "w": 1.0,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -2582,7 +2582,7 @@
   {
     "Name": "class MapGard",
     "color": {
-      "w": 0.5,
+      "w": 0.800000011920929,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -2650,7 +2650,7 @@
   {
     "Name": "class MapGard",
     "color": {
-      "w": 1.0,
+      "w": 0.5,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -2684,7 +2684,7 @@
   {
     "Name": "class MapGard",
     "color": {
-      "w": 1.0,
+      "w": 0.5,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -2724,16 +2724,16 @@
       "z": 1.0
     },
     "deg": {
-      "x": 20.999914169311523,
-      "y": 1.6412291526794434,
+      "x": 6.000099182128906,
+      "y": 341.09063720703125,
       "z": 0.0
     },
     "moveSpeed": 50.0,
     "path": "Asset/Models/Sky/Sky.gltf",
     "pos": {
-      "x": -16.58425521850586,
-      "y": 107.82762908935547,
-      "z": 24.283109664916992
+      "x": -14.259469032287598,
+      "y": 102.18336486816406,
+      "z": 9.922472953796387
     },
     "scale": {
       "x": 1.0,
@@ -2744,6 +2744,113 @@
   },
   {
     "Name": "class Map",
+    "child": [
+      {
+        "Name": "class Map",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": true,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_1.gltf",
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": -413.8999938964844
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class Map",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": true,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_2.gltf",
+        "pos": {
+          "x": 358.0,
+          "y": 0.0,
+          "z": 370.1000061035156
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class Map",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": true,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_3.gltf",
+        "pos": {
+          "x": 792.0,
+          "y": 0.0,
+          "z": 647.7999877929688
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 32
+      }
+    ],
     "color": {
       "w": 1.0,
       "x": 1.0,
@@ -2769,111 +2876,6 @@
       "x": -494.29998779296875,
       "y": 0.0,
       "z": 0.0
-    },
-    "scale": {
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "type": 32
-  },
-  {
-    "Name": "class Map",
-    "color": {
-      "w": 1.0,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "deg": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "drawFlags": {
-      "DrawBright": false,
-      "DrawGradation": false,
-      "DrawGrayScale": false,
-      "DrawLit": true,
-      "DrawToon": false,
-      "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
-    },
-    "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_1.gltf",
-    "pos": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": -413.8999938964844
-    },
-    "scale": {
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "type": 32
-  },
-  {
-    "Name": "class Map",
-    "color": {
-      "w": 1.0,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "deg": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "drawFlags": {
-      "DrawBright": false,
-      "DrawGradation": false,
-      "DrawGrayScale": false,
-      "DrawLit": true,
-      "DrawToon": false,
-      "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
-    },
-    "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_2.gltf",
-    "pos": {
-      "x": 358.0,
-      "y": 0.0,
-      "z": 370.1000061035156
-    },
-    "scale": {
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "type": 32
-  },
-  {
-    "Name": "class Map",
-    "color": {
-      "w": 1.0,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "deg": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "drawFlags": {
-      "DrawBright": false,
-      "DrawGradation": false,
-      "DrawGrayScale": false,
-      "DrawLit": true,
-      "DrawToon": false,
-      "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
-    },
-    "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_3.gltf",
-    "pos": {
-      "x": 792.0,
-      "y": 0.0,
-      "z": 647.7999877929688
     },
     "scale": {
       "x": 1.0,

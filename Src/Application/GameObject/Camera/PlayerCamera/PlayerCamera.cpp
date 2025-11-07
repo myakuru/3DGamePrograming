@@ -255,7 +255,6 @@ void PlayerCamera::NewUpdateIntroCamera()
 
 		if (m_time >= 1.0f)
 		{
-
 			// 余韻で更に引く
 			m_followRate = { 0.0f, 1.0f, -2.5f };
 

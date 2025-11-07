@@ -22,7 +22,7 @@ public:
 	void InGuiSceneSelect() const;
 	void ImGuiSelectCamera();
 
-	void MakeTreeNode(const std::shared_ptr<KdGameObject>& parentObj);
+	void MakeTreeNode(const std::weak_ptr<KdGameObject>& parentObj);
 
 	// 状態取得
 	KdRenderTargetPack GetRenderTargetChanger() { return m_renderTargetChanger; }

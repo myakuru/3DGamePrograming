@@ -45,9 +45,8 @@ void JsonManager::AllSave() const
 	JsonSerialize(json, "Json/" + nowScene);
 }
 
-std::shared_ptr<KdGameObject> JsonManager::AddJsonObject(const std::string& _className, const nlohmann::json& _json) const
+std::shared_ptr<KdGameObject> JsonManager::AddJsonObject(const std::string& _className, const nlohmann::json& _json, bool _addToScene) const
 {
-	static int count = 0; // デバッグ用のカウント
 
 	const auto& classMap = RegisterObject::GetInstance().m_ClassNameToID;
 	auto it = classMap.find(_className);
@@ -64,27 +63,55 @@ std::shared_ptr<KdGameObject> JsonManager::AddJsonObject(const std::string& _cla
 			// 各オブジェクトを,jsonファイルから読み込む
 			if (!_json.is_null()) obj->JsonInput(_json);
 
+			// 子オブジェクトを追加する場合は、親オブジェクトの子リストに追加する
+			if (_json.contains("child") && _json["child"].is_array())
+			{
+				for (auto& childJson : _json["child"])
+				{
+					if (!childJson.contains("Name") || !childJson["Name"].is_string())
+					{
+						KdDebugGUI::Instance().AddLog(U8("子オブジェクトにNameがありません\n"));
+						continue;
+					}
+
+					const std::string childClassName = childJson["Name"];
+
+					// 子はルートに追加しない -> 第3引数 false
+					auto childObj = AddJsonObject(childClassName, childJson, false);
+					if (childObj)
+					{
+						obj->AddChild(childObj);
+					}
+					else
+					{
+						KdDebugGUI::Instance().AddLog(U8("子オブジェクトの生成に失敗: %s\n"),
+							childClassName.c_str());
+					}
+				}
+			}
+
 			// もしカメラだったら、シーンに追加しない
-			if (_className == "class FPSCamera")
+			if (_addToScene)
 			{
-				SceneManager::Instance().GetCurrentScene()->AddCameraObject(obj);
+				if (_className == "class FPSCamera")
+				{
+					SceneManager::Instance().GetCurrentScene()->AddCameraObject(obj);
 
-				KdDebugGUI::Instance().AddLog(U8("FPSCameraを追加しました\n"));
-			}
-			else if (_className == "class Map")
-			{
-				SceneManager::Instance().GetCurrentScene()->AddMapObject(obj);
-				count++;
-				KdDebugGUI::Instance().AddLog(U8("マップオブジェクトを追加しました : %d\n"), count);
-			}
-			else
-			{
-				count++; // デバッグ用のカウントアップ
-
-				SceneManager::Instance().AddObject(obj); // シーンに追加
-				KdDebugGUI::Instance().AddLog(U8("Jsonからオブジェクトを追加しました : %d \n"), count);
+					KdDebugGUI::Instance().AddLog(U8("FPSCameraを追加しました\n"));
+				}
+				else if (_className == "class Map")
+				{
+					SceneManager::Instance().GetCurrentScene()->AddMapObject(obj);
+					KdDebugGUI::Instance().AddLog(U8("マップオブジェクトを追加しました\n"));
+				}
+				else
+				{
+					SceneManager::Instance().AddObject(obj); // シーンに追加
+					KdDebugGUI::Instance().AddLog(U8("Jsonからオブジェクトを追加しました\n"));
+				}
 			}
 
+			// 初期化
 			obj->Init();
 
 			return obj;

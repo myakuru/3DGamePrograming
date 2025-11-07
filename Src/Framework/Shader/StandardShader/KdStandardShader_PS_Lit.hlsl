@@ -134,6 +134,11 @@ float4 main(VSOutput In) : SV_Target0
 	float metallic = saturate(mr.b * g_Metallic);
 	// 粗さ
 	float roughness = saturate(mr.g * g_Roughness);
+	// アンビエントオクルージョン
+	float ao = saturate(mr.r);
+
+	ao = max(ao, 0.2);
+	
 	// GGXのα(マイクロファセットの粗さ)は roughness^2 が一般的
 	float alpha = max(roughness * roughness, 1e-4);
 	
@@ -269,7 +274,7 @@ float4 main(VSOutput In) : SV_Target0
 	}
 
 	// 環境光（簡易IBLの代替・拡散のみ、金属は拡散を抑制）
-	outColor += g_AmbientLight.rgb * baseColor.rgb * (1.0 - metallic) * baseColor.a;
+	outColor += g_AmbientLight.rgb * baseColor.rgb * (1.0 - metallic) * baseColor.a * ao;
 	
 	// 自己発光色の適応
 	if (g_OnlyEmissie)

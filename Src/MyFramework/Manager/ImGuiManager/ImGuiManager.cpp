@@ -112,9 +112,6 @@ void ImGuiManager::DrawObjectTreeList(std::list<std::shared_ptr<KdGameObject>>& 
 		// ノード描画は MakeTreeNode に一本化
 		MakeTreeNode(obj);
 	}
-
-	
-
 }
 
 void ImGuiManager::TreeNode()
@@ -137,28 +134,33 @@ void ImGuiManager::TreeNode()
 		}
 		ImGui::EndChild();
 
-		std::weak_ptr<KdGameObject> temp;
+		std::shared_ptr<KdGameObject> dropped;
 
 		if (ImGui::BeginDragDropTarget())
 		{
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Child"))
 			{
-				temp = (*(std::shared_ptr<KdGameObject>*)payload->Data);
+				auto id = *reinterpret_cast<const std::uintptr_t*>(payload->Data);
+				if (auto raw = reinterpret_cast<KdGameObject*>(id))
+				{
+					dropped = raw->GetMyAdls();
+				}
 			}
 			ImGui::EndDragDropTarget();
 		}
 
-		if (!temp.expired())
+		// ドロップが成立したときのみ、親子関係を解除
+		if (dropped)
 		{
-			if (const auto& spTemp = temp.lock(); spTemp)
+			if (auto parent = dropped->GetParent().lock())
 			{
-				if (auto palent = spTemp->GetParent().lock(); palent)
-				{
-					palent->EraceChild(temp);
-				}
-				spTemp->SetParent(std::weak_ptr<KdGameObject>());
+				// 親の子リストから外す
+				parent->EraceChild(dropped);
 			}
+			// 親リンク解除
+			dropped->SetParent(std::weak_ptr<KdGameObject>{});
 		}
+
 	}
 }
 
@@ -350,36 +352,43 @@ void ImGuiManager::ImGuiSelectCamera()
 
 }
 
-void ImGuiManager::MakeTreeNode(const std::shared_ptr<KdGameObject>& parentObj)
+void ImGuiManager::MakeTreeNode(const std::weak_ptr<KdGameObject>& parentObj)
 {
-	if (!parentObj) return;
+	auto spParent = parentObj.lock();
+	if (!spParent) return; // ここで早期リターン：PushID前なのでPopID不要
 
-	ImGui::PushID(parentObj.get());
+	ImGui::PushID(spParent.get());
 
-	const bool opened = ImGui::TreeNodeEx(parentObj->GetNameClass().c_str());
+	const bool opened = ImGui::TreeNodeEx(spParent->GetNameClass().c_str());
 
-	// ヘッダクリックで選択
+	// ヘッダクリックで選択（weakで保持）
 	if (ImGui::IsItemClicked())
 	{
-		m_openObject = parentObj;
+		m_openObject = spParent;
 	}
 
-	// ドラッグ元
+	// ドラッグ元：生ポインタを渡す
 	if (ImGui::BeginDragDropSource())
 	{
-		ImGui::SetDragDropPayload("Child", &parentObj, sizeof(parentObj));
-		ImGui::Text("%s", parentObj->GetNameClass().c_str());
+		auto raw = spParent.get();
+		std::uintptr_t id = reinterpret_cast<std::uintptr_t>(raw);
+		ImGui::SetDragDropPayload("Child", &id, sizeof(id));
+		ImGui::Text("%s", spParent->GetNameClass().c_str());
 		ImGui::EndDragDropSource();
 	}
 
-	// ドロップ先
+	// ドロップ先：生ポインタを受けて正規のweak_ptrに変換 → 親に子を追加
 	if (ImGui::BeginDragDropTarget())
 	{
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Child"))
 		{
-			auto& child = *(std::weak_ptr<KdGameObject>*) payload->Data;
-
-			parentObj->AddChild(child);
+			auto id = *reinterpret_cast<const std::uintptr_t*>(payload->Data);
+			auto raw = reinterpret_cast<KdGameObject*>(id);
+			if (raw)
+			{
+				auto child = raw->GetMyAdls();
+				spParent->AddChild(child); // ← 自分(spParent)に子をぶら下げる
+			}
 		}
 		ImGui::EndDragDropTarget();
 	}
@@ -387,19 +396,18 @@ void ImGuiManager::MakeTreeNode(const std::shared_ptr<KdGameObject>& parentObj)
 	ImGui::SameLine(200);
 	if (ImGui::SmallButton("Delete"))
 	{
-		parentObj->SetExpired(true);
+		spParent->SetExpired(true);
 	}
 
 	// 子の描画
 	if (opened)
 	{
-		// 子の weak_ptr が切れていたら掃除しつつ描画
-		auto& children = parentObj->GetChild();
+		auto& children = spParent->GetChild();
 		for (auto it = children.begin(); it != children.end(); )
 		{
-			if (auto child = it->lock())
+			if (const auto& spChild = *it)
 			{
-				MakeTreeNode(child);
+				MakeTreeNode(spChild);
 				++it;
 			}
 			else
