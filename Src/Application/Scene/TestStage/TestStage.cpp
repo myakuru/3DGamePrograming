@@ -2,8 +2,8 @@
 #include"../SceneManager.h"
 #include"../../GameObject/Utility/Time.h"
 #include"../../GameObject/Character/Player/Player.h"
-#include"../../GameObject/Character/Enemy/Enemy.h"
-#include"../../GameObject/Character/BossEnemy/BossEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 
 #include"../../../MyFramework/Manager/JsonManager/JsonManager.h"
 #include"../../main.h"
@@ -85,8 +85,6 @@ void TestScene::Event()
 
 void TestScene::Init()
 {
-	//KdShaderManager::Instance().m_postProcessShader.SetEnableGray(false);
-
 	m_isCountDown = false;	// カウントダウンフラグを初期化
 
 	m_countDownTimer = 200.0f; // カウントダウンタイマーを200秒に設定
@@ -97,10 +95,8 @@ void TestScene::Init()
 	KdShaderManager::Instance().WorkAmbientController().SetFogEnable(m_fogEnable, m_fogUseRange);
 	KdShaderManager::Instance().WorkAmbientController().SetDistanceFog({ m_fogColor }, m_fogDensity);
 	KdShaderManager::Instance().WorkAmbientController().SetheightFog({ m_highFogColor }, m_highFogHeight, m_lowFogHeight, m_highFogDistance);
-
 	KdShaderManager::Instance().WorkAmbientController().SetDirLight(m_directionalLightDir, m_directionalLightColor);
 	KdShaderManager::Instance().WorkAmbientController().SetDirLightShadowArea(m_lightingArea, m_dirLightHeight);
-
 	KdShaderManager::Instance().WorkAmbientController().SetAmbientLight(m_anviLightColor);
 
 	SceneManager::Instance().SetDrawGrayScale(false);
@@ -122,7 +118,7 @@ void TestScene::SearchEnemy()
 	{
 		if (auto enemy = we.lock())
 		{
-			if (enemy->GetTypeID() == Enemy::TypeID)
+			if (enemy->GetTypeID() == AetheriusEnemy::TypeID)
 			{
 				enemyExists = true;
 				break;

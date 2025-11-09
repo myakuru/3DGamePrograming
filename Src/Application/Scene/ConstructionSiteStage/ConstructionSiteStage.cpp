@@ -2,8 +2,8 @@
 #include"../SceneManager.h"
 #include"../../GameObject/Utility/Time.h"
 #include"../../GameObject/Character/Player/Player.h"
-#include"../../GameObject/Character/Enemy/Enemy.h"
-#include"../../GameObject/Character/BossEnemy/BossEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 
 #include"../../../MyFramework/Manager/JsonManager/JsonManager.h"
 #include"../../main.h"
@@ -121,7 +121,7 @@ void ConstructionSiteStage::SearchEnemy()
 	{
 		if (auto enemy = we.lock())
 		{
-			if (enemy->GetTypeID() == Enemy::TypeID)
+			if (enemy->GetTypeID() == AetheriusEnemy::TypeID)
 			{
 				enemyExists = true;
 				break;

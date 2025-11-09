@@ -1,8 +1,6 @@
 ﻿#pragma once
 #include "../../Utility/SelectDraw2DTexture.h"
-#include <vector>
-
-class Enemy;
+class AetheriusEnemy;
 class PlayerCamera;
 class CharacterData;
 
@@ -49,7 +47,7 @@ private:
 	Math::Rectangle m_hpBarRect = { 0,0,1500,300 };
 
 	// 追加: 敵ごとの「表示用HP割合」を保持
-	std::unordered_map<const Enemy*, float> m_dispHpRate;
+	std::unordered_map<const AetheriusEnemy*, float> m_dispHpRate;
 
 	// 追加: 補間係数（減少時/回復時）
 	float m_dropLerp = 0.20f;  // 小さめ=ゆっくり減る

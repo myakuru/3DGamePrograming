@@ -14,7 +14,7 @@
 #include"../PlayerState_FowardAvoid/PlayerState_FowardAvoid.h"
 
 #include"../PlayerState_Skill/PlayerState_Skill.h"
-#include"../../../BossEnemy/BossEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
 
 void PlayerState_Attack4::StateStart()

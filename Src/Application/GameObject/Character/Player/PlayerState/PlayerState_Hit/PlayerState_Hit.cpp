@@ -4,8 +4,6 @@
 
 #include"../../../../Weapon/Katana/Katana.h"
 #include"../../../../../main.h"
-
-#include"../../../Enemy/Enemy.h"
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
 
 void PlayerState_Hit::StateStart()

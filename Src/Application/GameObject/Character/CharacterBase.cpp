@@ -72,8 +72,6 @@ void CharacterBase::Update()
 	m_animator->AdvanceTime(m_modelWork->WorkNodes(), m_fixedFrameRate * deltaTime);
 	m_modelWork->CalcNodeMatrices();
 
-	m_isMoving = m_movement.LengthSquared() > 0;
-
 	// 重力更新
 	m_gravity += m_gravitySpeed * deltaTime;
 

@@ -430,92 +430,92 @@
     <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_JustAvoidAttack_end">
       <UniqueIdentifier>{59d7c162-c61d-46b8-a84c-40306da30baf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Enemy">
-      <UniqueIdentifier>{1bc54b83-466c-46e1-985b-1198dd537aff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Enemy\EnemyState">
-      <UniqueIdentifier>{f8859f0e-6a0c-4aeb-a901-35a705ee7dbe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Idle">
-      <UniqueIdentifier>{885fb9fc-6972-4db1-99a2-7a9a428fbf36}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Run">
-      <UniqueIdentifier>{5a1d9140-24ea-41bc-857b-985ca6a811c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack">
-      <UniqueIdentifier>{c4684d08-58df-454e-8031-f79511d87077}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack1">
-      <UniqueIdentifier>{fa981701-a6af-4246-ae90-163495cf7847}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack2">
-      <UniqueIdentifier>{4eef2391-179b-4f67-abce-f736af089c8c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Hit">
-      <UniqueIdentifier>{2eb56152-91d7-456d-bb91-ccc365a466ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemState_Attack3">
-      <UniqueIdentifier>{70d5936f-e347-4fef-83f3-1d969ac6d5b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Walk_Right">
-      <UniqueIdentifier>{90fbbbe7-612f-4906-89cc-361fa09827ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Walk_Left">
-      <UniqueIdentifier>{33e1bce7-e0c1-451e-8993-8cb271d30d74}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Dath">
-      <UniqueIdentifier>{a43fd0ee-ee4d-44fe-b1f3-7514d68c4178}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\BossEnemy">
-      <UniqueIdentifier>{84b7be7c-fb3e-4756-85a4-ccea07961e6a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState">
-      <UniqueIdentifier>{d7a39b83-3d83-42cd-803a-d8640994663f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Idle">
-      <UniqueIdentifier>{57ca3a8b-d667-445c-9341-befa5a6ba9ba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Hit">
-      <UniqueIdentifier>{feb074d3-12f2-417d-b45f-dc075a160899}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Attack_L">
-      <UniqueIdentifier>{08e2719a-cc8c-4043-85c1-9129e94634a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Run">
-      <UniqueIdentifier>{28504ab7-486e-4a04-a0fd-77bc42c7374c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Enter">
-      <UniqueIdentifier>{f96437f1-7dd2-4de2-932a-d0a547e465bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Attack_R">
-      <UniqueIdentifier>{41dfd3d9-ffeb-405a-9a95-ab3f11844da8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Dodge">
-      <UniqueIdentifier>{8b9fd52c-ffb1-4b37-b144-626b8e7de5a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_ChargeStart">
-      <UniqueIdentifier>{810414ea-f0a5-4780-8232-c0572d3e4b22}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_ChrgeLoop">
-      <UniqueIdentifier>{ede08382-d397-45f3-a3ad-6411bb2e7ebd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_ChargeEnd">
-      <UniqueIdentifier>{cc97299b-53ad-4474-b9b7-1881a4220d36}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack">
-      <UniqueIdentifier>{fcae825f-4605-4038-96f6-c247f319ccbf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack_end">
-      <UniqueIdentifier>{29a7cb1a-38fa-440d-a01b-bc5ae7accd01}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterFall">
-      <UniqueIdentifier>{0b1dcd2a-1f6c-477e-a59f-288b4467b122}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\MyFramework\Manager\ImGuiManager">
       <UniqueIdentifier>{879c7b19-c6b0-4933-a569-763119b37800}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\GameObject\Character\EnemyBase">
       <UniqueIdentifier>{e10ff7ef-e9c2-496b-9d43-0c69bcb0cb9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy">
+      <UniqueIdentifier>{5e26bc74-8ffc-4a2a-a8a9-af87994455a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState">
+      <UniqueIdentifier>{fa75b82b-4688-4a6b-8dc5-9a6acd34d4be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack1">
+      <UniqueIdentifier>{b7cfa270-406b-4562-86ca-bb130a11a1b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack2">
+      <UniqueIdentifier>{faf2cffd-444e-4993-9f50-528f4dc52a12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack">
+      <UniqueIdentifier>{eb3a6697-d185-4f30-881b-983de64d4e6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack3">
+      <UniqueIdentifier>{5e22bb8b-c5a5-40a3-aca1-8eb53cdd6e69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Dath">
+      <UniqueIdentifier>{838e5f48-5881-4d41-aed1-4953650ba5ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Hit">
+      <UniqueIdentifier>{83320a89-75b2-44a7-b9ef-e8549d3b5a99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Idle">
+      <UniqueIdentifier>{869896ab-547c-4582-97dd-37a5d8d96b39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Run">
+      <UniqueIdentifier>{729016aa-1bc6-4fec-93c6-7f98ccbcb7e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Walk_Left">
+      <UniqueIdentifier>{71d5ee3e-3f19-4433-8e7c-5c1b26952b94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Walk_Right">
+      <UniqueIdentifier>{c9a848ad-7cdd-4933-8444-b5b062a657e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy">
+      <UniqueIdentifier>{b3d94742-d7b3-4180-9130-f69d98cced5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState">
+      <UniqueIdentifier>{fc546dd0-494d-4985-b53d-cd3d9de990ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Attack_L">
+      <UniqueIdentifier>{96350b5a-d1ff-4300-9142-963667b39440}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Attack_R">
+      <UniqueIdentifier>{337e7477-21db-410d-920d-88729f8a248b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChargeEnd">
+      <UniqueIdentifier>{988d80d0-2809-4017-b0d1-360be1338254}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChargeStart">
+      <UniqueIdentifier>{7954a3fc-e27d-4456-9dfc-b3a2584b6ccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChrgeLoop">
+      <UniqueIdentifier>{9e78ff88-a4e2-4d58-ab1b-b9727893a5c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Dodge">
+      <UniqueIdentifier>{239d2505-502a-44b1-9067-9c7e88ca2abb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Enter">
+      <UniqueIdentifier>{970380a1-ad0d-4e4c-813b-8b9960db87bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Hit">
+      <UniqueIdentifier>{9b6ed2ca-14ae-4498-88d9-bfdeb18d5c8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Idle">
+      <UniqueIdentifier>{4e3ca13f-392f-40fe-b8e8-99b56c1b885c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Run">
+      <UniqueIdentifier>{019328eb-c654-4cf9-aea7-c22a320ccbe3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack">
+      <UniqueIdentifier>{540919c6-99cd-424c-aa15-f96121131cfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack_end">
+      <UniqueIdentifier>{650937e8-6653-4f86-b50c-3de3e6af96e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_WaterFall">
+      <UniqueIdentifier>{ba950b46-b3be-40f3-ba1d-7e4c2d1dfb3f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -747,27 +747,6 @@
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Attack2\PlayerState_Attack2.h">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Attack2</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Enemy\Enemy.h">
-      <Filter>Src\Application\GameObject\Character\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Idle\EnemyState_Idle.h">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Idle</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyStateBase.h">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Run\EnemyState_Run.h">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Run</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack\EnemyState_Attack.h">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack1\EnemyState_Attack1.h">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack1</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack2\EnemyState_Attack2.h">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack2</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\HUD\AlpfaMoving\AlpfaMoving.h">
       <Filter>Src\Application\GameObject\HUD\AlpfaMoving</Filter>
     </ClInclude>
@@ -836,9 +815,6 @@
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Skill\PlayerState_Skill.h">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Skill</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Hit\EnemyState_Hit.h">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Hit</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Hit\PlayerState_Hit.h">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Hit</Filter>
@@ -951,17 +927,8 @@
     <ClInclude Include="Src\Application\GameObject\Weapon\EnemyShield\EnemyShield.h">
       <Filter>Src\Application\GameObject\Weapon\EnemyShield</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack3\EnemState_Attack3.h">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemState_Attack3</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Walk_Right\EnemyState_Walk_Right.h">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Walk_Right</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_FowardAvoidFast\PlayerState_FowardAvoidFast.h">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_FowardAvoidFast</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Walk_Left\EnemyState_Walk_Left.h">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Walk_Left</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue\EnemyShineBlue.h">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue</Filter>
@@ -996,50 +963,8 @@
     <ClInclude Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.h">
       <Filter>Src\Application\GameObject\Effect\BillBoardEffect\MapGard</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemy.h">
-      <Filter>Src\Application\GameObject\Character\BossEnemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState.h">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Idle\BossEnemyState_Idle.h">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Idle</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Hit\BossEnemyState_Hit.h">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Hit</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Attack_L\BossEnemyState_Attack_L.h">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Attack_L</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Run\BossEnemyState_Run.h">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Run</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Enter\BossEnemyState_Enter.h">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Enter</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Field\UpDownField\UpDownField.h">
       <Filter>Src\Application\GameObject\Field\UpDownField</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Attack_R\BossEnemyState_Attack_R.h">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Attack_R</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Dodge\BossEnemyState_Dodge.h">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Dodge</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_ChargeStart\BossEnemyState_ChargeStart.h">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_ChargeStart</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_ChrgeLoop\BossEnemyState_ChrgeLoop.h">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_ChrgeLoop</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_ChargeEnd\BossEnemyState_ChargeEnd.h">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_ChargeEnd</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack\BossEnemyState_WaterAttack.h">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack_end\BossEnemyState_WaterAttack_end.h">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack_end</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_JustAvoidAttack\PlayerState_JustAvoidAttack.h">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_JustAvoidAttack</Filter>
@@ -1062,14 +987,8 @@
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\BossEnemyEnterEffect\BossEnemyEnterEffect.h">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\BossEnemyEnterEffect</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyAI.h">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterAttackEffect\BossWaterAttackEffect.h">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\BossWaterAttackEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterFall\BossEnemyState_WaterFall.h">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterFall</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack\BossWaterFallAttack.h">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack</Filter>
@@ -1085,9 +1004,6 @@
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\HUD\ChallengeResults\ChallengeResults.h">
       <Filter>Src\Application\GameObject\HUD\ChallengeResults</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Dath\EnemyState_Dath.h">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Dath</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\HUD\BossEnemyUI\BossEnemyUI.h">
       <Filter>Src\Application\GameObject\HUD\BossEnemyUI</Filter>
@@ -1133,6 +1049,90 @@
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\EnemyBase.h">
       <Filter>Src\Application\GameObject\Character\EnemyBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemy.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack\EnemyState_Attack.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack1\EnemyState_Attack1.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack1</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack2\EnemyState_Attack2.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack2</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack3\EnemState_Attack3.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack3</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Dath\EnemyState_Dath.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Dath</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Hit\EnemyState_Hit.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Hit</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Idle\EnemyState_Idle.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Run\EnemyState_Run.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Run</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Walk_Left\EnemyState_Walk_Left.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Walk_Left</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Walk_Right\EnemyState_Walk_Right.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Walk_Right</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyStateBase.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemy.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Attack_L\BossEnemyState_Attack_L.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Attack_L</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Attack_R\BossEnemyState_Attack_R.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Attack_R</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChargeEnd\BossEnemyState_ChargeEnd.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChargeEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChargeStart\BossEnemyState_ChargeStart.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChargeStart</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChrgeLoop\BossEnemyState_ChrgeLoop.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChrgeLoop</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Dodge\BossEnemyState_Dodge.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Dodge</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Enter\BossEnemyState_Enter.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Enter</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Hit\BossEnemyState_Hit.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Hit</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Idle\BossEnemyState_Idle.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Run\BossEnemyState_Run.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Run</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack\BossEnemyState_WaterAttack.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack_end\BossEnemyState_WaterAttack_end.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack_end</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_WaterFall\BossEnemyState_WaterFall.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_WaterFall</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyAI.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1322,24 +1322,6 @@
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Attack2\PlayerState_Attack2.cpp">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Attack2</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Enemy\Enemy.cpp">
-      <Filter>Src\Application\GameObject\Character\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Idle\EnemyState_Idle.cpp">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Idle</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Run\EnemyState_Run.cpp">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Run</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack\EnemyState_Attack.cpp">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack1\EnemyState_Attack1.cpp">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack1</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack2\EnemyState_Attack2.cpp">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack2</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\HUD\AlpfaMoving\AlpfaMoving.cpp">
       <Filter>Src\Application\GameObject\HUD\AlpfaMoving</Filter>
     </ClCompile>
@@ -1402,9 +1384,6 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Skill\PlayerState_Skill.cpp">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Hit\EnemyState_Hit.cpp">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Hit</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Hit\PlayerState_Hit.cpp">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Hit</Filter>
@@ -1517,20 +1496,8 @@
     <ClCompile Include="Src\Application\GameObject\Weapon\EnemyShield\EnemyShield.cpp">
       <Filter>Src\Application\GameObject\Weapon\EnemyShield</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Attack3\EnemState_Attack3.cpp">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemState_Attack3</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyStateBase.cpp">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Walk_Right\EnemyState_Walk_Right.cpp">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Walk_Right</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_FowardAvoidFast\PlayerState_FowardAvoidFast.cpp">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_FowardAvoidFast</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Walk_Left\EnemyState_Walk_Left.cpp">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Walk_Left</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue\EnemyShineBlue.cpp">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue</Filter>
@@ -1565,50 +1532,8 @@
     <ClCompile Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.cpp">
       <Filter>Src\Application\GameObject\Effect\BillBoardEffect\MapGard</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemy.cpp">
-      <Filter>Src\Application\GameObject\Character\BossEnemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState.cpp">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Idle\BossEnemyState_Idle.cpp">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Idle</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Hit\BossEnemyState_Hit.cpp">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Hit</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Attack_L\BossEnemyState_Attack_L.cpp">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Attack_L</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Run\BossEnemyState_Run.cpp">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Run</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Enter\BossEnemyState_Enter.cpp">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Enter</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Field\UpDownField\UpDownField.cpp">
       <Filter>Src\Application\GameObject\Field\UpDownField</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Attack_R\BossEnemyState_Attack_R.cpp">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Attack_R</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Dodge\BossEnemyState_Dodge.cpp">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_Dodge</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_ChargeStart\BossEnemyState_ChargeStart.cpp">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_ChargeStart</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_ChrgeLoop\BossEnemyState_ChrgeLoop.cpp">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_ChrgeLoop</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_ChargeEnd\BossEnemyState_ChargeEnd.cpp">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_ChargeEnd</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack\BossEnemyState_WaterAttack.cpp">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack_end\BossEnemyState_WaterAttack_end.cpp">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack_end</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_JustAvoidAttack\PlayerState_JustAvoidAttack.cpp">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_JustAvoidAttack</Filter>
@@ -1631,14 +1556,8 @@
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\BossEnemyEnterEffect\BossEnemyEnterEffect.cpp">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\BossEnemyEnterEffect</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyAI.cpp">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterAttackEffect\BossWaterAttackEffect.cpp">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\BossWaterAttackEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterFall\BossEnemyState_WaterFall.cpp">
-      <Filter>Src\Application\GameObject\Character\BossEnemy\BossEnemyState\BossEnemyState_WaterFall</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack\BossWaterFallAttack.cpp">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack</Filter>
@@ -1654,9 +1573,6 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\HUD\ChallengeResults\ChallengeResults.cpp">
       <Filter>Src\Application\GameObject\HUD\ChallengeResults</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Dath\EnemyState_Dath.cpp">
-      <Filter>Src\Application\GameObject\Character\Enemy\EnemyState\EnemyState_Dath</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\HUD\BossEnemyUI\BossEnemyUI.cpp">
       <Filter>Src\Application\GameObject\HUD\BossEnemyUI</Filter>
@@ -1696,6 +1612,90 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\EnemyBase.cpp">
       <Filter>Src\Application\GameObject\Character\EnemyBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemy.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack\EnemyState_Attack.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack1\EnemyState_Attack1.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack1</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack2\EnemyState_Attack2.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack2</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack3\EnemState_Attack3.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack3</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Dath\EnemyState_Dath.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Dath</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Hit\EnemyState_Hit.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Hit</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Idle\EnemyState_Idle.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Run\EnemyState_Run.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Run</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Walk_Left\EnemyState_Walk_Left.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Walk_Left</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Walk_Right\EnemyState_Walk_Right.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Walk_Right</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyStateBase.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemy.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Attack_L\BossEnemyState_Attack_L.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Attack_L</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Attack_R\BossEnemyState_Attack_R.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Attack_R</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChargeEnd\BossEnemyState_ChargeEnd.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChargeEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChargeStart\BossEnemyState_ChargeStart.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChargeStart</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChrgeLoop\BossEnemyState_ChrgeLoop.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChrgeLoop</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Dodge\BossEnemyState_Dodge.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Dodge</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Enter\BossEnemyState_Enter.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Enter</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Hit\BossEnemyState_Hit.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Hit</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Idle\BossEnemyState_Idle.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Run\BossEnemyState_Run.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Run</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack\BossEnemyState_WaterAttack.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack_end\BossEnemyState_WaterAttack_end.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_WaterAttack_end</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_WaterFall\BossEnemyState_WaterFall.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_WaterFall</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyAI.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -10,8 +10,8 @@
 
 #include"PlayerState/PlayerState_Hit/PlayerState_Hit.h"
 
-#include"../Enemy/Enemy.h"
-#include"../BossEnemy/BossEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 #include"../../Collition/Collition.h"
 
 #include"../../../Data/CharacterData/CharacterData.h"
@@ -197,9 +197,9 @@ void Player::Update()
 	{
 		if (auto obj = wk.lock())
 		{
-			if (obj->GetTypeID() == Enemy::TypeID)
+			if (obj->GetTypeID() == AetheriusEnemy::TypeID)
 			{
-				auto e = std::static_pointer_cast<Enemy>(obj);
+				auto e = std::static_pointer_cast<AetheriusEnemy>(obj);
 				if (e->GetJustAvoidSuccess()) m_isHit = false;
 			}
 			else if (obj->GetTypeID() == BossEnemy::TypeID)
@@ -242,7 +242,6 @@ void Player::Update()
 		float deltaTime = Application::Instance().GetUnscaledDeltaTime();
 		m_animator->AdvanceTime(m_modelWork->WorkNodes(), m_fixedFrameRate * deltaTime);
 		m_modelWork->CalcNodeMatrices();
-		m_isMoving = m_movement.LengthSquared() > 0;
 		// 移動前位置を保存
 		m_prevPosition = m_position;
 		// 重力更新
@@ -255,7 +254,6 @@ void Player::Update()
 		float deltaTime = Application::Instance().GetDeltaTime();
 		m_animator->AdvanceTime(m_modelWork->WorkNodes(), m_fixedFrameRate * deltaTime);
 		m_modelWork->CalcNodeMatrices();
-		m_isMoving = m_movement.LengthSquared() >0;
 		// 移動前位置を保存
 		m_prevPosition = m_position;
 		// 重力更新
@@ -345,9 +343,9 @@ void Player::UpdateAttackCollision(float _radius, float _distance, int _attackCo
 				std::list<KdCollider::CollisionResult> results;
 				if (obj->Intersects(attackSphere, &results) && !results.empty())
 				{
-					if (obj->GetTypeID() == Enemy::TypeID)
+					if (obj->GetTypeID() == AetheriusEnemy::TypeID)
 					{
-						auto e = std::static_pointer_cast<Enemy>(obj);
+						auto e = std::static_pointer_cast<AetheriusEnemy>(obj);
 						e->Damage(m_characterData->GetCharacterData().attack);
 						e->SetEnemyHit(true);
 					}

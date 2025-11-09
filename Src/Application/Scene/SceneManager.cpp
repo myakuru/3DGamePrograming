@@ -26,7 +26,6 @@
 #include"../GameObject/Character/Player/Player.h"
 #include"../GameObject/Weapon/Katana/Katana.h"
 #include"../GameObject/Camera/PlayerCamera/PlayerCamera.h"
-#include"../GameObject/Character/Enemy/Enemy.h"
 #include"../GameObject/HUD/ScaleMoving/ScaleMoving.h"
 #include"../GameObject/HUD/Scoring/Scoring.h"
 #include"../GameObject/HUD/Timer/Timer.h"
@@ -62,7 +61,6 @@
 #include"../GameObject/Effect/EffekseerEffect/SpeedAttackEffect/SpeedAttackEffect.h"
 #include"../GameObject/HUD/EnemyHp/EnemyHp.h"
 #include"../GameObject/Effect/BillBoardEffect/MapGard/MapGard.h"
-#include"../GameObject/Character/BossEnemy/BossEnemy.h"
 #include"../GameObject/Field/UpDownField/UpDownField.h"
 #include"../GameObject/Effect/EffekseerEffect/JustAvoidAttackEffect/JustAvoidAttackEffect.h"
 #include"../GameObject/Effect/EffekseerEffect/JustAvoidAttackEffect1/JustAvoidAttackEffect1.h"
@@ -81,6 +79,8 @@
 #include"../GameObject/Effect/EffekseerEffect/SpecialAttackSmoke/SpecialAttackSmoke.h"
 #include"../GameObject/HUD/BossEnemyUI/BossEnemyUI.h"
 #include"../GameObject/HUD/BossEnemyBlackBarUI/BossEnemyBlackBarUI.h"
+#include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 
 void SceneManager::Init()
 {
@@ -131,8 +131,8 @@ void SceneManager::Register() const
 
 	// キャラクター系
 	RegisterObject::GetInstance().Register<Player>();
-	RegisterObject::GetInstance().Register<Enemy>();
 	RegisterObject::GetInstance().Register<BossEnemy>();
+	RegisterObject::GetInstance().Register<AetheriusEnemy>();
 
 	// 武器系
 	RegisterObject::GetInstance().Register<Katana>();

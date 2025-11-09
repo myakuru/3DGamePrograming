@@ -15,7 +15,7 @@
 #include"../../../../Camera/PlayerCamera/PlayerCamera.h"
 
 #include"../../../../Effect/EffekseerEffect/JustAvoidAttackEffect1/JustAvoidAttackEffect1.h"
-#include"../../../BossEnemy/BossEnemy.h" // 追加
+#include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 
 void PlayerState_JustAvoidAttack::StateStart()
 {

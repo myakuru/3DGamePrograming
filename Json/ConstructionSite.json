@@ -183,8 +183,8 @@
       "z": 1.0
     },
     "deg": {
-      "x": 0.0,
-      "y": 320.0,
+      "x": 19.650001525878906,
+      "y": 308.1500244140625,
       "z": 0.0
     },
     "fov": 70.0,
@@ -210,7 +210,7 @@
     "targetLookAt": {
       "x": 0.0,
       "y": 1.0,
-      "z": -2.5000007152557373
+      "z": -2.499999523162842
     },
     "type": 32
   },
@@ -1237,87 +1237,6 @@
     "scale": {
       "x": 0.5,
       "y": 5.0,
-      "z": 1.0
-    },
-    "type": 32
-  },
-  {
-    "Name": "class NotChargeUI",
-    "color": {
-      "w": 1.0,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "deg": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "drawFlags": true,
-    "path": "Asset\\Textures\\GameUI\\NotCharge.png",
-    "pos": {
-      "x": -780.0,
-      "y": 370.0,
-      "z": 0.0
-    },
-    "scale": {
-      "x": 0.029999999329447746,
-      "y": 0.029999999329447746,
-      "z": 1.0
-    },
-    "type": 32
-  },
-  {
-    "Name": "class NotCharge1UI",
-    "color": {
-      "w": 1.0,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "deg": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "drawFlags": true,
-    "path": "Asset\\Textures\\GameUI\\NotCharge.png",
-    "pos": {
-      "x": -740.0,
-      "y": 370.0,
-      "z": 0.0
-    },
-    "scale": {
-      "x": 0.029999999329447746,
-      "y": 0.029999999329447746,
-      "z": 1.0
-    },
-    "type": 32
-  },
-  {
-    "Name": "class NotCharge2UI",
-    "color": {
-      "w": 1.0,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "deg": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "drawFlags": false,
-    "path": "Asset/Models/Sky/Sky.gltf",
-    "pos": {
-      "x": -700.0,
-      "y": 370.0,
-      "z": 0.0
-    },
-    "scale": {
-      "x": 0.029999999329447746,
-      "y": 0.029999999329447746,
       "z": 1.0
     },
     "type": 32
@@ -2711,6 +2630,51 @@
     "scale": {
       "x": 0.15000000596046448,
       "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "GravitySpeed": 0.0,
+    "Name": "class AetheriusEnemy",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "dissolveColor": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "dissolvePower": 1.0,
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": true,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "fixedFps": 0.0,
+    "moveSpeed": 0.0,
+    "path": "Asset\\Models\\Enemy\\Aetherius\\Aetherius.gltf",
+    "pos": {
+      "x": -6.23199987411499,
+      "y": 101.19999694824219,
+      "z": 14.892000198364258
+    },
+    "rotationspeed": 10.0,
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
       "z": 1.0
     },
     "type": 32

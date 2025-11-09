@@ -4,7 +4,7 @@
 #include"../PlayerState/PlayerState_SpecialAttack/PlayerState_SpecialAttack.h"
 #include"../PlayerState/PlayerState_FowardAvoidFast/PlayerState_FowardAvoidFast.h"
 #include"../PlayerState/PlayerState_BackWordAvoid/PlayerState_BackWordAvoid.h"
-#include"../../BossEnemy/BossEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 #include"../../../../Scene/SceneManager.h"
 #include"../../../../main.h"
 

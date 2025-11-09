@@ -1,6 +1,6 @@
 ﻿#include "BossWaterAttackEffect.h"
 #include"../../../../Scene/SceneManager.h"
-#include"../../../Character/BossEnemy/BossEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 
 const uint32_t BossWaterAttackEffect::TypeID = KdGameObject::GenerateTypeID();
 

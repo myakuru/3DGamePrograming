@@ -1,6 +1,7 @@
 ﻿#include "BossEnemyUI.h"
 #include"../../../Scene/SceneManager.h"
-#include"../../Character/BossEnemy/BossEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
+#include"Application/Data/CharacterData/CharacterData.h"
 
 const uint32_t BossEnemyUI::TypeID = KdGameObject::GenerateTypeID();
 
@@ -55,9 +56,14 @@ void BossEnemyUI::Update()
 	if (auto bossEnemy = m_bossEnemy.lock())
 	{
 		// 目標のHP割合を算出（0～1にクランプ）
-		m_hpRate = bossEnemy->GetStatus().maxHp > 0
-			? std::clamp(static_cast<float>(bossEnemy->GetStatus().hp) / static_cast<float>(bossEnemy->GetStatus().maxHp), 0.0f, 1.0f)
-			: 1.0f;
+		if (bossEnemy->GetStatus().GetCharacterData().maxHp > 0)
+		{
+			m_hpRate = std::clamp(static_cast<float>(bossEnemy->GetStatus().GetCharacterData().hp) / static_cast<float>(bossEnemy->GetStatus().GetCharacterData().maxHp), 0.0f, 1.0f);
+		}
+		else
+		{
+			m_hpRate = 1.0f;
+		}
 
 		// 表示幅（可変）
 		const long visibleW = std::clamp<long>(static_cast<long>(std::round(1500 * m_hpRate)), 0, 1500);

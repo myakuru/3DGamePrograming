@@ -1,6 +1,6 @@
 ﻿#include "BossEnemyEnterEffect.h"
 #include"../../../../Scene/SceneManager.h"
-#include"../../../Character/BossEnemy/BossEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 
 const uint32_t BossEnemyEnterEffect::TypeID = KdGameObject::GenerateTypeID();
 

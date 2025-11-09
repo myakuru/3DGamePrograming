@@ -1,11 +1,10 @@
 ﻿#pragma once
 #include "../CharacterBase.h"
 #include"PlayerConfig.h"
-class Enemy;
 class Katana;
 class WeaponKatanaScabbard;
 class PlayerStateBase;
-
+class AetheriusEnemy;
 class Player :public CharacterBase
 {
 public:

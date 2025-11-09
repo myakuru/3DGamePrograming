@@ -13,10 +13,9 @@
 #include"../../../../Weapon/Katana/Katana.h"
 #include"../../../../Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
 #include"../../../../Camera/PlayerCamera/PlayerCamera.h"
-#include"../../../Enemy/Enemy.h"
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
 #include"../PlayerState_FullCharge/PlayerState_FullCharge.h"
-#include"../../../BossEnemy/BossEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 
 void PlayerState_Idle::StateStart()
 {

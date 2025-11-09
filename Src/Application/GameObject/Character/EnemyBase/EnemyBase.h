@@ -25,32 +25,27 @@ protected:
 
 	void UpdateQuaternion(Math::Vector3& _moveVector) override;
 
-
-	bool m_Expired = false;				// 敵を消滅させるかどうか
-	bool m_isHit = false;				// ヒット判定
-	bool m_isAtkPlayer = false;
-
-	int m_getDamage = 0;				// 受けるダメージ量
-
-	float m_attackRadius = 1.5f;		// 攻撃判定の半径
-	float m_attackFrame = 0.0f;			// 攻撃判定フレーム
-
 	std::weak_ptr<Player> m_wpPlayer;
 
 	// ジャスト回避成功フラグ
 	bool m_justAvoidSuccess = false;
-
 	bool m_hitOnce = false;
-	int m_chargeAttackCount = 0;								// 何回ダメージを与えたか
-	float m_chargeAttackTimer = 0.0f;							// 経過時間
 	bool m_isChargeAttackActive = false;						// 連続攻撃中か
-
 	bool m_invincible = false;					// 無敵判定用
+	bool m_Expired = false;				// 敵を消滅させるかどうか
+	bool m_isHit = false;				// ヒット判定
+	bool m_isAtkPlayer = false;
+
+	int m_chargeAttackCount = 0;								// 何回ダメージを与えたか
 	int m_totalHitCount = 0;					// 累積ヒット回数（無敵判定用）
+	int m_getDamage = 0;				// 受けるダメージ量
 
 	// 攻撃の有効時間ウィンドウ（クランプなし）
 	float m_attackActiveTime = 0.0f;	// 攻撃開始からの経過時間
 	float m_attackActiveBegin = 0.0f;	// 当たり判定が有効になる開始秒
 	float m_attackActiveEnd = 3.0f;		// 当たり判定が無効化される終了秒
+	float m_attackRadius = 1.5f;		// 攻撃判定の半径
+	float m_attackFrame = 0.0f;			// 攻撃判定フレーム
+	float m_chargeAttackTimer = 0.0f;	// 経過時間
 
 };

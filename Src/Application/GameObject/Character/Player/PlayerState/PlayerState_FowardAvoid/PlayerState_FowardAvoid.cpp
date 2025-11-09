@@ -7,12 +7,13 @@
 #include"../PlayerState_AvoidAttack/PlayerState_AvoidAttack.h"
 #include"../PlayerState_JustAvoidAttack/PlayerState_JustAvoidAttack.h"
 #include"../../../../Camera/PlayerCamera/PlayerCamera.h"
-#include"../../../Enemy/Enemy.h"
-#include"../../../BossEnemy/BossEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 
 #include"../PlayerState_Skill/PlayerState_Skill.h"
 #include"../../../../../Scene/SceneManager.h"
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
+
+#include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
 
 void PlayerState_ForwardAvoid::StateStart()
 {
@@ -70,9 +71,9 @@ void PlayerState_ForwardAvoid::StateUpdate()
 			if (auto obj = wk.lock())
 			{
 				bool just = false;
-				if (obj->GetTypeID() == Enemy::TypeID)
+				if (obj->GetTypeID() == AetheriusEnemy::TypeID)
 				{
-					auto e = std::static_pointer_cast<Enemy>(obj);
+					auto e = std::static_pointer_cast<AetheriusEnemy>(obj);
 					just = e->GetJustAvoidSuccess();
 					if (just) e->SetJustAvoidSuccess(false);
 				}

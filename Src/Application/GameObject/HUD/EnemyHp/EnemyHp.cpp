@@ -1,7 +1,7 @@
 ﻿#include "EnemyHp.h"
 #include"../../../Scene/SceneManager.h"
 #include"../../../main.h"
-#include"../../../GameObject/Character/Enemy/Enemy.h"
+#include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
 #include"../../Camera/PlayerCamera/PlayerCamera.h"
 #include"../../../Data/CharacterData/CharacterData.h"
 
@@ -40,10 +40,10 @@ void EnemyHp::Update()
 				if (auto enemyPtr = enemy.lock())
 				{
 					// 敵以外はスキップ
-					if(enemyPtr->GetTypeID() != Enemy::TypeID) continue;
+					if(enemyPtr->GetTypeID() != AetheriusEnemy::TypeID) continue;
 
 					// 敵を一時的にキャスト
-					auto castedEnemy = std::static_pointer_cast<Enemy>(enemyPtr);
+					auto castedEnemy = std::static_pointer_cast<AetheriusEnemy>(enemyPtr);
 
 					Math::Vector3 screenPos;
 					cam->ConvertWorldToScreenDetail(castedEnemy->GetPos() + m_offsetPos, screenPos);

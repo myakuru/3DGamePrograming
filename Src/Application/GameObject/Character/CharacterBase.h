@@ -21,7 +21,6 @@ public:
 	void SetRotation(const Math::Quaternion& rotation) { m_rotation = rotation; }
 	Math::Quaternion& GetRotationQuaternion() { return m_rotation; }
 
-	const bool & GetMoving() const { return m_isMoving; }
 	void SetPosition(const Math::Vector3& position) { m_position = position; }
 	
 	/// <summary>
@@ -83,7 +82,6 @@ protected:
 	/// </summary>
 	Math::Vector3 m_movement = Math::Vector3::Zero;
 	float m_moveSpeed = 0.0f; // 移動速度
-	bool m_isMoving = false; // 移動中かどうか
 
 	// カメラへの参照
 	std::weak_ptr<PlayerCamera> m_playerCamera;

@@ -1,7 +1,6 @@
 ﻿#include "PlayerState_ChargeAttackMax.h"
 #include"../../../../../main.h"
 #include"../PlayerState_ChargeAttackMax1/PlayerState_ChargeAttackMax1.h"
-#include"../../../Enemy/Enemy.h"
 #include"../../../../Camera/PlayerCamera/PlayerCamera.h"
 
 void PlayerState_ChargeAttackMax::StateStart()

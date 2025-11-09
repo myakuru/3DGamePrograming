@@ -13,7 +13,7 @@
 #include"../PlayerState_Skill/PlayerState_Skill.h"
 	
 #include"../../../../Weapon/Katana/Katana.h"
-#include"../../../BossEnemy/BossEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
 
 void PlayerState_Attack3::StateStart()
