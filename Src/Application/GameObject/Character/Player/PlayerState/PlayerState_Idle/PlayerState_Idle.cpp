@@ -16,6 +16,7 @@
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
 #include"../PlayerState_FullCharge/PlayerState_FullCharge.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_RunEnd/PlayerState_RunEnd.h"
 
 void PlayerState_Idle::StateStart()
 {
@@ -44,6 +45,24 @@ void PlayerState_Idle::StateUpdate()
 
 	UpdateUnsheathed();
 
+	if (KeyboardManager::GetInstance().IsKeyPressed('W') &&
+		KeyboardManager::GetInstance().IsKeyPressed('S'))
+	{
+		// 移動量リセット
+		m_player->SetIsMoving(Math::Vector3::Zero);
+		m_player->SetMoveDirection(Math::Vector3::Zero);
+		return;
+	}
+	// D,Aキーが同時に押されている場合、移動しない
+	if (KeyboardManager::GetInstance().IsKeyPressed('D') &&
+		KeyboardManager::GetInstance().IsKeyPressed('A'))
+	{
+		// 移動量リセット
+		m_player->SetIsMoving(Math::Vector3::Zero);
+		m_player->SetMoveDirection(Math::Vector3::Zero);
+		return;
+	}
+
 	// キーが押されたらRunステートへ
 	if (KeyboardManager::GetInstance().IsKeyPressed('W') ||
 		KeyboardManager::GetInstance().IsKeyPressed('A') ||
@@ -54,6 +73,7 @@ void PlayerState_Idle::StateUpdate()
 		m_player->ChangeState(spRunState);
 		return;
 	}
+
 
 	if (KeyboardManager::GetInstance().IsKeyJustPressed('Q'))
 	{

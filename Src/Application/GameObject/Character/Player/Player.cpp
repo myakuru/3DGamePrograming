@@ -1,20 +1,17 @@
 ﻿#include "Player.h"
-#include"../../../Scene/SceneManager.h"
-#include"../../../Scene/BaseScene/BaseScene.h"
-#include"../../Weapon/Katana/Katana.h"
-#include"../../Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
-#include"../../../main.h"
-#include"../../../../MyFramework/Manager/JsonManager/JsonManager.h"
-#include"../../Camera/PlayerCamera/PlayerCamera.h"
+#include"Application/Scene/SceneManager.h"
+#include"Application/Scene/BaseScene/BaseScene.h"
+#include"Application/GameObject/Weapon/Katana/Katana.h"
+#include"Application/GameObject/Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
+#include"Application/main.h"
+#include"MyFramework/Manager/JsonManager/JsonManager.h"
+#include"Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
 #include"PlayerState/PlayerState_Idle/PlayerState_Idle.h"
-
 #include"PlayerState/PlayerState_Hit/PlayerState_Hit.h"
-
 #include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
-#include"../../Collition/Collition.h"
-
-#include"../../../Data/CharacterData/CharacterData.h"
+#include"Application/GameObject/Collition/Collition.h"
+#include"Application/Data/CharacterData/CharacterData.h"
 
 const uint32_t Player::TypeID = KdGameObject::GenerateTypeID();
 
@@ -29,14 +26,15 @@ void Player::Init()
 
 	StateInit();
 
+	// 当たり判定の設定
 	m_pCollider = std::make_unique<KdCollider>();
-
 	m_pCollider->RegisterCollisionShape("PlayerSphere", sphere, KdCollider::TypeDamage);
 	m_pCollider->RegisterCollisionShape("PlayerSphere", sphere, KdCollider::TypeGround);
 
 	m_onceEffect = false; // エフェクトの一回だけフラグ
 	m_isAtkPlayer = false; // プレイヤーが攻撃しているかどうか
 	m_invincible = false; // 無敵フラグ
+	m_isHit = false;
 
 	// 残像描画用 Work を元データで生成
 	if (auto* src = GetModelWork())
@@ -50,23 +48,18 @@ void Player::Init()
 		DirectX::XMConvertToRadians(m_degree.x),
 		DirectX::XMConvertToRadians(m_degree.z));
 
-	m_dissever =0.0f;
-
-	m_isHit = false;
+	m_dissever = 0.0f;
 
 	m_characterData->SetCharacterData().hp = 1000;
 	m_characterData->SetCharacterData().maxHp = 1000;
 	m_characterData->SetCharacterData().attack = 0;
 
+	m_rimLightOn = false;
+
 }
 
 void Player::PreUpdate()
 {
-	sphere.Center = m_position + Math::Vector3(0.0f,0.5f,0.0f); // 敵の位置＋オフセット
-	sphere.Radius =0.2f;
-	m_pDebugWire->AddDebugSphere(sphere.Center, sphere.Radius, kRedColor);
-
-
 	// カタナの取得
 	if (auto katana = m_katana.lock(); katana)
 	{
@@ -157,8 +150,7 @@ void Player::PostUpdate()
 void Player::DrawLit()
 {
 	KdShaderManager::Instance().m_StandardShader.SetDitherEnable(false);
-	KdShaderManager::Instance().m_StandardShader.SetLitRimLight({ 0.5f,1.0f,1.0f }, false, 1.2f);
-
+	KdShaderManager::Instance().m_StandardShader.SetLitRimLight({ 0.1f,1.0f,1.0f }, m_rimLightOn, 1.5f);
 	KdShaderManager::Instance().m_StandardShader.DrawModel(*m_modelWork, m_mWorld, m_color);
 	KdShaderManager::Instance().m_StandardShader.SetLitRimLight();
 }
@@ -234,6 +226,16 @@ void Player::Update()
 	{
 		m_useSkill = (m_characterData->GetPlayerStatus().skillPoint >= 30.0);
 		m_useSpecial = (m_characterData->SetPlayerStatus().specialPoint == m_characterData->GetPlayerStatus().specialPointMax);
+
+		if (m_characterData->GetPlayerStatus().chargeCount >= 3)
+		{
+			m_rimLightOn = true;
+		}
+		else
+		{
+			m_rimLightOn = false;
+		}
+
 	}
 
 	if (m_justAvoid)
@@ -372,6 +374,11 @@ void Player::UpdateAttackCollision(float _radius, float _distance, int _attackCo
 				m_characterData->SetPlayerStatus().skillPoint += _attackCount / 4;
 			}
 
+			if (m_characterData->GetPlayerStatus().chargeCount < 3)
+			{
+				m_characterData->SetPlayerStatus().chargeCount++;
+			}
+
 			// specialPoint を絶対に3000 を超えないように飽和加算
 			constexpr int kAbsoluteSpecialMax = 3000;
 			const int upper = std::min(m_characterData->GetPlayerStatus().specialPointMax, kAbsoluteSpecialMax);
@@ -489,15 +496,22 @@ void Player::ChangeState(std::shared_ptr<PlayerStateBase> _state)
 
 void Player::UpdateMoveDirectionFromInput()
 {
+	const auto& kb = KeyboardManager::GetInstance();
+	const bool w = kb.IsKeyPressed('W');
+	const bool s = kb.IsKeyPressed('S');
+	const bool a = kb.IsKeyPressed('A');
+	const bool d = kb.IsKeyPressed('D');
+
 	m_moveDirection = Math::Vector3::Zero;
-	if (KeyboardManager::GetInstance().IsKeyPressed('W')) m_moveDirection += Math::Vector3::Backward;
-	if (KeyboardManager::GetInstance().IsKeyPressed('S')) m_moveDirection += Math::Vector3::Forward;
-	if (KeyboardManager::GetInstance().IsKeyPressed('A')) m_moveDirection += Math::Vector3::Left;
-	if (KeyboardManager::GetInstance().IsKeyPressed('D')) m_moveDirection += Math::Vector3::Right;
-	if (m_moveDirection.LengthSquared() >0.0f)
+
+	// 片方のみ押されている場合だけ加算（排他的）
+	if (w ^ s) m_moveDirection += w ? Math::Vector3::Backward : Math::Vector3::Forward;
+	if (a ^ d) m_moveDirection += a ? Math::Vector3::Left : Math::Vector3::Right;
+
+	if (m_moveDirection.LengthSquared() > 0.0f)
 	{
 		m_moveDirection.Normalize();
-		m_lastMoveDirection = m_moveDirection; // 入力があった時だけ更新
+		m_lastMoveDirection = m_moveDirection;
 	}
 }
 

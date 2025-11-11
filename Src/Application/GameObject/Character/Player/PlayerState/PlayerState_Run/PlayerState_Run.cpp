@@ -27,7 +27,33 @@ void PlayerState_Run::StateUpdate()
 {
 	UpdateUnsheathed();
 	m_player->UpdateMoveDirectionFromInput();
+
 	Math::Vector3 moveDir = m_player->GetMoveDirection();
+
+	if (KeyboardManager::GetInstance().IsKeyPressed('W') &&
+		KeyboardManager::GetInstance().IsKeyPressed('S'))
+	{
+		// 移動量リセット
+		m_player->SetIsMoving(Math::Vector3::Zero);
+		m_player->SetMoveDirection(Math::Vector3::Zero);
+
+		auto state = std::make_shared<PlayerState_RunEnd>();
+		m_player->ChangeState(state);
+		return;
+	}
+
+	// D,A同時押し時は移動量リセット
+	if (KeyboardManager::GetInstance().IsKeyPressed('D') &&
+		KeyboardManager::GetInstance().IsKeyPressed('A'))
+	{
+		// 移動量リセット
+		m_player->SetIsMoving(Math::Vector3::Zero);
+		m_player->SetMoveDirection(Math::Vector3::Zero);
+
+		auto state = std::make_shared<PlayerState_RunEnd>();
+		m_player->ChangeState(state);
+		return;
+	}
 
 	if (moveDir == Math::Vector3::Zero)
 	{

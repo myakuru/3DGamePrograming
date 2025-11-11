@@ -1,6 +1,6 @@
 ﻿#include "PlayerState_AvoidAttack.h"
 #include"../../../../../main.h"
-#include"../PlayerState_Sheathing-of-Katana/PlayerState_Sheathing-of-Katana.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_SheathKatana/PlayerState_SheathKatana.h"
 #include"../../../../../Scene/SceneManager.h"
 #include"../../../../Effect/EffekseerEffect/SpeedAttackEffect/SpeedAttackEffect.h"
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
@@ -24,17 +24,11 @@ void PlayerState_AvoidAttack::StateStart()
 
 void PlayerState_AvoidAttack::StateUpdate()
 {
-	// アニメーション時間のデバッグ表示
+	// アニメーション時間
 	{
 		m_animeTime = m_player->GetAnimator()->GetPlayProgress();
 
 		m_maxAnimeTime = m_player->GetAnimator()->GetMaxAnimationTime();
-
-		if (m_animeTime > m_maxAnimeTime)
-		{
-			KdDebugGUI::Instance().AddLog(U8("Attack4アニメ時間: %f"), m_animeTime);
-			KdDebugGUI::Instance().AddLog("\n");
-		}
 	}
 
 	if (m_animeTime >= 0.0f && m_animeTime <= 0.1f)

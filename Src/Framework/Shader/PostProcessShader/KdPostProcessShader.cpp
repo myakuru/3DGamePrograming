@@ -82,6 +82,17 @@ bool KdPostProcessShader::Init()
 			return false;
 		}
 	}
+	{
+#include "PS_RadialBlur.shaderInc"
+		if (FAILED(KdDirect3D::Instance().WorkDev()->CreatePixelShader(
+			compiledBuffer, sizeof(compiledBuffer), nullptr, &m_PS_RadialBlur)))
+		{
+			assert(0 && "放射状ブラーシェーダー作成失敗");
+			Release();
+			return false;
+		}
+	}
+
 	m_cb0_NoiseInfo.Create();
 
 	m_cb0_BlurInfo.Create();
@@ -90,9 +101,11 @@ bool KdPostProcessShader::Init()
 
 	m_cb0_BrightInfo.Create();
 
-	// 2160pでレンダーターゲット生成
-	const int renderWidth = 1920;
-	const int renderHeight = 1080;
+	m_cb0_RadialBlurInfo.Create();	// 放射ブラー用
+
+	// 1440pでレンダーターゲット生成
+	const int renderWidth = 2560;
+	const int renderHeight = 1440;
 
 	const int halfW = renderWidth / 2;
 	const int halfH = renderHeight / 2;
@@ -101,6 +114,7 @@ bool KdPostProcessShader::Init()
 
 	m_postEffectRTPack.CreateRenderTarget(renderWidth, renderHeight, true);
 	m_noiseRTPack.CreateRenderTarget(renderWidth, renderHeight);
+	m_radialBlurRTPack.CreateRenderTarget(renderWidth, renderHeight);
 
 	m_blurRTPack.CreateRenderTarget(halfW, halfH);
 	m_depthOfFieldRTPack.CreateRenderTarget(halfW, halfH);
@@ -140,12 +154,14 @@ void KdPostProcessShader::Release()
 	KdSafeRelease(m_PS_DoF);
 	KdSafeRelease(m_PS_Bright);
 	KdSafeRelease(m_PS_Noise);
+	KdSafeRelease(m_PS_RadialBlur);
 
 
 	m_cb0_BlurInfo.Release();
 	m_cb0_DoFInfo.Release();
 	m_cb0_BrightInfo.Release();
 	m_cb0_NoiseInfo.Release();
+	m_cb0_RadialBlurInfo.Release();
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -201,6 +217,7 @@ void KdPostProcessShader::PostEffectProcess()
 	BlurProcess();
 	DepthOfFieldProcess();
 	NoiseProcess();
+	RadialBlurProcess();
 
 	Math::Viewport vp;
 	KdDirect3D::Instance().CopyViewportInfo(vp);
@@ -220,6 +237,15 @@ void KdPostProcessShader::PostEffectProcess()
 		KdShaderManager::Instance().ChangeBlendState(KdBlendState::Alpha);
 		KdShaderManager::Instance().m_spriteShader.DrawTex(m_noiseRTPack.m_RTTexture.get(), 0, 0, vp.width, vp.height);
 		KdShaderManager::Instance().UndoBlendState();
+	}
+
+	if (m_enableRadialBlur)
+	{
+		// 放射状ブラー合成
+		KdShaderManager::Instance().ChangeBlendState(KdBlendState::Alpha);
+		KdShaderManager::Instance().m_spriteShader.DrawTex(m_radialBlurRTPack.m_RTTexture.get(), 0, 0, vp.width, vp.height);
+		KdShaderManager::Instance().UndoBlendState();
+		return;
 	}
 
 	// --- 最終合成結果を画面に出力 ---
@@ -312,9 +338,30 @@ void KdPostProcessShader::NoiseProcess()
 	shaderMgr.SetPixelShader(m_PS_Noise);
 
 	// ポストエフェクトテクスチャにノイズを描画
-	m_enableStrongBlur ? DrawTexture(&m_strongBlurRTPack.m_RTTexture, 1, m_noiseRTPack.m_RTTexture, &m_noiseRTPack.m_viewPort) :
+	m_enableStrongBlur ? DrawTexture(&m_blurRTPack.m_RTTexture, 1, m_noiseRTPack.m_RTTexture, &m_noiseRTPack.m_viewPort) :
 							DrawTexture(&m_postEffectRTPack.m_RTTexture, 1, m_noiseRTPack.m_RTTexture, &m_noiseRTPack.m_viewPort);
 	
+}
+
+void KdPostProcessShader::RadialBlurProcess()
+{
+	if (!m_enableRadialBlur) return;
+
+	// 定数バッファ更新
+	m_cb0_RadialBlurInfo.Write();
+
+	ID3D11DeviceContext* DevCon = KdDirect3D::Instance().WorkDevContext();
+	// b0 に合わせる
+	DevCon->PSSetConstantBuffers(4, 1, m_cb0_RadialBlurInfo.GetAddress());
+
+	KdShaderManager& shaderMgr = KdShaderManager::Instance();
+	if (shaderMgr.SetVertexShader(m_VS))
+	{
+		DevCon->IASetInputLayout(m_inputLayout);
+	}
+	shaderMgr.SetPixelShader(m_PS_RadialBlur);
+
+	DrawTexture(&m_postEffectRTPack.m_RTTexture, 1, m_radialBlurRTPack.m_RTTexture, &m_radialBlurRTPack.m_viewPort);
 }
 
 void KdPostProcessShader::CreateBlurOffsetList(std::vector<Math::Vector3>& dstInfo, const std::shared_ptr<KdTexture>& spSrcTex, int samplingRadius, const Math::Vector2& dir)

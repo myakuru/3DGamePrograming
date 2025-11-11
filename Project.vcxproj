@@ -344,7 +344,7 @@
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_RunEnd\PlayerState_RunEnd.h" />
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_RunStart\PlayerState_RunStart.h" />
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Run\PlayerState_Run.h" />
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Sheathing-of-Katana\PlayerState_Sheathing-of-Katana.h" />
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SheathKatana\PlayerState_SheathKatana.h" />
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Skill\PlayerState_Skill.h" />
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttack1\PlayerState_SpecialAttack1.h" />
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttackCutIn\PlayerState_SpecialAttackCutIn.h" />
@@ -387,6 +387,7 @@
     <ClInclude Include="Src\Application\GameObject\HUD\ChallengeResults\ChallengeResults.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\EnemyHp\EnemyHp.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\HpBar\HpBar.h" />
+    <ClInclude Include="Src\Application\GameObject\HUD\HUDBase.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\HUDManager.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\InvestigationComplete\InvestigationComplete.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\NormalUI\NormalUI.h" />
@@ -398,7 +399,6 @@
     <ClInclude Include="Src\Application\GameObject\HUD\SkillBar\SkillBar.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\SkillUI\SkillUI.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\SpecialAttackUI\SpecialAttackUI.h" />
-    <ClInclude Include="Src\Application\GameObject\HUD\SpecialMove\SpecialMove.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\Timer\Timer.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\TitleRemoveUI\TitleRemoveUI.h" />
     <ClInclude Include="Src\Application\GameObject\Map\Map.h" />
@@ -543,7 +543,7 @@
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_RunEnd\PlayerState_RunEnd.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_RunStart\PlayerState_RunStart.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Run\PlayerState_Run.cpp" />
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Sheathing-of-Katana\PlayerState_Sheathing-of-Katana.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SheathKatana\PlayerState_SheathKatana.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Skill\PlayerState_Skill.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttack1\PlayerState_SpecialAttack1.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttackCutIn\PlayerState_SpecialAttackCutIn.cpp" />
@@ -586,6 +586,7 @@
     <ClCompile Include="Src\Application\GameObject\HUD\ChallengeResults\ChallengeResults.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\EnemyHp\EnemyHp.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\HpBar\HpBar.cpp" />
+    <ClCompile Include="Src\Application\GameObject\HUD\HUDBase.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\HUDManager.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\InvestigationComplete\InvestigationComplete.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\NormalUI\NormalUI.cpp" />
@@ -597,7 +598,6 @@
     <ClCompile Include="Src\Application\GameObject\HUD\SkillBar\SkillBar.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\SkillUI\SkillUI.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\SpecialAttackUI\SpecialAttackUI.cpp" />
-    <ClCompile Include="Src\Application\GameObject\HUD\SpecialMove\SpecialMove.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\Timer\Timer.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\TitleRemoveUI\TitleRemoveUI.cpp" />
     <ClCompile Include="Src\Application\GameObject\Map\Map.cpp" />
@@ -701,6 +701,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\Framework\Shader\PostProcessShader\PS_RadialBlur.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Src\Framework\Shader\SpriteShader\KdSpriteShader_PS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>

@@ -18,6 +18,18 @@ void PlayerState_RunEnd::StateUpdate()
 {
 	float deltaTime = Application::Instance().GetDeltaTime();
 
+	// 移動方向を取得
+	{
+		m_attackDirection = m_player->GetMovement();
+
+		if (m_player->GetMovement() != Math::Vector3::Zero)
+		{
+			m_attackDirection.y = 0.0f;
+			m_attackDirection.Normalize();
+			m_player->UpdateQuaternionDirect(m_attackDirection);
+		}
+	}
+
 	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
 	{
 		auto attackState = std::make_shared<PlayerState_Attack>();
@@ -55,28 +67,29 @@ void PlayerState_RunEnd::StateUpdate()
 		return;
 	}
 
-	// キー入力から移動方向を更新
-	m_player->UpdateMoveDirectionFromInput();
-
-	// キー入力されたらRun状態に戻る
-	if (m_player->GetMoveDirection() != Math::Vector3::Zero)
+	// WキーとSキーが同時押しされたらIdle状態に戻る
+	if (KeyboardManager::GetInstance().IsKeyPressed('W') &&
+		KeyboardManager::GetInstance().IsKeyPressed('S'))
 	{
-		auto state = std::make_shared<PlayerState_Run>();
-		m_player->ChangeState(state);
-		return;
+		if(m_player->GetAnimator()->IsAnimationEnd())
+		{
+			auto state = std::make_shared<PlayerState_Idle>();
+			m_player->ChangeState(state);
+			return;
+		}
 	}
 
-	// 攻撃中の移動方向で回転を更新
-	if (m_player->GetMovement() != Math::Vector3::Zero)
+	// DキーとAキーが同時押しされたらIdle状態に戻る
+	if (KeyboardManager::GetInstance().IsKeyPressed('D') &&
+		KeyboardManager::GetInstance().IsKeyPressed('A'))
 	{
-		m_attackDirection = m_player->GetMovement();
-		m_attackDirection.y = 0.0f;
-		m_attackDirection.Normalize();
-		m_player->UpdateQuaternionDirect(m_attackDirection);
+		if (m_player->GetAnimator()->IsAnimationEnd())
+		{
+			auto state = std::make_shared<PlayerState_Idle>();
+			m_player->ChangeState(state);
+			return;
+		}
 	}
-
-	// キー入力から移動方向を更新
-	m_player->UpdateMoveDirectionFromInput();
 
 	if (m_player->GetAnimator()->IsAnimationEnd())
 	{

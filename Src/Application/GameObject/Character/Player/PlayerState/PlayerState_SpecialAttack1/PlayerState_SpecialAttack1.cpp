@@ -1,5 +1,5 @@
 ﻿#include "PlayerState_SpecialAttack1.h"
-#include"../PlayerState_Sheathing-of-Katana/PlayerState_Sheathing-of-Katana.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_SheathKatana/PlayerState_SheathKatana.h"
 #include"../../../../../main.h"
 #include"../../../../Effect/EffekseerEffect/SpecialAttack1/SpecialAttack1.h"
 #include"../../../../Effect/EffekseerEffect/SpecialAttackSmoke/SpecialAttackSmoke.h"

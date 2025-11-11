@@ -13,7 +13,7 @@ void Katana::Init()
 	m_trailPolygon = std::make_shared<KdTrailPolygon>();
 	m_trailPolygon->ClearPoints();
 	m_trailPolygon->SetMaterial(m_trailTex);
-	m_showTrail = false;
+	//m_showTrail = false;
 }
 
 void Katana::Update()
@@ -109,6 +109,14 @@ void Katana::DrawRimLight()
 	KdShaderManager::Instance().UndoBlendState();
 	KdShaderManager::Instance().m_StandardShader.SetRimLightEnable(false);
 
+}
+
+void Katana::DrawBright()
+{
+	// 軌跡ポリゴンの描画
+	if (m_showTrail)
+	{
+	}
 }
 
 void Katana::UpdateHand()

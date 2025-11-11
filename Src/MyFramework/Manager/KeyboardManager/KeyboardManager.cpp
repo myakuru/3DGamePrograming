@@ -1,6 +1,6 @@
 ﻿#include "KeyboardManager.h"
-#include"../../../Application/main.h"
-#include"../../../MyFramework/Manager/ImGuiManager/ImGuiManager.h"
+#include "Application/main.h"
+#include "MyFramework/Manager/ImGuiManager/ImGuiManager.h"
 
 void KeyboardManager::Update(float deltaTime)
 {

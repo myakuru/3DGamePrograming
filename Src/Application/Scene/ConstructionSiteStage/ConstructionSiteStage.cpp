@@ -106,6 +106,8 @@ void ConstructionSiteStage::Init()
 	SceneManager::Instance().m_gameClear = false;	// ゲームクリアフラグを初期化
 	SceneManager::Instance().SetResultFlag(false);	// 結果フラグを初期化
 
+	KdShaderManager::Instance().m_postProcessShader.SetRadialBlur(m_radialBlurStrength, m_radialBlurSampleNum, m_radialBlurUvOffset); // 放射状ブラーの初期設定
+
 	m_bossAppear = false; // ボス出現フラグを初期化
 }
 
@@ -172,6 +174,17 @@ void ConstructionSiteStage::DrawImGui()
 		{
 			SceneManager::Instance().SetBossAppear(true);
 		}
+
+		// 放射状ブラー設定
+		ImGui::DragFloat("RadialBlurStrength", &m_radialBlurStrength);
+		ImGui::DragFloat("RadialBlurSampleNum", &m_radialBlurSampleNum);
+		ImGui::DragFloat2("RadialBlurUvOffset", &m_radialBlurUvOffset.x);
+
+		// 放射状ブラーの反映
+		ImGui::Checkbox("RadialBlurEnable", &m_radialBlurEnable);
+
+		KdShaderManager::Instance().m_postProcessShader.SetRadialBlur(m_radialBlurStrength, m_radialBlurSampleNum, m_radialBlurUvOffset);
+		KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(m_radialBlurEnable);
 	}
 	ImGui::End();
 }

@@ -53,30 +53,15 @@ void HpBar::Update()
 	
 	if (auto playerStatus = m_player.lock(); playerStatus)
 	{
-		float denom = playerStatus->GetStatus().GetCharacterData().maxHp > 0 ? static_cast<float>(playerStatus->GetStatus().GetCharacterData().maxHp) : 1.0f;
 
-		float targetHpRate = static_cast<float>(playerStatus->GetStatus().GetCharacterData().hp) / denom;
+		float targetHpRate = static_cast<float>(playerStatus->GetStatus().GetCharacterData().hp) / static_cast<float>(playerStatus->GetStatus().GetCharacterData().maxHp);
 		
 		if (targetHpRate < 0.0f) targetHpRate = 0.0f;
 		if (targetHpRate > 1.0f) targetHpRate = 1.0f;
 
 
-		// 経過時間から補間係数を計算（秒ベース）
-		const float now = Time::Instance().GetElapsedTime();
-		static float prev = now;
-		float dt = now - prev;
-		if (dt < 0.0f) dt = 0.0f;
-		prev = now;
-
-		// 追従速度
-		const float followSpeed = 6.0f;
-		// 補間係数
-		float t = followSpeed * dt;
-		if (t > 1.0f) t = 1.0f;
-		if (t < 0.0f) t = 0.0f;
-
-		// 現在表示値を目標へ徐々に近づける
-		m_hpRate += (targetHpRate - m_hpRate) * t;
+		// 現在表示値を目標に近づける
+		m_hpRate += targetHpRate - m_hpRate;
 
 		// 表示幅を更新
 		m_rect.width = static_cast<float>(1500.0f * m_hpRate);

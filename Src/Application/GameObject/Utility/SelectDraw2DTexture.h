@@ -2,12 +2,12 @@
 class SelectDraw2DTexture : public KdGameObject
 {
 public:
+
 	SelectDraw2DTexture() = default;
 	~SelectDraw2DTexture() override = default;
 
 	void DrawSprite() override
 	{
-
 		// 現在のビューポートサイズ取得
 		Math::Viewport vp;
 		KdDirect3D::Instance().CopyViewportInfo(vp);
@@ -16,9 +16,6 @@ public:
 		const float sx = vp.width / kRefW;
 		const float sy = vp.height / kRefH;
 
-		// 等方（Fit）にしたい場合は以下を使う（必要なら切替）
-		//const float s  = std::min(sx, sy);
-		// Math::Matrix uiScale = Math::Matrix::CreateScale(s, s, 1.0f);
 
 		Math::Matrix uiScale = Math::Matrix::CreateScale(sx, sy, 1.0f);
 

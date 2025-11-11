@@ -13,7 +13,7 @@ void BossEnemyUI::Init()
 
 	// 初期は満タン表示
 	m_hpRate = 1.0f;
-	m_rect.width = static_cast<float>(1500.0f * m_hpRate);
+	m_rect.width = static_cast<long>(1500.0f * m_hpRate);
 
 	m_srcRect = { 0, 0, 1500, 300 };
 }

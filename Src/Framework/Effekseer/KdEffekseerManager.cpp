@@ -239,7 +239,7 @@ std::weak_ptr<KdEffekseerObject> KdEffekseerManager::Play(const PlayEfkInfo& inf
 	if (info.UseWorldMatrix)
 	{
 		SetWorldMatrix(handle, info.World);
-		m_efkManager->SetSpeed(handle, info.Speed);
+		m_efkManager->SetSpeed(handle, info.Speed * deltaTime);
 	}
 	else
 	{

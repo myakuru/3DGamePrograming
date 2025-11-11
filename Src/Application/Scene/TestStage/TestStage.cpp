@@ -169,6 +169,7 @@ void TestScene::DrawImGui()
 		{
 			SceneManager::Instance().SetBossAppear(true);
 		}
+
 	}
 	ImGui::End();
 }

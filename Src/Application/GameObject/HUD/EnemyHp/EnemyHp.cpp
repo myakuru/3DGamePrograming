@@ -94,7 +94,8 @@ void EnemyHp::DrawSprite()
 
 	for (const auto& pos : m_screenPosList)
 	{
-		KdShaderManager::Instance().m_spriteShader.DrawTex(
+		KdShaderManager::Instance().m_spriteShader.DrawTex
+		(
 			m_texture,
 			static_cast<int>(pos.x - 5.0f),
 			static_cast<int>(pos.y),

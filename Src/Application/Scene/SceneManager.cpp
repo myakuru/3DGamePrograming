@@ -32,7 +32,6 @@
 #include"../GameObject/HUD/HpBar/HpBar.h"
 #include"../GameObject/HUD/Number/NumBer.h"
 #include"../GameObject/HUD/NowHp/NowHp.h"
-#include"../GameObject/HUD/SpecialMove/SpecialMove.h"
 #include"../GameObject/Winner/Winner.h"
 #include"../GameObject/HUD/InvestigationComplete/InvestigationComplete.h"
 #include"../GameObject/HUD/BlackBanner/BlackBanner.h"
@@ -109,7 +108,6 @@ void SceneManager::Register() const
 	RegisterObject::GetInstance().Register<HpBar>();
 	RegisterObject::GetInstance().Register<NumBer>();
 	RegisterObject::GetInstance().Register<NowHp>();
-	RegisterObject::GetInstance().Register<SpecialMove>();
 	RegisterObject::GetInstance().Register<InvestigationComplete>();
 	RegisterObject::GetInstance().Register<BlackBanner>();
 	RegisterObject::GetInstance().Register<ResultScore>();

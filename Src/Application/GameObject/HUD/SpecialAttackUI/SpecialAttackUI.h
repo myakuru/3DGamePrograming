@@ -22,4 +22,11 @@ private:
 
 	std::shared_ptr<KdTexture> m_specialAttackIconTexture = std::make_shared<KdTexture>();
 
+	float m_specialCountRate = 0.0f;
+
+	Math::Rectangle m_rect = { 0,0,100,100 };
+	Math::Rectangle m_srcRect = { 0,0,100,100 };
+
+	float m_timer = 0.0f;
+
 };

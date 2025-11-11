@@ -1,5 +1,5 @@
 ﻿#include "PlayerState_Attack3.h"
-#include"../PlayerState_Sheathing-of-Katana/PlayerState_Sheathing-of-Katana.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_SheathKatana/PlayerState_SheathKatana.h"
 #include"../../../../../main.h"
 #include"../PlayerState_Attack4/PlayerState_Attack4.h"
 #include"../PlayerState_FullCharge/PlayerState_FullCharge.h"
@@ -18,7 +18,7 @@
 
 void PlayerState_Attack3::StateStart()
 {
-	auto anime = m_player->GetAnimeModel()->GetAnimation("newAttack4");
+	auto anime = m_player->GetAnimeModel()->GetAnimation("Attack3");
 	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
 
 	PlayerStateBase::StateStart();
@@ -198,8 +198,6 @@ void PlayerState_Attack3::StateUpdate()
 			const bool isJustPressed = KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON);
 			const float lDuration = isPressed ? KeyboardManager::GetInstance().GetKeyPressDuration(VK_LBUTTON) : 0.0f;
 
-			// 現在のチャージ残数
-			int& chargeCount = m_playerData.SetPlayerStatus().chargeCount;
 
 			// 1) 先行入力を最優先で消費してAttack1へ
 			if (m_LButtonkeyInput)
@@ -210,18 +208,18 @@ void PlayerState_Attack3::StateUpdate()
 				return;
 			}
 
-			// 2) チャージが0以下で長押し中の場合
-			if (chargeCount <= 0 && isPressed)
+			// チャージが0以下で長押し中の場合
+			if (m_player->GetStatus().GetPlayerStatus().chargeCount <= 0 && isPressed)
 			{
 				auto state = std::make_shared<PlayerState_SheathKatana>();
 				m_player->ChangeState(state);
 				return;
 			}
 
-			// 3) チャージが残っている場合のみ、長押しでFullChargeへ
-			if (chargeCount > 0 && isPressed && lDuration >= kLongPressThreshold)
+			// チャージが残っている場合のみ、長押しでFullChargeへ
+			if (m_player->GetStatus().GetPlayerStatus().chargeCount > 0 && isPressed && lDuration >= kLongPressThreshold)
 			{
-				chargeCount = std::max(0, chargeCount - 1); // 念のため下限ガード
+				m_player->SetStatus().SetPlayerStatus().chargeCount--;
 				auto state = std::make_shared<PlayerState_FullCharge>();
 				m_player->ChangeState(state);
 				return;

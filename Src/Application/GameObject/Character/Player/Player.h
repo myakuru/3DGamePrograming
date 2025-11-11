@@ -135,6 +135,12 @@ public:
 		return *m_characterData;
 	}
 
+	// キャラデーターのセット
+	CharacterData& SetStatus()
+	{
+		return *m_characterData;
+	}
+
 private:
 
 	void ApplyHorizontalMove(const Math::Vector3& inputMove, float deltaTime);
@@ -199,5 +205,7 @@ private:
 	float m_pointLightRadius = 2.0f;                     // プレイヤーのポイントライトの半径
 	Math::Vector3 m_pointLightOffset = { 0.0f, 1.5f, 0.0f }; // プレイヤーのポイントライトのオフセット位置
 	bool m_pointLightOn = true;                            // プレイヤーのポイントライトのオンオフ
+
+	bool m_rimLightOn = true;                              // プレイヤーのリムライトのオンオフ
 
 };

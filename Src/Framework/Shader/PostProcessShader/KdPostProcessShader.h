@@ -29,6 +29,17 @@ public:
 
 	const KdRenderTargetPack& GetNoiseRenderTargetPack() const { return m_noiseRTPack; }
 
+	// 放射状ブラーの有効無効を設定
+	void SetEnableRadialBlur(bool enable) { m_enableRadialBlur = enable; }
+
+	// 放射状ブラーのパラメータを設定
+	void SetRadialBlur(float strength, float sampleCount, const Math::Vector2& uvOffset)
+	{
+		m_cb0_RadialBlurInfo.Work().BlurStrength = strength;
+		m_cb0_RadialBlurInfo.Work().SampleCount = sampleCount;
+		m_cb0_RadialBlurInfo.Work().UVOffset = uvOffset;
+	}
+
 
 	struct Vertex
 	{
@@ -56,6 +67,8 @@ private:
 	void DepthOfFieldProcess();
 	// ノイズ処理(自分で追加)
 	void NoiseProcess();
+	// 放射状ブラー処理(自分で追加)
+	void RadialBlurProcess();
 
 	void CreateBlurOffsetList(std::vector<Math::Vector3>& dstInfo, const std::shared_ptr<KdTexture>& spSrcTex, int samplingSize, const Math::Vector2& dir);
 
@@ -80,6 +93,7 @@ private:
 	static const int kLightBloomSamplingRadius = 4;
 
 	static const int kMaxSampling = 31;
+
 	struct cbBlur
 	{
 		Math::Vector4 Info[kMaxSampling];
@@ -117,7 +131,7 @@ private:
 	
 	// 自分で追加
 	KdRenderTargetPack	m_noiseRTPack;
-
+	KdRenderTargetPack	m_radialBlurRTPack;	// 放射状ブラー用
 
 	KdRenderTargetPack	m_brightEffectRTPack;
 	static const int	kLightBloomNum = 2;
@@ -131,19 +145,28 @@ private:
 
 	// 自分で追加
 	ID3D11PixelShader* m_PS_Noise = nullptr;
+	ID3D11PixelShader* m_PS_RadialBlur = nullptr;	// 放射状ブラー用
 
 	struct cbNoise
 	{
 		float NoiseStrength;
 		float Time;
-		int EnableGray; // 追加
+		int EnableGray;
 		int EnableNoise;
-		//int pad;        // 16バイト揃え用
 	};
 	KdConstantBuffer<cbNoise> m_cb0_NoiseInfo;
+
+	struct cbRadialBlur
+	{
+		float BlurStrength;
+		float SampleCount;
+		Math::Vector2 UVOffset;
+	};
+	KdConstantBuffer<cbRadialBlur> m_cb0_RadialBlurInfo;
 
 	// 自分で追加
 	bool m_enableNoise = false; // ノイズ処理のオンオフ
 	bool m_enableGray = false; // グレースケール処理のオンオフ
 	bool m_enableStrongBlur = false; // 強い光源ぼかしのオンオフ
+	bool m_enableRadialBlur = false; // 放射状ブラーのオンオフ
 };

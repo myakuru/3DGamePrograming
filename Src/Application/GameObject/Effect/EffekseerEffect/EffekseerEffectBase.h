@@ -33,8 +33,8 @@ protected:
 
 	void Init() override;
 	void Update() override;
-	void DrawEffect() override;
-	void DrawLit() override;
+
+	// 表示はベースシーンで行ってるので、ここでは何もしない
 
 	virtual void EffectUpdate();
 

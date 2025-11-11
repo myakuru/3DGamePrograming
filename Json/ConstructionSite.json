@@ -74,7 +74,7 @@
     },
     "fixedFps": 60.0,
     "moveSpeed": 0.14000000059604645,
-    "path": "Asset\\Models\\Player\\Perula\\Perula.gltf",
+    "path": "Asset\\Models\\Player\\Sapphy\\Sapphy.gltf",
     "pointLightColor": {
       "x": 0.3970588445663452,
       "y": 0.8935984969139099,
@@ -88,9 +88,9 @@
     "pointLightOn": true,
     "pointLightRadius": 2.0,
     "pos": {
-      "x": 5.903492450714111,
+      "x": -3.045208692550659,
       "y": 100.99999237060547,
-      "z": -5.324080467224121
+      "z": 4.560173988342285
     },
     "rotateSpeed": 30.0,
     "scale": {
@@ -183,15 +183,15 @@
       "z": 1.0
     },
     "deg": {
-      "x": 19.650001525878906,
-      "y": 308.1500244140625,
+      "x": 0.0,
+      "y": 320.0,
       "z": 0.0
     },
     "fov": 70.0,
     "m_cameraPos": {
-      "x": 5.903492450714111,
+      "x": -3.045208692550659,
       "y": 100.99999237060547,
-      "z": -5.324080467224121
+      "z": 4.560173988342285
     },
     "moveSpeed": 50.0,
     "path": "Asset/Models/Sky/Sky.gltf",
@@ -210,7 +210,7 @@
     "targetLookAt": {
       "x": 0.0,
       "y": 1.0,
-      "z": -2.499999523162842
+      "z": -2.499999761581421
     },
     "type": 32
   },
@@ -228,7 +228,7 @@
       "z": 0.0
     },
     "drawFlags": true,
-    "path": "Asset\\Textures\\GameUI\\PlayerUI.png",
+    "path": "Asset\\Textures\\GameUI\\SupphyUI.png",
     "pos": {
       "x": -360.0,
       "y": 300.0,
@@ -345,60 +345,6 @@
     "scale": {
       "x": 0.05000000074505806,
       "y": 0.5,
-      "z": 1.0
-    },
-    "type": 32
-  },
-  {
-    "Name": "class SpecialMove",
-    "color": {
-      "w": 1.0,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "deg": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "drawFlags": false,
-    "path": "Asset/Models/Sky/Sky.gltf",
-    "pos": {
-      "x": -612.7000122070313,
-      "y": 153.6999969482422,
-      "z": 0.0
-    },
-    "scale": {
-      "x": 0.10000000149011612,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "type": 32
-  },
-  {
-    "Name": "class NormalUI",
-    "color": {
-      "w": 1.0,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "deg": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "drawFlags": true,
-    "path": "Asset\\Textures\\Time\\PTS.png",
-    "pos": {
-      "x": -346.5,
-      "y": 178.10000610351563,
-      "z": 0.0
-    },
-    "scale": {
-      "x": 0.7099999785423279,
-      "y": 0.699999988079071,
       "z": 1.0
     },
     "type": 32
@@ -1242,7 +1188,7 @@
     "type": 32
   },
   {
-    "EffectSpeed": 18.0,
+    "EffectSpeed": 2.0,
     "Name": "class JustAvoidAttackEffect",
     "color": {
       "w": 1.0,
@@ -1257,10 +1203,10 @@
     },
     "distance": 2.0,
     "effectColor": {
-      "w": 0.11764705926179886,
+      "w": 0.7843137383460999,
       "x": 1.0,
       "y": 1.0,
-      "z": 1.0
+      "z": 1.9607843160629272
     },
     "path": "Asset\\Data\\Effect\\Spellblade\\SlashAll.efkefc",
     "pos": {
@@ -1269,9 +1215,9 @@
       "z": 0.0
     },
     "scale": {
-      "x": 2.5,
-      "y": 2.5,
-      "z": 1.5
+      "x": 1.2000000476837158,
+      "y": 1.2000000476837158,
+      "z": 1.2000000476837158
     },
     "type": 32
   },
@@ -1291,7 +1237,7 @@
     },
     "distance": 3.0,
     "effectColor": {
-      "w": 1.0,
+      "w": 0.19607843458652496,
       "x": 1.0,
       "y": 1.0,
       "z": 1.0
@@ -1473,7 +1419,7 @@
     "type": 32
   },
   {
-    "EffectSpeed": 17.899999618530273,
+    "EffectSpeed": 5.0,
     "Name": "class ChargeAttackEffect",
     "color": {
       "w": 1.0,
@@ -1488,10 +1434,10 @@
     },
     "distance": 0.0,
     "effectColor": {
-      "w": 1.0,
+      "w": 0.7843137383460999,
       "x": 1.0,
       "y": 1.0,
-      "z": 1.0
+      "z": 1.9607843160629272
     },
     "path": "Asset\\Data\\Effect\\Spellblade\\SlashAll.efkefc",
     "pos": {
@@ -1500,9 +1446,9 @@
       "z": 0.0
     },
     "scale": {
-      "x": 1.5,
-      "y": 1.5,
-      "z": 1.5
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
     },
     "type": 32
   },
@@ -1664,9 +1610,9 @@
     "Name": "class Scoring",
     "color": {
       "w": 1.0,
-      "x": 1.0,
-      "y": 0.4300000071525574,
-      "z": 0.03999999910593033
+      "x": 0.1899999976158142,
+      "y": 0.6200000047683716,
+      "z": 1.0
     },
     "deg": {
       "x": 0.0,
@@ -1862,33 +1808,6 @@
     "type": 32
   },
   {
-    "Name": "class SpecialAttackUI",
-    "color": {
-      "w": 1.0,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "deg": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "drawFlags": true,
-    "path": "Asset/Models/Sky/Sky.gltf",
-    "pos": {
-      "x": 420.0,
-      "y": -110.0,
-      "z": 0.0
-    },
-    "scale": {
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "type": 32
-  },
-  {
     "Name": "class NormalUI",
     "color": {
       "w": 1.0,
@@ -2005,6 +1924,743 @@
   },
   {
     "Name": "class Collision",
+    "child": [
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": -90.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -25.299999237060547,
+          "y": 100.0,
+          "z": -2.5999999046325684
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -32.29999923706055,
+          "y": 100.0,
+          "z": 7.400000095367432
+        },
+        "scale": {
+          "x": 0.699999988079071,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": -90.0,
+          "y": 0.0,
+          "z": 90.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": 7.900000095367432,
+          "y": 100.0,
+          "z": 17.0
+        },
+        "scale": {
+          "x": 2.869999885559082,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -10.600000381469727,
+          "y": 100.0,
+          "z": -6.699999809265137
+        },
+        "scale": {
+          "x": 1.9299999475479126,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": -90.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -34.29999923706055,
+          "y": 100.0,
+          "z": 10.699999809265137
+        },
+        "scale": {
+          "x": 1.1799999475479126,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": -130.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -29.100000381469727,
+          "y": 100.0,
+          "z": 25.5
+        },
+        "scale": {
+          "x": 1.5800000429153442,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": -180.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -6.900000095367432,
+          "y": 100.0,
+          "z": 37.20000076293945
+        },
+        "scale": {
+          "x": 1.6100000143051147,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": -90.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -25.299999237060547,
+          "y": 100.0,
+          "z": -2.5999999046325684
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -32.29999923706055,
+          "y": 100.0,
+          "z": 7.400000095367432
+        },
+        "scale": {
+          "x": 0.699999988079071,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": -90.0,
+          "y": 0.0,
+          "z": 90.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": 7.900000095367432,
+          "y": 100.0,
+          "z": 17.0
+        },
+        "scale": {
+          "x": 2.869999885559082,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -10.600000381469727,
+          "y": 100.0,
+          "z": -6.699999809265137
+        },
+        "scale": {
+          "x": 1.9299999475479126,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": -90.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -34.29999923706055,
+          "y": 100.0,
+          "z": 10.699999809265137
+        },
+        "scale": {
+          "x": 1.1799999475479126,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": -130.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -29.100000381469727,
+          "y": 100.0,
+          "z": 25.5
+        },
+        "scale": {
+          "x": 1.5800000429153442,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": -180.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -6.900000095367432,
+          "y": 100.0,
+          "z": 37.20000076293945
+        },
+        "scale": {
+          "x": 1.6100000143051147,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": -90.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -25.299999237060547,
+          "y": 100.0,
+          "z": -2.5999999046325684
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -32.29999923706055,
+          "y": 100.0,
+          "z": 7.400000095367432
+        },
+        "scale": {
+          "x": 0.699999988079071,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": -90.0,
+          "y": 0.0,
+          "z": 90.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": 7.900000095367432,
+          "y": 100.0,
+          "z": 17.0
+        },
+        "scale": {
+          "x": 2.869999885559082,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -10.600000381469727,
+          "y": 100.0,
+          "z": -6.699999809265137
+        },
+        "scale": {
+          "x": 1.9299999475479126,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": -90.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -34.29999923706055,
+          "y": 100.0,
+          "z": 10.699999809265137
+        },
+        "scale": {
+          "x": 1.1799999475479126,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": -130.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -29.100000381469727,
+          "y": 100.0,
+          "z": 25.5
+        },
+        "scale": {
+          "x": 1.5800000429153442,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      },
+      {
+        "Name": "class Collision",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 90.0,
+          "y": 0.0,
+          "z": -180.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\Collition\\Collition.gltf",
+        "pos": {
+          "x": -6.900000095367432,
+          "y": 100.0,
+          "z": 37.20000076293945
+        },
+        "scale": {
+          "x": 1.6100000143051147,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 34
+      }
+    ],
     "color": {
       "w": 1.0,
       "x": 1.0,
@@ -2037,51 +2693,6 @@
       "z": 3.5
     },
     "type": 33
-  },
-  {
-    "GravitySpeed": 0.0,
-    "Name": "class Enemy",
-    "color": {
-      "w": 1.9607843160629272,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "deg": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "dissolveColor": {
-      "x": 1.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "dissolvePower": 1.0,
-    "drawFlags": {
-      "DrawBright": false,
-      "DrawGradation": false,
-      "DrawGrayScale": false,
-      "DrawLit": true,
-      "DrawToon": false,
-      "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
-    },
-    "fixedFps": 60.0,
-    "moveSpeed": 0.05000000074505806,
-    "path": "Asset\\Models\\Enemy\\Aetherius\\Aetherius.gltf",
-    "pos": {
-      "x": -14.032205581665039,
-      "y": 101.19999694824219,
-      "z": 14.892317771911621
-    },
-    "rotationspeed": 10.0,
-    "scale": {
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "type": 32
   },
   {
     "Name": "class Collision",
@@ -2330,8 +2941,2118 @@
   },
   {
     "Name": "class MapGard",
+    "child": [
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.800000011920929,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": 8.300000190734863,
+          "y": 102.0,
+          "z": -1.600000023841858
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 1.0,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": 8.199999809265137,
+          "y": 102.0,
+          "z": -5.5
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 1.0,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": 6.300000190734863,
+          "y": 102.0,
+          "z": -7.199999809265137
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 1.0,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": 3.799999952316284,
+          "y": 102.0,
+          "z": -7.099999904632568
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": -0.20000000298023224,
+          "y": 102.0,
+          "z": -6.900000095367432
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": -4.099999904632568,
+          "y": 102.0,
+          "z": -6.900000095367432
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": -12.600000381469727,
+          "y": 102.0,
+          "z": -6.699999809265137
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": -15.800000190734863,
+          "y": 102.0,
+          "z": -6.699999809265137
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -25.600000381469727,
+          "y": 102.0,
+          "z": -5.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -34.0,
+          "y": 102.0,
+          "z": 7.099999904632568
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -34.0,
+          "y": 102.0,
+          "z": 10.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -34.0,
+          "y": 102.0,
+          "z": 13.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -34.0,
+          "y": 102.0,
+          "z": 16.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -34.0,
+          "y": 102.0,
+          "z": 19.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -32.599998474121094,
+          "y": 102.0,
+          "z": 21.299999237060547
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -31.0,
+          "y": 102.0,
+          "z": 23.899999618530273
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -28.399999618530273,
+          "y": 102.0,
+          "z": 26.700000762939453
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -25.799999237060547,
+          "y": 102.0,
+          "z": 29.600000381469727
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -23.100000381469727,
+          "y": 102.0,
+          "z": 32.599998474121094
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -20.399999618530273,
+          "y": 102.0,
+          "z": 35.400001525878906
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -12.5,
+          "y": 102.0,
+          "z": 37.599998474121094
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -9.100000381469727,
+          "y": 102.0,
+          "z": 37.400001525878906
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -1.7000000476837158,
+          "y": 102.0,
+          "z": 37.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 3.0999999046325684,
+          "y": 102.0,
+          "z": 37.099998474121094
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 7.400000095367432,
+          "y": 102.0,
+          "z": 37.099998474121094
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.800000190734863,
+          "y": 102.0,
+          "z": 34.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.699999809265137,
+          "y": 102.0,
+          "z": 30.700000762939453
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.699999809265137,
+          "y": 102.0,
+          "z": 27.200000762939453
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.699999809265137,
+          "y": 102.0,
+          "z": 18.899999618530273
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.600000381469727,
+          "y": 102.0,
+          "z": 15.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.699999809265137,
+          "y": 102.0,
+          "z": 11.5
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.800000011920929,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": 8.300000190734863,
+          "y": 102.0,
+          "z": -1.600000023841858
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.800000011920929,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": 8.199999809265137,
+          "y": 102.0,
+          "z": -5.5
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 1.0,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": 6.300000190734863,
+          "y": 102.0,
+          "z": -7.199999809265137
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 1.0,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": 3.799999952316284,
+          "y": 102.0,
+          "z": -7.099999904632568
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 1.0,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": -0.20000000298023224,
+          "y": 102.0,
+          "z": -6.900000095367432
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.800000011920929,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": -4.099999904632568,
+          "y": 102.0,
+          "z": -6.900000095367432
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": -12.600000381469727,
+          "y": 102.0,
+          "z": -6.699999809265137
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": -15.800000190734863,
+          "y": 102.0,
+          "z": -6.699999809265137
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -25.600000381469727,
+          "y": 102.0,
+          "z": -5.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -34.0,
+          "y": 102.0,
+          "z": 7.099999904632568
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -34.0,
+          "y": 102.0,
+          "z": 10.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -34.0,
+          "y": 102.0,
+          "z": 13.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -34.0,
+          "y": 102.0,
+          "z": 16.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -34.0,
+          "y": 102.0,
+          "z": 19.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -32.599998474121094,
+          "y": 102.0,
+          "z": 21.299999237060547
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -31.0,
+          "y": 102.0,
+          "z": 23.899999618530273
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -28.399999618530273,
+          "y": 102.0,
+          "z": 26.700000762939453
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -25.799999237060547,
+          "y": 102.0,
+          "z": 29.600000381469727
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -23.100000381469727,
+          "y": 102.0,
+          "z": 32.599998474121094
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -20.399999618530273,
+          "y": 102.0,
+          "z": 35.400001525878906
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -12.5,
+          "y": 102.0,
+          "z": 37.599998474121094
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -9.100000381469727,
+          "y": 102.0,
+          "z": 37.400001525878906
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -1.7000000476837158,
+          "y": 102.0,
+          "z": 37.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 3.0999999046325684,
+          "y": 102.0,
+          "z": 37.099998474121094
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 7.400000095367432,
+          "y": 102.0,
+          "z": 37.099998474121094
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.800000190734863,
+          "y": 102.0,
+          "z": 34.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.699999809265137,
+          "y": 102.0,
+          "z": 30.700000762939453
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.699999809265137,
+          "y": 102.0,
+          "z": 27.200000762939453
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.699999809265137,
+          "y": 102.0,
+          "z": 18.899999618530273
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.600000381469727,
+          "y": 102.0,
+          "z": 15.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.699999809265137,
+          "y": 102.0,
+          "z": 11.5
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      }
+    ],
     "color": {
-      "w": 0.800000011920929,
+      "w": 0.5,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -2364,8 +5085,1030 @@
   },
   {
     "Name": "class MapGard",
+    "child": [
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": 8.199999809265137,
+          "y": 102.0,
+          "z": -5.5
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": 6.300000190734863,
+          "y": 102.0,
+          "z": -7.199999809265137
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": 3.799999952316284,
+          "y": 102.0,
+          "z": -7.099999904632568
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": -0.20000000298023224,
+          "y": 102.0,
+          "z": -6.900000095367432
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": -4.099999904632568,
+          "y": 102.0,
+          "z": -6.900000095367432
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": -12.600000381469727,
+          "y": 102.0,
+          "z": -6.699999809265137
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Textures\\GameUI\\Collison.png",
+        "pos": {
+          "x": -15.800000190734863,
+          "y": 102.0,
+          "z": -6.699999809265137
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -25.600000381469727,
+          "y": 102.0,
+          "z": -5.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -34.0,
+          "y": 102.0,
+          "z": 7.099999904632568
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -34.0,
+          "y": 102.0,
+          "z": 10.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -34.0,
+          "y": 102.0,
+          "z": 13.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -34.0,
+          "y": 102.0,
+          "z": 16.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -34.0,
+          "y": 102.0,
+          "z": 19.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -32.599998474121094,
+          "y": 102.0,
+          "z": 21.299999237060547
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -31.0,
+          "y": 102.0,
+          "z": 23.899999618530273
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -28.399999618530273,
+          "y": 102.0,
+          "z": 26.700000762939453
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -25.799999237060547,
+          "y": 102.0,
+          "z": 29.600000381469727
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -23.100000381469727,
+          "y": 102.0,
+          "z": 32.599998474121094
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -20.399999618530273,
+          "y": 102.0,
+          "z": 35.400001525878906
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -12.5,
+          "y": 102.0,
+          "z": 37.599998474121094
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -9.100000381469727,
+          "y": 102.0,
+          "z": 37.400001525878906
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": -1.7000000476837158,
+          "y": 102.0,
+          "z": 37.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 3.0999999046325684,
+          "y": 102.0,
+          "z": 37.099998474121094
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 7.400000095367432,
+          "y": 102.0,
+          "z": 37.099998474121094
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.800000190734863,
+          "y": 102.0,
+          "z": 34.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.699999809265137,
+          "y": 102.0,
+          "z": 30.700000762939453
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.699999809265137,
+          "y": 102.0,
+          "z": 27.200000762939453
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.699999809265137,
+          "y": 102.0,
+          "z": 18.899999618530273
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.600000381469727,
+          "y": 102.0,
+          "z": 15.0
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class MapGard",
+        "color": {
+          "w": 0.5,
+          "x": 0.800000011920929,
+          "y": 0.800000011920929,
+          "z": 0.800000011920929
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawLit": false,
+          "DrawToon": false,
+          "DrawUnLit": true,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset/Models/Sky/Sky.gltf",
+        "pos": {
+          "x": 8.699999809265137,
+          "y": 102.0,
+          "z": 11.5
+        },
+        "scale": {
+          "x": 0.15000000596046448,
+          "y": 0.800000011920929,
+          "z": 1.0
+        },
+        "type": 32
+      }
+    ],
     "color": {
-      "w": 1.0,
+      "w": 0.5,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -2399,7 +6142,7 @@
   {
     "Name": "class MapGard",
     "color": {
-      "w": 1.0,
+      "w": 0.5,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -2433,7 +6176,7 @@
   {
     "Name": "class MapGard",
     "color": {
-      "w": 1.0,
+      "w": 0.5,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -2467,7 +6210,7 @@
   {
     "Name": "class MapGard",
     "color": {
-      "w": 1.0,
+      "w": 0.5,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -2501,7 +6244,7 @@
   {
     "Name": "class MapGard",
     "color": {
-      "w": 0.800000011920929,
+      "w": 0.5,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -2639,9 +6382,9 @@
     "Name": "class AetheriusEnemy",
     "color": {
       "w": 1.0,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
+      "x": 1.9607843160629272,
+      "y": 1.9607843160629272,
+      "z": 1.9607843160629272
     },
     "deg": {
       "x": 0.0,
@@ -2663,15 +6406,851 @@
       "DrawUnLit": false,
       "GenerateDepthMapFromLight": false
     },
-    "fixedFps": 0.0,
-    "moveSpeed": 0.0,
+    "fixedFps": 60.0,
+    "moveSpeed": 0.05000000074505806,
     "path": "Asset\\Models\\Enemy\\Aetherius\\Aetherius.gltf",
     "pos": {
-      "x": -6.23199987411499,
+      "x": -11.72331714630127,
       "y": 101.19999694824219,
-      "z": 14.892000198364258
+      "z": 18.899272918701172
     },
     "rotationspeed": 10.0,
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -25.600000381469727,
+      "y": 102.0,
+      "z": -5.0
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -34.0,
+      "y": 102.0,
+      "z": 7.099999904632568
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -34.0,
+      "y": 102.0,
+      "z": 10.0
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -34.0,
+      "y": 102.0,
+      "z": 13.0
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -34.0,
+      "y": 102.0,
+      "z": 16.0
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -34.0,
+      "y": 102.0,
+      "z": 19.0
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -32.599998474121094,
+      "y": 102.0,
+      "z": 21.299999237060547
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -31.0,
+      "y": 102.0,
+      "z": 23.899999618530273
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -28.399999618530273,
+      "y": 102.0,
+      "z": 26.700000762939453
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -25.799999237060547,
+      "y": 102.0,
+      "z": 29.600000381469727
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -23.100000381469727,
+      "y": 102.0,
+      "z": 32.599998474121094
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -20.399999618530273,
+      "y": 102.0,
+      "z": 35.400001525878906
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -12.5,
+      "y": 102.0,
+      "z": 37.599998474121094
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -9.100000381469727,
+      "y": 102.0,
+      "z": 37.400001525878906
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": -1.7000000476837158,
+      "y": 102.0,
+      "z": 37.0
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": 3.0999999046325684,
+      "y": 102.0,
+      "z": 37.099998474121094
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": 7.400000095367432,
+      "y": 102.0,
+      "z": 37.099998474121094
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": 8.800000190734863,
+      "y": 102.0,
+      "z": 34.0
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": 8.699999809265137,
+      "y": 102.0,
+      "z": 30.700000762939453
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": 8.699999809265137,
+      "y": 102.0,
+      "z": 27.200000762939453
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": 8.699999809265137,
+      "y": 102.0,
+      "z": 18.899999618530273
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": 8.600000381469727,
+      "y": 102.0,
+      "z": 15.0
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class MapGard",
+    "color": {
+      "w": 0.5,
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawLit": false,
+      "DrawToon": false,
+      "DrawUnLit": true,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": 8.699999809265137,
+      "y": 102.0,
+      "z": 11.5
+    },
+    "scale": {
+      "x": 0.15000000596046448,
+      "y": 0.800000011920929,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class NormalUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset\\Textures\\GameUI\\SpecialMove.png",
+    "pos": {
+      "x": 420.0,
+      "y": -116.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class SpecialAttackUI",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": 420.0,
+      "y": -140.8000030517578,
+      "z": 0.0
+    },
     "scale": {
       "x": 1.0,
       "y": 1.0,
@@ -2688,16 +7267,16 @@
       "z": 1.0
     },
     "deg": {
-      "x": 6.000099182128906,
-      "y": 341.09063720703125,
+      "x": 9.449875831604004,
+      "y": 355.9349670410156,
       "z": 0.0
     },
-    "moveSpeed": 50.0,
+    "moveSpeed": 16.0,
     "path": "Asset/Models/Sky/Sky.gltf",
     "pos": {
-      "x": -14.259469032287598,
-      "y": 102.18336486816406,
-      "z": 9.922472953796387
+      "x": -11.598719596862793,
+      "y": 102.89524841308594,
+      "z": 18.060012817382813
     },
     "scale": {
       "x": 1.0,
@@ -2725,7 +7304,77 @@
         "drawFlags": {
           "DrawBright": false,
           "DrawGradation": false,
-          "DrawGrayScale": false,
+          "DrawGrayScale": true,
+          "DrawLit": true,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_1.gltf",
+        "pos": {
+          "x": 315.79998779296875,
+          "y": 0.0,
+          "z": 703.4000244140625
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class Map",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": true,
+          "DrawLit": true,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_3.gltf",
+        "pos": {
+          "x": 388.70001220703125,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class Map",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": true,
           "DrawLit": true,
           "DrawToon": false,
           "DrawUnLit": false,
@@ -2735,7 +7384,7 @@
         "pos": {
           "x": 0.0,
           "y": 0.0,
-          "z": -413.8999938964844
+          "z": -719.7999877929688
         },
         "scale": {
           "x": 1.0,
@@ -2760,7 +7409,7 @@
         "drawFlags": {
           "DrawBright": false,
           "DrawGradation": false,
-          "DrawGrayScale": false,
+          "DrawGrayScale": true,
           "DrawLit": true,
           "DrawToon": false,
           "DrawUnLit": false,
@@ -2768,9 +7417,9 @@
         },
         "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_2.gltf",
         "pos": {
-          "x": 358.0,
+          "x": -647.9000244140625,
           "y": 0.0,
-          "z": 370.1000061035156
+          "z": -732.9000244140625
         },
         "scale": {
           "x": 1.0,
@@ -2795,17 +7444,52 @@
         "drawFlags": {
           "DrawBright": false,
           "DrawGradation": false,
-          "DrawGrayScale": false,
+          "DrawGrayScale": true,
           "DrawLit": true,
           "DrawToon": false,
           "DrawUnLit": false,
           "GenerateDepthMapFromLight": false
         },
-        "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_3.gltf",
+        "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_2.gltf",
         "pos": {
-          "x": 792.0,
+          "x": 647.7000122070313,
           "y": 0.0,
-          "z": 647.7999877929688
+          "z": -720.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "type": 32
+      },
+      {
+        "Name": "class Map",
+        "color": {
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "drawFlags": {
+          "DrawBright": false,
+          "DrawGradation": false,
+          "DrawGrayScale": true,
+          "DrawLit": true,
+          "DrawToon": false,
+          "DrawUnLit": false,
+          "GenerateDepthMapFromLight": false
+        },
+        "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_2.gltf",
+        "pos": {
+          "x": 1107.0999755859375,
+          "y": 0.0,
+          "z": 71.69999694824219
         },
         "scale": {
           "x": 1.0,
@@ -2829,7 +7513,7 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
@@ -2837,7 +7521,7 @@
     },
     "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_0.gltf",
     "pos": {
-      "x": -494.29998779296875,
+      "x": -400.0,
       "y": 0.0,
       "z": 0.0
     },
@@ -2969,11 +7653,11 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_1st\\BuildingMap_0_3\\BuildingMap_0_3.gltf",
     "pos": {
@@ -3004,11 +7688,11 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_1st\\BuildingMap_1_0\\BuildingMap_1_0.gltf",
     "pos": {
@@ -3039,11 +7723,11 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_1st\\BuildingMap_1_1\\BuildingMap_1_1.gltf",
     "pos": {
@@ -3074,11 +7758,11 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_1st\\BuildingMap_1_2\\BuildingMap_1_2.gltf",
     "pos": {
@@ -3109,11 +7793,11 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_1st\\BuildingMap_1_3\\BuildingMap_1_3.gltf",
     "pos": {
@@ -3144,11 +7828,11 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_1st\\BuildingMap_2_0\\BuildingMap_2_0.gltf",
     "pos": {
@@ -3183,7 +7867,7 @@
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_1st\\BuildingMap_2_1\\BuildingMap_2_1.gltf",
     "pos": {
@@ -3218,7 +7902,7 @@
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_1st\\BuildingMap_2_2\\BuildingMap_2_2.gltf",
     "pos": {
@@ -3284,11 +7968,11 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_1st\\BuildingMap_3_1\\BuildingMap_3_1.gltf",
     "pos": {
@@ -3319,11 +8003,11 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_2nd\\BuildingMap_0_0\\BuildingMap_0_0.gltf",
     "pos": {
@@ -3354,11 +8038,11 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_2nd\\BuildingMap_0_1\\BuildingMap_0_1.gltf",
     "pos": {
@@ -3389,11 +8073,11 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_2nd\\BuildingMap_1_0\\BuildingMap_1_0.gltf",
     "pos": {
@@ -3424,11 +8108,11 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_2nd\\BuildingMap_2_0\\BuildingMap_2_0.gltf",
     "pos": {
@@ -3459,11 +8143,11 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
-      "DrawLit": false,
+      "DrawGrayScale": true,
+      "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_2nd\\BuildingMap_3_0\\BuildingMap_3_0.gltf",
     "pos": {
@@ -3494,11 +8178,11 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_2nd\\BuildingMap_3_1\\BuildingMap_3_1.gltf",
     "pos": {
@@ -3529,11 +8213,11 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_3rd\\BuildingMap_0_0\\BuildingMap_0_0.gltf",
     "pos": {
@@ -3564,11 +8248,11 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\BuildingMap\\BuildingMap_3rd\\BuildingMap_1_0\\BuildingMap_1_0.gltf",
     "pos": {
@@ -3634,7 +8318,7 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
@@ -3669,17 +8353,227 @@
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,
-      "DrawGrayScale": false,
+      "DrawGrayScale": true,
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "path": "Asset\\Models\\3DAssets\\Crane\\Crane.gltf",
     "pos": {
       "x": -29.899999618530273,
       "y": 101.0,
       "z": 1.5
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class Map",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": true,
+      "DrawLit": true,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_1.gltf",
+    "pos": {
+      "x": 315.79998779296875,
+      "y": 0.0,
+      "z": 703.4000244140625
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class Map",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": true,
+      "DrawLit": true,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_3.gltf",
+    "pos": {
+      "x": 388.70001220703125,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class Map",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": true,
+      "DrawLit": true,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_1.gltf",
+    "pos": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -719.7999877929688
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class Map",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": true,
+      "DrawLit": true,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_2.gltf",
+    "pos": {
+      "x": -647.9000244140625,
+      "y": 0.0,
+      "z": -732.9000244140625
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class Map",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": true,
+      "DrawLit": true,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": true
+    },
+    "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_2.gltf",
+    "pos": {
+      "x": 647.7000122070313,
+      "y": 0.0,
+      "z": -720.0
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class Map",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": true,
+      "DrawLit": true,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_2.gltf",
+    "pos": {
+      "x": 1107.0999755859375,
+      "y": 0.0,
+      "z": 71.69999694824219
     },
     "scale": {
       "x": 1.0,

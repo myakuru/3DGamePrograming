@@ -159,11 +159,10 @@ void PlayerStateBase::StateUpdate()
 void PlayerStateBase::StateEnd()
 {
 	// カタナの取得
-	auto katana = m_player->GetKatana().lock();
-
-	if (!katana) return;
-	katana->SetHandKatanaMatrix(Math::Matrix::Identity);
-	katana->SetNowAttackState(false);
+	if (auto katana = m_player->GetKatana().lock(); katana)
+	{
+		katana->SetNowAttackState(false);
+	}
 }
 
 void PlayerStateBase::UpdateKatanaPos()

@@ -12,7 +12,7 @@ void EffekseerEffectBase::Init()
 	// 画面の大きさが変わっても問題ないようにする
 	Math::Viewport vp;
 	KdDirect3D::Instance().CopyViewportInfo(vp);
-	KdEffekseerManager::GetInstance().Create(vp.width, vp.height);
+	KdEffekseerManager::GetInstance().Create(static_cast<int>(vp.width), static_cast<int>(vp.height));
 
 	m_once = false;
 	m_load = false;
@@ -67,7 +67,7 @@ void EffekseerEffectBase::EffectUpdate()
 	// 再生要求が来た瞬間だけ再生開始
 	if (!m_once && m_load)
 	{
-		m_wpEffect = KdEffekseerManager::GetInstance().Play(m_path, m_mWorld, m_effectSpeed / 200, false, m_effectColor).lock();
+		m_wpEffect = KdEffekseerManager::GetInstance().Play(m_path, m_mWorld, m_effectSpeed, false, m_effectColor).lock();
 		m_once = m_load;
 	}
 
@@ -88,17 +88,6 @@ void EffekseerEffectBase::EffectUpdate()
 	{
 		m_isEffectPlaying = false;
 	}
-}
-
-void EffekseerEffectBase::DrawEffect()
-{
-	// Effekseerの描画
-}
-
-void EffekseerEffectBase::DrawLit()
-{
-	if (SceneManager::Instance().m_gameClear) return;
-	if (!IMGUI_MANAGER.GetShowEffect()) return;
 }
 
 void EffekseerEffectBase::ImGuiInspector()

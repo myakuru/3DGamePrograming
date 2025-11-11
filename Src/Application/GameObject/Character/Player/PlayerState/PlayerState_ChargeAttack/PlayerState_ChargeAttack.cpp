@@ -102,7 +102,7 @@ void PlayerState_ChargeAttack::StateUpdate()
 		}
 
 		// Chargeカウントが2つ以上溜まっている。
-		if (m_playerData.GetPlayerStatus().chargeCount > 1 && duration >= kLongPressThreshold)
+		if (duration >= kLongPressThreshold)
 		{
 			m_isKeyPressing = false;
 			// 先に消費してからステート遷移
