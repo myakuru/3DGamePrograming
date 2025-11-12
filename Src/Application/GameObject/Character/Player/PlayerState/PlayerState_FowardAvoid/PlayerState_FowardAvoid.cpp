@@ -14,6 +14,7 @@
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
 
 #include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
+#include"Application\GameObject\Character\AfterImage\AfterImage.h"
 
 void PlayerState_ForwardAvoid::StateStart()
 {
@@ -86,7 +87,7 @@ void PlayerState_ForwardAvoid::StateUpdate()
 				if (just)
 				{
 					// ...以降は既存処理
-					m_player->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.5f), 0.7f);
+					m_player->GetAfterImage()->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.5f));
 					m_justAvoided = true;
 					m_afterImagePlayed = true;
 					m_player->SetJustAvoidSuccess(true);
@@ -207,6 +208,6 @@ void PlayerState_ForwardAvoid::StateEnd()
 
 	m_justAvoided = false;
 
-	m_player->AddAfterImage();
+	m_player->GetAfterImage()->AddAfterImage();
 		
 }

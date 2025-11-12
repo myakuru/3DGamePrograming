@@ -15,6 +15,7 @@
 #include"../../../../Weapon/Katana/Katana.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
+#include"Application\GameObject\Character\AfterImage\AfterImage.h"
 
 void PlayerState_Attack3::StateStart()
 {
@@ -58,7 +59,7 @@ void PlayerState_Attack3::StateStart()
 	}
 
 	// 残像の設定
-	m_player->AddAfterImage(true, 3, 1, Math::Color(0.0f, 1.0f, 1.0f, 1.0f), 0.0f);
+	m_player->GetAfterImage()->AddAfterImage(true, 3, 1, Math::Color(0.0f, 1.0f, 1.0f, 1.0f));
 
 	m_player->SetAnimeSpeed(70.0f);
 
@@ -253,5 +254,5 @@ void PlayerState_Attack3::StateEnd()
 		effect->SetPlayEffect(false);
 	}
 
-	m_player->AddAfterImage();
+	m_player->GetAfterImage()->AddAfterImage();
 }

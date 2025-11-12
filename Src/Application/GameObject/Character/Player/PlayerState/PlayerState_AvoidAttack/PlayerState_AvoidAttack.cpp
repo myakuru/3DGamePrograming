@@ -4,6 +4,7 @@
 #include"../../../../../Scene/SceneManager.h"
 #include"../../../../Effect/EffekseerEffect/SpeedAttackEffect/SpeedAttackEffect.h"
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
+#include"Application\GameObject\Character\AfterImage\AfterImage.h"
 
 void PlayerState_AvoidAttack::StateStart()
 {
@@ -19,7 +20,7 @@ void PlayerState_AvoidAttack::StateStart()
 
 	SceneManager::Instance().GetObjectWeakPtr(m_effect);
 
-	m_player->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 1.0f));
+	m_player->GetAfterImage()->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 1.0f));
 }
 
 void PlayerState_AvoidAttack::StateUpdate()
@@ -95,5 +96,5 @@ void PlayerState_AvoidAttack::StateEnd()
 		effect->StopEffect();
 	}
 
-	m_player->AddAfterImage();
+	m_player->GetAfterImage()->AddAfterImage();
 }

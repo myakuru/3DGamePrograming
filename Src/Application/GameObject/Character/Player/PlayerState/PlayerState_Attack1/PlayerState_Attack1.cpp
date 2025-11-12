@@ -168,17 +168,16 @@ void PlayerState_Attack1::StateUpdate()
 			}
 
 			// 2) チャージが0以下で長押し中の場合
-			if (m_player->GetStatus().GetPlayerStatus().chargeCount <= 0 && isPressed)
+			/*if (m_player->GetStatus().GetPlayerStatus().chargeCount <= 0 && isPressed)
 			{
 				auto state = std::make_shared<PlayerState_SheathKatana>();
 				m_player->ChangeState(state);
 				return;
-			}
+			}*/
 
 			// チャージが残っている場合のみ、長押しでFullChargeへ
-			if (isPressed && lDuration >= kLongPressThreshold)
+			if (KeyboardManager::GetInstance().GetKeyPressDuration(VK_LBUTTON) >= 0.5f)
 			{
-				m_player->SetStatus().SetPlayerStatus().chargeCount--;
 				auto state = std::make_shared<PlayerState_FullCharge>();
 				m_player->ChangeState(state);
 				return;

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "../EnemyBase.h"
+class EnemyStateBase;
 class Player;
 class EnemySword;
 class EnemyShield;
@@ -100,5 +101,8 @@ private:
 
 	std::weak_ptr<EnemySword> m_wpSword;
 	std::weak_ptr<EnemyShield> m_wpShield;
+
+	// ブラーを発生させる時間
+	float m_blurTime = 0.0f;
 
 };

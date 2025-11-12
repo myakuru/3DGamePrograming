@@ -90,18 +90,39 @@ void AetheriusEnemy::Update()
 
 	CharacterBase::Update();
 
-	// ヒット処理。
 	if (m_isHit)
 	{
 		m_isHit = false;
 
 		if (m_invincible) return;
 
+		// ブラー開始トリガー：ここで毎フレーム管理用フラグと時間を初期化
+		m_enableRadialBlur = true;
+		m_blurTime = 0.0f;
+
 		// ダメージステートに変更
 		auto spDamageState = std::make_shared<EnemyState_Hit>();
 		ChangeState(spDamageState);
 		return;
 	}
+
+	// --- 毎フレームのブラー管理（ヒット発生とは独立して時間管理する） ---
+	if (m_enableRadialBlur)
+	{
+		m_blurTime += Application::Instance().GetUnscaledDeltaTime();
+		if (m_blurTime <= 0.1f) // ブラー持続時間
+		{
+			KdShaderManager::Instance().m_postProcessShader.SetRadialBlur(0.1f, 6.0f, { 0.5f,0.5f });
+			KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(true);
+		}
+		else
+		{
+			m_enableRadialBlur = false;
+			m_blurTime = 0.0f;
+			KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(false);
+		}
+	}
+
 
 	// 自分が所有する剣のみ行列を更新
 	if (auto sword = m_wpSword.lock())

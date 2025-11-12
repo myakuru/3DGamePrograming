@@ -35,6 +35,7 @@ protected:
 	bool m_Expired = false;				// 敵を消滅させるかどうか
 	bool m_isHit = false;				// ヒット判定
 	bool m_isAtkPlayer = false;
+	bool m_enableRadialBlur = false;		// 放射状ブラーエフェクト有効フラグ
 
 	int m_chargeAttackCount = 0;								// 何回ダメージを与えたか
 	int m_totalHitCount = 0;					// 累積ヒット回数（無敵判定用）

@@ -12,6 +12,6 @@ private:
 	void StateUpdate() override;
 	void StateEnd() override;
 
-
+	float m_overshootDist = 4.0f;
 
 };

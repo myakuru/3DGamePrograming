@@ -514,6 +514,9 @@
     <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_SheathKatana">
       <UniqueIdentifier>{44ba3a1e-f988-4ec9-a15e-3f2299ed8297}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\GameObject\Character\AfterImage">
+      <UniqueIdentifier>{c95db03a-2861-47be-b287-f9ce48d935bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -1131,6 +1134,9 @@
     <ClInclude Include="Src\Application\GameObject\HUD\HUDBase.h">
       <Filter>Src\Application\GameObject\HUD</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\AfterImage\AfterImage.h">
+      <Filter>Src\Application\GameObject\Character\AfterImage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -1693,6 +1699,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\HUD\HUDBase.cpp">
       <Filter>Src\Application\GameObject\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\AfterImage\AfterImage.cpp">
+      <Filter>Src\Application\GameObject\Character\AfterImage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

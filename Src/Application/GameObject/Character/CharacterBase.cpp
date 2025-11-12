@@ -6,6 +6,14 @@
 #include"../../Scene/BaseScene/BaseScene.h"
 #include"../../Data/CharacterData/CharacterData.h"
 
+CharacterBase::CharacterBase()
+{
+}
+
+CharacterBase::~CharacterBase()
+{
+}
+
 void CharacterBase::Init()
 {
 	KdGameObject::Init();
@@ -20,15 +28,30 @@ std::shared_ptr<KdModelWork> CharacterBase::GetAnimeModel()
 	return m_modelWork;
 }
 
+std::shared_ptr<KdAnimator> CharacterBase::GetAnimator()
+{
+	return m_animator;
+}
+
+void CharacterBase::SetAnimeSpeed(float _speed)
+{
+	m_physics.fixedFrameRate = _speed;
+}
+
+std::weak_ptr<PlayerCamera> CharacterBase::GetPlayerCamera() const
+{
+	return m_refs.playerCamera;
+}
+
 void CharacterBase::UpdateQuaternion(Math::Vector3& _moveVector)
 {
 	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
 
 	if (_moveVector == Math::Vector3::Zero) return;
 
-	SceneManager::Instance().GetObjectWeakPtr(m_playerCamera);
+	SceneManager::Instance().GetObjectWeakPtr(m_refs.playerCamera);
 
-	if (auto camera = m_playerCamera.lock(); camera)
+	if (auto camera = m_refs.playerCamera.lock(); camera)
 	{
 		// カメラのY軸回転と移動ベクトルをかけ合わせて、WASDから入力された値に基づく方向を計算
 		_moveVector = Math::Vector3::TransformNormal(_moveVector, camera->GetRotationYMatrix());
@@ -69,15 +92,15 @@ void CharacterBase::Update()
 
 	float deltaTime = Application::Instance().GetDeltaTime();
 
-	m_animator->AdvanceTime(m_modelWork->WorkNodes(), m_fixedFrameRate * deltaTime);
+	m_animator->AdvanceTime(m_modelWork->WorkNodes(), m_physics.fixedFrameRate * deltaTime);
 	m_modelWork->CalcNodeMatrices();
 
 	// 重力更新
 	m_gravity += m_gravitySpeed * deltaTime;
 
 	// 水平
-	m_position.x += m_movement.x * m_moveSpeed * m_fixedFrameRate * deltaTime;
-	m_position.z += m_movement.z * m_moveSpeed * m_fixedFrameRate * deltaTime;
+	m_position.x += m_movement.movement.x * m_moveSpeed * m_physics.fixedFrameRate * deltaTime;
+	m_position.z += m_movement.movement.z * m_moveSpeed * m_physics.fixedFrameRate * deltaTime;
 	// 垂直
 	m_position.y += m_gravity;
 
@@ -238,4 +261,35 @@ void CharacterBase::JsonInput(const nlohmann::json& _json)
 void CharacterBase::JsonSave(nlohmann::json& _json) const
 {
 	SelectDraw3dModel::JsonSave(_json);
+}
+
+void CharacterBase::SetIsMoving(Math::Vector3 _move)
+{
+	m_movement.movement = _move;
+}
+
+
+const Math::Vector3& CharacterBase::GetMovement() const
+{
+	return m_movement.movement;
+}
+
+Math::Matrix& CharacterBase::GetRotationMatrix()
+{
+	return m_transform.rotationM;
+}
+
+void CharacterBase::SetRotation(const Math::Quaternion& _rotation)
+{
+	m_rotation = _rotation;
+}
+
+Math::Quaternion& CharacterBase::GetRotationQuaternion()
+{
+	return m_rotation;
+}
+
+void CharacterBase::SetPosition(const Math::Vector3& _position)
+{
+	m_position = _position;
 }

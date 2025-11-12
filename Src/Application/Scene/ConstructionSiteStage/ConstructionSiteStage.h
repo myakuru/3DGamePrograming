@@ -31,9 +31,9 @@ private:
 	// ボスが出現したか
 	bool m_bossAppear = false;
 
-	float m_radialBlurStrength = 1.0f;
+	float m_radialBlurStrength = 0.2f;
 	float m_radialBlurSampleNum = 10.0f;
-	Math::Vector2 m_radialBlurUvOffset = { 0.5f,0.5f };
+	Math::Vector2 m_radialBlurUvOffset = { 0.5f,0.55f };
 	bool m_radialBlurEnable = false;
 
 };

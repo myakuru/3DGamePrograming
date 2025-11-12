@@ -15,6 +15,7 @@
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
 
 #include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
+#include"Application\GameObject\Character\AfterImage\AfterImage.h"	
 
 void PlayerState_BackWordAvoid::StateStart()
 {
@@ -31,48 +32,6 @@ void PlayerState_BackWordAvoid::StateStart()
 
 	m_afterImagePlayed = false;
 
-	// 途中で敵のジャスト回避成功フラグが立ったら残像発生
-	if (!m_afterImagePlayed)
-	{
-		std::list<std::weak_ptr<KdGameObject>> nearEnemies;
-		constexpr float kJustCheckRadius = 25.0f;
-		SceneManager::Instance().GetObjectWeakPtrListByTagInSphere(
-			ObjTag::EnemyLike, m_player->GetPos(), kJustCheckRadius, nearEnemies);
-
-		for (const auto& wk : nearEnemies)
-		{
-			if (auto obj = wk.lock())
-			{
-				bool just = false;
-				if (obj->GetTypeID() == AetheriusEnemy::TypeID)
-				{
-					auto e = std::static_pointer_cast<AetheriusEnemy>(obj);
-					just = e->GetJustAvoidSuccess();
-					if (just) e->SetJustAvoidSuccess(false);
-				}
-				else if (obj->GetTypeID() == BossEnemy::TypeID)
-				{
-					auto b = std::static_pointer_cast<BossEnemy>(obj);
-					just = b->GetJustAvoidSuccess();
-					if (just) b->SetJustAvoidSuccess(false);
-				}
-				if (just)
-				{
-					// ...以降は既存処理
-					m_player->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.5f), 0.7f);
-					m_justAvoided = true;
-					m_afterImagePlayed = true;
-					m_player->SetJustAvoidSuccess(true);
-					KdAudioManager::Instance().Play("Asset/Sound/Player/SlowMotion.WAV", false)->SetVolume(1.0f);
-					if (auto bgm = SceneManager::Instance().GetGameSound()) { bgm->SetPitch(-1.0f); }
-					const auto& justCfg = m_player->GetPlayerConfig().GetJustAvoidParam();
-					Application::Instance().SetFpsScale(justCfg.m_slowMoScale);
-					SceneManager::Instance().SetDrawGrayScale(justCfg.m_useGrayScale);
-					break;
-				}
-			}
-		}
-	}
 
 	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
 	{
@@ -127,7 +86,7 @@ void PlayerState_BackWordAvoid::StateUpdate()
 				if (just)
 				{
 					// ジャスト回避成功時の残像エフェクト
-					m_player->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.5f), 0.7f);
+					m_player->GetAfterImage()->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.5f));
 
 					KdAudioManager::Instance().Play("Asset/Sound/Player/SlowMotion.WAV", false)->SetVolume(1.0f);
 
@@ -240,6 +199,6 @@ void PlayerState_BackWordAvoid::StateEnd()
 	m_player->SetAvoidStartTime(0.0f); // 現在の時間を記録
 
 
-	m_player->AddAfterImage();
+	m_player->GetAfterImage()->AddAfterImage();
 		
 }

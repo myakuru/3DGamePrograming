@@ -287,6 +287,7 @@
     <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera\PlayerCameraState_WinnerCamera.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\TitleCamera\TitleCamera.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\TPSCamera\TPSCamera.h" />
+    <ClInclude Include="Src\Application\GameObject\Character\AfterImage\AfterImage.h" />
     <ClInclude Include="Src\Application\GameObject\Character\CharacterBase.h" />
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemy.h" />
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyStateBase.h" />
@@ -487,6 +488,7 @@
     <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera\PlayerCameraState_WinnerCamera.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\TitleCamera\TitleCamera.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\TPSCamera\TPSCamera.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Character\AfterImage\AfterImage.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\CharacterBase.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemy.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyStateBase.cpp" />

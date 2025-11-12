@@ -5,6 +5,7 @@
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_SheathKatana/PlayerState_SheathKatana.h"
 #include"../../../../../Scene/SceneManager.h"
 #include"../../../../Effect/EffekseerEffect/ESkillEffect/ESkillEffect.h"
+#include"Application\GameObject\Character\AfterImage\AfterImage.h"
 	
 void PlayerState_Skill::StateStart()
 {
@@ -24,7 +25,7 @@ void PlayerState_Skill::StateStart()
 	m_attackParam.m_dashTimer = 0.0f;
 
 	// 残像の設定
-	m_player->AddAfterImage(true, 10, 0.05f, { 0.0f,0.5f,1.0f,0.5f }, 0.5f);
+	m_player->GetAfterImage()->AddAfterImage(true, 10, 0.05f, { 0.0f,0.5f,1.0f,0.5f });
 
 
 	if (m_playerData.GetPlayerStatus().chargeCount < 3)
@@ -90,5 +91,5 @@ void PlayerState_Skill::StateEnd()
 	m_player->SetAtkPlayer(false);
 
 	// 残像のリセット
-	m_player->AddAfterImage(false);
+	m_player->GetAfterImage()->AddAfterImage();
 }

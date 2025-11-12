@@ -59,24 +59,22 @@ void PlayerStateBase::StateStart()
 		// 最も近い敵を探索
 		for (auto& w : candidates)
 		{
-			if (auto sp = w.lock())
+			auto sp = w.lock();
+			if (!sp) { continue; }
+			
+			// 未出現ボスは除外
+			if (sp->GetTypeID() == BossEnemy::TypeID && !SceneManager::Instance().IsBossAppear())
 			{
-				if (sp->IsExpired()) continue;
+				continue;
+			}
 
-				// 未出現ボスは除外
-				if (sp->GetTypeID() == BossEnemy::TypeID && !SceneManager::Instance().IsBossAppear())
-				{
-					continue;
-				}
-
-				const Math::Vector3 epos = sp->GetPos();
-				const float distSq = (epos - playerPos).LengthSquared();
-				if (distSq < m_minDistSq)
-				{
-					m_minDistSq = distSq;
-					m_nearestEnemyPos = epos;
-					m_nearestEnemy = sp;
-				}
+			const Math::Vector3 epos = sp->GetPos();
+			const float distSq = (epos - playerPos).LengthSquared();
+			if (distSq < m_minDistSq)
+			{
+				m_minDistSq = distSq;
+				m_nearestEnemyPos = epos;
+				m_nearestEnemy = sp;
 			}
 		}
 
@@ -110,7 +108,7 @@ void PlayerStateBase::StateStart()
 	}
 
 	// 刀の初期フラグ
-	if (auto katana = m_player->GetKatana().lock(); katana)
+	if (auto katana = m_player->GetKatana().lock())
 	{
 		katana->SetNowAttackState(false);
 	}
@@ -159,7 +157,7 @@ void PlayerStateBase::StateUpdate()
 void PlayerStateBase::StateEnd()
 {
 	// カタナの取得
-	if (auto katana = m_player->GetKatana().lock(); katana)
+	if (auto katana = m_player->GetKatana().lock())
 	{
 		katana->SetNowAttackState(false);
 	}

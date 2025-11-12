@@ -67,6 +67,17 @@ void PlayerState_RunEnd::StateUpdate()
 		return;
 	}
 
+	// キーが押されたらRunステートへ
+	if (KeyboardManager::GetInstance().IsKeyPressed('W') ||
+		KeyboardManager::GetInstance().IsKeyPressed('A') ||
+		KeyboardManager::GetInstance().IsKeyPressed('S') ||
+		KeyboardManager::GetInstance().IsKeyPressed('D'))
+	{
+		auto spRunState = std::make_shared<PlayerState_Run>();
+		m_player->ChangeState(spRunState);
+		return;
+	}
+
 	// WキーとSキーが同時押しされたらIdle状態に戻る
 	if (KeyboardManager::GetInstance().IsKeyPressed('W') &&
 		KeyboardManager::GetInstance().IsKeyPressed('S'))

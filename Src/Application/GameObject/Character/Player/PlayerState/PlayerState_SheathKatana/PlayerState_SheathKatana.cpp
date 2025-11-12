@@ -17,8 +17,6 @@ void PlayerState_SheathKatana::StateStart()
 
 	PlayerStateBase::StateStart();
 
-	m_player->m_onceEffect = false;
-
 	if (!m_SheathKatanaSound) m_SheathKatanaSound = KdAudioManager::Instance().Play("Asset/Sound/Player/SheathKatana.wav", false);
 
 	m_LButtonkeyInput = false;

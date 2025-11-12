@@ -12,6 +12,9 @@
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
 
 #include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
+#include"Application\GameObject\Character\AfterImage\AfterImage.h"
+#include"Application\GameObject\Character\Player\PlayerState\PlayerState_Attack\PlayerState_Attack.h"
+#include"Application\GameObject\Character\Player\PlayerState\PlayerState_FullCharge\PlayerState_FullCharge.h"
 
 void PlayerState_FowardAvoidFast::StateStart()
 {
@@ -21,9 +24,9 @@ void PlayerState_FowardAvoidFast::StateStart()
 	m_player->SetAvoidFlg(true);
 	m_player->SetAvoidStartTime(Application::Instance().GetDeltaTime()); // 現在の時間を記録
 
-	m_player->AddAfterImage(true, 5, 4.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.3f));
-
 	m_player->SetAnimeSpeed(120.0f);
+
+	m_player->GetAfterImage()->AddAfterImage(true, 5, 4.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.5f));
 
 	// 敵との当たり判定を無効化
 	m_player->SetAtkPlayer(true);
@@ -64,7 +67,7 @@ void PlayerState_FowardAvoidFast::StateUpdate()
 				if (just)
 				{
 					// ...以降は既存処理
-					m_player->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.5f), 0.7f);
+					m_player->GetAfterImage()->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.5f));
 					m_justAvoided = true;
 					m_afterImagePlayed = true;
 					m_player->SetJustAvoidSuccess(true);
@@ -128,6 +131,58 @@ void PlayerState_FowardAvoidFast::StateUpdate()
 		}
 	}
 
+	// 先行入力の予約
+	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
+	{
+		m_LButtonkeyInput = true;
+	}
+
+	// コンボ受付
+	if (m_LButtonkeyInput)
+	{
+		// 70%以降で受付
+		if (m_animeTime < 0.7f) return;
+
+		const float kLongPressThreshold = 0.1f; // 長押し閾値
+		const bool isPressed = KeyboardManager::GetInstance().IsKeyPressed(VK_LBUTTON);
+		const bool isJustPressed = KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON);
+		const float lDuration = isPressed ? KeyboardManager::GetInstance().GetKeyPressDuration(VK_LBUTTON) : 0.0f;
+
+		// 1) 先行入力を最優先で消費してAttack1へ
+		if (m_LButtonkeyInput)
+		{
+			m_LButtonkeyInput = false;
+			auto state = std::make_shared<PlayerState_Attack>();
+			m_player->ChangeState(state);
+			return;
+		}
+
+		// チャージが0以下で長押し中の場合
+		/*if (m_player->GetStatus().GetPlayerStatus().chargeCount <= 0 && isPressed)
+		{
+			auto state = std::make_shared<PlayerState_SheathKatana>();
+			m_player->ChangeState(state);
+			return;
+		}*/
+
+		// チャージが残っている場合のみ、長押しでFullChargeへ
+		if (KeyboardManager::GetInstance().GetKeyPressDuration(VK_LBUTTON) >= kLongPressThreshold)
+		{
+			auto state = std::make_shared<PlayerState_FullCharge>();
+			m_player->ChangeState(state);
+			return;
+		}
+
+		// 4) 受付内の新規押下でもAttack1へ
+		if (isJustPressed)
+		{
+			m_LButtonkeyInput = false;
+			auto state = std::make_shared<PlayerState_Attack>();
+			m_player->ChangeState(state);
+			return;
+		}
+	}
+
 	// アニメーションが終了したらIdleへ移行
 	if (m_player->GetAnimator()->IsAnimationEnd())
 	{
@@ -161,7 +216,7 @@ void PlayerState_FowardAvoidFast::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
-	m_player->AddAfterImage();
+	m_player->GetAfterImage()->AddAfterImage();
 
 	m_player->SetAvoidFlg(false);
 	m_player->SetAvoidStartTime(0.0f); // 現在の時間を記録

@@ -16,6 +16,7 @@
 
 #include"../../../../Effect/EffekseerEffect/JustAvoidAttackEffect1/JustAvoidAttackEffect1.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
+#include"Application\GameObject\Character\AfterImage\AfterImage.h"
 
 void PlayerState_JustAvoidAttack::StateStart()
 {
@@ -53,7 +54,7 @@ void PlayerState_JustAvoidAttack::StateStart()
 	SceneManager::Instance().GetObjectWeakPtr(m_justAvoidAttackEffect);
 
 	// 残像の設定
-	m_player->AddAfterImage(true, 5, 1, Math::Color(0.0f, 1.0f, 1.0f, 0.5f), 0.7f);
+	m_player->GetAfterImage()->AddAfterImage(true, 5, 1, Math::Color(0.0f, 1.0f, 1.0f, 0.5f));
 
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
@@ -81,6 +82,8 @@ void PlayerState_JustAvoidAttack::StateStart()
 	{
 		katana->SetNowAttackState(true);
 	}
+
+	m_dashDirection = Math::Vector3::Zero;
 
 }
 
@@ -113,14 +116,22 @@ void PlayerState_JustAvoidAttack::StateUpdate()
 
 	// 先行ダッシュ処理
 	{
-		// 敵の奥に行くようにする距離
 
 		// 攻撃方向が指定されていない場合は敵の方向に向かう
 		Math::Vector3 toEnemyDir = m_nearestEnemyPos - m_player->GetPos();
 
-		const Math::Vector3 dashDir = (m_attackDirection != Math::Vector3::Zero) ? m_attackDirection : toEnemyDir;
 
-		const Math::Vector3 desiredPoint = m_nearestEnemyPos + dashDir * m_overshootDist;
+		if (m_attackDirection != Math::Vector3::Zero)
+		{
+			m_dashDirection = m_attackDirection;
+		}
+		else
+		{
+			m_dashDirection = toEnemyDir;
+		}
+
+		// 敵の奥に行くようにする距離
+		const Math::Vector3 desiredPoint = m_nearestEnemyPos + m_dashDirection * m_overshootDist;
 
 		Math::Vector3 toDesired = desiredPoint - m_player->GetPos();
 		toDesired.y = 0.0f;
@@ -187,5 +198,5 @@ void PlayerState_JustAvoidAttack::StateEnd()
 		effect->SetPlayEffect(false);
 	}
 
-	m_player->AddAfterImage();
+	m_player->GetAfterImage()->AddAfterImage();
 }
