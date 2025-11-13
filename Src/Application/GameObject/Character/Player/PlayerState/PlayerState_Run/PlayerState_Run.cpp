@@ -8,7 +8,7 @@
 #include"../../../../Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
 #include"../PlayerState_FowardAvoidFast/PlayerState_FowardAvoidFast.h"
 #include"../PlayerState_Skill/PlayerState_Skill.h"
-#include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
 
 void PlayerState_Run::StateStart()
 {
@@ -30,31 +30,6 @@ void PlayerState_Run::StateUpdate()
 
 	Math::Vector3 moveDir = m_player->GetMoveDirection();
 
-	if (KeyboardManager::GetInstance().IsKeyPressed('W') &&
-		KeyboardManager::GetInstance().IsKeyPressed('S'))
-	{
-		// 移動量リセット
-		m_player->SetIsMoving(Math::Vector3::Zero);
-		m_player->SetMoveDirection(Math::Vector3::Zero);
-
-		auto state = std::make_shared<PlayerState_RunEnd>();
-		m_player->ChangeState(state);
-		return;
-	}
-
-	// D,A同時押し時は移動量リセット
-	if (KeyboardManager::GetInstance().IsKeyPressed('D') &&
-		KeyboardManager::GetInstance().IsKeyPressed('A'))
-	{
-		// 移動量リセット
-		m_player->SetIsMoving(Math::Vector3::Zero);
-		m_player->SetMoveDirection(Math::Vector3::Zero);
-
-		auto state = std::make_shared<PlayerState_RunEnd>();
-		m_player->ChangeState(state);
-		return;
-	}
-
 	if (moveDir == Math::Vector3::Zero)
 	{
 		auto state = std::make_shared<PlayerState_RunEnd>();
@@ -62,66 +37,14 @@ void PlayerState_Run::StateUpdate()
 		return;
 	}
 
-	// =========================
-	// 右ボタン押下 長押し / 短押し判定
-	// =========================
-	const float kShortPressMin = 0.1f; // 短押し有効開始
-	const float kLongPressThreshold = 0.2f; // 長押し閾値(これ以上で長押しアクション)
+	// 移動するときの入力処理
+	if (UpdateMoveInput()) return;
 
-	float rDuration = KeyboardManager::GetInstance().GetKeyPressDuration(VK_RBUTTON);
+	// 回避入力処理
+	if (UpdateMoveAvoidInput()) return;
 
-	// 押された瞬間
-	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_RBUTTON))
-	{
-		m_isKeyPressing = true; // 判定開始
-	}
-
-	if (KeyboardManager::GetInstance().IsKeyJustPressed('Q'))
-	{
-		if (m_playerData.GetPlayerStatus().specialPoint == m_playerData.GetPlayerStatus().specialPointMax)
-		{
-			m_playerData.SetPlayerStatus().specialPoint = 0;
-			auto specialAttackState = std::make_shared<PlayerState_SpecialAttackCutIn>();
-			m_player->ChangeState(specialAttackState);
-			return;
-		}
-	}
-
-	// Eキー先行入力の予約
-	if (KeyboardManager::GetInstance().IsKeyJustPressed('E'))
-	{
-		if (m_playerData.GetPlayerStatus().skillPoint >= 30)
-		{
-			m_playerData.SetPlayerStatus().skillPoint -= 30;
-			auto state = std::make_shared<PlayerState_Skill>();
-			m_player->ChangeState(state);
-			return;
-		}
-	}
-
-	// 長押し判定
-	if (m_isKeyPressing && rDuration >= kLongPressThreshold && !KeyboardManager::GetInstance().IsKeyJustReleased(VK_RBUTTON))
-	{
-		m_isKeyPressing = false;
-		auto avoidFast = std::make_shared<PlayerState_FowardAvoidFast>();
-		m_player->ChangeState(avoidFast);
-		return;
-	}
-
-	// 短押し判定
-	if (m_isKeyPressing && KeyboardManager::GetInstance().IsKeyJustReleased(VK_RBUTTON))
-	{
-		if (rDuration >= kShortPressMin && rDuration < kLongPressThreshold)
-		{
-			auto backAvoid = std::make_shared<PlayerState_BackWordAvoid>();
-			m_player->ChangeState(backAvoid);
-			m_isKeyPressing = false;
-			return;
-		}
-
-		// 0.1秒未満なら何もしない
-		m_isKeyPressing = false;
-	}
+	// 必殺技入力処理
+	if (UpdateSpecialAttackInput()) return;
 
 	// 方向更新
 	m_player->UpdateQuaternion(moveDir);
@@ -136,4 +59,37 @@ void PlayerState_Run::StateEnd()
 		m_runSound->Stop();     // 公開APIで停止
 		m_runSound.reset();
 	}
+}
+
+bool PlayerState_Run::UpdateMoveInput()
+{
+	// W,S同時押し時は移動量リセット
+	{
+		if (KeyboardManager::GetInstance().IsKeyPressed('W') &&
+			KeyboardManager::GetInstance().IsKeyPressed('S'))
+		{
+			// 移動量リセット
+			m_player->SetIsMoving(Math::Vector3::Zero);
+			m_player->SetMoveDirection(Math::Vector3::Zero);
+
+			auto state = std::make_shared<PlayerState_RunEnd>();
+			m_player->ChangeState(state);
+			return true;
+		}
+
+		// D,A同時押し時は移動量リセット
+		if (KeyboardManager::GetInstance().IsKeyPressed('D') &&
+			KeyboardManager::GetInstance().IsKeyPressed('A'))
+		{
+			// 移動量リセット
+			m_player->SetIsMoving(Math::Vector3::Zero);
+			m_player->SetMoveDirection(Math::Vector3::Zero);
+
+			auto state = std::make_shared<PlayerState_RunEnd>();
+			m_player->ChangeState(state);
+			return true;
+		}
+	}
+
+	return false;
 }

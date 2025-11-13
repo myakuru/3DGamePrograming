@@ -8,6 +8,7 @@
 #include"../PlayerState_Skill/PlayerState_Skill.h"
 #include"../PlayerState_FullCharge/PlayerState_FullCharge.h"
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_Run/PlayerState_Run.h"
 
 void PlayerState_SheathKatana::StateStart()
 {
@@ -76,6 +77,17 @@ void PlayerState_SheathKatana::StateUpdate()
 			m_player->ChangeState(state);
 			return;
 		}
+	}
+
+	// キーが押されたらRunステートへ
+	if (KeyboardManager::GetInstance().IsKeyPressed('W') ||
+		KeyboardManager::GetInstance().IsKeyPressed('A') ||
+		KeyboardManager::GetInstance().IsKeyPressed('S') ||
+		KeyboardManager::GetInstance().IsKeyPressed('D'))
+	{
+		auto spRunState = std::make_shared<PlayerState_Run>();
+		m_player->ChangeState(spRunState);
+		return;
 	}
 
 	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_RBUTTON))

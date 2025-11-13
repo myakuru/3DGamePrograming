@@ -70,59 +70,16 @@ void PlayerState_Attack2::StateUpdate()
 		m_player->UpdateQuaternionDirect(moveDir);
 	}
 
-	// 回避入力受付
+	// 回避入力処理
+	if (UpdateMoveAvoidInput()) return;
+
+	// 必殺技入力処理
+	if (UpdateSpecialAttackInput()) return;
+
+	// 先行入力の予約
+	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
 	{
-		if (KeyboardManager::GetInstance().IsKeyPressed('W') && KeyboardManager::GetInstance().IsKeyJustPressed(VK_RBUTTON))
-		{
-			auto sheath = std::make_shared<PlayerState_BackWordAvoid>();
-			m_player->ChangeState(sheath);
-			return;
-		}
-
-		if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_RBUTTON))
-		{
-			auto sheath = std::make_shared<PlayerState_ForwardAvoid>();
-			m_player->ChangeState(sheath);
-			return;
-		}
-	}
-
-	// コンボ受付
-	{
-
-		if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
-		{
-			m_LButtonkeyInput = true;
-		}
-
-		// Eキー先行入力の予約
-		if (KeyboardManager::GetInstance().IsKeyJustPressed('E'))
-		{
-			if (m_playerData.GetPlayerStatus().skillPoint >= 30)
-			{
-				m_EButtonkeyInput = true;
-				m_playerData.SetPlayerStatus().skillPoint -= 30;
-			}
-		}
-
-		if (KeyboardManager::GetInstance().IsKeyJustPressed('Q'))
-		{
-			if (m_playerData.GetPlayerStatus().specialPoint == m_playerData.GetPlayerStatus().specialPointMax)
-			{
-				m_playerData.SetPlayerStatus().specialPoint = 0;
-				auto specialAttackState = std::make_shared<PlayerState_SpecialAttackCutIn>();
-				m_player->ChangeState(specialAttackState);
-				return;
-			}
-		}
-
-		// アニメ終了時の遷移
-		if (m_player->GetAnimator()->IsAnimationEnd())
-		{
-			auto sheath = std::make_shared<PlayerState_SheathKatana>();
-			m_player->ChangeState(sheath);
-			return;
-		}
+		m_LButtonkeyInput = true;
 	}
 
 	UpdateKatanaPos();
@@ -143,65 +100,17 @@ void PlayerState_Attack2::StateUpdate()
 		// 移動を止める
 		m_player->SetIsMoving(Math::Vector3::Zero);
 
-		if (m_EButtonkeyInput)
+		// 攻撃入力受付
+		if (m_animeTime >= 0.7f)
 		{
-			m_EButtonkeyInput = false;
-			auto runState = std::make_shared<PlayerState_Skill>();
-			m_player->ChangeState(runState);
-			return;
-		}
+			// ため攻撃入力処理
+			if (UpdateChargeAttackInput()) return;
 
-		// コンボ受付
-		if (m_LButtonkeyInput || KeyboardManager::GetInstance().IsKeyPressed(VK_LBUTTON))
-		{
-			// 50%以降で受付
-			if (m_animeTime < 0.5f) return;
+			// 攻撃入力処理
+			if (UpdateAttackInput<PlayerState_Attack3>()) return;
 
-			const float kLongPressThreshold = 0.5f; // 長押し閾値
-			const bool isPressed = KeyboardManager::GetInstance().IsKeyPressed(VK_LBUTTON);
-			const bool isJustPressed = KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON);
-			const float lDuration = isPressed ? KeyboardManager::GetInstance().GetKeyPressDuration(VK_LBUTTON) : 0.0f;
-
-
-			// 1) 先行入力を最優先で消費してAttack1へ
-			if (m_LButtonkeyInput)
-			{
-				m_LButtonkeyInput = false;
-				auto state = std::make_shared<PlayerState_Attack3>();
-				m_player->ChangeState(state);
-				return;
-			}
-
-			// 2) チャージが0以下で長押し中の場合
-			if (m_player->GetStatus().GetPlayerStatus().chargeCount <= 0 && isPressed)
-			{
-				auto state = std::make_shared<PlayerState_SheathKatana>();
-				m_player->ChangeState(state);
-				return;
-			}
-
-			// 3) チャージが残っている場合のみ、長押しでFullChargeへ
-			if (m_player->GetStatus().GetPlayerStatus().chargeCount > 0 && isPressed && lDuration >= kLongPressThreshold)
-			{
-				m_player->SetStatus().SetPlayerStatus().chargeCount--;
-				auto state = std::make_shared<PlayerState_FullCharge>();
-				m_player->ChangeState(state);
-				return;
-			}
-
-			// 4) 受付内の新規押下でもAttack1へ
-			if (isJustPressed)
-			{
-				auto state = std::make_shared<PlayerState_Attack3>();
-				m_player->ChangeState(state);
-				return;
-			}
-		}
-		else if (m_player->GetAnimator()->IsAnimationEnd())
-		{
-			auto sheath = std::make_shared<PlayerState_SheathKatana>();
-			m_player->ChangeState(sheath);
-			return;
+			// アニメーション終了後の遷移処理
+			if (UpdateSheathKatanaInput()) return;
 		}
 	}
 }

@@ -178,13 +178,13 @@ void Player::Update()
 
 		if (obj->GetTypeID() == AetheriusEnemy::TypeID)
 		{
-			auto e = std::static_pointer_cast<AetheriusEnemy>(obj);
-			if (e->GetJustAvoidSuccess()) SetHitCheck(false);
+			auto aetheriusEnemy = std::static_pointer_cast<AetheriusEnemy>(obj);
+			if (aetheriusEnemy->GetJustAvoidSuccess()) SetHitCheck(false);
 		}
 		else if (obj->GetTypeID() == BossEnemy::TypeID)
 		{
-			auto b = std::static_pointer_cast<BossEnemy>(obj);
-			if (b->GetJustAvoidSuccess()) SetHitCheck(false);
+			auto bossEnemy = std::static_pointer_cast<BossEnemy>(obj);
+			if (bossEnemy->GetJustAvoidSuccess()) SetHitCheck(false);
 		}
 	}
 
@@ -216,7 +216,7 @@ void Player::Update()
 	}
 
 	// 時間スケール（ジャスト回避中はアンスケール）
-	if (GetJustAvoidSuccess())
+	if (m_avoid.justSuccess)
 	{
 		const float deltaTime = Application::Instance().GetUnscaledDeltaTime();
 		m_animator->AdvanceTime(m_modelWork->WorkNodes(), m_fixedFrameRate * deltaTime);

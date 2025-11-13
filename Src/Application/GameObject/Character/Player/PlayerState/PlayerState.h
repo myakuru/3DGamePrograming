@@ -20,6 +20,33 @@ public:
 	// 刀と鞘の位置が左手に追従するように更新
 	virtual void UpdateUnsheathed();
 
+	// 必殺技入力関連
+	bool UpdateSpecialAttackInput();
+
+	// 回避入力関連
+	bool UpdateMoveAvoidInput();
+
+	// 攻撃入力関連
+	template<class T>
+	bool UpdateAttackInput()
+	{
+		if (m_LButtonkeyInput)
+		{
+			m_LButtonkeyInput = false;
+			auto state = std::make_shared<T>();
+			m_player->ChangeState(state);
+			return true;
+		}
+
+		return false;
+	}
+
+	// 刀を鞘に納める入力関連
+	bool UpdateSheathKatanaInput();
+
+	// ため攻撃入力関連
+	bool UpdateChargeAttackInput();
+
 	void SetPlayer(Player* player) { m_player = player; }
 
 protected:

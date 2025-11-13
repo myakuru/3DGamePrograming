@@ -5,8 +5,12 @@
 #include"../PlayerState/PlayerState_FowardAvoidFast/PlayerState_FowardAvoidFast.h"
 #include"../PlayerState/PlayerState_BackWordAvoid/PlayerState_BackWordAvoid.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
-#include"../../../../Scene/SceneManager.h"
-#include"../../../../main.h"
+#include"Application/Scene/SceneManager.h"
+#include"Application/main.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_FowardAvoid/PlayerState_FowardAvoid.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_SheathKatana/PlayerState_SheathKatana.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_FullCharge/PlayerState_FullCharge.h"
 
 void PlayerStateBase::StateStart()
 {
@@ -46,11 +50,11 @@ void PlayerStateBase::StateStart()
 		}
 	}
 
-	// 2) 再取得が必要な場合のみ、近傍限定で Enemy/BossEnemy を取得
+	// 再取得
 	if (!m_nearestEnemy)
 	{
 		std::list<std::weak_ptr<KdGameObject>> candidates;
-		// 型バケット＋近傍API（SceneManager 側で型別レジストリを使用）
+		// 近い敵ものを列挙
 		SceneManager::Instance().GetObjectWeakPtrListByTagInSphere
 		(
 			ObjTag::EnemyLike, playerPos, kSearchRadius, candidates
@@ -163,6 +167,7 @@ void PlayerStateBase::StateEnd()
 	}
 }
 
+// 刀の位置を右手に追従するように更新
 void PlayerStateBase::UpdateKatanaPos()
 {
 	// 右手のワークノードを取得
@@ -186,6 +191,7 @@ void PlayerStateBase::UpdateKatanaPos()
 	saya->SetHandKatanaMatrix(leftHandNode->m_worldTransform);
 }
 
+// 刀と鞘の位置が左手に追従するように更新
 void PlayerStateBase::UpdateUnsheathed()
 {
 	// 左手のワークノードを取得
@@ -204,4 +210,113 @@ void PlayerStateBase::UpdateUnsheathed()
 	// プレイヤーに追尾する刀にするためにワークノードとプレイヤーのワールド変換を設定
 	katana->SetHandKatanaMatrix(leftHandNode->m_worldTransform);
 	saya->SetHandKatanaMatrix(leftHandNode->m_worldTransform);
+}
+
+// 必殺技入力関連
+bool PlayerStateBase::UpdateSpecialAttackInput()
+{
+	if (KeyboardManager::GetInstance().IsKeyJustPressed('Q'))
+	{
+		if (m_playerData.GetPlayerStatus().specialPoint == m_playerData.GetPlayerStatus().specialPointMax)
+		{
+			m_playerData.SetPlayerStatus().specialPoint = 0;
+			auto specialAttackState = std::make_shared<PlayerState_SpecialAttackCutIn>();
+			m_player->ChangeState(specialAttackState);
+			return true;
+		}
+	}
+
+	return false;
+}
+
+// 回避入力関連
+bool PlayerStateBase::UpdateMoveAvoidInput()
+{
+	// 回避関係
+	{
+		const float kShortPressMin = 0.1f;       // 短押し有効開始
+		const float kLongPressThreshold = 0.2f;  // 長押し閾値
+
+		float rDuration = KeyboardManager::GetInstance().GetKeyPressDuration(VK_RBUTTON);
+
+		// 押された瞬間
+		if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_RBUTTON))
+		{
+			m_isKeyPressing = true; // 判定開始
+		}
+
+		// 長押し判定
+		if (m_isKeyPressing &&
+			rDuration >= kLongPressThreshold && 
+			!KeyboardManager::GetInstance().IsKeyJustReleased(VK_RBUTTON))
+		{
+			m_isKeyPressing = false;
+			auto avoidFast = std::make_shared<PlayerState_FowardAvoidFast>();
+			m_player->ChangeState(avoidFast);
+			return true;
+		}
+
+		// 短押し判定
+		if (m_isKeyPressing && 
+			KeyboardManager::GetInstance().IsKeyJustReleased(VK_RBUTTON))
+		{
+			if (rDuration >= kShortPressMin && rDuration < kLongPressThreshold)
+			{
+				auto backAvoid = std::make_shared<PlayerState_BackWordAvoid>();
+				m_player->ChangeState(backAvoid);
+				m_isKeyPressing = false;
+				return true;
+			}
+
+			// 0.1秒未満なら何もしない
+			m_isKeyPressing = false;
+		}
+
+		if (m_isKeyPressing &&
+			KeyboardManager::GetInstance().IsKeyJustReleased(VK_RBUTTON))
+		{
+			if (rDuration >= kShortPressMin && rDuration < kLongPressThreshold)
+			{
+				if (!KeyboardManager::GetInstance().IsKeyPressed('W')) return false;
+
+				auto backAvoid = std::make_shared<PlayerState_ForwardAvoid>();
+				m_player->ChangeState(backAvoid);
+				m_isKeyPressing = false;
+				return true;
+			}
+
+			// 0.1秒未満なら何もしない
+			m_isKeyPressing = false;
+		}
+
+	}
+
+	return false;
+}
+
+// 刀を鞘に納める入力関連
+bool PlayerStateBase::UpdateSheathKatanaInput()
+{
+	if (m_player->GetAnimator()->IsAnimationEnd())
+	{
+		auto sheath = std::make_shared<PlayerState_SheathKatana>();
+		m_player->ChangeState(sheath);
+		return true;
+	}
+
+	return false;
+}
+
+// ため攻撃入力関連
+bool PlayerStateBase::UpdateChargeAttackInput()
+{
+	// チャージが残っている場合のみ、長押しでFullChargeへ
+	if (KeyboardManager::GetInstance().GetKeyPressDuration(VK_LBUTTON) >= 0.5f)
+	{
+		auto state = std::make_shared<PlayerState_FullCharge>();
+		m_player->ChangeState(state);
+		return true;
+	}
+
+	return false;
 }

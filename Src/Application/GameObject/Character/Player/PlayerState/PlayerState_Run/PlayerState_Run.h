@@ -12,4 +12,7 @@ private:
 	void StateUpdate() override;
 	void StateEnd() override;
 
+	// キー入力関連
+	bool UpdateMoveInput();
+
 };

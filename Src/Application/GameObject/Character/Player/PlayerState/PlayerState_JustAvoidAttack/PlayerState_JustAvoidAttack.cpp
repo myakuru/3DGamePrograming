@@ -42,15 +42,6 @@ void PlayerState_JustAvoidAttack::StateStart()
 
 	m_player->SetInvincible(true);
 
-	m_player->SetJustAvoidSuccess(true);
-
-	// Just回避演出を確実に適用（冪等化）
-	{
-		const auto& justCfg = m_player->GetPlayerConfig().GetJustAvoidParam();
-		Application::Instance().SetFpsScale(justCfg.m_slowMoScale);
-		SceneManager::Instance().SetDrawGrayScale(justCfg.m_useGrayScale);
-	}
-
 	SceneManager::Instance().GetObjectWeakPtr(m_justAvoidAttackEffect);
 
 	// 残像の設定

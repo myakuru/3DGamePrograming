@@ -32,28 +32,16 @@ void PlayerState_AvoidAttack::StateUpdate()
 		m_maxAnimeTime = m_player->GetAnimator()->GetMaxAnimationTime();
 	}
 
-	if (m_animeTime >= 0.0f && m_animeTime <= 0.1f)
-	{
-		m_player->UpdateAttackCollision(5.0f, 5.0f, 1, m_maxAnimeTime, { 0.3f, 0.0f }, 0.3f);
-	}
+	
+	m_player->UpdateAttackCollision(5.0f, 5.0f, 1, m_maxAnimeTime, { 0.3f, 0.0f }, 0.3f);
 
-	if (KeyboardManager::GetInstance().IsKeyJustPressed('Q'))
-	{
-		if (m_playerData.GetPlayerStatus().specialPoint == m_playerData.GetPlayerStatus().specialPointMax)
-		{
-			m_playerData.SetPlayerStatus().specialPoint = 0;
-			auto specialAttackState = std::make_shared<PlayerState_SpecialAttackCutIn>();
-			m_player->ChangeState(specialAttackState);
-			return;
-		}
-	}
+	// 必殺技入力処理
+	if (UpdateSpecialAttackInput()) return;
 
-	if (m_player->GetAnimator()->IsAnimationEnd())
-	{
-		auto runState = std::make_shared<PlayerState_SheathKatana>();
-		m_player->ChangeState(runState);
-		return;
-	}
+	// アニメーション終了後の遷移処理
+	if (UpdateSheathKatanaInput()) return;
+
+
 	// 回避中の移動方向で回転を更新
 	if (m_player->GetMovement() != Math::Vector3::Zero)
 	{
@@ -65,7 +53,6 @@ void PlayerState_AvoidAttack::StateUpdate()
 
 	float deltaTime = Application::Instance().GetDeltaTime();
 
-	m_time += deltaTime;
 
 	if (m_time < 0.3f)
 	{

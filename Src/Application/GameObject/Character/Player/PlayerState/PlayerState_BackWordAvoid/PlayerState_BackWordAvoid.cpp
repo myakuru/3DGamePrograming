@@ -15,7 +15,7 @@
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
 
 #include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
-#include"Application\GameObject\Character\AfterImage\AfterImage.h"	
+#include"Application/GameObject/Character/AfterImage/AfterImage.h"	
 
 void PlayerState_BackWordAvoid::StateStart()
 {
@@ -33,9 +33,9 @@ void PlayerState_BackWordAvoid::StateStart()
 	m_afterImagePlayed = false;
 
 
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
-		if (auto bossEnemy = m_bossEnemy.lock(); bossEnemy)
+		if (auto bossEnemy = m_bossEnemy.lock())
 		{
 			camera->SetTargetLookAt({ 0.0f,1.0f,-7.5f });
 		}
@@ -85,8 +85,6 @@ void PlayerState_BackWordAvoid::StateUpdate()
 
 				if (just)
 				{
-					// ジャスト回避成功時の残像エフェクト
-					m_player->GetAfterImage()->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.5f));
 
 					KdAudioManager::Instance().Play("Asset/Sound/Player/SlowMotion.WAV", false)->SetVolume(1.0f);
 
@@ -117,11 +115,23 @@ void PlayerState_BackWordAvoid::StateUpdate()
 	Math::Vector3 forward = Math::Vector3::TransformNormal(Math::Vector3::Forward, Math::Matrix::CreateFromQuaternion(m_player->GetRotationQuaternion()));
 	forward.Normalize();
 
-	if (m_justAvoided)
+	if (m_player->GetJustAvoidSuccess())
 	{
+		// ジャスト回避成功時の残像エフェクト
+		m_player->GetAfterImage()->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.5f));
+
+		KdAudioManager::Instance().Play("Asset/Sound/Player/SlowMotion.WAV", false)->SetVolume(1.0f);
+
+		// ゲームのメインサウンドのピッチを下げる
+		if (auto bgm = SceneManager::Instance().GetGameSound())
+		{
+			bgm->SetPitch(-1.0f);
+		}
+
+		m_player->SetJustAvoidSuccess(false);
+
 		if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
 		{
-			m_justAvoided = false;
 			auto state = std::make_shared<PlayerState_JustAvoidAttack>();
 			m_player->ChangeState(state);
 			return;
@@ -132,34 +142,14 @@ void PlayerState_BackWordAvoid::StateUpdate()
 		// 回避中に攻撃ボタンが押されたら回避攻撃へ移行
 		if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
 		{
-			m_justAvoided = false;
+			m_player->SetJustAvoidSuccess(false);
 			auto state = std::make_shared<PlayerState_AvoidAttack>();
 			m_player->ChangeState(state);
 			return;
 		}
 
-		// Eキー先行入力の予約
-		if (KeyboardManager::GetInstance().IsKeyJustPressed('E'))
-		{
-			if (m_playerData.GetPlayerStatus().skillPoint >= 30)
-			{
-				m_playerData.SetPlayerStatus().skillPoint -= 30;
-				auto state = std::make_shared<PlayerState_Skill>();
-				m_player->ChangeState(state);
-				return;
-			}
-		}
-
-		if (KeyboardManager::GetInstance().IsKeyJustPressed('Q'))
-		{
-			if (m_playerData.GetPlayerStatus().specialPoint == m_playerData.GetPlayerStatus().specialPointMax)
-			{
-				m_playerData.SetPlayerStatus().specialPoint = 0;
-				auto specialAttackState = std::make_shared<PlayerState_SpecialAttackCutIn>();
-				m_player->ChangeState(specialAttackState);
-				return;
-			}
-		}
+		// 必殺技入力処理
+		if (UpdateSpecialAttackInput()) return;
 	}
 
 	// アニメーションが終了したらIdleへ移行

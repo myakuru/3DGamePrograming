@@ -48,7 +48,7 @@ public:
 	// ===== カメラ =====
 	std::weak_ptr<PlayerCamera> GetPlayerCamera() const;
 
-	// ===== ステート管理（既存公開メンバを維持） =====
+	// ===== ステート管理 =====
 	StateManager m_stateManager;
 
 	// ===== アクセサ（戦闘系の共通化） =====

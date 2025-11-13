@@ -57,16 +57,6 @@ void PlayerState_Attack4::StateUpdate()
 		m_animeTime = m_player->GetAnimator()->GetPlayProgress();
 
 		m_maxAnimeTime = m_player->GetAnimator()->GetMaxAnimationTime();
-
-		if (m_animeTime > m_maxAnimeTime)
-		{
-			KdDebugGUI::Instance().AddLog(U8("Attack4アニメ時間: %f"), m_animeTime);
-			KdDebugGUI::Instance().AddLog("\n");
-		}
-		else
-		{
-			m_animeTime = m_maxAnimeTime;
-		}
 	}
 
 	PlayerStateBase::StateUpdate();
@@ -78,47 +68,16 @@ void PlayerState_Attack4::StateUpdate()
 	// 0.5秒間当たり判定有効
 	m_player->UpdateAttackCollision(7.0f, 1.0f, 7, m_maxAnimeTime, { 0.2f, 0.2f }, 0.3f);
 
-	// 回避入力受付
-	{
-		if (KeyboardManager::GetInstance().IsKeyPressed('W') && KeyboardManager::GetInstance().IsKeyJustPressed(VK_RBUTTON))
-		{
-			auto sheath = std::make_shared<PlayerState_BackWordAvoid>();
-			m_player->ChangeState(sheath);
-			return;
-		}
+	// 回避入力処理
+	if (UpdateMoveAvoidInput()) return;
 
-		if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_RBUTTON))
-		{
-			auto sheath = std::make_shared<PlayerState_ForwardAvoid>();
-			m_player->ChangeState(sheath);
-			return;
-		}
-	}
+	// 必殺技入力処理
+	if (UpdateSpecialAttackInput()) return;
 
+	// 先行入力の予約
 	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
 	{
 		m_LButtonkeyInput = true;
-	}
-
-	// Eキー先行入力の予約
-	if (KeyboardManager::GetInstance().IsKeyJustPressed('E'))
-	{
-		if (m_playerData.GetPlayerStatus().skillPoint >= 30)
-		{
-			m_EButtonkeyInput = true;
-			m_playerData.SetPlayerStatus().skillPoint -= 30;
-		}
-	}
-
-	if (KeyboardManager::GetInstance().IsKeyJustPressed('Q'))
-	{
-		if (m_playerData.GetPlayerStatus().specialPoint == m_playerData.GetPlayerStatus().specialPointMax)
-		{
-			m_playerData.SetPlayerStatus().specialPoint = 0;
-			auto specialAttackState = std::make_shared<PlayerState_SpecialAttackCutIn>();
-			m_player->ChangeState(specialAttackState);
-			return;
-		}
 	}
 
 	// 攻撃中の移動方向で回転を更新
@@ -155,64 +114,17 @@ void PlayerState_Attack4::StateUpdate()
 		}
 
 
-		if (m_EButtonkeyInput)
+		// 攻撃入力受付
+		if (m_animeTime >= 0.7f)
 		{
-			m_EButtonkeyInput = false;
-			auto runState = std::make_shared<PlayerState_Skill>();
-			m_player->ChangeState(runState);
-			return;
-		}
+			// ため攻撃入力処理
+			if (UpdateChargeAttackInput()) return;
 
-		// コンボ受付
-		if (m_LButtonkeyInput || KeyboardManager::GetInstance().IsKeyPressed(VK_LBUTTON))
-		{
-			// 90%以降で受付
-			if (m_animeTime < 0.9f) return;
+			// 攻撃入力処理
+			if (UpdateAttackInput<PlayerState_Attack1>()) return;
 
-			const float kLongPressThreshold = 0.5f; // 長押し閾値
-			const bool isPressed = KeyboardManager::GetInstance().IsKeyPressed(VK_LBUTTON);
-			const bool isJustPressed = KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON);
-			const float lDuration = isPressed ? KeyboardManager::GetInstance().GetKeyPressDuration(VK_LBUTTON) : 0.0f;
-
-			// 1) 先行入力を最優先で消費してAttack1へ
-			if (m_LButtonkeyInput)
-			{
-				m_LButtonkeyInput = false;
-				auto state = std::make_shared<PlayerState_Attack1>();
-				m_player->ChangeState(state);
-				return;
-			}
-
-			// 2) チャージが0以下で長押し中の場合
-			if (m_player->GetStatus().GetPlayerStatus().chargeCount <= 0 && isPressed)
-			{
-				auto state = std::make_shared<PlayerState_SheathKatana>();
-				m_player->ChangeState(state);
-				return;
-			}
-
-			// 3) チャージが残っている場合のみ、長押しでFullChargeへ
-			if (m_player->GetStatus().GetPlayerStatus().chargeCount > 0 && isPressed && lDuration >= kLongPressThreshold)
-			{
-				m_player->SetStatus().SetPlayerStatus().chargeCount--;
-				auto state = std::make_shared<PlayerState_FullCharge>();
-				m_player->ChangeState(state);
-				return;
-			}
-
-			// 4) 受付内の新規押下でもAttack1へ
-			if (isJustPressed)
-			{
-				auto state = std::make_shared<PlayerState_Attack1>();
-				m_player->ChangeState(state);
-				return;
-			}
-		}
-		else if (m_player->GetAnimator()->IsAnimationEnd())
-		{
-			auto sheath = std::make_shared<PlayerState_SheathKatana>();
-			m_player->ChangeState(sheath);
-			return;
+			// アニメーション終了後の遷移処理
+			if (UpdateSheathKatanaInput()) return;
 		}
 	}
 }
@@ -221,9 +133,9 @@ void PlayerState_Attack4::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 	// カメラの位置を変更
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
-		if (auto bossEnemy = m_bossEnemy.lock(); bossEnemy)
+		if (auto bossEnemy = m_bossEnemy.lock())
 		{
 			camera->SetTargetLookAt(m_cameraBossTargetOffset);
 		}
