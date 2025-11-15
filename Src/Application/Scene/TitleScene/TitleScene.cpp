@@ -17,10 +17,11 @@ void TitleScene::Event()
 
 void TitleScene::Init()
 {
+	auto& sceneManager = SceneManager::Instance();
 
-	SceneManager::Instance().SetIntroCamera(false);
+	sceneManager.SetIntroCamera(false);
 
-	SceneManager::Instance().SetDrawGrayScale(false);
-	SceneManager::Instance().m_gameClear = false;	// ゲームクリアフラグを初期化
-	SceneManager::Instance().SetResultFlag(false);	// 結果フラグを初期化
+	sceneManager.SetDrawGrayScale(false);
+	sceneManager.SetResultFlag   (false);	// 結果フラグを初期化
+	sceneManager.m_gameClear = false;	    // ゲームクリアフラグを初期化
 }

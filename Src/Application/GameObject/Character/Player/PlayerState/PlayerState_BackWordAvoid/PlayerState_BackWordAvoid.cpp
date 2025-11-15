@@ -19,31 +19,32 @@
 
 void PlayerState_BackWordAvoid::StateStart()
 {
-	auto anime = m_player->GetAnimeModel()->GetAnimation("AvoidForward");
+	auto anime = m_player->GetAnimeModel()->GetAnimation("AvoidBackward");
 	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
 
 	m_player->SetAvoidFlg(true);
-	m_player->SetAvoidStartTime(Application::Instance().GetDeltaTime()); // 現在の時間を記録
 
-	m_player->SetAnimeSpeed(120.0f);
+	SceneManager::Instance().GetObjectWeakPtr(m_bossEnemy);
 
-	// 回避時の処理
-	m_player->SetAvoidStartTime(0.0f);
-
-	m_afterImagePlayed = false;
-
-
-	if (auto camera = m_player->GetPlayerCamera().lock())
+	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
 	{
-		if (auto bossEnemy = m_bossEnemy.lock())
+		if (auto bossEnemy = m_bossEnemy.lock(); bossEnemy)
 		{
-			camera->SetTargetLookAt({ 0.0f,1.0f,-7.5f });
+			camera->SetTargetLookAt({ 0.0f,1.0f,-6.5f });
 		}
 		else
 		{
 			camera->SetTargetLookAt({ 0.0f, 1.0f, -4.5f });
 		}
 	}
+
+	m_time = 0.0f;
+
+	// アニメーション速度を変更
+	m_player->SetAnimeSpeed(120.0f);
+
+	// 回避時の処理
+	m_player->SetAvoidStartTime(0.0f);
 
 	m_afterImagePlayed = false;
 	m_justAvoided = false;
@@ -55,61 +56,32 @@ void PlayerState_BackWordAvoid::StateStart()
 void PlayerState_BackWordAvoid::StateUpdate()
 {
 
-	float deltaTime = Application::Instance().GetDeltaTime();
-	m_time += deltaTime; // これが回避開始からの経過時間になる
+	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
+	m_time += deltaTime;
 
 	// 経過時間を Player クラスに伝える
 	m_player->SetAvoidStartTime(m_time);
 
-	// 途中で敵のジャスト回避成功フラグが立ったら残像発生
-	if (!m_afterImagePlayed)
+	// ジャスト回避成立時の演出を一度だけ
+	if (!m_afterImagePlayed && m_player->GetJustAvoidSuccess())
 	{
-		for (const auto& wk : m_player->GetEnemyLike())
+		KdAudioManager::Instance().Play("Asset/Sound/Player/SlowMotion.WAV", false)->SetVolume(1.0f);
+
+		if (auto bgm = SceneManager::Instance().GetGameSound())
 		{
-			if (auto obj = wk.lock())
-			{
-				bool just = false;
-
-				if (obj->GetTypeID() == AetheriusEnemy::TypeID)
-				{
-					auto e = std::static_pointer_cast<AetheriusEnemy>(obj);
-					just = e->GetJustAvoidSuccess();
-					if (just) e->SetJustAvoidSuccess(false); // 消費
-				}
-				else if (obj->GetTypeID() == BossEnemy::TypeID)
-				{
-					auto b = std::static_pointer_cast<BossEnemy>(obj);
-					just = b->GetJustAvoidSuccess();
-					if (just) b->SetJustAvoidSuccess(false); // 消費
-				}
-
-				if (just)
-				{
-
-					KdAudioManager::Instance().Play("Asset/Sound/Player/SlowMotion.WAV", false)->SetVolume(1.0f);
-
-					// ゲームのメインサウンドのピッチを下げる
-					if (auto bgm = SceneManager::Instance().GetGameSound())
-					{
-						bgm->SetPitch(-1.0f);
-					}
-
-					m_justAvoided = true;
-					m_afterImagePlayed = true;
-					m_player->SetJustAvoidSuccess(true);
-
-					// 保険：ここでも演出をON（更新順の揺れ対策）
-					{
-						const auto& justCfg = m_player->GetPlayerConfig().GetJustAvoidParam();
-						Application::Instance().SetFpsScale(justCfg.m_slowMoScale);
-						SceneManager::Instance().SetDrawGrayScale(justCfg.m_useGrayScale);
-					}
-					break; // 多重発火防止
-				}
-			}
+			bgm->SetPitch(-1.0f);
 		}
-	}
 
+		m_justAvoided = true;
+		m_afterImagePlayed = true;
+
+		// 残像
+		m_player->GetAfterImage()->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.5f));
+
+		const auto& justCfg = m_player->GetPlayerConfig().GetJustAvoidParam();
+		Application::Instance().SetFpsScale(justCfg.m_slowMoScale);
+		SceneManager::Instance().SetDrawGrayScale(justCfg.m_useGrayScale);
+	}
 
 	// 前方ベクトルを取得
 	Math::Vector3 forward = Math::Vector3::TransformNormal(Math::Vector3::Forward, Math::Matrix::CreateFromQuaternion(m_player->GetRotationQuaternion()));
@@ -117,19 +89,6 @@ void PlayerState_BackWordAvoid::StateUpdate()
 
 	if (m_player->GetJustAvoidSuccess())
 	{
-		// ジャスト回避成功時の残像エフェクト
-		m_player->GetAfterImage()->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.5f));
-
-		KdAudioManager::Instance().Play("Asset/Sound/Player/SlowMotion.WAV", false)->SetVolume(1.0f);
-
-		// ゲームのメインサウンドのピッチを下げる
-		if (auto bgm = SceneManager::Instance().GetGameSound())
-		{
-			bgm->SetPitch(-1.0f);
-		}
-
-		m_player->SetJustAvoidSuccess(false);
-
 		if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
 		{
 			auto state = std::make_shared<PlayerState_JustAvoidAttack>();
@@ -139,10 +98,15 @@ void PlayerState_BackWordAvoid::StateUpdate()
 	}
 	else
 	{
+		m_player->SetJustAvoidSuccess(false);
+
+		// スローモーション解除（ここを終点にする）
+		Application::Instance().SetFpsScale(1.f);
+		SceneManager::Instance().SetDrawGrayScale(false);
+
 		// 回避中に攻撃ボタンが押されたら回避攻撃へ移行
 		if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
 		{
-			m_player->SetJustAvoidSuccess(false);
 			auto state = std::make_shared<PlayerState_AvoidAttack>();
 			m_player->ChangeState(state);
 			return;
@@ -155,16 +119,14 @@ void PlayerState_BackWordAvoid::StateUpdate()
 	// アニメーションが終了したらIdleへ移行
 	if (m_player->GetAnimator()->IsAnimationEnd())
 	{
+		// ジャスト回避フラグを戻す
+		m_player->SetJustAvoidSuccess(false);
+
+		m_player->SetJustAvoidAttackSuccess(false);
+
 		// スローモーション解除（ここを終点にする）
 		Application::Instance().SetFpsScale(1.f);
 		SceneManager::Instance().SetDrawGrayScale(false);
-		m_justAvoided = false;
-
-		// ゲームのメインサウンドのピッチを下げる
-		if (auto bgm = SceneManager::Instance().GetGameSound())
-		{
-			bgm->SetPitch(0.0f);
-		}
 
 		auto idleState = std::make_shared<PlayerState_Idle>();
 		m_player->ChangeState(idleState);
@@ -173,22 +135,35 @@ void PlayerState_BackWordAvoid::StateUpdate()
 
 	PlayerStateBase::StateUpdate();
 
+	// 刀は鞘の中にある状態
 	UpdateUnsheathed();
 
-	float dashSpeed = 1.0f;
-	
-	m_player->SetIsMoving(forward * dashSpeed);
+	// 回避中の移動処理
+	if (m_time < 0.3f)
+	{
+		const float dashSpeed = -0.9f;
+		m_player->SetIsMoving(forward * dashSpeed);
+	}
+	else
+	{
+		m_player->SetIsMoving(Math::Vector3::Zero);
+	}
 
 }
 
 void PlayerState_BackWordAvoid::StateEnd()
 {
+
 	PlayerStateBase::StateEnd();
 
 	m_player->SetAvoidFlg(false);
 	m_player->SetAvoidStartTime(0.0f); // 現在の時間を記録
 
+	m_player->SetHitCheck(false); // 被ヒット判定解除
 
 	m_player->GetAfterImage()->AddAfterImage();
+
+	// 敵との当たり判定を無効化解除（押し出し処理を元に戻す）
+	m_player->SetAtkPlayer(false);
 		
 }

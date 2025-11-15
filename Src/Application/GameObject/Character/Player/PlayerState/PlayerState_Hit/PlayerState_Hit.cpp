@@ -25,16 +25,6 @@ void PlayerState_Hit::StateUpdate()
 		m_animeTime = m_player->GetAnimator()->GetPlayProgress();
 
 		m_maxAnimeTime = m_player->GetAnimator()->GetMaxAnimationTime();
-
-		if (m_animeTime > m_maxAnimeTime)
-		{
-			KdDebugGUI::Instance().AddLog(U8("Attack4アニメ時間: %f"), m_animeTime);
-			KdDebugGUI::Instance().AddLog("\n");
-		}
-		else
-		{
-			m_animeTime = m_maxAnimeTime;
-		}
 	}
 
 	if (m_player->GetAnimator()->IsAnimationEnd())
@@ -44,16 +34,14 @@ void PlayerState_Hit::StateUpdate()
 		return;
 	}
 
-	if (KeyboardManager::GetInstance().IsKeyJustPressed('Q'))
+	if (m_animeTime >= 0.5f)
 	{
-		if (m_playerData.GetPlayerStatus().specialPoint == m_playerData.GetPlayerStatus().specialPointMax)
-		{
-			m_playerData.SetPlayerStatus().specialPoint = 0;
-			auto specialAttackState = std::make_shared<PlayerState_SpecialAttackCutIn>();
-			m_player->ChangeState(specialAttackState);
-			return;
-		}
+		// 回避入力処理
+		if (UpdateMoveAvoidInput()) return;
 	}
+
+	// 必殺技入力処理
+	if (UpdateSpecialAttackInput()) return;
 
 	PlayerStateBase::StateUpdate();
 
@@ -61,12 +49,11 @@ void PlayerState_Hit::StateUpdate()
 
 	if (m_animeTime >= 0.9f)
 	{
-		if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
-		{
-			auto attack1state = std::make_shared<PlayerState_Attack>();
-			m_player->ChangeState(attack1state);
-			return;
-		}
+		// 押された瞬間
+		if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON)) m_LButtonkeyInput = true; // 判定開始
+
+		// 攻撃入力受付
+		if (UpdateAttackInput<PlayerState_Attack>()) return;
 	}
 
 

@@ -12,7 +12,6 @@ public:
 		int _attackCount = 5, float _attackTimer = 0.3f,
 		float _activeBeginSec = 0.0f, float _activeEndSec = 3.0f);
 
-
 protected:
 
 	void Init() override;

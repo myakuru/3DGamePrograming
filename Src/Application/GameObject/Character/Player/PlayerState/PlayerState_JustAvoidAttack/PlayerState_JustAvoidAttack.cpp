@@ -40,7 +40,10 @@ void PlayerState_JustAvoidAttack::StateStart()
 	// 敵との当たり判定を無効化
 	m_player->SetAtkPlayer(true);
 
+	// 無敵状態にする
 	m_player->SetInvincible(true);
+
+	m_player->SetGuardBreak(true);
 
 	SceneManager::Instance().GetObjectWeakPtr(m_justAvoidAttackEffect);
 
@@ -81,6 +84,9 @@ void PlayerState_JustAvoidAttack::StateStart()
 void PlayerState_JustAvoidAttack::StateUpdate()
 {
 
+	// 被ヒット判定無効化
+	m_player->SetHitCheck(false);
+
 	if (m_player->GetAnimator()->IsAnimationEnd())
 	{
 		auto state = std::make_shared<PlayerState_JustAvoidAttack_end>();
@@ -103,7 +109,7 @@ void PlayerState_JustAvoidAttack::StateUpdate()
 		m_player->UpdateQuaternionDirect(moveDir);
 	}
 
-	float deltaTime = Application::Instance().GetDeltaTime();
+	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
 
 	// 先行ダッシュ処理
 	{

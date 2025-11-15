@@ -72,11 +72,6 @@ public:
 		m_attackActiveEnd = 3.0f;
 	}
 
-	// 無敵状態管理フラグ
-	void SetInvincible(bool _flag) { m_invincible = _flag; }
-
-	bool GetInvincible() const { return m_invincible; }
-
 	// 敵への累積ヒット回数（全ステート共通）
 	int  GetHitCount() const { return m_totalHitCount; }
 	void IncrementHitCount() { ++m_totalHitCount; }

@@ -30,42 +30,17 @@ void PlayerState_RunEnd::StateUpdate()
 		}
 	}
 
-	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
-	{
-		auto attackState = std::make_shared<PlayerState_Attack>();
-		m_player->ChangeState(attackState);
-		return;
-	}
+	// 押された瞬間
+	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON)) m_LButtonkeyInput = true; // 判定開始
 
-	// Eキー先行入力の予約
-	if (KeyboardManager::GetInstance().IsKeyJustPressed('E'))
-	{
-		if (m_playerData.GetPlayerStatus().skillPoint >= 30)
-		{
-			m_playerData.SetPlayerStatus().skillPoint -= 30;
-			auto state = std::make_shared<PlayerState_Skill>();
-			m_player->ChangeState(state);
-			return;
-		}
-	}
+	// 攻撃入力処理
+	if (UpdateAttackInput<PlayerState_Attack>()) return;
 
-	if (KeyboardManager::GetInstance().IsKeyJustPressed('Q'))
-	{
-		if (m_playerData.GetPlayerStatus().specialPoint == m_playerData.GetPlayerStatus().specialPointMax)
-		{
-			m_playerData.SetPlayerStatus().specialPoint = 0;
-			auto specialAttackState = std::make_shared<PlayerState_SpecialAttackCutIn>();
-			m_player->ChangeState(specialAttackState);
-			return;
-		}
-	}
+	// 回避入力処理
+	if (UpdateMoveAvoidInput()) return;
 
-	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_RBUTTON))
-	{
-		auto attackState = std::make_shared<PlayerState_BackWordAvoid>();
-		m_player->ChangeState(attackState);
-		return;
-	}
+	// 必殺技入力処理
+	if (UpdateSpecialAttackInput()) return;
 
 	// キーが押されたらRunステートへ
 	if (KeyboardManager::GetInstance().IsKeyPressed('W') ||

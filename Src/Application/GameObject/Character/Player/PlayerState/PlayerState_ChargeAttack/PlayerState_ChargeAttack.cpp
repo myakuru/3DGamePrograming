@@ -54,18 +54,6 @@ void PlayerState_ChargeAttack::StateUpdate()
 
 	m_time += deltaTime;
 
-	//KdDebugGUI::Instance().AddLog(std::to_string(m_time).data());
-	//KdDebugGUI::Instance().AddLog("\n");
-
-	if (m_time >= 0.0f && m_time <= 0.2f)
-	{
-		KdShaderManager::Instance().m_postProcessShader.SetEnableStrongBlur(true);
-	}
-	else
-	{
-		KdShaderManager::Instance().m_postProcessShader.SetEnableStrongBlur(false);
-	}
-
 	// 刀は鞘の中にある状態
 	UpdateUnsheathed();
 
@@ -105,8 +93,6 @@ void PlayerState_ChargeAttack::StateUpdate()
 		if (duration >= kLongPressThreshold)
 		{
 			m_isKeyPressing = false;
-			// 先に消費してからステート遷移
-			m_playerData.SetPlayerStatus().chargeCount--;
 			auto next = std::make_shared<PlayerState_ChargeAttack1>();
 			m_player->ChangeState(next);
 			return;

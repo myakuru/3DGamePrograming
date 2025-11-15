@@ -1,18 +1,10 @@
 ﻿#include "CharacterBase.h"
-#include"../../main.h"
-#include"../../Scene/SceneManager.h"
-#include"../Camera/PlayerCamera/PlayerCamera.h"
-#include"../Collition/Collition.h"
-#include"../../Scene/BaseScene/BaseScene.h"
-#include"../../Data/CharacterData/CharacterData.h"
-
-CharacterBase::CharacterBase()
-{
-}
-
-CharacterBase::~CharacterBase()
-{
-}
+#include"Application/main.h"
+#include"Application/Scene/SceneManager.h"
+#include"Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
+#include"Application/GameObject/Collition/Collition.h"
+#include"Application/Scene/BaseScene/BaseScene.h"
+#include"Application/Data/CharacterData/CharacterData.h"
 
 void CharacterBase::Init()
 {
@@ -66,7 +58,7 @@ void CharacterBase::UpdateQuaternion(Math::Vector3& _moveVector)
 	Math::Quaternion targetRotation = Math::Quaternion::CreateFromAxisAngle(Math::Vector3::Up, targetYaw);
 
 	// クォータニオンの内積を計算
-	m_rotation = Math::Quaternion::Slerp(m_rotation, targetRotation, deltaTime * m_rotateSpeed);
+	m_rotation = Math::Quaternion::Slerp(m_rotation, targetRotation, deltaTime * m_movement.rotateSpeed);
 }
 
 void CharacterBase::UpdateQuaternionDirect(const Math::Vector3& direction)
@@ -81,7 +73,7 @@ void CharacterBase::UpdateQuaternionDirect(const Math::Vector3& direction)
 
 	Math::Quaternion targetRotation = Math::Quaternion::CreateFromAxisAngle(Math::Vector3::Up, targetYaw);
 	
-	m_rotation = Math::Quaternion::Slerp(m_rotation, targetRotation, deltaTime * m_rotateSpeed);
+	m_rotation = Math::Quaternion::Slerp(m_rotation, targetRotation, deltaTime * m_movement.rotateSpeed);
 }
 
 void CharacterBase::Update()
@@ -96,13 +88,13 @@ void CharacterBase::Update()
 	m_modelWork->CalcNodeMatrices();
 
 	// 重力更新
-	m_gravity += m_gravitySpeed * deltaTime;
+	m_physics.gravity += m_physics.gravitySpeed * deltaTime;
 
 	// 水平
-	m_position.x += m_movement.movement.x * m_moveSpeed * m_physics.fixedFrameRate * deltaTime;
-	m_position.z += m_movement.movement.z * m_moveSpeed * m_physics.fixedFrameRate * deltaTime;
+	m_position.x += m_movement.movement.x * m_movement.moveSpeed * m_physics.fixedFrameRate * deltaTime;
+	m_position.z += m_movement.movement.z * m_movement.moveSpeed * m_physics.fixedFrameRate * deltaTime;
 	// 垂直
-	m_position.y += m_gravity;
+	m_position.y += m_physics.gravity;
 
 	m_stateManager.Update();
 
@@ -132,7 +124,7 @@ void CharacterBase::PostUpdate()
 	rayInfo.m_dir = { 0.0f,-1.0f,0.0f };
 
 	// レイの長さを設定
-	rayInfo.m_range = enableStepHigh + std::fabs(m_gravity);
+	rayInfo.m_range = enableStepHigh + std::fabs(m_physics.gravity);
 
 	// アタリ判定したいタイプを設定
 	rayInfo.m_type = KdCollider::TypeGround;
@@ -142,16 +134,16 @@ void CharacterBase::PostUpdate()
 	// レイに当たったオブジェクト情報を格納するリスト
 	std::list<KdCollider::CollisionResult> retRayList;
 
-	if (m_collision.expired()) return;
+	if (m_refs.collision.expired()) return;
 
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, m_object);
+	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, m_refs.referencedObjects);
 
-	for (auto& collision : m_object)
+	for (auto& collision : m_refs.referencedObjects)
 	{
 		if (auto collisionObj = collision.lock(); collisionObj)
 		{
 			collisionObj->Intersects(rayInfo, &retRayList);
-			m_object.clear();
+			m_refs.referencedObjects.clear();
 		}
 	}
 
@@ -176,7 +168,7 @@ void CharacterBase::PostUpdate()
 	// 当たっていたら
 	if (hit)
 	{
-		m_gravity = 0.0f;
+		m_physics.gravity = 0.0f;
 		m_position.y = groundPos.y;
 	}
 
@@ -199,12 +191,12 @@ void CharacterBase::PostUpdate()
 	// 球に当たったオブジェクト情報を格納するリスト
 	std::list<KdCollider::CollisionResult> retSpherelist;
 
-	for (auto& collision : m_object)
+	for (auto& collision : m_refs.referencedObjects)
 	{
 		if (auto collisionObj = collision.lock(); collisionObj)
 		{
 			collisionObj->Intersects(sphereInfo, &retSpherelist);
-			m_object.clear();
+			m_refs.referencedObjects.clear();
 		}
 	}
 

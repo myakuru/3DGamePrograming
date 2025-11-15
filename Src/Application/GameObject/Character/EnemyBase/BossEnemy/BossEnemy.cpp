@@ -22,15 +22,15 @@ void BossEnemy::Init()
 
 	SetDrawFlag("DrawLit", true);
 
-	m_rotateSpeed = 10.0f;
+	m_movement.rotateSpeed = 10.0f;
 
 	m_animator->SetAnimation(m_modelWork->GetData()->GetAnimation("Idle"));
 
 	m_pCollider = std::make_unique<KdCollider>();
 
-	m_pCollider->RegisterCollisionShape("EnemySphere", sphere, KdCollider::TypeDamage);
+	m_pCollider->RegisterCollisionShape("EnemySphere", m_sphere, KdCollider::TypeDamage);
 
-	m_pCollider->RegisterCollisionShape("PlayerSphere", sphere, KdCollider::TypeEnemyHit);
+	m_pCollider->RegisterCollisionShape("PlayerSphere", m_sphere, KdCollider::TypeEnemyHit);
 
 	StateInit();
 
@@ -39,7 +39,7 @@ void BossEnemy::Init()
 	m_isAtkPlayer = false;
 	m_dissever = 0.0f;
 
-	m_moveSpeed = 0.1f;
+	m_movement.moveSpeed = 0.1f;
 
 	m_invincible = false;
 	m_stateChange = false;
@@ -55,10 +55,10 @@ void BossEnemy::Update()
 	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyShield, m_enemyShields);
 
 	// 球の中心座標と半径を設定
-	sphere.Center = m_position + Math::Vector3(0.0f, 0.7f, 0.0f); // 敵の位置＋オフセット
-	sphere.Radius = 0.2f; // 半径0.5
+	m_sphere.Center = m_position + Math::Vector3(0.0f, 0.7f, 0.0f); // 敵の位置＋オフセット
+	m_sphere.Radius = 0.2f; // 半径0.5
 
-	m_pDebugWire->AddDebugSphere(sphere.Center, sphere.Radius, kBlueColor);
+	m_pDebugWire->AddDebugSphere(m_sphere.Center, m_sphere.Radius, kBlueColor);
 
 	SceneManager::Instance().GetObjectWeakPtr(m_wpPlayer);
 

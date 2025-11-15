@@ -74,91 +74,17 @@ void PlayerState_Idle::StateUpdate()
 		return;
 	}
 
+	// 必殺技入力処理
+	if (UpdateSpecialAttackInput()) return;
 
-	if (KeyboardManager::GetInstance().IsKeyJustPressed('Q'))
-	{
-		if (m_playerData.GetPlayerStatus().specialPoint == m_playerData.GetPlayerStatus().specialPointMax)
-		{
-			m_playerData.SetPlayerStatus().specialPoint = 0;
-			auto specialAttackState = std::make_shared<PlayerState_SpecialAttackCutIn>();
-			m_player->ChangeState(specialAttackState);
-			return;
-		}
-	}
-
-	// 前方回避
-	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_RBUTTON))
-	{
-		auto fowardAvoidState = std::make_shared<PlayerState_ForwardAvoid>();
-		m_player->ChangeState(fowardAvoidState);
-		return;
-	}
-
-	// Eスキル
-	// Eキー先行入力の予約
-	if (KeyboardManager::GetInstance().IsKeyJustPressed('E'))
-	{
-		if (m_playerData.GetPlayerStatus().skillPoint >= 30)
-		{
-			m_playerData.SetPlayerStatus().skillPoint -= 30;
-			auto state = std::make_shared<PlayerState_Skill>();
-			m_player->ChangeState(state);
-			return;
-		}
-	}
+	// 回避入力処理
+	if (UpdateMoveAvoidInput()) return;
 
 	// 押された瞬間
-	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
-	{
-		m_isKeyPressing = true; // 判定開始
-	}
+	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON)) m_LButtonkeyInput = true; // 判定開始
 
-	{
-		// =========================
-		// 左ボタン押下 長押し / 短押し判定
-		// =========================
-
-		const float kShortPressMin = 0.1f; // 短押し有効開始
-		const float kLongPressThreshold = 0.5f; // 長押し閾値(これ以上で長押しアクション)
-
-		float lDuration = KeyboardManager::GetInstance().GetKeyPressDuration(VK_LBUTTON);
-
-		// 1) 先行入力を最優先で消費してAttackへ
-		if (m_isKeyPressing)
-		{
-			m_isKeyPressing = false;
-			auto state = std::make_shared<PlayerState_Attack>();
-			m_player->ChangeState(state);
-			return;
-		}
-
-		// Chargeカウントがあり、長押し状態へ移行
-		if (m_playerData.GetPlayerStatus().chargeCount > 0 && m_isKeyPressing && lDuration >= kLongPressThreshold)
-		{
-			m_isKeyPressing = false;
-
-			m_playerData.SetPlayerStatus().chargeCount--;
-
-			auto avoidFast = std::make_shared<PlayerState_FullCharge>();
-			m_player->ChangeState(avoidFast);
-			return;
-		}
-
-		// 短押し判定
-		if (m_isKeyPressing)
-		{
-			if (lDuration >= kShortPressMin && lDuration < kLongPressThreshold)
-			{
-				auto backAvoid = std::make_shared<PlayerState_Attack>();
-				m_player->ChangeState(backAvoid);
-				m_isKeyPressing = false;
-				return;
-			}
-
-			// 0.1秒未満なら何もしない
-			m_isKeyPressing = false;
-		}
-	}
+	// 攻撃入力処理
+	if (UpdateAttackInput<PlayerState_Attack>()) return;
 
 	// 移動量リセット
 	m_player->SetIsMoving(Math::Vector3::Zero);

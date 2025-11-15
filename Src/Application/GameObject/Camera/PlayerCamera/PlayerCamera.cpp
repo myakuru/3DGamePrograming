@@ -30,6 +30,8 @@ void PlayerCamera::Init()
 
 	m_spCamera->SetProjectionMatrix(m_fovShakeTarget.x);
 
+	m_effectiveLookAt = m_targetLookAt;
+
 	StateInit();
 
 	SceneManager::Instance().GetObjectWeakPtr(m_Player);
@@ -63,7 +65,6 @@ void PlayerCamera::PostUpdate()
 	m_mRotation = Math::Matrix::CreateFromQuaternion(m_rotation);
 
 	m_fovShake = { m_fov,0.0f };
-
 	m_fovShakeTarget = Math::Vector2::Lerp(m_fovShakeTarget, m_fovShake, deltaTime);
 
 	// シェイク
@@ -76,7 +77,7 @@ void PlayerCamera::PostUpdate()
 		if (m_shakeTime <= 0.0f) { m_shakeTime = 0.0f; shakeOffset = Math::Vector3::Zero; }
 	}
 
-	// 追従ターゲット補間
+	// 追従ターゲット補間（理想値の更新）
 	m_targetLookAt = Math::Vector3::Lerp(m_targetLookAt, m_followRate, m_dhistanceSmooth * deltaTime);
 
 	// プレイヤー基準位置
@@ -84,16 +85,49 @@ void PlayerCamera::PostUpdate()
 
 	m_cameraPos = Math::Vector3::Lerp(m_cameraPos, playerPos, m_dhistanceSmooth * deltaTime);
 
-	// 一旦希望のカメラ行列を組み立て（まだ確定ではない）
-	m_mWorld = Math::Matrix::CreateTranslation(m_targetLookAt);      // 注視点用オフセット
+	// 実効オフセットで希望のカメラ行列を構築（まだ確定ではない）
+	m_mWorld = Math::Matrix::CreateTranslation(m_effectiveLookAt); // 注視点用オフセット（実効）
 	m_mWorld = m_mWorld * m_mRotation;
 	m_mWorld.Translation(m_mWorld.Translation() + m_cameraPos);
 
-	// プレイヤーの「視点アンカー」(頭～胸あたり) を設定
-	Math::Vector3 anchor = playerPos + Math::Vector3(0, 1.0f, 0); // 必要なら 1.2f などチューニング
+	// --- レイキャスト補正ブリッジ ---
+	{
+		// 希望カメラ最終ワールド座標を同期
+		const Math::Vector3 desiredCamWorldPos = m_mWorld.Translation();
+		SetPos(desiredCamWorldPos);
 
-	// 障害物補正
-	//UpdateCameraRayCast(anchor);
+		// レイキャスト（内部は GetPos/SetPos）
+		UpdateCameraRayCast();
+
+		// 補正後座標
+		const Math::Vector3 correctedCamWorldPos = GetPos();
+
+		// 実効オフセットの更新方針：
+		//  - ヒット中: 実測に強制追従（綱引きを断つ）
+		//  - 非ヒット: 理想へ復帰（補間）
+		const Math::Vector3 effectiveWorldOffset = correctedCamWorldPos - m_cameraPos;
+
+		Math::Matrix invRot = m_mRotation;
+		invRot = invRot.Invert(); // 回転のみなので安全
+
+		const Math::Vector3 measuredLocalOffset = Math::Vector3::Transform(effectiveWorldOffset, invRot);
+
+		if (m_isBlocked)
+		{
+			// 壁に当たっている間は実測値を採用
+			m_effectiveLookAt = measuredLocalOffset;
+		}
+		else
+		{
+			// 理想へゆっくり戻す
+			m_effectiveLookAt = Math::Vector3::Lerp(m_effectiveLookAt, m_targetLookAt, m_dhistanceSmooth * deltaTime);
+		}
+
+		// 最終的なカメラ行列の平行移動成分を補正後に更新
+		m_mWorld.Translation(correctedCamWorldPos);
+	}
+	// --- ここまで ---
+
 	if (SceneManager::Instance().IsIntroCamera())
 	{
 		NewUpdateIntroCamera();
@@ -355,89 +389,6 @@ void PlayerCamera::DebugDraw(DirectX::BoundingFrustum _frustum)
 	}
 }
 
-void PlayerCamera::UpdateCameraRayCast(const Math::Vector3& _anchor)
-{
-	// 希望するカメラの最終ワールド座標(回転など反映済み)
-	Math::Vector3 desiredCamPos = m_mWorld.Translation();
-
-	Math::Vector3 rayDir = desiredCamPos - _anchor;
-	float baseDist = rayDir.Length();
-	if (baseDist < 0.0001f) return;
-	rayDir.Normalize();
-
-	// 初期化
-	if (m_currentCamDistance < 0.0f)
-	{
-		m_currentCamDistance = baseDist;
-		m_prevHitDist = baseDist;
-		m_hitDistSmoothing = 0.35f;
-	}
-
-	KdCollider::RayInfo rayInfo;
-	rayInfo.m_pos = _anchor;
-	rayInfo.m_dir = rayDir;
-	rayInfo.m_range = baseDist;
-	rayInfo.m_type = KdCollider::TypeBump;
-
-	float nearestRawHitDist = baseDist;
-	bool  hit = false;
-
-	// 最接近ヒット探索
-	for (auto& wpObj : m_wpHitObjectList)
-	{
-		auto obj = wpObj.lock();
-		if (!obj) continue;
-		if (obj.get() == this) continue;
-		if (m_spTarget && obj.get() == m_spTarget.get()) continue;
-
-		std::list<KdCollider::CollisionResult> hitList;
-		obj->Intersects(rayInfo, &hitList);
-		for (auto& h : hitList)
-		{
-			float d = (h.m_hitPos - rayInfo.m_pos).Length();
-			if (d < nearestRawHitDist)
-			{
-				nearestRawHitDist = d;
-				hit = true;
-			}
-		}
-	}
-
-	// ヒット距離ノイズ抑制（小さな揺れを吸収）
-	if (hit)
-	{
-
-		// 平滑化(指数移動平均)
-		float w = m_hitDistSmoothing; // 0.0～1.0
-		nearestRawHitDist = m_prevHitDist * (1.0f - w) + nearestRawHitDist * w;
-		m_prevHitDist = nearestRawHitDist;
-	}
-
-	// 目標距離決定
-	float targetDist = baseDist;
-	if (hit)
-	{
-		targetDist = std::min(baseDist, nearestRawHitDist - m_obstacleMargin);
-	}
-
-	// 近づく / 離れる で違う速度
-	float dt = Application::Instance().GetDeltaTime();
-	bool shrinking = (targetDist < m_currentCamDistance - 0.0001f);
-
-	float speed = shrinking ? m_camHitSmoothIn : m_camHitSmoothOut;
-	// 指数平滑(フレームレート非依存化)
-	float alpha = 1.0f - std::exp(-speed * dt);
-	m_currentCamDistance = m_currentCamDistance + (targetDist - m_currentCamDistance) * alpha;
-
-	// 最終カメラ位置更新
-	Math::Vector3 newCamPos = _anchor + rayDir * m_currentCamDistance;
-	Math::Vector3 oldPos = m_mWorld.Translation();
-	m_mWorld.Translation(newCamPos);
-
-	// 既存 m_cameraPos へ差分反映（他処理との整合性維持）
-	m_cameraPos += (newCamPos - oldPos);
-}
-
 void PlayerCamera::ChangeState(std::shared_ptr<PlayerCameraState> _state)
 {
 	_state->SetPlayerCamera(this);
@@ -449,62 +400,70 @@ void PlayerCamera::StateInit()
 	//m_stateManager.ChangeState(std::make_shared<PlayerCameraState>());
 }
 
-//void PlayerCamera::UpdateCameraRayCast()
-//{
-//	// ↓めり込み防止の為の座標補正計算↓
-//	// ①当たり判定(レイ判定)用の情報作成
-//	KdCollider::RayInfo rayInfo;
-//	// レイの発射位置を設定
-//	rayInfo.m_pos = GetPos();
-//
-//	// レイの発射方向を設定
-//	rayInfo.m_dir = Math::Vector3::Down;
-//	// レイの長さを設定
-//	rayInfo.m_range = 1000.f;
-//	if (m_spTarget)
-//	{
-//		Math::Vector3 _targetPos = m_spTarget->GetPos() + Math::Vector3{ 0, 1.0f, 0 };
-//		_targetPos.y += 0.1f;
-//		rayInfo.m_dir = _targetPos - GetPos();
-//		rayInfo.m_range = rayInfo.m_dir.Length();
-//		rayInfo.m_dir.Normalize();
-//	}
-//
-//	// 当たり判定をしたいタイプを設定
-//	rayInfo.m_type = KdCollider::TypeBump;
-//
-//	// ②HIT判定対象オブジェクトに総当たり
-//	for (std::weak_ptr<KdGameObject> wpGameObj : m_wpHitObjectList)
-//	{
-//		std::shared_ptr<KdGameObject> spGameObj = wpGameObj.lock();
-//		if (spGameObj)
-//		{
-//			std::list<KdCollider::CollisionResult> retRayList;
-//			spGameObj->Intersects(rayInfo, &retRayList);
-//
-//			// ③ 結果を使って座標を補完する
-//			// レイに当たったリストから一番近いオブジェクトを検出
-//			float maxOverLap = 0;
-//			Math::Vector3 hitPos = {};
-//			bool hit = false;
-//			for (auto& ret : retRayList)
-//			{
-//				// レイを遮断しオーバーした長さが
-//				// 一番長いものを探す
-//				if (maxOverLap < ret.m_overlapDistance)
-//				{
-//					maxOverLap = ret.m_overlapDistance;
-//					hitPos = ret.m_hitPos;
-//					hit = true;
-//				}
-//			}
-//			if (hit)
-//			{
-//				// 何かしらの障害物に当たっている
-//				Math::Vector3 _hitPos = hitPos;
-//				_hitPos += rayInfo.m_dir * 0.4f;
-//				SetPos(_hitPos);
-//			}
-//		}
-//	}
-//}
+void PlayerCamera::UpdateCameraRayCast()
+{
+	// ↓めり込み防止の為の座標補正計算↓
+	// ①当たり判定(レイ判定)用の情報作成
+	KdCollider::RayInfo rayInfo;
+
+	// レイの発射位置を設定（PostUpdate 側で SetPos 同期済みを想定）
+	rayInfo.m_pos = GetPos();
+
+	// レイの発射方向・長さを設定（ターゲット＝プレイヤーの視点アンカー相当）
+	rayInfo.m_dir = Math::Vector3::Down;
+	rayInfo.m_range = 1000.f;
+
+	if (m_spTarget)
+	{
+		Math::Vector3 _targetPos = m_spTarget->GetPos() + Math::Vector3{ 0, 1.0f, 0 };
+		_targetPos.y += 0.1f;
+		rayInfo.m_dir = _targetPos - rayInfo.m_pos;
+		rayInfo.m_range = rayInfo.m_dir.Length();
+		rayInfo.m_dir.Normalize();
+	}
+
+	// 当たり判定タイプ
+	rayInfo.m_type = KdCollider::TypeCameraHit;
+
+	// ② 全オブジェクト横断で「最も手前のヒット」を一つだけ選ぶ
+	bool anyHit = false;
+	float bestDistSq = 1e30f;                     // カメラからの距離の二乗で比較
+	Math::Vector3 bestHitPos = {};
+
+	for (std::weak_ptr<KdGameObject> wpGameObj : m_wpHitObjectList)
+	{
+		if (auto spGameObj = wpGameObj.lock())
+		{
+			std::list<KdCollider::CollisionResult> retRayList;
+			spGameObj->Intersects(rayInfo, &retRayList);
+
+			for (const auto& ret : retRayList)
+			{
+				// カメラからヒット点までの距離（近いものを採用）
+				const Math::Vector3 v = ret.m_hitPos - rayInfo.m_pos;
+				const float distSq = v.LengthSquared();
+
+				if (distSq < bestDistSq)
+				{
+					bestDistSq = distSq;
+					bestHitPos = ret.m_hitPos;
+					anyHit = true;
+				}
+			}
+		}
+	}
+
+	// ③ ループ外で一度だけ確定
+	if (anyHit)
+	{
+		m_isBlocked = true;
+
+		// 少し手前に寄せる（押し出し）
+		Math::Vector3 _hitPos = bestHitPos;
+		SetPos(_hitPos);
+	}
+	else
+	{
+		m_isBlocked = false;
+	}
+}

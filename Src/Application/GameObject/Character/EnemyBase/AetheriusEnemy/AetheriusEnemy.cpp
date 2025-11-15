@@ -24,8 +24,8 @@ void AetheriusEnemy::Init()
 
 	// 当たり判定の設定
 	m_pCollider = std::make_unique<KdCollider>();
-	m_pCollider->RegisterCollisionShape("EnemySphere", sphere, KdCollider::TypeDamage);
-	m_pCollider->RegisterCollisionShape("PlayerSphere", sphere, KdCollider::TypeEnemyHit);
+	m_pCollider->RegisterCollisionShape("EnemySphere", m_sphere, KdCollider::TypeDamage);
+	m_pCollider->RegisterCollisionShape("PlayerSphere", m_sphere, KdCollider::TypeEnemyHit);
 
 	// ステート初期化
 	StateInit();
@@ -46,8 +46,8 @@ void AetheriusEnemy::Update()
 	// 自分の武器が未割り当て/消滅なら一度だけ取得して所有者に設定する
 	if (m_wpSword.expired())
 	{
-		SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemySword, m_object);
-		for (auto& w : m_object)
+		SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemySword, m_refs.referencedObjects);
+		for (auto& w : m_refs.referencedObjects)
 		{
 			if (auto weapon = w.lock())
 			{
@@ -63,13 +63,13 @@ void AetheriusEnemy::Update()
 				}
 			}
 		}
-		m_object.clear();
+		m_refs.referencedObjects.clear();
 	}
 
 	if (m_wpShield.expired())
 	{
-		SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyShield, m_object);
-		for (auto& w : m_object)
+		SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyShield, m_refs.referencedObjects);
+		for (auto& w : m_refs.referencedObjects)
 		{
 			if (auto weapon = w.lock())
 			{
@@ -85,7 +85,7 @@ void AetheriusEnemy::Update()
 				}
 			}
 		}
-		m_object.clear();
+		m_refs.referencedObjects.clear();
 	}
 
 	CharacterBase::Update();

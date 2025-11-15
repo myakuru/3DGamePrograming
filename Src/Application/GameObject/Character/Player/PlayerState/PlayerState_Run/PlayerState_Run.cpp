@@ -9,6 +9,7 @@
 #include"../PlayerState_FowardAvoidFast/PlayerState_FowardAvoidFast.h"
 #include"../PlayerState_Skill/PlayerState_Skill.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_Attack/PlayerState_Attack.h"
 
 void PlayerState_Run::StateStart()
 {
@@ -36,6 +37,12 @@ void PlayerState_Run::StateUpdate()
 		m_player->ChangeState(state);
 		return;
 	}
+
+	// 押された瞬間
+	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON)) m_LButtonkeyInput = true; // 判定開始
+
+	// 攻撃入力処理
+	if (UpdateAttackInput<PlayerState_Attack>()) return;
 
 	// 移動するときの入力処理
 	if (UpdateMoveInput()) return;

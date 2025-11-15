@@ -34,7 +34,12 @@ public:
 	Math::Vector3 GetCameraPos() const { return m_cameraPos; }
 
 	// カメラのターゲット位置を設定デフォルトは(0.0f,1.0f,-3.5f)
-	void SetTargetLookAt(const Math::Vector3& target) { m_followRate = target; }
+		// 衝突(遮蔽)中は適用しないことで、プレイヤーステート側の移動と干渉しないようにする
+	void SetTargetLookAt(const Math::Vector3& target)
+	{
+		if (m_isBlocked) return;      // 当たり中は無視
+		m_followRate = target;
+	}
 
 
 	// カメラのターゲットの回転を設定
@@ -56,6 +61,8 @@ public:
 private:
 
 	void UpdateCameraRayCast(const Math::Vector3& _anchor);
+
+	void UpdateCameraRayCast();
 
 
 	Math::Vector3 m_targetLookAt = Math::Vector3::Zero;
@@ -84,17 +91,19 @@ private:
 	float m_obstacleMargin = 0.30f;      // 壁とのマージン
 	float m_minCamDistance = 0.60f;      // これ以下には詰めない(プレイヤーを貫通しない距離)
 	float m_prevHitDist = -1.0f;      // 前フレームのヒット距離(ノイズ抑制)
-	float m_hitDistSmoothing = 0.0f;       // 内部平滑化(0:なし～1:即時) 例:0.35f
+	float m_hitDistSmoothing = 0.0f;       // 内部平滑化(0:なし～1:即時)
 
 	// 衝突前の理想カメラ位置（毎フレーム生成、衝突で変更しない）
 	Math::Vector3 m_desiredCameraPos = Math::Vector3::Zero;
 
-	// 衝突ヒステリシス
-	bool  m_isBlocked = false;   // 現在遮蔽中フラグ
-	float m_clearTimer = 0.0f;    // 解除監視タイマー
-	float m_blockReleaseTime = 0.20f;  // 遮蔽物が完全消えたと判定するまでの猶予(秒)
+	// 追加フィールド
+	Math::Vector3 m_effectiveLookAt = Math::Vector3::Zero;
+	// ヒット解除後に理想へ戻す速度（好みに調整）
+	float m_effectiveRecoverSpeed = 6.0f;
 
-	// 衝突後にすぐ伸ばさないための伸張ディレイ（任意）
+	bool  m_isBlocked = false; // カメラが障害物に当たっているかどうか
+
+	// 衝突後にすぐ伸ばさないための伸張ディレイ
 	float m_expandDelayTime = 0.10f;
 	float m_expandDelayTimer = 0.0f;
 

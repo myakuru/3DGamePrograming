@@ -237,6 +237,7 @@ void KdGameObject::SetCollider()
 		CheckBoxBit("TypeDamageLine", m_type,(UINT)KdCollider::TypeDamageLine);
 		CheckBoxBit("TypeSight", m_type,(UINT)KdCollider::TypeSight);
 		CheckBoxBit("TypeEvent", m_type,(UINT)KdCollider::TypeEvent);
+		CheckBoxBit("TypeCameraHit", m_type, (UINT)KdCollider::TypeCameraHit);
 
 		ImGui::EndCombo();
 	}

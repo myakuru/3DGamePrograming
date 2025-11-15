@@ -53,6 +53,8 @@ void PlayerState_JustAvoidAttack_end::StateStart()
 
 void PlayerState_JustAvoidAttack_end::StateUpdate()
 {
+	// 被ヒット判定無効化
+	m_player->SetHitCheck(false);
 
 	if (m_player->GetAnimator()->IsAnimationEnd())
 	{
@@ -97,6 +99,8 @@ void PlayerState_JustAvoidAttack_end::StateEnd()
 	// ジャスト回避フラグを戻す
 	m_player->SetJustAvoidSuccess(false);
 
+	m_player->SetJustAvoidAttackSuccess(false);
+
 
 	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
 	{
@@ -114,6 +118,8 @@ void PlayerState_JustAvoidAttack_end::StateEnd()
 	{
 		effect->SetPlayEffect(false);
 	}
+
+	m_player->SetGuardBreak(false);
 
 	// ゲームのメインサウンドのピッチを元に戻す
 	if (auto bgm = SceneManager::Instance().GetGameSound())

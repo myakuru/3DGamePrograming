@@ -258,13 +258,15 @@ bool PlayerStateBase::UpdateMoveAvoidInput()
 
 		// 短押し判定
 		if (m_isKeyPressing && 
-			KeyboardManager::GetInstance().IsKeyJustReleased(VK_RBUTTON))
+			KeyboardManager::GetInstance().IsKeyJustReleased(VK_RBUTTON)&&
+			!KeyboardManager::GetInstance().IsKeyPressed('W'))
 		{
+
 			if (rDuration >= kShortPressMin && rDuration < kLongPressThreshold)
 			{
+				m_isKeyPressing = false;
 				auto backAvoid = std::make_shared<PlayerState_BackWordAvoid>();
 				m_player->ChangeState(backAvoid);
-				m_isKeyPressing = false;
 				return true;
 			}
 
@@ -273,15 +275,14 @@ bool PlayerStateBase::UpdateMoveAvoidInput()
 		}
 
 		if (m_isKeyPressing &&
-			KeyboardManager::GetInstance().IsKeyJustReleased(VK_RBUTTON))
+			KeyboardManager::GetInstance().IsKeyJustReleased(VK_RBUTTON)&&
+			KeyboardManager::GetInstance().IsKeyPressed('W'))
 		{
 			if (rDuration >= kShortPressMin && rDuration < kLongPressThreshold)
 			{
-				if (!KeyboardManager::GetInstance().IsKeyPressed('W')) return false;
-
+				m_isKeyPressing = false;
 				auto backAvoid = std::make_shared<PlayerState_ForwardAvoid>();
 				m_player->ChangeState(backAvoid);
-				m_isKeyPressing = false;
 				return true;
 			}
 

@@ -12,7 +12,4 @@ private:
 	void StateUpdate() override;
 	void StateEnd() override;
 
-	
-	bool m_lButtonPressing = false;
-
 };
