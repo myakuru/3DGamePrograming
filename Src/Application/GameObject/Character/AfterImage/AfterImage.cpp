@@ -1,7 +1,7 @@
 ﻿#include"AfterImage.h"
 #include"Application/main.h"
 
-void AfterImage::CaptureAfterImage(KdModelWork* _work, Math::Matrix  _wordMat)
+void AfterImage::CaptureAfterImage(const KdModelWork* _work, Math::Matrix _wordMat)
 {
 	if (!m_afterImageEnable)
 	{
@@ -60,7 +60,6 @@ void AfterImage::DrawAfterImages()
 		m_afterImageFrame.m_afterImageWork->SetNeedCalcNodeMatrices(false);
 
 		// 残像の描画
-
 		KdShaderManager::Instance().ChangeBlendState(KdBlendState::Add);
 
 		KdShaderManager::Instance().m_StandardShader.SetRimLightEnable(true);

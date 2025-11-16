@@ -38,7 +38,7 @@ void PlayerState_Attack4::StateStart()
 	SceneManager::Instance().GetObjectWeakPtr(m_bossEnemy);
 
 	m_time = 0.0f;
-	m_LButtonkeyInput = false;
+	m_lButtonKeyInput = false;
 
 	m_player->SetAnimeSpeed(70.0f);
 
@@ -77,7 +77,7 @@ void PlayerState_Attack4::StateUpdate()
 	// 先行入力の予約
 	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
 	{
-		m_LButtonkeyInput = true;
+		m_lButtonKeyInput = true;
 	}
 
 	// 攻撃中の移動方向で回転を更新

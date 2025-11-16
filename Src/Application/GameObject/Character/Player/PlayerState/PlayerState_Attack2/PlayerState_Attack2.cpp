@@ -34,7 +34,7 @@ void PlayerState_Attack2::StateStart()
 		katana->SetNowAttackState(true);
 	}
 
-	m_LButtonkeyInput = false;				// 次段コンボ予約フラグ初期化
+	m_lButtonKeyInput = false;				// 次段コンボ予約フラグ初期化
 
 	SceneManager::Instance().GetObjectWeakPtr(m_slashEffect);
 
@@ -79,7 +79,7 @@ void PlayerState_Attack2::StateUpdate()
 	// 先行入力の予約
 	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
 	{
-		m_LButtonkeyInput = true;
+		m_lButtonKeyInput = true;
 	}
 
 	UpdateKatanaPos();

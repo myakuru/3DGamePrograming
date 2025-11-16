@@ -35,7 +35,7 @@ void PlayerState_Attack::StateStart()
 		katana->SetNowAttackState(true);
 	}
 
-	m_LButtonkeyInput = false;		// 次段コンボ予約フラグ初期化
+	m_lButtonKeyInput = false;		// 次段コンボ予約フラグ初期化
 	m_time = 0.0f;					// 当たり判定用
 
 	SceneManager::Instance().GetObjectWeakPtr(m_slashEffect);
@@ -43,7 +43,7 @@ void PlayerState_Attack::StateStart()
 
 	KdAudioManager::Instance().Play("Asset/Sound/Player/Attack.wav", false)->SetVolume(1.0f);
 
-	m_LButtonkeyInput = false;
+	m_lButtonKeyInput = false;
 }
 
 void PlayerState_Attack::StateUpdate()
@@ -76,7 +76,7 @@ void PlayerState_Attack::StateUpdate()
 	// 先行入力の予約
 	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
 	{
-		m_LButtonkeyInput = true;
+		m_lButtonKeyInput = true;
 	}
 
 	// 先行ダッシュ処理

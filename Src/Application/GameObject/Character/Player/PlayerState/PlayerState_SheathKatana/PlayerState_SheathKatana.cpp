@@ -20,14 +20,14 @@ void PlayerState_SheathKatana::StateStart()
 
 	if (!m_SheathKatanaSound) m_SheathKatanaSound = KdAudioManager::Instance().Play("Asset/Sound/Player/SheathKatana.wav", false);
 
-	m_LButtonkeyInput = false;
+	m_lButtonKeyInput = false;
 }
 
 void PlayerState_SheathKatana::StateUpdate()
 {
 	m_player->SetAnimeSpeed(120.0f);
 
-	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON)) m_LButtonkeyInput = true;
+	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON)) m_lButtonKeyInput = true;
 
 	// 攻撃入力処理
 	if (UpdateAttackInput<PlayerState_Attack>()) return;

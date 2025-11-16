@@ -34,7 +34,7 @@ void PlayerState_Attack3::StateStart()
 	m_player->ResetAttackCollision();
 
 	m_time = 0.0f;
-	m_LButtonkeyInput = false;
+	m_lButtonKeyInput = false;
 
 	SceneManager::Instance().GetObjectWeakPtr(m_slashEffect);
 
@@ -120,7 +120,7 @@ void PlayerState_Attack3::StateUpdate()
 	// 先行入力の予約
 	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
 	{
-		m_LButtonkeyInput = true;
+		m_lButtonKeyInput = true;
 	}
 
 	UpdateKatanaPos();

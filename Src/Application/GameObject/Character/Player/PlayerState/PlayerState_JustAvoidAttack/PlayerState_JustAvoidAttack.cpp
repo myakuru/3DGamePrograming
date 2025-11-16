@@ -34,7 +34,7 @@ void PlayerState_JustAvoidAttack::StateStart()
 		katana->SetNowAttackState(true);
 	}
 
-	m_LButtonkeyInput = false;      // 次段コンボ予約フラグ初期化
+	m_lButtonKeyInput = false;      // 次段コンボ予約フラグ初期化
 	m_player->SetAnimeSpeed(70.0f);
 
 	// 敵との当たり判定を無効化

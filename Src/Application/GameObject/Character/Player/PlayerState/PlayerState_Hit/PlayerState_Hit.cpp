@@ -50,7 +50,7 @@ void PlayerState_Hit::StateUpdate()
 	if (m_animeTime >= 0.9f)
 	{
 		// 押された瞬間
-		if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON)) m_LButtonkeyInput = true; // 判定開始
+		if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON)) m_lButtonKeyInput = true; // 判定開始
 
 		// 攻撃入力受付
 		if (UpdateAttackInput<PlayerState_Attack>()) return;

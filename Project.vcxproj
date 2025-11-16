@@ -364,6 +364,7 @@
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\CloudEffect\CloudEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffectPlay\EffectPlay.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectBase.h" />
+    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect\EnemyHitEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue\EnemyShineBlue.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\ESkillEffect\ESkillEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\GroundFreezes\GroundFreezes.h" />
@@ -564,6 +565,7 @@
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\CloudEffect\CloudEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffectPlay\EffectPlay.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectBase.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect\EnemyHitEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue\EnemyShineBlue.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\ESkillEffect\ESkillEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\GroundFreezes\GroundFreezes.cpp" />

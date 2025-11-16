@@ -41,7 +41,7 @@ void PlayerState_Attack1::StateStart()
 
 	m_effectOnce = false;
 
-	m_LButtonkeyInput = false;
+	m_lButtonKeyInput = false;
 
 	// エフェクトの取得
 	SceneManager::Instance().GetObjectWeakPtr(m_effect);
@@ -72,7 +72,7 @@ void PlayerState_Attack1::StateUpdate()
 	// 先行入力の予約
 	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
 	{
-		m_LButtonkeyInput = true;
+		m_lButtonKeyInput = true;
 	}
 
 	// 攻撃中の移動方向で回転を更新

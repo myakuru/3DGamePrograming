@@ -1,17 +1,15 @@
 ﻿#pragma once
-#include"../../../../../MyFramework/State/StateBase/StateBase.h"
-#include"../PlayerConfig.h"
-#include"../Player.h"
-#include"../../../../Data/CharacterData/CharacterData.h"
+#include"MyFramework/State/StateBase/StateBase.h"
+#include"Application/GameObject/Character/Player/PlayerConfig.h"
+#include"Application/GameObject/Character/Player/Player.h"
+#include"Application/Data/CharacterData/CharacterData.h"
+
 class BossEnemy;
 class PlayerStateBase : public StateBase
 {
 public:
 	PlayerStateBase() = default;
 	~PlayerStateBase() override = default;
-
-	
-
 
 	void SetPlayer(Player* player) { m_player = player; }
 
@@ -37,9 +35,9 @@ protected:
 	template<typename T>
 	bool UpdateAttackInput()
 	{
-		if (m_LButtonkeyInput)
+		if (m_lButtonKeyInput)
 		{
-			m_LButtonkeyInput = false;
+			m_lButtonKeyInput = false;
 			auto state = std::make_shared<T>();
 			m_player->ChangeState(state);
 			return true;
@@ -56,17 +54,16 @@ protected:
 
 	Player* m_player = nullptr;
 
-	Math::Vector3 prevRootTranslation    = Math::Vector3::Zero;
-	Math::Vector3 currentRootTranslation = Math::Vector3::Zero;
+	Math::Vector3 m_prevRootTranslation    = Math::Vector3::Zero;
+	Math::Vector3 m_currentRootTranslation = Math::Vector3::Zero;
 	Math::Vector3 m_attackDirection      = Math::Vector3::Zero;
-
-	bool m_isKeyPressing = false;
 
 	float m_time = 0.0f;
 
-	bool m_LButtonkeyInput = false;
-
-	bool m_EButtonkeyInput = false;
+	// マウス左Buttonが押されているか
+	bool m_lButtonKeyInput = false;
+	// マウス右Buttonが押されているか
+	bool m_rButtonKeyInput = false;
 
 	float m_animeTime = 0.0f;
 	float m_maxAnimeTime = 0.0f;
@@ -81,13 +78,13 @@ protected:
 
 
 	std::weak_ptr<KdGameObject> m_focusTarget;
-	float m_focusRemainSec = 0.0f;	//	フォーカスタイマー
-	const float m_focusDurationSec = 0.1f; // フォーカス継続時間(調整用)
-	const float m_focusMaxDistSq = 50.0f * 50.0f; // 距離制限(離れすぎたら解除) 任意
+	float m_focusRemainSec = 0.0f;
+	const float m_focusDurationSec = 0.1f;
+	const float m_focusMaxDistSq = 50.0f * 50.0f;
 
-	std::shared_ptr<KdGameObject> m_nearestEnemy;
-	Math::Vector3                  m_nearestEnemyPos = Math::Vector3::Zero;
-	float                          m_minDistSq = std::numeric_limits<float>::max();
+	std::shared_ptr<KdGameObject>	m_nearestEnemy;
+	Math::Vector3					m_nearestEnemyPos = Math::Vector3::Zero;
+	float							m_minDistSq = std::numeric_limits<float>::max();
 
 	CharacterData m_playerData;
 

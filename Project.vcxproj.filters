@@ -517,6 +517,9 @@
     <Filter Include="Src\Application\GameObject\Character\AfterImage">
       <UniqueIdentifier>{c95db03a-2861-47be-b287-f9ce48d935bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect">
+      <UniqueIdentifier>{e6cd1c09-4c52-45fd-bd60-c93388716786}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -1137,6 +1140,9 @@
     <ClInclude Include="Src\Application\GameObject\Character\AfterImage\AfterImage.h">
       <Filter>Src\Application\GameObject\Character\AfterImage</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect\EnemyHitEffect.h">
+      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -1702,6 +1708,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\AfterImage\AfterImage.cpp">
       <Filter>Src\Application\GameObject\Character\AfterImage</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect\EnemyHitEffect.cpp">
+      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

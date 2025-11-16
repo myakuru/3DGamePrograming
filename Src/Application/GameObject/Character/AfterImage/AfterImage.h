@@ -45,7 +45,7 @@ public:
 	AfterImage() = default;
 	~AfterImage() = default;
 
-	void CaptureAfterImage(KdModelWork* _work,Math::Matrix  _wordMat);
+	void CaptureAfterImage(const KdModelWork* _work,Math::Matrix  _wordMat);
 	void DrawAfterImages();
 
 	AfterImageFrame& SetAfterImageFrame() { return m_afterImageFrame; }

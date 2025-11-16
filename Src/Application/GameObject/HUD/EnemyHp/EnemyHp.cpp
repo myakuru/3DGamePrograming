@@ -99,8 +99,8 @@ void EnemyHp::DrawSprite()
 			m_texture,
 			static_cast<int>(pos.x - 5.0f),
 			static_cast<int>(pos.y),
-			m_srcRect.width / 8,
-			m_srcRect.height / 8,
+			m_srcRect.width / 10,
+			m_srcRect.height / 10,
 			&m_srcRect,
 			&m_color,
 			{ 0.0f, 0.5f }
@@ -118,8 +118,8 @@ void EnemyHp::DrawSprite()
 			m_hpBarTexture,
 			static_cast<int>(pos.x),
 			static_cast<int>(pos.y),
-			(rect.width) / 8,
-			(rect.height) / 8,
+			(rect.width) / 10,
+			(rect.height) / 10,
 			&rect,
 			&m_color,
 			{ 0.0f, 0.5f }

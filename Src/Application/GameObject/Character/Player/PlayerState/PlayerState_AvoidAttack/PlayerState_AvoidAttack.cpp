@@ -14,7 +14,7 @@ void PlayerState_AvoidAttack::StateStart()
 	m_time = 0.0f;
 
 	// 当たり判定リセット
-	m_LButtonkeyInput = false;
+	m_lButtonKeyInput = false;
 
 	m_player->ResetAttackCollision();
 

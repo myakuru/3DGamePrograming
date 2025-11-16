@@ -81,7 +81,7 @@ void PlayerState_Idle::StateUpdate()
 	if (UpdateMoveAvoidInput()) return;
 
 	// 押された瞬間
-	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON)) m_LButtonkeyInput = true; // 判定開始
+	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON)) m_lButtonKeyInput = true; // 判定開始
 
 	// 攻撃入力処理
 	if (UpdateAttackInput<PlayerState_Attack>()) return;

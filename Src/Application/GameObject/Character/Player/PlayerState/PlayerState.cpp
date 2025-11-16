@@ -1,9 +1,9 @@
 ﻿#include "PlayerState.h"
-#include"../../../Weapon/Katana/Katana.h"
-#include"../../../Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
-#include"../PlayerState/PlayerState_SpecialAttack/PlayerState_SpecialAttack.h"
-#include"../PlayerState/PlayerState_FowardAvoidFast/PlayerState_FowardAvoidFast.h"
-#include"../PlayerState/PlayerState_BackWordAvoid/PlayerState_BackWordAvoid.h"
+#include"Application/GameObject/Weapon/Katana/Katana.h"
+#include"Application/GameObject/Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_SpecialAttack/PlayerState_SpecialAttack.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_FowardAvoidFast/PlayerState_FowardAvoidFast.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_BackWordAvoid/PlayerState_BackWordAvoid.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 #include"Application/Scene/SceneManager.h"
 #include"Application/main.h"
@@ -117,10 +117,9 @@ void PlayerStateBase::StateStart()
 		katana->SetNowAttackState(false);
 	}
 
-	m_isKeyPressing = false;
+	m_lButtonKeyInput = false;
 	m_time = 0.0f;
 	m_animeTime = 0.0f;
-	m_maxAnimeTime = 0.0f;
 
 	m_playerData = m_player->GetStatus();
 }
@@ -242,52 +241,52 @@ bool PlayerStateBase::UpdateMoveAvoidInput()
 		// 押された瞬間
 		if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_RBUTTON))
 		{
-			m_isKeyPressing = true; // 判定開始
+			m_rButtonKeyInput = true; // 判定開始
 		}
 
 		// 長押し判定
-		if (m_isKeyPressing &&
+		if (m_rButtonKeyInput &&
 			rDuration >= kLongPressThreshold && 
 			!KeyboardManager::GetInstance().IsKeyJustReleased(VK_RBUTTON))
 		{
-			m_isKeyPressing = false;
+			m_rButtonKeyInput = false;
 			auto avoidFast = std::make_shared<PlayerState_FowardAvoidFast>();
 			m_player->ChangeState(avoidFast);
 			return true;
 		}
 
 		// 短押し判定
-		if (m_isKeyPressing && 
+		if (m_rButtonKeyInput &&
 			KeyboardManager::GetInstance().IsKeyJustReleased(VK_RBUTTON)&&
 			!KeyboardManager::GetInstance().IsKeyPressed('W'))
 		{
 
 			if (rDuration >= kShortPressMin && rDuration < kLongPressThreshold)
 			{
-				m_isKeyPressing = false;
+				m_rButtonKeyInput = false;
 				auto backAvoid = std::make_shared<PlayerState_BackWordAvoid>();
 				m_player->ChangeState(backAvoid);
 				return true;
 			}
 
 			// 0.1秒未満なら何もしない
-			m_isKeyPressing = false;
+			m_rButtonKeyInput = false;
 		}
 
-		if (m_isKeyPressing &&
+		if (m_rButtonKeyInput &&
 			KeyboardManager::GetInstance().IsKeyJustReleased(VK_RBUTTON)&&
 			KeyboardManager::GetInstance().IsKeyPressed('W'))
 		{
 			if (rDuration >= kShortPressMin && rDuration < kLongPressThreshold)
 			{
-				m_isKeyPressing = false;
+				m_rButtonKeyInput = false;
 				auto backAvoid = std::make_shared<PlayerState_ForwardAvoid>();
 				m_player->ChangeState(backAvoid);
 				return true;
 			}
 
 			// 0.1秒未満なら何もしない
-			m_isKeyPressing = false;
+			m_rButtonKeyInput = false;
 		}
 
 	}

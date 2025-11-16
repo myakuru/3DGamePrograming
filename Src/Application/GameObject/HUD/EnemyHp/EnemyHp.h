@@ -28,7 +28,7 @@ private:
 	std::vector<Math::Rectangle> m_displayRectangleList;
 
 	// ワールド座標での頭上オフセット
-	Math::Vector3 m_offsetPos = Math::Vector3(0, 2.5f, 0);
+	Math::Vector3 m_offsetPos = Math::Vector3(-0.5f, 2.5f, 0);
 
 	std::list<std::weak_ptr<KdGameObject>> m_enemies;
 
