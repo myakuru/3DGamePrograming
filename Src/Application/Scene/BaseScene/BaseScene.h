@@ -58,17 +58,6 @@ public:
 		return m_CameraObjList;
 	}
 
-	void AddMapObject(const std::shared_ptr<KdGameObject>& _obj)
-	{
-		m_MapObjectList.emplace_back(_obj);
-		// 必要に応じてインデックスするならここで IndexObject(_obj);
-	}
-
-	std::list<std::shared_ptr<KdGameObject>>& GetMapObjectList()
-	{
-		return m_MapObjectList;
-	}
-
 	virtual std::string GetSceneName() const = 0;
 
 	const KdRenderTargetPack& GetRenderTargetPack() const
@@ -84,12 +73,25 @@ public:
 	// ----- 型バケット経由の検索API（SceneManagerから呼び出される） -----
 
 	 // タグ経由の取得（全件）
-	void GetObjectWeakPtrListByTagFromBuckets(ObjTag tag, std::list<std::weak_ptr<KdGameObject>>& outPtrList)
+	template <class T>
+	void GetObjectWeakPtrListByTagFromBuckets(ObjTag tag, std::vector<std::weak_ptr<T>>& out)
 	{
-		outPtrList.clear();
-		auto it = m_tagBuckets.find(ToMask(tag));
+		out.clear();
+		const auto key = ToMask(tag);
+		auto it = m_tagBuckets.find(key);
 		if (it == m_tagBuckets.end()) return;
-		for (auto& w : it->second) if (!w.expired()) outPtrList.emplace_back(w);
+
+		out.reserve(it->second.size());
+		for (auto& w : it->second)
+		{
+			if (auto sp = w.lock())
+			{
+				if (sp->GetTypeID() == T::TypeID)
+				{
+					out.emplace_back(std::static_pointer_cast<T>(sp));
+				}
+			}
+		}
 	}
 
 	// タグ経由の取得（球範囲）
@@ -164,7 +166,6 @@ protected:
 	// 全オブジェクトのアドレスをリストで管理
 	std::list<std::shared_ptr<KdGameObject>> m_objList;
 	std::list<std::shared_ptr<KdGameObject>> m_CameraObjList;
-	std::list<std::shared_ptr<KdGameObject>> m_MapObjectList;
 	std::list<std::shared_ptr<KdGameObject>> m_CollisionList;
 	std::list<std::shared_ptr<KdGameObject>> m_drawObjectList;
 

@@ -38,7 +38,6 @@ public:
 	// 現在のシーンのオブジェクトリストを取得
 	std::list<std::shared_ptr<KdGameObject>>& GetObjList();
 	std::list<std::shared_ptr<KdGameObject>>& GetCameraList();
-	std::list<std::shared_ptr<KdGameObject>>& GetMapList();
 
 	// 現在のシーンにオブジェクトを追加
 	void AddObject(const std::shared_ptr<KdGameObject>& _obj);
@@ -79,11 +78,16 @@ public:
 		m_currentScene->GetObjectWeakPtrListByTagInSphereFromBuckets(tag, center, radius, outPtrList);
 	}
 
-	// タグで全取得
-	void GetObjectWeakPtrListByTag(ObjTag tag, std::list<std::weak_ptr<KdGameObject>>& outPtrList)
+	// タグで全取得（型付き・ダウンキャスト不要）
+	template <class T>
+	void GetObjectWeakPtrListByTag(ObjTag tag, std::vector<std::weak_ptr<T>>& outPtrList)
 	{
-		if (!m_currentScene) { outPtrList.clear(); return; }
-		m_currentScene->GetObjectWeakPtrListByTagFromBuckets(tag, outPtrList);
+		outPtrList.clear();
+		if (!m_currentScene) return;
+
+		// BaseScene 側のテンプレートAPIは vector を受け取り、型 T のみを収集する
+		// list を渡していたため解決できず C2672 が発生していました
+		m_currentScene->GetObjectWeakPtrListByTagFromBuckets<T>(tag, outPtrList);
 	}
 
 	// カメラのオブジェクトを取得

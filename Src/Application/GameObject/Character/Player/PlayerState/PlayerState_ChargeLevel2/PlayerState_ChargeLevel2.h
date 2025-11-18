@@ -3,11 +3,11 @@
 class EffectPlay;
 class SmokeEffect;
 class ShineEffect;
-class PlayerState_ChaegeAttack2 :public PlayerStateBase
+class PlayerState_ChargeLevel2 :public PlayerStateBase
 {
 public:
-	PlayerState_ChaegeAttack2() = default;
-	~PlayerState_ChaegeAttack2() override = default;
+	PlayerState_ChargeLevel2() = default;
+	~PlayerState_ChargeLevel2() override = default;
 
 private:
 

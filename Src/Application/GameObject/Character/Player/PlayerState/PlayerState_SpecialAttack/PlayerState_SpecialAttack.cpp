@@ -14,10 +14,13 @@ void PlayerState_SpecialAttack::StateStart()
 
 	PlayerStateBase::StateStart();
 
-	// 左手に刀をセットする
-	if (auto katana = m_player->GetKatana().lock(); katana)
+	// 攻撃時はtrueにする
+	for (const auto& katanaWeak : m_player->GetKatanas())
 	{
-		katana->SetNowAttackState(true);
+		if (auto katana = katanaWeak.lock())
+		{
+			katana->SetNowAttackState(true);
+		}
 	}
 
 	SceneManager::Instance().GetObjectWeakPtr(m_specialAttackEffect);
@@ -121,14 +124,6 @@ void PlayerState_SpecialAttack::StateUpdate()
 	
 	// 移動を止める
 	m_player->SetIsMoving(Math::Vector3::Zero);
-	
-
-	// カタナ関連
-	if (auto katana = m_player->GetKatana().lock(); katana)
-	{
-		// 刀のトレイルポリゴンの表示
-		katana->SetShowTrail(true);
-	}
 }
 
 void PlayerState_SpecialAttack::StateEnd()

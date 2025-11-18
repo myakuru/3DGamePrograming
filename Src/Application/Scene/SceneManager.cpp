@@ -80,6 +80,7 @@
 #include"../GameObject/HUD/BossEnemyBlackBarUI/BossEnemyBlackBarUI.h"
 #include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
+#include"Application/GameObject/Effect/EffekseerEffect/EnemyHitEffect/EnemyHitEffect.h"
 
 void SceneManager::Init()
 {
@@ -167,6 +168,7 @@ void SceneManager::Register() const
 	RegisterObject::GetInstance().Register<ChargeAttackEffect>();
 	RegisterObject::GetInstance().Register<ChargeAttackEffect_end>();
 	RegisterObject::GetInstance().Register<SpecialAttackSmoke>();
+	RegisterObject::GetInstance().Register<EnemyHitEffect>();
 
 	// Fieldのエフェクト系
 	RegisterObject::GetInstance().Register<FieldEffect>();
@@ -227,11 +229,6 @@ std::list<std::shared_ptr<KdGameObject>>& SceneManager::GetObjList()
 std::list<std::shared_ptr<KdGameObject>>& SceneManager::GetCameraList()
 {
 	return m_currentScene->GetCameraObjList();
-}
-
-std::list<std::shared_ptr<KdGameObject>>& SceneManager::GetMapList()
-{
-	return m_currentScene->GetMapObjectList();
 }
 
 void SceneManager::AddObject(const std::shared_ptr<KdGameObject>& _obj)

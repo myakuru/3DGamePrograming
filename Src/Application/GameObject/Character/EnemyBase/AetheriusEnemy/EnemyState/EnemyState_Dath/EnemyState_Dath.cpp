@@ -2,6 +2,8 @@
 
 void EnemyState_Death::StateStart()
 {
+	EnemyStateBase::StateStart();
+
 	auto anime = m_enemy->GetAnimeModel()->GetAnimation("Death");
 	m_enemy->GetAnimator()->SetAnimation(anime, 0.25f, false);
 	m_enemy->SetAnimeSpeed(60.0f);

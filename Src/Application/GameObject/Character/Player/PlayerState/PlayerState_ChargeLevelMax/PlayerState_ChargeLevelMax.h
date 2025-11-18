@@ -2,11 +2,11 @@
 #include"../PlayerState.h"
 class ShineEffectBlue;
 class GroundFreezes;
-class PlayerState_ChargeAttack :public PlayerStateBase
+class PlayerState_ChargeLevelMax :public PlayerStateBase
 {
 public:
-	PlayerState_ChargeAttack() = default;
-	~PlayerState_ChargeAttack() override = default;
+	PlayerState_ChargeLevelMax() = default;
+	~PlayerState_ChargeLevelMax() override = default;
 
 private:
 

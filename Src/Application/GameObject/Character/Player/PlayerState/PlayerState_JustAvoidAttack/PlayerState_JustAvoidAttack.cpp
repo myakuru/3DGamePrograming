@@ -1,6 +1,5 @@
 ﻿#include "PlayerState_JustAvoidAttack.h"
 #include"../../../../../main.h"
-#include"../PlayerState_FullCharge/PlayerState_FullCharge.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_SheathKatana/PlayerState_SheathKatana.h"
 #include"../PlayerState_Run/PlayerState_Run.h"
 #include"../../../../Weapon/Katana/Katana.h"
@@ -27,12 +26,6 @@ void PlayerState_JustAvoidAttack::StateStart()
 
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
-
-	// 攻撃時はtrueにする
-	if (auto katana = m_player->GetKatana().lock(); katana)
-	{
-		katana->SetNowAttackState(true);
-	}
 
 	m_lButtonKeyInput = false;      // 次段コンボ予約フラグ初期化
 	m_player->SetAnimeSpeed(70.0f);
@@ -69,12 +62,6 @@ void PlayerState_JustAvoidAttack::StateStart()
 			m_cameraBossTargetOffset = { 0.0f, 1.0f, -3.5f } ;
 			m_overshootDist = 4.0f;
 		}
-	}
-
-	// 攻撃時はtrueにする
-	if (auto katana = m_player->GetKatana().lock(); katana)
-	{
-		katana->SetNowAttackState(true);
 	}
 
 	m_dashDirection = Math::Vector3::Zero;
@@ -149,7 +136,7 @@ void PlayerState_JustAvoidAttack::StateUpdate()
 			}
 
 			// カメラをキャラの後ろに回す（セッター使用）
-			if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+			if (auto camera = m_player->GetPlayerCamera().lock())
 			{
 				camera->SetTargetLookAt(m_cameraBossTargetOffset);
 

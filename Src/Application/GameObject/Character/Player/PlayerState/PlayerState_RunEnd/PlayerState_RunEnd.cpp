@@ -42,41 +42,13 @@ void PlayerState_RunEnd::StateUpdate()
 	// 必殺技入力処理
 	if (UpdateSpecialAttackInput()) return;
 
-	// キーが押されたらRunステートへ
-	if (KeyboardManager::GetInstance().IsKeyPressed('W') ||
-		KeyboardManager::GetInstance().IsKeyPressed('A') ||
-		KeyboardManager::GetInstance().IsKeyPressed('S') ||
-		KeyboardManager::GetInstance().IsKeyPressed('D'))
-	{
-		auto spRunState = std::make_shared<PlayerState_Run>();
-		m_player->ChangeState(spRunState);
-		return;
-	}
+	// Eスキル入力処理
+	if (UpdateESkillInput()) return;
 
-	// WキーとSキーが同時押しされたらIdle状態に戻る
-	if (KeyboardManager::GetInstance().IsKeyPressed('W') &&
-		KeyboardManager::GetInstance().IsKeyPressed('S'))
-	{
-		if(m_player->GetAnimator()->IsAnimationEnd())
-		{
-			auto state = std::make_shared<PlayerState_Idle>();
-			m_player->ChangeState(state);
-			return;
-		}
-	}
+	// 移動するときの入力処理
+	if (UpdateMoveInput()) return;
 
-	// DキーとAキーが同時押しされたらIdle状態に戻る
-	if (KeyboardManager::GetInstance().IsKeyPressed('D') &&
-		KeyboardManager::GetInstance().IsKeyPressed('A'))
-	{
-		if (m_player->GetAnimator()->IsAnimationEnd())
-		{
-			auto state = std::make_shared<PlayerState_Idle>();
-			m_player->ChangeState(state);
-			return;
-		}
-	}
-
+	// アニメーション終了でIdleへ
 	if (m_player->GetAnimator()->IsAnimationEnd())
 	{
 		auto state = std::make_shared<PlayerState_Idle>();
@@ -101,4 +73,43 @@ void PlayerState_RunEnd::StateUpdate()
 void PlayerState_RunEnd::StateEnd()
 {
 	PlayerStateBase::StateEnd();
+}
+
+bool PlayerState_RunEnd::UpdateMoveInput()
+{
+	// WキーとSキーが同時押しされたらIdle状態に戻る
+	if (const auto& keyboardManager = KeyboardManager::GetInstance();
+		keyboardManager.IsKeyPressed('W') &&
+		keyboardManager.IsKeyPressed('S'))
+	{
+		if (m_player->GetAnimator()->IsAnimationEnd())
+		{
+			auto state = std::make_shared<PlayerState_Idle>();
+			m_player->ChangeState(state);
+			return true;
+		}
+	}
+	else if (keyboardManager.IsKeyPressed('D') &&
+		keyboardManager.IsKeyPressed('A'))
+	{
+		if (m_player->GetAnimator()->IsAnimationEnd())
+		{
+			auto state = std::make_shared<PlayerState_Idle>();
+			m_player->ChangeState(state);
+			return true;
+		}
+	}
+	else if (keyboardManager.IsKeyPressed('W') ||
+		keyboardManager.IsKeyPressed('A') ||
+		keyboardManager.IsKeyPressed('S') ||
+		keyboardManager.IsKeyPressed('D'))
+	{
+
+		auto state = std::make_shared<PlayerState_Run>();
+		m_player->ChangeState(state);
+		return true;
+
+	}
+
+	return false;
 }

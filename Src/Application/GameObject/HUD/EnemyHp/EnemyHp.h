@@ -30,7 +30,7 @@ private:
 	// ワールド座標での頭上オフセット
 	Math::Vector3 m_offsetPos = Math::Vector3(-0.5f, 2.5f, 0);
 
-	std::list<std::weak_ptr<KdGameObject>> m_enemies;
+	std::vector<std::weak_ptr<AetheriusEnemy>> m_enemies;
 
 	Math::Rectangle m_srcRect = { 0,0,1600,300 };
 

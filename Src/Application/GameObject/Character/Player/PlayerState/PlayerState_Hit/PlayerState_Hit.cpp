@@ -34,14 +34,14 @@ void PlayerState_Hit::StateUpdate()
 		return;
 	}
 
-	if (m_animeTime >= 0.5f)
-	{
-		// 回避入力処理
-		if (UpdateMoveAvoidInput()) return;
-	}
+	// 回避入力処理
+	if (UpdateMoveAvoidInput()) return;
 
 	// 必殺技入力処理
 	if (UpdateSpecialAttackInput()) return;
+
+	// Eスキル入力処理
+	if (UpdateESkillInput()) return;
 
 	PlayerStateBase::StateUpdate();
 

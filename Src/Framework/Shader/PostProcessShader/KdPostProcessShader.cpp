@@ -104,8 +104,8 @@ bool KdPostProcessShader::Init()
 	m_cb0_RadialBlurInfo.Create();	// 放射ブラー用
 
 	// 1440pでレンダーターゲット生成
-	const int renderWidth = 2560;
-	const int renderHeight = 1440;
+	const int renderWidth = 1920;
+	const int renderHeight = 1080;
 
 	const int halfW = renderWidth / 2;
 	const int halfH = renderHeight / 2;

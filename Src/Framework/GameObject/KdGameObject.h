@@ -8,6 +8,8 @@ enum class ObjTag : uint32_t
 	Collision = 1u << 2,
 	EnemySword = 1u << 3,
 	EnemyShield = 1u << 4,
+	PlayerKatana = 1u << 5,
+	PlayerScabbard = 1u << 6,
 };
 
 inline uint32_t ToMask(ObjTag t) { return static_cast<uint32_t>(t); }
@@ -24,6 +26,11 @@ public:
 		static uint32_t s_nextTypeID = 1;
 		return s_nextTypeID++;
 	}
+
+	static uint32_t GetTypeIDStatic() { return TypeID; }
+
+	static const uint32_t TypeID;
+
 
 	uint32_t m_typeID = 0;
 

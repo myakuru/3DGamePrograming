@@ -51,16 +51,11 @@ void BossEnemy::Init()
 
 void BossEnemy::Update()
 {
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemySword, m_enemySwords);
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyShield, m_enemyShields);
-
 	// 球の中心座標と半径を設定
 	m_sphere.Center = m_position + Math::Vector3(0.0f, 0.7f, 0.0f); // 敵の位置＋オフセット
 	m_sphere.Radius = 0.2f; // 半径0.5
 
 	m_pDebugWire->AddDebugSphere(m_sphere.Center, m_sphere.Radius, kBlueColor);
-
-	SceneManager::Instance().GetObjectWeakPtr(m_wpPlayer);
 
 	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
 

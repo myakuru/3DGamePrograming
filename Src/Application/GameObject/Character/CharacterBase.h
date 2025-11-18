@@ -7,6 +7,10 @@
 class PlayerCamera;
 class StateManager;
 class CharacterData;
+class Collision;
+class Player;
+class AetheriusEnemy;
+class BossEnemy;
 
 class CharacterBase : public SelectDraw3dModel
 {
@@ -97,7 +101,7 @@ protected:
 		float forwardRayExtra		= 0.05f;	// 余剰距離(浮動小数ヒット安定用)
 		float bumpSphereRadius		= 0.2f;		// 壁めり込み防止球の半径
 		float bumpSphereYOffset		= 0.3f;		// プレイヤー中心(腰程度)の高さ
-		float collisionMargin		= 0.01f;	// 壁にめり込まないための余白
+		float collisionMargin		= 1.0f;	// 壁にめり込まないための余白
 	};
 
 	struct RenderingState
@@ -110,8 +114,9 @@ protected:
 	{
 		std::weak_ptr<PlayerCamera>					playerCamera;
 		std::weak_ptr<KdGameObject>					collision;
-		std::list<std::weak_ptr<KdGameObject>>		referencedObjects;
 		std::list<std::shared_ptr<KdGameObject>>	effectList;
+		std::vector<std::weak_ptr<Collision>>		collisionObjects;
+		std::vector<std::weak_ptr<Player>>			playerObjects;
 	};
 
 	struct CombatState

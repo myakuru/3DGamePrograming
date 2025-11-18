@@ -72,7 +72,6 @@ void PlayerState_BackWordAvoid::StateUpdate()
 			bgm->SetPitch(-1.0f);
 		}
 
-		m_justAvoided = true;
 		m_afterImagePlayed = true;
 
 		// 残像
@@ -91,6 +90,7 @@ void PlayerState_BackWordAvoid::StateUpdate()
 	{
 		if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
 		{
+			m_player->SetJustAvoidAttackSuccess(true);
 			auto state = std::make_shared<PlayerState_JustAvoidAttack>();
 			m_player->ChangeState(state);
 			return;
@@ -114,6 +114,9 @@ void PlayerState_BackWordAvoid::StateUpdate()
 
 		// 必殺技入力処理
 		if (UpdateSpecialAttackInput()) return;
+
+		// Eスキル入力処理
+		if (UpdateESkillInput()) return;
 	}
 
 	// アニメーションが終了したらIdleへ移行

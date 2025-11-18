@@ -26,12 +26,6 @@ void PlayerState_Skill::StateStart()
 
 	// 残像の設定
 	m_player->GetAfterImage()->AddAfterImage(true, 10, 0.05f, { 0.0f,0.5f,1.0f,0.5f });
-
-
-	if (m_playerData.GetPlayerStatus().chargeCount < 3)
-	{
-		m_playerData.SetPlayerStatus().chargeCount++;
-	}
 }
 
 void PlayerState_Skill::StateUpdate()

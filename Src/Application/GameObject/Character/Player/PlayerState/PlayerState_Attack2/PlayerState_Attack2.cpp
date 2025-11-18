@@ -5,7 +5,6 @@
 #include"../../../../Weapon/Katana/Katana.h"
 
 #include"../PlayerState_Attack3/PlayerState_Attack3.h"
-#include"../PlayerState_FullCharge/PlayerState_FullCharge.h"
 
 #include"../PlayerState_BackWordAvoid/PlayerState_BackWordAvoid.h"
 #include"../PlayerState_FowardAvoid/PlayerState_FowardAvoid.h"
@@ -29,9 +28,12 @@ void PlayerState_Attack2::StateStart()
 	m_player->ResetAttackCollision();
 
 	// 攻撃時はtrueにする
-	if (auto katana = m_player->GetKatana().lock(); katana)
+	for (const auto& katanaWeak : m_player->GetKatanas())
 	{
-		katana->SetNowAttackState(true);
+		if (auto katana = katanaWeak.lock())
+		{
+			katana->SetNowAttackState(true);
+		}
 	}
 
 	m_lButtonKeyInput = false;				// 次段コンボ予約フラグ初期化
@@ -76,6 +78,9 @@ void PlayerState_Attack2::StateUpdate()
 	// 必殺技入力処理
 	if (UpdateSpecialAttackInput()) return;
 
+	// Eスキル入力処理
+	if (UpdateESkillInput()) return;
+
 	// 先行入力の予約
 	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
 	{
@@ -103,9 +108,6 @@ void PlayerState_Attack2::StateUpdate()
 		// 攻撃入力受付
 		if (m_animeTime >= 0.7f)
 		{
-			// ため攻撃入力処理
-			if (UpdateChargeAttackInput()) return;
-
 			// 攻撃入力処理
 			if (UpdateAttackInput<PlayerState_Attack3>()) return;
 

@@ -22,8 +22,6 @@ void PlayerState_SpecialAttack1::StateStart()
 	// アニメーション再生速度を変更
 	m_player->SetAnimeSpeed(10.0f);
 
-	m_playerData.SetPlayerStatus().specialPoint = 0;
-
 	m_playSound = false;
 }
 

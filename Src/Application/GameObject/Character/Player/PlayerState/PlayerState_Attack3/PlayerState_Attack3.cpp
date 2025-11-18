@@ -2,7 +2,6 @@
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_SheathKatana/PlayerState_SheathKatana.h"
 #include"../../../../../main.h"
 #include"../PlayerState_Attack4/PlayerState_Attack4.h"
-#include"../PlayerState_FullCharge/PlayerState_FullCharge.h"
 
 #include"../../../../../Scene/SceneManager.h"
 #include"../../../../Effect/EffekseerEffect/SlashEffect/SlashEffect.h"
@@ -25,9 +24,12 @@ void PlayerState_Attack3::StateStart()
 	PlayerStateBase::StateStart();
 
 	// 攻撃時はtrueにする
-	if (auto katana = m_player->GetKatana().lock(); katana)
+	for (const auto& katanaWeak : m_player->GetKatanas())
 	{
-		katana->SetNowAttackState(true);
+		if (auto katana = katanaWeak.lock())
+		{
+			katana->SetNowAttackState(true);
+		}
 	}
 
 	// 当たり判定リセット
@@ -117,6 +119,9 @@ void PlayerState_Attack3::StateUpdate()
 	// 必殺技入力処理
 	if (UpdateSpecialAttackInput()) return;
 
+	// Eスキル入力処理
+	if (UpdateESkillInput()) return;
+
 	// 先行入力の予約
 	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
 	{
@@ -146,20 +151,9 @@ void PlayerState_Attack3::StateUpdate()
 		// 移動を止める
 		m_player->SetIsMoving(Math::Vector3::Zero);
 
-		if (m_EButtonkeyInput)
-		{
-			m_EButtonkeyInput = false;
-			auto runState = std::make_shared<PlayerState_Skill>();
-			m_player->ChangeState(runState);
-			return;
-		}
-
 		// 攻撃入力受付
 		if (m_animeTime >= 0.7f)
 		{
-			// ため攻撃入力処理
-			if (UpdateChargeAttackInput()) return;
-
 			// 攻撃入力処理
 			if (UpdateAttackInput<PlayerState_Attack4>()) return;
 

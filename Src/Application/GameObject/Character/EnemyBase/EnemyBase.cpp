@@ -4,6 +4,7 @@
 #include"../../../Scene/SceneManager.h"
 #include"../../../Data/CharacterData/CharacterData.h"
 #include"../../../../MyFramework/Manager/JsonManager/JsonManager.h"
+#include"Application/GameObject/Collition/Collition.h"
 
 void EnemyBase::Init()
 {
@@ -100,42 +101,36 @@ void EnemyBase::UpdateAttackCollision(float _radius, float _distance,
 		return;
 	}
 
-	// プレイヤーが存在しない場合は処理しない
-	if (m_wpPlayer.expired()) return;
-
 	{
 		constexpr float kBroadPhaseMargin = 0.5f;
 		const float searchRadius = attackSphere.m_sphere.Radius + kBroadPhaseMargin;
-		SceneManager::Instance().GetObjectWeakPtrListByTagInSphere(ObjTag::PlayerLike, attackSphere.m_sphere.Center, searchRadius, m_refs.referencedObjects);
+		SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::PlayerLike, m_refs.playerObjects);
 	}
 
 	// ジャスト回避成功チェック（有効時間内のみ）
-	for (const auto& players : m_refs.referencedObjects)
+	for (const auto& players : m_refs.playerObjects)
 	{
 		if (auto playerPtr = players.lock())
 		{
-			if (playerPtr->GetTypeID() != Player::TypeID) continue;
-
-			auto castedPlayer = std::static_pointer_cast<Player>(playerPtr);
 
 			std::list<KdCollider::CollisionResult> results;
-			if (castedPlayer->Intersects(attackSphere, &results) && !results.empty())
+			if (playerPtr->Intersects(attackSphere, &results) && !results.empty())
 			{
 
 				// プレイヤーが回避中か判定
-				if (castedPlayer->GetAvoidFlg())
+				if (playerPtr->GetAvoidFlg())
 				{
 					const float kJustAvoidWindowSec = 0.5f; // 30f/60fps
-					const float avoidElapsed = castedPlayer->GetAvoidStartTime();
+					const float avoidElapsed = playerPtr->GetAvoidStartTime();
 					if (avoidElapsed >= 0.0f && avoidElapsed <= kJustAvoidWindowSec)
 					{
 						m_justAvoidSuccess = true;
 
 						// プレイヤーへも成立通知（プレイヤー側の状態遷移/効果に利用）
-						castedPlayer->SetJustAvoidSuccess(true);
+						playerPtr->SetJustAvoidSuccess(true);
 
 						// プレイヤー設定からスローモーション倍率・グレースケール適用を取得
-						auto& justCfg = castedPlayer->GetPlayerConfig().GetJustAvoidParam();
+						auto& justCfg = playerPtr->GetPlayerConfig().GetJustAvoidParam();
 						Application::Instance().SetFpsScale(justCfg.m_slowMoScale);
 						SceneManager::Instance().SetDrawGrayScale(justCfg.m_useGrayScale);
 
@@ -154,20 +149,16 @@ void EnemyBase::UpdateAttackCollision(float _radius, float _distance,
 
 	if (m_chargeAttackCount < _attackCount && m_chargeAttackTimer >= _attackTimer)
 	{
-		for (const auto& players : m_refs.referencedObjects)
+		for (const auto& players : m_refs.playerObjects)
 		{
 			if (auto playerPtr = players.lock())
 			{
-				if (playerPtr->GetTypeID() != Player::TypeID) continue;
-
-				auto castedPlayer = std::static_pointer_cast<Player>(playerPtr);
-
 				std::list<KdCollider::CollisionResult> results;
 
-				if (castedPlayer->Intersects(attackSphere, &results) && !results.empty())
+				if (playerPtr->Intersects(attackSphere, &results) && !results.empty())
 				{
-					castedPlayer->TakeDamage(m_characterData->GetCharacterData().attack);
-					castedPlayer->SetHitCheck(true);
+					playerPtr->TakeDamage(m_characterData->GetCharacterData().attack);
+					playerPtr->SetHitCheck(true);
 				}
 			}
 		}
@@ -180,8 +171,6 @@ void EnemyBase::UpdateAttackCollision(float _radius, float _distance,
 			m_isChargeAttackActive = false;
 		}
 	}
-
-	m_refs.referencedObjects.clear();
 }
 
 void EnemyBase::PostUpdate()
@@ -203,17 +192,15 @@ void EnemyBase::PostUpdate()
 
 	if (m_refs.collision.expired()) return;
 
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, m_refs.referencedObjects);
+	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, m_refs.collisionObjects);
 
-	for (auto& weakCol : m_refs.referencedObjects)
+	for (auto& weakCol : m_refs.collisionObjects)
 	{
-		if (auto col = weakCol.lock(); col)
+		if (auto col = weakCol.lock())
 		{
 			col->Intersects(sphereInfo, &retSpherelist);
 		}
 	}
-
-	m_refs.referencedObjects.clear();
 
 	// 球にあたったリストから一番近いオブジェクトを探す
 	// オーバーした長さが1番長いものを探す。

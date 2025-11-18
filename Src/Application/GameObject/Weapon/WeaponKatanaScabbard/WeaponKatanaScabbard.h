@@ -6,7 +6,7 @@ public:
 
 	static const uint32_t TypeID;
 
-	WeaponKatanaScabbard() {m_type = TypeID;}
+	WeaponKatanaScabbard() {m_type = TypeID; AddTag(ObjTag::PlayerScabbard);}
 	~WeaponKatanaScabbard() override = default;
 
 private:

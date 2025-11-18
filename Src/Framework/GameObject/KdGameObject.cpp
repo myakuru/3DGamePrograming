@@ -5,6 +5,8 @@
 #include"../../Application/Scene/SceneManager.h"
 #include"../../Application/Scene/BaseScene/BaseScene.h"
 
+const uint32_t KdGameObject::TypeID = KdGameObject::GenerateTypeID();
+
 void KdGameObject::Init()
 {
 	ModelLoad(m_path);

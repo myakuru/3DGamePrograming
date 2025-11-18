@@ -1,4 +1,4 @@
-﻿#include "PlayerState_ChaegeAttack2.h"
+﻿#include "PlayerState_ChargeLevel2.h"
 #include"../../../../../main.h"
 #include"../PlayerState_Attack1/PlayerState_Attack1.h"
 #include"../PlayerState_Idle/PlayerState_Idle.h"
@@ -11,7 +11,7 @@
 #include"../../../../Effect/EffekseerEffect/ShineEffect/ShineEffect.h"
 #include"../../../../Camera/PlayerCamera/PlayerCamera.h"
 
-void PlayerState_ChaegeAttack2::StateStart()
+void PlayerState_ChargeLevel2::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("ChargeAttack1");
 	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
@@ -22,7 +22,7 @@ void PlayerState_ChaegeAttack2::StateStart()
 	m_player->ResetAttackCollision();
 }
 
-void PlayerState_ChaegeAttack2::StateUpdate()
+void PlayerState_ChargeLevel2::StateUpdate()
 {
 	SceneManager::Instance().GetObjectWeakPtr(m_effect);
 	SceneManager::Instance().GetObjectWeakPtr(m_smokeEffect);
@@ -76,7 +76,7 @@ void PlayerState_ChaegeAttack2::StateUpdate()
 	m_player->SetIsMoving(Math::Vector3::Zero);
 }
 
-void PlayerState_ChaegeAttack2::StateEnd()
+void PlayerState_ChargeLevel2::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 

@@ -8,6 +8,8 @@
 
 void EnemyState_Run::StateStart()
 {
+	EnemyStateBase::StateStart();
+
 	auto anime = m_enemy->GetAnimeModel()->GetAnimation("Run");
 	m_enemy->GetAnimator()->SetAnimation(anime);
 	m_enemy->SetAnimeSpeed(60.0f);
@@ -15,10 +17,14 @@ void EnemyState_Run::StateStart()
 
 void EnemyState_Run::StateUpdate()
 {
-	if (auto player = m_enemy->GetPlayerWeakPtr().lock(); player)
+	for (const auto& player : m_player)
 	{
-		m_playerPos = player->GetPos();
-		m_enemyPos = m_enemy->GetPos();
+		if (auto p = player.lock())
+		{
+			m_playerPos = p->GetPos();
+			m_enemyPos = m_enemy->GetPos();
+			break;
+		}
 	}
 
 	// 距離計算

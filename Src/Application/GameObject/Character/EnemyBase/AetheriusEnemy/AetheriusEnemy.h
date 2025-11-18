@@ -16,11 +16,6 @@ public:
 	void Update() override;
 	void ChangeState(std::shared_ptr<EnemyStateBase> _state);
 
-	std::weak_ptr<Player>& GetPlayerWeakPtr()
-	{
-		return m_wpPlayer;
-	}
-
 	// ダメージを受ける
 	void Damage(int _damage);
 
@@ -94,8 +89,8 @@ private:
 
 	void StateInit();
 
-	std::weak_ptr<EnemySword> m_wpSword;
-	std::weak_ptr<EnemyShield> m_wpShield;
+	std::vector<std::weak_ptr<EnemySword>> m_enemySwords; // 敵の剣
+	std::vector<std::weak_ptr<EnemyShield>> m_enemyShields; // 敵の盾
 
 	// ブラーを発生させる時間
 	float m_blurTime = 0.0f;

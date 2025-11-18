@@ -12,18 +12,12 @@ void EnemyStateBase::StateStart()
 	{
 		if (auto p = player.lock())
 		{
-			if (p->GetTypeID() == Player::TypeID)
-			{
-				m_playerPos = p->GetPos();
-				break;
-			}
+			m_playerPos = p->GetPos();
 		}
 	}
 
 	// 敵の方向ベクトルを計算
-	Math::Vector3 enemyPos = m_enemy->GetPos();
-	Math::Vector3 playerPos = m_playerPos;
-	m_attackDirection = playerPos - enemyPos;
+	m_attackDirection = m_playerPos - m_enemy->GetPos();
 
 	// Y方向の成分を無視
 	m_attackDirection.y = 0.0f;

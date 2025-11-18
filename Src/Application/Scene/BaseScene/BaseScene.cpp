@@ -26,31 +26,12 @@ void BaseScene::PreUpdate()
 		}
 	}
 
-	auto mapIt = m_MapObjectList.begin();
-	while (mapIt != m_MapObjectList.end())
-	{
-		if ((*mapIt)->IsExpired())	// IsExpired()・・・ 無効ならtrue
-		{
-			// 無効なオブジェクトをリストから削除
-			mapIt = m_MapObjectList.erase(mapIt);
-		}
-		else
-		{
-			++mapIt;	// 次の要素へイテレータを進める
-		}
-	}
-
 	// バケットの整理（expired を除去）
 	CompactTypeBuckets();
 
 	// ↑の後には有効なオブジェクトだけのリストになっている
 
 	for (auto& obj : m_objList)
-	{
-		obj->PreUpdate();
-	}
-
-	for (auto& obj : m_MapObjectList)
 	{
 		obj->PreUpdate();
 	}
@@ -99,42 +80,6 @@ void BaseScene::PreDraw()
 	for (auto& obj : m_objList)
 	{
 		obj->PreDraw();
-	}
-
-	if (SceneManager::Instance().m_sceneCamera)
-	{
-		for (auto& cameraObj : m_CameraObjList)
-		{
-			cameraObj->PreDraw();
-		}
-	}
-
-	auto playerCamera = m_playerCamera.lock();
-
-	if (playerCamera)
-	{
-		// カメラからフラスタム生成
-		DirectX::BoundingFrustum frustum = playerCamera->CreateFrustum();
-
-		int cunter =0;
-
-		// Mapリストからカリング
-		for (auto& obj : m_MapObjectList)
-		{
-			bool result = obj->CheckInScreen(frustum);
-			if (result)
-			{
-				cunter++;
-				m_drawObjectList.push_back(obj);
-			}
-		}
-	}
-	else
-	{
-		for (auto& obj : m_MapObjectList)
-		{
-			m_drawObjectList.push_back(obj);
-		}
 	}
 }
 
@@ -241,8 +186,7 @@ void BaseScene::DrawDebug()
 	KdShaderManager::Instance().m_StandardShader.BeginUnLit();
 	{
 		// デバッグ表示がOFFでも、各オブジェクトにFlushさせてバッファをクリアするため常に呼ぶ
-		for (auto& obj : m_objList) obj->DrawDebug();
-		for (auto& obj : m_MapObjectList) obj->DrawDebug();
+		for (const auto& obj : m_objList) obj->DrawDebug();
 	}
 	KdShaderManager::Instance().m_StandardShader.EndUnLit();
 }

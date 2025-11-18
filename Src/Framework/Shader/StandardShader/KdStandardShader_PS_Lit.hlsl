@@ -225,57 +225,6 @@ float4 main(VSOutput In) : SV_Target0
 	// 全体の明度：環境光に1が設定されている場合は影響なし
 	float totalBrightness = g_AmbientLight.a;
 
-	//-------------------------
-	// 点光 (Disney + Cook-Torrance)
-	//-------------------------
-	for (int i = 0; i < g_PointLightNum.x; i++)
-	{
-		// ピクセルから点光への方向
-		float3 L = g_PointLights[i].Pos - In.wPos;
-		
-		// 距離を算出
-		float dist = length(L);
-		
-		// 正規化
-		L /= dist;
-		
-		// 点光の判定以内
-		if (dist < g_PointLights[i].Radius)
-		{
-			// 半径をもとに、距離の比率を求める
-			float atte = 1.0 - saturate(dist / g_PointLights[i].Radius);
-			
-			// 明度の追加
-			totalBrightness += (1 - pow(1 - atte, 2)) * g_PointLights[i].IsBright;
-			
-			// 逆２乗の法則
-			atte *= atte;
-
-			float3 V = normalize(vCam);
-			float3 H = normalize(L + V);
-
-			float NdotL = saturate(dot(wN, L));
-			float NdotV = saturate(dot(wN, V));
-			float NdotH = saturate(dot(wN, H));
-			float LdotH = saturate(dot(L, H));
-
-			float D = DistributionGGX(NdotH, alpha);
-			float G = GeometrySmith(NdotV, NdotL, roughness);
-			float3 F = FresnelSchlick(saturate(dot(H, V)), F0);
-			float3 specBRDF = (D * G) * F / max(4.0 * NdotV * NdotL, 1e-4);
-
-			float3 kS = F;
-			float3 kD = (1.0 - kS) * (1.0 - metallic);
-
-			float3 diffuseBRDF = DisneyDiffuse(baseColor.rgb, NdotV, NdotL, LdotH, roughness);
-
-			float3 lightColor = g_PointLights[i].Color * atte;
-			float3 contrib = (kD * diffuseBRDF + specBRDF) * lightColor * NdotL;
-
-			outColor += contrib * baseColor.a;
-		}
-	}
-
 	// 環境光（簡易IBLの代替・拡散のみ、金属は拡散を抑制）
 	outColor += g_AmbientLight.rgb * baseColor.rgb * (1.0 - metallic) * baseColor.a * ao;
 	
@@ -338,7 +287,6 @@ float4 main(VSOutput In) : SV_Target0
 	float3 V = normalize(g_CamPos - In.wPos);
 
 	// リムライト
-
 	if (g_LitRimLightEnable)
 	{
 		float NdotV = saturate(dot(wN, V));

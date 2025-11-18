@@ -18,10 +18,15 @@ void BossEnemyState_Run::StateStart()
 
 void BossEnemyState_Run::StateUpdate()
 {
-	if (auto player = m_bossEnemy->GetPlayerWeakPtr().lock(); player)
+	const auto wp = m_bossEnemy->GetPlayerList();
+
+	for (auto& weakPlayer : wp)
 	{
-		m_playerPos = player->GetPos();
-		m_enemyPos = m_bossEnemy->GetPos();
+		if (auto sp = weakPlayer.lock())
+		{
+			m_playerPos = sp->GetPos();
+			m_enemyPos = m_bossEnemy->GetPos();
+		}
 	}
 
 	// 距離計算

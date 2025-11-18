@@ -4,7 +4,9 @@
 #include"../../../../../Scene/SceneManager.h"
 #include"../../../../Effect/EffekseerEffect/SpeedAttackEffect/SpeedAttackEffect.h"
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
-#include"Application\GameObject\Character\AfterImage\AfterImage.h"
+#include"Application/GameObject/Character/AfterImage/AfterImage.h"
+
+#include"Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
 
 void PlayerState_AvoidAttack::StateStart()
 {
@@ -20,7 +22,7 @@ void PlayerState_AvoidAttack::StateStart()
 
 	SceneManager::Instance().GetObjectWeakPtr(m_effect);
 
-	m_player->GetAfterImage()->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 1.0f));
+	m_player->GetAfterImage()->AddAfterImage(true, 5, 3.0f, Math::Color(0.0f, 1.0f, 1.0f, 1.0f));
 }
 
 void PlayerState_AvoidAttack::StateUpdate()
@@ -38,14 +40,19 @@ void PlayerState_AvoidAttack::StateUpdate()
 	// 必殺技入力処理
 	if (UpdateSpecialAttackInput()) return;
 
+	// Eスキル入力処理
+	if (UpdateESkillInput()) return;
+
 	// アニメーション終了後の遷移処理
 	if (UpdateSheathKatanaInput()) return;
 
 
 	// 回避中の移動方向で回転を更新
-	if (m_player->GetMovement() != Math::Vector3::Zero)
+
+	Math::Vector3 moveDir = m_player->GetMovement();
+
+	if (moveDir != Math::Vector3::Zero)
 	{
-		Math::Vector3 moveDir = m_player->GetMovement();
 		moveDir.y = 0.0f;
 		moveDir.Normalize();
 		m_player->UpdateQuaternionDirect(moveDir);
@@ -53,6 +60,16 @@ void PlayerState_AvoidAttack::StateUpdate()
 
 	float deltaTime = Application::Instance().GetDeltaTime();
 
+	Math::Vector3 targetDir = m_nearestEnemyPos - m_player->GetPos();
+
+	if (auto camera = m_player->GetPlayerCamera().lock())
+	{
+		camera->SetTargetLookAt(m_cameraTargetOffset);
+
+		float yaw = std::atan2f(targetDir.x, targetDir.z);
+		float yawDeg = DirectX::XMConvertToDegrees(yaw);
+		camera->SetTargetRotation({ 0.0f, yawDeg, 0.0f });
+	}
 
 	if (m_time < 0.3f)
 	{

@@ -103,6 +103,9 @@ void PlayerState_ForwardAvoid::StateUpdate()
 
 		// 必殺技入力処理
 		if (UpdateSpecialAttackInput()) return;
+
+		// Eスキル入力処理
+		if (UpdateESkillInput()) return;
 	}
 
 	// アニメーションが終了したらIdleへ移行

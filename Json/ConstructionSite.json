@@ -76,9 +76,9 @@
     "moveSpeed": 0.14000000059604645,
     "path": "Asset\\Models\\Player\\Sapphy\\Sapphy.gltf",
     "pos": {
-      "x": 7.223851680755615,
+      "x": 7.083458423614502,
       "y": 100.99998474121094,
-      "z": -6.069035053253174
+      "z": -2.7412776947021484
     },
     "rotateSpeed": 30.0,
     "scale": {
@@ -171,15 +171,15 @@
       "z": 1.0
     },
     "deg": {
-      "x": 6.300009727478027,
-      "y": 317.1502990722656,
+      "x": 19.800018310546875,
+      "y": 125.83836364746094,
       "z": 0.0
     },
     "fov": 70.0,
     "m_cameraPos": {
-      "x": 7.223881721496582,
-      "y": 100.99998474121094,
-      "z": -6.069066047668457
+      "x": 7.083454132080078,
+      "y": 100.99996185302734,
+      "z": -2.7412750720977783
     },
     "moveSpeed": 50.0,
     "path": "Asset/Models/Sky/Sky.gltf",
@@ -198,7 +198,7 @@
     "targetLookAt": {
       "x": 0.0,
       "y": 1.0,
-      "z": -2.4999992847442627
+      "z": -2.5000007152557373
     },
     "type": 32
   },
@@ -1161,7 +1161,7 @@
       "y": 0.0,
       "z": 0.0
     },
-    "drawFlags": true,
+    "drawFlags": false,
     "path": "Asset/Models/Sky/Sky.gltf",
     "pos": {
       "x": 0.0,
@@ -1505,9 +1505,9 @@
     "Name": "class SkillBar",
     "color": {
       "w": 1.0,
-      "x": 0.5,
-      "y": 0.5,
-      "z": 0.5
+      "x": 0.9256890416145325,
+      "y": 0.04988886043429375,
+      "z": 0.09903693199157715
     },
     "deg": {
       "x": 0.0,
@@ -1688,7 +1688,7 @@
     "type": 32
   },
   {
-    "Name": "class SkillUI",
+    "Name": "class NormalUI",
     "color": {
       "w": 1.0,
       "x": 1.0,
@@ -1701,10 +1701,37 @@
       "z": 0.0
     },
     "drawFlags": true,
-    "path": "Asset/Models/Sky/Sky.gltf",
+    "path": "Asset\\Textures\\GameUI\\nonSkile.png",
     "pos": {
       "x": 357.0,
       "y": -200.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "Name": "class SkillUI",
+    "color": {
+      "w": 1.0,
+      "x": 0.9389708638191223,
+      "y": 0.13589179515838623,
+      "z": 0.9409886598587036
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": true,
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": 357.0,
+      "y": -225.0,
       "z": 0.0
     },
     "scale": {
@@ -5040,7 +5067,7 @@
       }
     ],
     "color": {
-      "w": 0.5,
+      "w": 0.800000011920929,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -6198,7 +6225,7 @@
   {
     "Name": "class MapGard",
     "color": {
-      "w": 1.0,
+      "w": 0.800000011920929,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -6232,7 +6259,7 @@
   {
     "Name": "class MapGard",
     "color": {
-      "w": 0.800000011920929,
+      "w": 0.5,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -6392,15 +6419,15 @@
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "fixedFps": 60.0,
     "moveSpeed": 0.05000000074505806,
     "path": "Asset\\Models\\Enemy\\Aetherius\\Aetherius.gltf",
     "pos": {
-      "x": -17.33839988708496,
+      "x": -10.043333053588867,
       "y": 101.19999694824219,
-      "z": 11.849615097045898
+      "z": 13.620933532714844
     },
     "rotationspeed": 10.0,
     "scale": {
@@ -7263,7 +7290,7 @@
       "DrawBright": false,
       "DrawGradation": false,
       "DrawGrayScale": false,
-      "DrawLit": true,
+      "DrawLit": false,
       "DrawToon": false,
       "DrawUnLit": false,
       "GenerateDepthMapFromLight": false
@@ -7282,7 +7309,8 @@
     "type": 160
   },
   {
-    "Name": "class FPSCamera",
+    "GravitySpeed": 0.0,
+    "Name": "class AetheriusEnemy",
     "color": {
       "w": 1.0,
       "x": 1.0,
@@ -7290,17 +7318,34 @@
       "z": 1.0
     },
     "deg": {
-      "x": -3.3000011444091797,
-      "y": 102.5804672241211,
+      "x": 0.0,
+      "y": 0.0,
       "z": 0.0
     },
-    "moveSpeed": 16.0,
-    "path": "Asset/Models/Sky/Sky.gltf",
-    "pos": {
-      "x": -4.093907356262207,
-      "y": 102.8160400390625,
-      "z": 6.40097188949585
+    "dissolveColor": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
     },
+    "dissolvePower": 0.9200000166893005,
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": true,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": true
+    },
+    "fixedFps": 60.0,
+    "moveSpeed": 0.05000000074505806,
+    "path": "Asset\\Models\\Enemy\\Aetherius\\Aetherius.gltf",
+    "pos": {
+      "x": -10.116514205932617,
+      "y": 100.80000305175781,
+      "z": 7.345113277435303
+    },
+    "rotationspeed": 20.0,
     "scale": {
       "x": 1.0,
       "y": 1.0,
@@ -8597,6 +8642,67 @@
       "x": 1107.0999755859375,
       "y": 0.0,
       "z": 71.69999694824219
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32
+  },
+  {
+    "EffectSpeed": 4.0,
+    "Name": "class EnemyHitEffect",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "distance": 0.5,
+    "effectColor": {
+      "w": 0.7843137383460999,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "path": "Asset\\Data\\Effect\\EVFX_Slash\\VFX\\effects\\EVFX02_02_TwinEdge.efkefc",
+    "pos": {
+      "x": 0.0,
+      "y": 1.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.5
+    },
+    "type": 32
+  },
+  {
+    "Name": "class FPSCamera",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 12.750030517578125,
+      "y": 341.0794982910156,
+      "z": 0.0
+    },
+    "moveSpeed": 16.0,
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": 0.7855750918388367,
+      "y": 102.28948211669922,
+      "z": -4.173332214355469
     },
     "scale": {
       "x": 1.0,

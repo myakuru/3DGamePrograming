@@ -16,10 +16,18 @@
 static float GetDistanceToPlayer(BossEnemy* boss)
 {
 	if (!boss) return FLT_MAX;
-	auto wp = boss->GetPlayerWeakPtr();
-	auto sp = wp.lock();
-	if (!sp) return FLT_MAX;
-	return (sp->GetPos() - boss->GetPos()).Length();
+	const auto wp = boss->GetPlayerList();
+
+	for (auto& weakPlayer : wp)
+	{
+		if (auto sp = weakPlayer.lock())
+		{
+			// 最初に見つけたプレイヤーとの距離を返す
+			return (sp->GetPos() - boss->GetPos()).Length();
+		}
+	}
+
+	return FLT_MAX;
 }
 
 std::shared_ptr<BossEnemyStateBase> BossEnemyAI::DecideNext(BossEnemy* boss)

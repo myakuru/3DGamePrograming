@@ -28,6 +28,8 @@ public:
 	void SetOwnerEnemy(const std::weak_ptr<AetheriusEnemy>& owner) { m_ownerEnemy = owner; }
 	const std::weak_ptr<AetheriusEnemy>& GetOwnerEnemy() const { return m_ownerEnemy; }
 
+	const bool HasOwner() const { return !m_ownerEnemy.expired(); }
+
 protected:
 
 	void Init() override;

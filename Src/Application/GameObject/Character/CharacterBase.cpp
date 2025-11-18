@@ -37,7 +37,7 @@ std::weak_ptr<PlayerCamera> CharacterBase::GetPlayerCamera() const
 
 void CharacterBase::UpdateQuaternion(Math::Vector3& _moveVector)
 {
-	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
+	float deltaTime = Application::Instance().GetUnscaledDeltaTime(); 
 
 	if (_moveVector == Math::Vector3::Zero) return;
 
@@ -136,14 +136,13 @@ void CharacterBase::PostUpdate()
 
 	if (m_refs.collision.expired()) return;
 
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, m_refs.referencedObjects);
+	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, m_refs.collisionObjects);
 
-	for (auto& collision : m_refs.referencedObjects)
+	for (auto& collision : m_refs.collisionObjects)
 	{
-		if (auto collisionObj = collision.lock(); collisionObj)
+		if (auto collisionObj = collision.lock())
 		{
 			collisionObj->Intersects(rayInfo, &retRayList);
-			m_refs.referencedObjects.clear();
 		}
 	}
 
@@ -191,13 +190,12 @@ void CharacterBase::PostUpdate()
 	// 球に当たったオブジェクト情報を格納するリスト
 	std::list<KdCollider::CollisionResult> retSpherelist;
 
-	for (auto& collision : m_refs.referencedObjects)
+	for (auto& collision : m_refs.collisionObjects)
 	{
-		if (auto collisionObj = collision.lock(); collisionObj)
-		{
-			collisionObj->Intersects(sphereInfo, &retSpherelist);
-			m_refs.referencedObjects.clear();
-		}
+		auto collisionObj = collision.lock();
+		if (!collisionObj) continue;
+		collisionObj->Intersects(sphereInfo, &retSpherelist);
+
 	}
 
 	//  球にあたったリストから一番近いオブジェクトを探す
@@ -259,7 +257,6 @@ void CharacterBase::SetIsMoving(Math::Vector3 _move)
 {
 	m_movement.movement = _move;
 }
-
 
 const Math::Vector3& CharacterBase::GetMovement() const
 {

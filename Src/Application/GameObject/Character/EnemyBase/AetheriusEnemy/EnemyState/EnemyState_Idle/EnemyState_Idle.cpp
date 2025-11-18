@@ -5,12 +5,12 @@
 
 void EnemyState_Idle::StateStart()
 {
+	EnemyStateBase::StateStart();
+
 	auto anime = m_enemy->GetAnimeModel()->GetAnimation("Idle");
 	m_enemy->GetAnimator()->SetAnimation(anime);
 
 	m_enemy->SetAnimeSpeed(60.0f);
-
-	SceneManager::Instance().GetObjectWeakPtr(m_enemy->GetPlayerWeakPtr());
 
 }
 
@@ -20,12 +20,17 @@ void EnemyState_Idle::StateUpdate()
 	// 移動量リセット
 	m_enemy->SetIsMoving(Math::Vector3::Zero);
 
-	auto player = m_enemy->GetPlayerWeakPtr();
-	Math::Vector3 playerPos = player.lock()->GetPos();
-	Math::Vector3 enemyPos = m_enemy->GetPos();
+	for (const auto& player : m_player)
+	{
+		if (auto p = player.lock())
+		{
+			m_playerPos = p->GetPos();
+			m_enemyPos = m_enemy->GetPos();
+		}
+	}
 
 	// 距離計算
-	m_distance = (playerPos - enemyPos).Length();
+	m_distance = (m_playerPos - m_enemyPos).Length();
 
 	if (m_distance < 6.0f)
 	{

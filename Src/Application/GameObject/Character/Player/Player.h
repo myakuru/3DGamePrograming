@@ -65,6 +65,7 @@ public:
 	void PostUpdate  () override;
 	void DrawLit     () override;
 	void DrawRimLight() override;
+	void CollisionUpdate();
 
 	// ステート管理
 	void StateInit();
@@ -103,8 +104,6 @@ public:
 	KdModelWork* GetModelWork() { return m_modelWork.get(); }
 
 	// 装備/関連参照
-	const std::weak_ptr<Katana>& GetKatana() const { return m_katana; }
-	const std::weak_ptr<WeaponKatanaScabbard>& GetScabbard() const { return m_scabbard; }
 	const std::list<std::weak_ptr<KdGameObject>>& GetEnemyLike() const { return m_enemyLike; }
 
 	// ステータス系
@@ -152,6 +151,10 @@ public:
 	// ダメージ処理
 	void TakeDamage(int _damage);
 
+	// カタナ取得
+	std::vector <std::weak_ptr<Katana>> GetKatanas() { return m_katana; }
+	std::vector <std::weak_ptr<WeaponKatanaScabbard>> GetKatanaSheaths() { return m_sheaths; }
+
 private:
 	// 内部移動処理
 	void ApplyHorizontalMove   (const Math::Vector3& _inputMove, float _deltaTime);
@@ -174,6 +177,10 @@ private:
 	std::list<std::weak_ptr<KdGameObject>> m_enemyLike;
 
 	// 装備
-	std::weak_ptr<Katana>				m_katana;
-	std::weak_ptr<WeaponKatanaScabbard>	m_scabbard;
+	std::vector <std::weak_ptr<Katana>> m_katana;
+	std::vector <std::weak_ptr<WeaponKatanaScabbard>> m_sheaths;
+
+
+
+	Math::Vector3 tmp = Math::Vector3(10.0f, 9.0f, 1.0f);
 };

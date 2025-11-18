@@ -2,7 +2,6 @@
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_SheathKatana/PlayerState_SheathKatana.h"
 #include"../../../../../main.h"
 #include"../PlayerState_Attack1/PlayerState_Attack1.h"
-#include"../PlayerState_FullCharge/PlayerState_FullCharge.h"
 #include"../../../../../Scene/SceneManager.h"
 
 #include"../../../../Weapon/Katana/Katana.h"
@@ -25,9 +24,12 @@ void PlayerState_Attack4::StateStart()
 	PlayerStateBase::StateStart();
 
 	// 攻撃時はtrueにする
-	if (auto katana = m_player->GetKatana().lock(); katana)
+	for (const auto& katanaWeak : m_player->GetKatanas())
 	{
-		katana->SetNowAttackState(true);
+		if (auto katana = katanaWeak.lock())
+		{
+			katana->SetNowAttackState(true);
+		}
 	}
 
 	// 当たり判定リセット
@@ -41,11 +43,6 @@ void PlayerState_Attack4::StateStart()
 	m_lButtonKeyInput = false;
 
 	m_player->SetAnimeSpeed(70.0f);
-
-	if (m_playerData.GetPlayerStatus().chargeCount < 3)
-	{
-		m_playerData.SetPlayerStatus().chargeCount++;
-	}
 
 	KdAudioManager::Instance().Play("Asset/Sound/Player/Attack4.WAV", false)->SetVolume(0.5f);
 }
@@ -73,6 +70,9 @@ void PlayerState_Attack4::StateUpdate()
 
 	// 必殺技入力処理
 	if (UpdateSpecialAttackInput()) return;
+
+	// Eスキル入力処理
+	if (UpdateESkillInput()) return;
 
 	// 先行入力の予約
 	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
@@ -117,9 +117,6 @@ void PlayerState_Attack4::StateUpdate()
 		// 攻撃入力受付
 		if (m_animeTime >= 0.7f)
 		{
-			// ため攻撃入力処理
-			if (UpdateChargeAttackInput()) return;
-
 			// 攻撃入力処理
 			if (UpdateAttackInput<PlayerState_Attack1>()) return;
 

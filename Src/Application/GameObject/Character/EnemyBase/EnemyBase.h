@@ -24,8 +24,6 @@ protected:
 
 	void UpdateQuaternion(Math::Vector3& _moveVector) override;
 
-	std::weak_ptr<Player> m_wpPlayer;
-
 	// ジャスト回避成功フラグ
 	bool m_justAvoidSuccess = false;
 	bool m_hitOnce = false;

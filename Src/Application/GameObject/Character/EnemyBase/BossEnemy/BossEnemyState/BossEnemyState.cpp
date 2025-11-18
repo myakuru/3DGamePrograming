@@ -11,11 +11,8 @@ void BossEnemyStateBase::StateStart()
 	{
 		if (auto p = player.lock())
 		{
-			if (p->GetTypeID() == Player::TypeID)
-			{
-				m_playerPos = p->GetPos();
-				break;
-			}
+			m_playerPos = p->GetPos();
+			break;
 		}
 	}
 

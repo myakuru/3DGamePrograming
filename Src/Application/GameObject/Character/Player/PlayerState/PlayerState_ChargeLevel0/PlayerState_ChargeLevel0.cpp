@@ -1,11 +1,11 @@
-﻿#include "PlayerState_FullCharge.h"
+﻿#include "PlayerState_ChargeLevel0.h"
 
-#include"../../../../../main.h"
-#include"../PlayerState_ChargeAttackMax/PlayerState_ChargeAttackMax.h"
-#include"../PlayerState_ChargeAttack/PlayerState_ChargeAttack.h"
-#include"../../../../Camera/PlayerCamera/PlayerCamera.h"
+#include"Application/main.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_ChargeAttackMax/PlayerState_ChargeAttackMax.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_ChargeLevel1/PlayerState_ChargeLevel1.h"
+#include"Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
 
-void PlayerState_FullCharge::StateStart()
+void PlayerState_ChargeLevel0::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("ChargeAttack0");
 	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
@@ -28,7 +28,7 @@ void PlayerState_FullCharge::StateStart()
 
 }
 
-void PlayerState_FullCharge::StateUpdate()
+void PlayerState_ChargeLevel0::StateUpdate()
 {
 	// アニメーション時間のデバッグ表示
 	{
@@ -38,22 +38,9 @@ void PlayerState_FullCharge::StateUpdate()
 
 	if (m_animeTime >= 0.5f)
 	{
-		auto state = std::make_shared<PlayerState_ChargeAttack>();
+		auto state = std::make_shared<PlayerState_ChargeLevel1>();
 		m_player->ChangeState(state);
 		return;
-	}
-
-	float deltaTime = Application::Instance().GetDeltaTime();
-
-	m_time += deltaTime;
-
-	if (m_time >= 0.0f && m_time <= 0.2f)
-	{
-		KdShaderManager::Instance().m_postProcessShader.SetEnableStrongBlur(true);
-	}
-	else
-	{
-		KdShaderManager::Instance().m_postProcessShader.SetEnableStrongBlur(false);
 	}
 
 	// 刀は鞘の中にある状態
@@ -76,7 +63,7 @@ void PlayerState_FullCharge::StateUpdate()
 
 }
 
-void PlayerState_FullCharge::StateEnd()
+void PlayerState_ChargeLevel0::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 

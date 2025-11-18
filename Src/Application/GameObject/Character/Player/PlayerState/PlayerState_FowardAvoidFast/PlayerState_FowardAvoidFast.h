@@ -14,6 +14,4 @@ private:
 
 	bool m_afterImagePlayed = false; // 残像エフェクトが再生されたかどうか
 
-	bool m_justAvoided = false; // ジャスト回避が成功したかどうか
-
 };

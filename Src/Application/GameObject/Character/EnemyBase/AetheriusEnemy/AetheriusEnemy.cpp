@@ -39,56 +39,42 @@ void AetheriusEnemy::Init()
 	m_characterData->SetCharacterData().hp = 100;
 	m_characterData->SetCharacterData().maxHp = 100;
 	m_characterData->SetCharacterData().attack = 10;
+
+	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemySword, m_enemySwords);
+	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyShield, m_enemyShields);
 }
 
 void AetheriusEnemy::Update()
 {
 	// 自分の武器が未割り当て/消滅なら一度だけ取得して所有者に設定する
-	if (m_wpSword.expired())
-	{
-		SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemySword, m_refs.referencedObjects);
-		for (auto& w : m_refs.referencedObjects)
-		{
-			if (auto weapon = w.lock())
-			{
-				if (weapon->GetTypeID() == EnemySword::TypeID)
-				{
-					auto castedEnemySword = std::static_pointer_cast<EnemySword>(weapon);
-					if (castedEnemySword->GetOwnerEnemy().expired())
-					{
-						castedEnemySword->SetOwnerEnemy(std::static_pointer_cast<AetheriusEnemy>(shared_from_this()));
-						m_wpSword = castedEnemySword;
-						break;
-					}
-				}
-			}
-		}
-		m_refs.referencedObjects.clear();
-	}
-
-	if (m_wpShield.expired())
-	{
-		SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyShield, m_refs.referencedObjects);
-		for (auto& w : m_refs.referencedObjects)
-		{
-			if (auto weapon = w.lock())
-			{
-				if (weapon->GetTypeID() == EnemyShield::TypeID)
-				{
-					auto castedEnemyShield = std::static_pointer_cast<EnemyShield>(weapon);
-					if (castedEnemyShield->GetOwnerEnemy().expired())
-					{
-						castedEnemyShield->SetOwnerEnemy(std::static_pointer_cast<AetheriusEnemy>(shared_from_this()));
-						m_wpShield = castedEnemyShield;
-						break;
-					}
-				}
-			}
-		}
-		m_refs.referencedObjects.clear();
-	}
-
 	CharacterBase::Update();
+
+	for (const auto& w : m_enemySwords)
+	{
+		if (auto weapon = w.lock())
+		{
+			weapon->SetOwnerEnemy(std::static_pointer_cast<AetheriusEnemy>(shared_from_this()));
+			if (auto rightHandNode = m_modelWork->FindWorkNode("weapon_r"))
+			{
+				weapon->SetEnemyRightHandMatrix(rightHandNode->m_worldTransform);
+				weapon->SetEnemyMatrix(m_mWorld);
+			}
+		}
+	}
+
+	for (const auto& w : m_enemyShields)
+	{
+		if (auto weapon = w.lock())
+		{
+			weapon->SetOwnerEnemy(std::static_pointer_cast<AetheriusEnemy>(shared_from_this()));
+
+			if (auto leftHandNode = m_modelWork->FindWorkNode("weapon_l"))
+			{
+				weapon->SetEnemyLeftHandMatrix(leftHandNode->m_worldTransform);
+				weapon->SetEnemyMatrix(m_mWorld);
+			}
+		}
+	}
 
 	if (m_isHit)
 	{
@@ -112,37 +98,17 @@ void AetheriusEnemy::Update()
 		m_blurTime += Application::Instance().GetUnscaledDeltaTime();
 		if (m_blurTime <= 0.1f) // ブラー持続時間
 		{
-			KdShaderManager::Instance().m_postProcessShader.SetRadialBlur(0.1f, 6.0f, { 0.5f,0.5f });
+			KdShaderManager::Instance().m_postProcessShader.SetRadialBlur(0.1f, 2.0f, { 0.5f,0.55f });
 			KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(true);
 		}
 		else
 		{
 			m_enableRadialBlur = false;
-			m_blurTime = 0.0f;
+			m_blurTime = 0.0f; 
 			KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(false);
 		}
 	}
 
-
-	// 自分が所有する剣のみ行列を更新
-	if (auto sword = m_wpSword.lock())
-	{
-		if (auto rightHandNode = m_modelWork->FindWorkNode("weapon_r"); rightHandNode)
-		{
-			sword->SetEnemyRightHandMatrix(rightHandNode->m_worldTransform);
-			sword->SetEnemyMatrix(m_mWorld);
-		}
-	}
-
-	// 自分が所有する盾のみ行列を更新
-	if (auto shield = m_wpShield.lock())
-	{
-		if (auto leftHandNode = m_modelWork->FindWorkNode("weapon_l"); leftHandNode)
-		{
-			shield->SetEnemyLeftHandMatrix(leftHandNode->m_worldTransform);
-			shield->SetEnemyMatrix(m_mWorld);
-		}
-	}
 }
 
 void AetheriusEnemy::StateInit()

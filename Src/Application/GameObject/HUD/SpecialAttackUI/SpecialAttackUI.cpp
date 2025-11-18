@@ -2,7 +2,7 @@
 #include"Application/Scene/SceneManager.h"
 #include"Application/GameObject/Character/Player/Player.h"
 #include"Application/Data/CharacterData/CharacterData.h"
-#include"Application\main.h"
+#include"Application/main.h"
 
 const uint32_t SpecialAttackUI::TypeID = KdGameObject::GenerateTypeID();
 
@@ -21,7 +21,7 @@ void SpecialAttackUI::Update()
 	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
 	m_timer += deltaTime;
 
-	if (auto player = m_player.lock(); player)
+	if (auto player = m_player.lock())
 	{
 		// 目標のHP割合を算出（0～1にクランプ）
 		if (player->GetStatus().GetPlayerStatus().specialPointMax >= 0)
@@ -42,7 +42,7 @@ void SpecialAttackUI::Update()
 		m_srcRect.y = 100 - visibleW;
 		m_srcRect.height = visibleW;
 
-		if (m_srcRect.height == 100)
+		if (player->GetStatus().GetPlayerStatus().specialPoint == player->GetStatus().GetPlayerStatus().specialPointMax)
 		{
 			m_showSpecialAttackUI = true;
 

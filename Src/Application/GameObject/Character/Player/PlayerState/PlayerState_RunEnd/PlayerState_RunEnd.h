@@ -11,4 +11,7 @@ private:
 	void StateStart() override;
 	void StateUpdate() override;
 	void StateEnd() override;
+
+	bool UpdateMoveInput();
+
 };

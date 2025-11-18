@@ -2,7 +2,6 @@
 #include"MyFramework/State/StateBase/StateBase.h"
 #include"Application/GameObject/Character/Player/PlayerConfig.h"
 #include"Application/GameObject/Character/Player/Player.h"
-#include"Application/Data/CharacterData/CharacterData.h"
 
 class BossEnemy;
 class PlayerStateBase : public StateBase
@@ -49,8 +48,8 @@ protected:
 	// 刀を鞘に納める入力関連
 	bool UpdateSheathKatanaInput();
 
-	// ため攻撃入力関連
-	bool UpdateChargeAttackInput();
+	// Eスキル入力関連
+	bool UpdateESkillInput();
 
 	Player* m_player = nullptr;
 
@@ -76,16 +75,13 @@ protected:
 
 	std::shared_ptr<KdSoundInstance> m_runSound = nullptr;
 
-
 	std::weak_ptr<KdGameObject> m_focusTarget;
 	float m_focusRemainSec = 0.0f;
-	const float m_focusDurationSec = 0.1f;
+	const float m_focusDurationSec = 0.5f;
 	const float m_focusMaxDistSq = 50.0f * 50.0f;
 
 	std::shared_ptr<KdGameObject>	m_nearestEnemy;
 	Math::Vector3					m_nearestEnemyPos = Math::Vector3::Zero;
 	float							m_minDistSq = std::numeric_limits<float>::max();
-
-	CharacterData m_playerData;
 
 };

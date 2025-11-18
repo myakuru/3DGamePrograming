@@ -1,7 +1,6 @@
 ﻿#include "PlayerState_Attack.h"
 #include"../../../../../main.h"
 #include"../PlayerState_Attack1/PlayerState_Attack1.h"
-#include"../PlayerState_FullCharge/PlayerState_FullCharge.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_SheathKatana/PlayerState_SheathKatana.h"
 #include"../PlayerState_Run/PlayerState_Run.h"
 #include"../../../../Weapon/Katana/Katana.h"
@@ -14,6 +13,8 @@
 
 #include"../PlayerState_Skill/PlayerState_Skill.h"
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
+
+#include"Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
 
 
 void PlayerState_Attack::StateStart()
@@ -30,9 +31,12 @@ void PlayerState_Attack::StateStart()
 	m_player->ResetAttackCollision();
 
 	// 攻撃時はtrueにする
-	if (auto katana = m_player->GetKatana().lock(); katana)
+	for (const auto& katanaWeak : m_player->GetKatanas())
 	{
-		katana->SetNowAttackState(true);
+		if (auto katana = katanaWeak.lock())
+		{
+			katana->SetNowAttackState(true);
+		}
 	}
 
 	m_lButtonKeyInput = false;		// 次段コンボ予約フラグ初期化
@@ -57,21 +61,38 @@ void PlayerState_Attack::StateUpdate()
 	// 当たり判定有効時間: 最初の0.5秒のみ
 	m_player->UpdateAttackCollision(3.0f, 1.0f, 1, 0.1f, { 0.2f, 0.0f }, 0.3f, 0.0f, 0.4f);
 
+	Math::Vector3 toEnemyDir = m_nearestEnemyPos - m_player->GetPos();
 
-	// 攻撃中の移動方向で回転を更新
-	if (m_player->GetMovement() != Math::Vector3::Zero)
+	// キャラを敵の方向へ
+	if (toEnemyDir != Math::Vector3::Zero)
 	{
-		Math::Vector3 moveDir = m_player->GetMovement();
-		moveDir.y = 0.0f;
-		moveDir.Normalize();
-		m_player->UpdateQuaternionDirect(moveDir);
+		toEnemyDir.y = 0.0f;
+		toEnemyDir.Normalize();
+		m_player->UpdateQuaternionDirect(toEnemyDir);
 	}
+
+	if (auto camera = m_player->GetPlayerCamera().lock())
+	{
+		camera->SetTargetLookAt(m_cameraTargetOffset);
+
+		if (toEnemyDir != Math::Vector3::Zero)
+		{
+			const float yaw = std::atan2f(toEnemyDir.x, toEnemyDir.z);
+			const float yawDeg = DirectX::XMConvertToDegrees(yaw);
+			camera->SetTargetRotation({ 0.0f, yawDeg, 0.0f });
+		}
+
+	}
+
 
 	// 回避入力処理
 	if (UpdateMoveAvoidInput()) return;
 
 	// 必殺技入力処理
 	if (UpdateSpecialAttackInput()) return;
+
+	// Eスキル入力処理
+	if (UpdateESkillInput()) return;
 
 	// 先行入力の予約
 	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
@@ -98,8 +119,6 @@ void PlayerState_Attack::StateUpdate()
 
 		if (m_animeTime >= 0.7f)
 		{
-			// ため攻撃入力処理
-			if (UpdateChargeAttackInput()) return;
 
 			// 攻撃入力処理
 			if (UpdateAttackInput<PlayerState_Attack1>()) return;
@@ -111,11 +130,6 @@ void PlayerState_Attack::StateUpdate()
 
 	PlayerStateBase::StateUpdate();
 
-	// カタナ関連
-	auto katana = m_player->GetKatana().lock();
-	if (!katana) return;
-
-	katana->SetShowTrail(true);
 	UpdateKatanaPos();
 }
 

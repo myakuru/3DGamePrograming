@@ -1,13 +1,13 @@
-﻿#include "PlayerState_SheathKatana.h"
-#include"../PlayerState_Idle/PlayerState_Idle.h"
-#include"../PlayerState_Attack/PlayerState_Attack.h"
-#include"../PlayerState_BackWordAvoid/PlayerState_BackWordAvoid.h"
-#include "../PlayerState_FowardAvoid/PlayerState_FowardAvoid.h"
-#include"../../../../Weapon/Katana/Katana.h"
-#include"../../../../Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
-#include"../PlayerState_Skill/PlayerState_Skill.h"
-#include"../PlayerState_FullCharge/PlayerState_FullCharge.h"
-#include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
+﻿#include"PlayerState_SheathKatana.h"
+#include"Application/GameObject/Weapon/Katana/Katana.h"
+#include"Application/GameObject/Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
+
+#include "Application/GameObject/Character/Player/PlayerState/PlayerState_FowardAvoid/PlayerState_FowardAvoid.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_Idle/PlayerState_Idle.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_Attack/PlayerState_Attack.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_BackWordAvoid/PlayerState_BackWordAvoid.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_Skill/PlayerState_Skill.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_Run/PlayerState_Run.h"
 
 void PlayerState_SheathKatana::StateStart()
@@ -49,6 +49,9 @@ void PlayerState_SheathKatana::StateUpdate()
 	// 必殺技入力処理
 	if (UpdateSpecialAttackInput()) return;
 
+	// Eスキル入力処理
+	if (UpdateESkillInput()) return;
+
 	if (m_player->GetAnimator()->IsAnimationEnd())
 	{
 		auto idleState = std::make_shared<PlayerState_Idle>();
@@ -57,22 +60,25 @@ void PlayerState_SheathKatana::StateUpdate()
 	}
 
 	// カタナの取得
-	auto katana = m_player->GetKatana().lock();
-	if (!katana) return;
-
-	float time = m_player->GetAnimator()->GetTime();
-
-	katana->SetShowTrail(false);
-
-	if (time >= 20.0f)
+	for(auto katanaWeak : m_player->GetKatanas())
 	{
-		katana->SetNowAttackState(true);
-		UpdateKatanaPos();
-	}
-	else
-	{
-		katana->SetNowAttackState(false);
-		UpdateUnsheathed();
+		if (auto katana = katanaWeak.lock())
+		{
+			katana->SetShowTrail(false);
+
+			float time = m_player->GetAnimator()->GetTime();
+
+			if (time >= 20.0f)
+			{
+				katana->SetNowAttackState(true);
+				UpdateKatanaPos();
+			}
+			else
+			{
+				katana->SetNowAttackState(false);
+				UpdateUnsheathed();
+			}
+		}
 	}
 
 }

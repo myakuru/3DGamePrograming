@@ -1,6 +1,9 @@
 ﻿#pragma once
 #include"MyFramework/State/StateBase/StateBase.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
+
+class Player;
+
 class BossEnemyStateBase : public StateBase
 {
 public:
@@ -36,6 +39,6 @@ protected:
 	// アニメーション再生時間
 	float m_animeTime = 0.0f;
 
-	std::list<std::weak_ptr<KdGameObject>> m_player;
+	std::vector<std::weak_ptr<Player>> m_player;
 
 };

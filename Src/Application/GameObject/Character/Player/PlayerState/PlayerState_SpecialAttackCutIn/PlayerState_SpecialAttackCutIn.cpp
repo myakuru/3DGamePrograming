@@ -22,10 +22,13 @@ void PlayerState_SpecialAttackCutIn::StateStart()
 		camera->SetDistanceSmooth(5.0f);
 	}
 
-	// 左手に刀をセットする
-	if (auto katana = m_player->GetKatana().lock(); katana)
+	// 攻撃時はtrueにする
+	for (const auto& katanaWeak : m_player->GetKatanas())
 	{
-		katana->SetNowAttackState(true);
+		if (auto katana = katanaWeak.lock())
+		{
+			katana->SetNowAttackState(true);
+		}
 	}
 
 	// 無敵状態にする

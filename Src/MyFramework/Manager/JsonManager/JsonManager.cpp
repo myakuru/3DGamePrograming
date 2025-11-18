@@ -33,12 +33,7 @@ void JsonManager::AllSave() const
 		camera->JsonSave(jsonObj);
 		json.push_back(jsonObj);
 	}
-	for (auto& mapList : SceneManager::Instance().GetMapList())
-	{
-		nlohmann::json jsonObj;
-		mapList->JsonSave(jsonObj);
-		json.push_back(jsonObj);
-	}
+
 	std::string nowScene = SceneManager::Instance().GetCurrentScene()->GetSceneName();
 
 	SceneManager::Instance().GetCurrentScene()->SaveSceneSettingsToJson("Json/" + nowScene + "PostProcess");
@@ -98,11 +93,6 @@ std::shared_ptr<KdGameObject> JsonManager::AddJsonObject(const std::string& _cla
 					SceneManager::Instance().GetCurrentScene()->AddCameraObject(obj);
 
 					KdDebugGUI::Instance().AddLog(U8("FPSCameraを追加しました\n"));
-				}
-				else if (_className == "class Map")
-				{
-					SceneManager::Instance().GetCurrentScene()->AddMapObject(obj);
-					KdDebugGUI::Instance().AddLog(U8("マップオブジェクトを追加しました\n"));
 				}
 				else
 				{

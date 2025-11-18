@@ -22,11 +22,6 @@ public:
 	void StateInit();
 	void ChangeState(std::shared_ptr<BossEnemyStateBase> _state);
 
-	const std::weak_ptr<Player>& GetPlayerWeakPtr() const
-	{
-		return m_wpPlayer;
-	}
-
 	// ダメージを受ける
 	void Damage(int _damage);
 
@@ -106,12 +101,11 @@ public:
 		m_waterFallCooldown = std::max(0.0f, m_waterFallCooldown - dt);
 	}
 
+	const std::vector<std::weak_ptr<Player>>& GetPlayerList() const { return m_player; }
+
 private:
 
-	std::list<std::weak_ptr<KdGameObject>> m_enemySwords; // 敵の剣
-	std::list<std::weak_ptr<KdGameObject>> m_enemyShields; // 敵の盾
-
-	std::list<std::weak_ptr<KdGameObject>> m_player;
+	std::vector<std::weak_ptr<Player>> m_player;
 
 	// ステート切り替えフラグ
 	bool m_stateChange = false;

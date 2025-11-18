@@ -108,55 +108,6 @@ void TestScene::Init()
 
 void TestScene::SearchEnemy()
 {
-	// 現在の存在状況を集計
-	bool enemyExists = false;
-	bool bossExists = false;
-
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyLike, m_objects);
-
-	for (const auto& we : m_objects)
-	{
-		if (auto enemy = we.lock())
-		{
-			if (enemy->GetTypeID() == AetheriusEnemy::TypeID)
-			{
-				enemyExists = true;
-				break;
-			}
-
-			if (enemy->GetTypeID() == BossEnemy::TypeID)
-			{
-				bossExists = true;
-				break;
-			}
-
-		}
-	}
-
-	// 雑魚全滅 → ボス出現要求
-	if (!enemyExists && !SceneManager::Instance().IsBossAppear())
-	{
-		SceneManager::Instance().SetBossAppear(true);
-	}
-
-	// 出現要求が立っていて、まだスポーンしていなければスポーン
-	if (SceneManager::Instance().IsBossAppear() && !m_bossAppear)
-	{
-		m_bossAppear = true;
-
-		auto bossEnemy = std::make_shared<BossEnemy>();
-		bossEnemy->Init();
-		SceneManager::Instance().AddObject(bossEnemy);
-
-		// このフレームではbossExistsはまだfalseのため、即クリアへ入らないよう終了
-		return;
-	}
-
-	// ボスフェーズ中で、シーン上にボスが存在しなければクリア
-	if (m_bossAppear && !bossExists && !enemyExists)
-	{
-		SceneManager::Instance().m_gameClear = true;
-	}
 }
 
 void TestScene::DrawImGui()

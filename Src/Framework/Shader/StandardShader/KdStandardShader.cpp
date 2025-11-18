@@ -303,6 +303,36 @@ void KdStandardShader::DrawMesh(const KdMesh* mesh, const Math::Matrix& mWorld,
 {
 	if (mesh == nullptr) { return; }
 
+	// 現在のPSが影生成用なら影パスとみなす
+	ID3D11PixelShader* pNowPS = nullptr;
+	KdDirect3D::Instance().WorkDevContext()->PSGetShader(&pNowPS, nullptr, nullptr);
+	const bool isShadowPass = (pNowPS == m_PS_GenDepthFromLight);
+	KdSafeRelease(pNowPS);
+
+	// 視錐台カリング：影パス中はスキップ
+	if (!isShadowPass)
+	{
+		const KdShaderManager::cbCamera* cbCam = &KdShaderManager::Instance().GetCameraCB();
+		if (cbCam)
+		{
+			Math::Matrix _mView = KdShaderManager::Instance().GetCameraCB().mView;
+			Math::Matrix _mProj = KdShaderManager::Instance().GetCameraCB().mProj;
+
+			DirectX::BoundingOrientedBox obb;
+			DirectX::BoundingOrientedBox::CreateFromBoundingBox(obb, mesh->GetBoundingBox());
+			obb.Transform(obb, mWorld);
+
+			DirectX::BoundingFrustum vf;
+			DirectX::BoundingFrustum::CreateFromMatrix(vf, _mProj);
+
+			Math::Matrix _mCam = _mView.Invert();
+			vf.Origin = _mCam.Translation();
+			vf.Orientation = Math::Quaternion::CreateFromRotationMatrix(_mCam);
+
+			if (!vf.Intersects(obb)) return;
+		}
+	}
+
 	// メッシュの頂点情報転送
 	mesh->SetToDevice();
 
@@ -715,7 +745,7 @@ bool KdStandardShader::Init()
 	m_cb4_Effect.Create();
 
 	std::shared_ptr<KdTexture> ds = std::make_shared<KdTexture>();
-	ds->CreateDepthStencil(static_cast<int>(std::pow(2.0f, 10.0f)), static_cast<int>(std::pow(2.0f, 10.0f)));
+	ds->CreateDepthStencil(static_cast<int>(std::pow(2.0f, 12.0f)), static_cast<int>(std::pow(2.0f, 12.0f)));
 	D3D11_VIEWPORT vp = {
 		0.0f, 0.0f,
 		static_cast<float>(ds->GetWidth()),

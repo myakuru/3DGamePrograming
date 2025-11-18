@@ -10,8 +10,6 @@
 
 #include"../../../../Effect/EffekseerEffect/Rotation/Rotation.h"
 
-#include"../PlayerState_FullCharge/PlayerState_FullCharge.h"
-
 #include"../PlayerState_BackWordAvoid/PlayerState_BackWordAvoid.h"
 #include"../PlayerState_FowardAvoid/PlayerState_FowardAvoid.h"
 
@@ -34,9 +32,12 @@ void PlayerState_Attack1::StateStart()
 	m_player->ResetAttackCollision();
 
 	// 攻撃時はtrueにする
-	if (auto katana = m_player->GetKatana().lock(); katana)
+	for (const auto& katanaWeak : m_player->GetKatanas())
 	{
-		katana->SetNowAttackState(true);
+		if (auto katana = katanaWeak.lock())
+		{
+			katana->SetNowAttackState(true);
+		}
 	}
 
 	m_effectOnce = false;
@@ -109,8 +110,8 @@ void PlayerState_Attack1::StateUpdate()
 		// 攻撃入力受付
 		if (m_animeTime >= 0.7f)
 		{
-			// ため攻撃入力処理
-			if (UpdateChargeAttackInput()) return;
+			// Eスキル入力処理
+			if (UpdateESkillInput()) return;
 
 			// 攻撃入力処理
 			if (UpdateAttackInput<PlayerState_Attack2>()) return;
@@ -121,17 +122,7 @@ void PlayerState_Attack1::StateUpdate()
 
 	}
 
-
-	if (auto katana = m_player->GetKatana().lock(); katana)
-	{
-		// 剣の軌跡の表示
-		katana->SetShowTrail(true);
-		// 現在攻撃中フラグを立てる
-		katana->SetNowAttackState(true);
-		// 手と鞘の位置を更新
-		UpdateKatanaPos();
-	}
-
+	UpdateKatanaPos();
 }
 
 void PlayerState_Attack1::StateEnd()
@@ -146,8 +137,11 @@ void PlayerState_Attack1::StateEnd()
 	}
 
 	// カタナの軌跡を消す
-	if (auto katana = m_player->GetKatana().lock(); katana)
+	for (const auto& katanaWeak : m_player->GetKatanas())
 	{
-		katana->SetNowAttackState(false);
+		if (auto katana = katanaWeak.lock())
+		{
+			katana->SetNowAttackState(false);
+		}
 	}
 }

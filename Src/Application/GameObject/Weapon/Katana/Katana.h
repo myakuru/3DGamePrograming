@@ -7,7 +7,7 @@ public:
 	// クラスごとに一意なTypeIDを持たせる
 	static const uint32_t TypeID;
 
-	Katana() { m_typeID = TypeID; }
+	Katana() { m_typeID = TypeID; AddTag(ObjTag::PlayerKatana); }
 	~Katana() override = default;
 
 	std::shared_ptr<KdTrailPolygon> GetTrail() { return m_trailPolygon; }

@@ -16,7 +16,7 @@ struct PlayerState_Attack2Parameter
 
 struct JustAvoidParameter
 {
-	float m_slowMoScale = 0.3f;   // ジャスト回避時のスローモーション倍率
+	float m_slowMoScale = 0.1f;   // ジャスト回避時のスローモーション倍率
 	bool  m_useGrayScale = true;  // グレースケール適用フラグ
 };
 

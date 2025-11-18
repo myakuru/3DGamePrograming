@@ -2,6 +2,8 @@
 #include"../EnemyState_Idle/EnemyState_Idle.h"
 #include"../EnemyState_Attack/EnemyState_Attack.h"
 #include"Application/GameObject/Character/Player/Player.h"
+#include"Application/Scene/SceneManager.h"
+#include"Application/GameObject/Effect/EffekseerEffect/EnemyHitEffect/EnemyHitEffect.h"
 
 void EnemyState_Hit::StateStart()
 {
@@ -20,6 +22,18 @@ void EnemyState_Hit::StateStart()
 	{
 		m_enemy->SetInvincible(true);
 		m_enemy->ResetHitCount();
+	}
+
+	// シーン内の EnemyHitEffect を1つ取得（共有の発射台として使う）
+	SceneManager::Instance().GetObjectWeakPtr(m_hitEffect);
+
+	if (auto hitEffect = m_hitEffect.lock())
+	{
+		// 自分（ヒットした敵）だけに出す。何回でも可。
+		if (auto me = std::static_pointer_cast<AetheriusEnemy>(m_enemy->GetMyAdls()))
+		{
+			hitEffect->PlayForEnemy(me);
+		}
 	}
 
 }

@@ -1,16 +1,18 @@
 ﻿#include "PlayerState.h"
 #include"Application/GameObject/Weapon/Katana/Katana.h"
 #include"Application/GameObject/Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
-#include"Application/GameObject/Character/Player/PlayerState/PlayerState_SpecialAttack/PlayerState_SpecialAttack.h"
-#include"Application/GameObject/Character/Player/PlayerState/PlayerState_FowardAvoidFast/PlayerState_FowardAvoidFast.h"
-#include"Application/GameObject/Character/Player/PlayerState/PlayerState_BackWordAvoid/PlayerState_BackWordAvoid.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 #include"Application/Scene/SceneManager.h"
 #include"Application/main.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_FowardAvoid/PlayerState_FowardAvoid.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_SheathKatana/PlayerState_SheathKatana.h"
-#include"Application/GameObject/Character/Player/PlayerState/PlayerState_FullCharge/PlayerState_FullCharge.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_ChargeLevelMax/PlayerState_ChargeLevelMax.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_SpecialAttack/PlayerState_SpecialAttack.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_FowardAvoidFast/PlayerState_FowardAvoidFast.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_BackWordAvoid/PlayerState_BackWordAvoid.h"
+
+#include"Application/Data/CharacterData/CharacterData.h"
 
 void PlayerStateBase::StateStart()
 {
@@ -112,16 +114,17 @@ void PlayerStateBase::StateStart()
 	}
 
 	// 刀の初期フラグ
-	if (auto katana = m_player->GetKatana().lock())
+	for (const auto& katanaWeak : m_player->GetKatanas())
 	{
-		katana->SetNowAttackState(false);
+		if (auto katana = katanaWeak.lock())
+		{
+			katana->SetNowAttackState(false);
+		}
 	}
 
 	m_lButtonKeyInput = false;
 	m_time = 0.0f;
 	m_animeTime = 0.0f;
-
-	m_playerData = m_player->GetStatus();
 }
 
 void PlayerStateBase::StateUpdate()
@@ -160,9 +163,12 @@ void PlayerStateBase::StateUpdate()
 void PlayerStateBase::StateEnd()
 {
 	// カタナの取得
-	if (auto katana = m_player->GetKatana().lock())
+	for (const auto& katanaWeak : m_player->GetKatanas())
 	{
-		katana->SetNowAttackState(false);
+		if (auto katana = katanaWeak.lock())
+		{
+			katana->SetNowAttackState(false);
+		}
 	}
 }
 
@@ -178,16 +184,22 @@ void PlayerStateBase::UpdateKatanaPos()
 	if (!leftHandNode) return;
 
 	// カタナの取得
-	auto katana = m_player->GetKatana().lock();
+	for (const auto& katanaWeak : m_player->GetKatanas())
+	{
+		if (auto katana = katanaWeak.lock())
+		{
+			katana->SetHandKatanaMatrix(rightHandNode->m_worldTransform);
+		}
+	}
+
 	// 鞘の取得
-	auto saya = m_player->GetScabbard().lock();
-
-	if (!katana) return;
-	if (!saya) return;
-
-	// プレイヤーに追尾する刀にするためにワークノードとプレイヤーのワールド変換を設定
-	katana->SetHandKatanaMatrix(rightHandNode->m_worldTransform);
-	saya->SetHandKatanaMatrix(leftHandNode->m_worldTransform);
+	for (const auto& sheathWeak : m_player->GetKatanaSheaths())
+	{
+		if (auto sheath = sheathWeak.lock())
+		{
+			sheath->SetHandKatanaMatrix(leftHandNode->m_worldTransform);
+		}
+	}
 }
 
 // 刀と鞘の位置が左手に追従するように更新
@@ -199,16 +211,22 @@ void PlayerStateBase::UpdateUnsheathed()
 	if (!leftHandNode) return;
 
 	// カタナの取得
-	auto katana = m_player->GetKatana().lock();
+	for (const auto& katanaWeak : m_player->GetKatanas())
+	{
+		if (auto katana = katanaWeak.lock())
+		{
+			katana->SetHandKatanaMatrix(leftHandNode->m_worldTransform);
+		}
+	}
+
 	// 鞘の取得
-	auto saya = m_player->GetScabbard().lock();
-
-	if (!katana) return;
-	if (!saya) return;
-
-	// プレイヤーに追尾する刀にするためにワークノードとプレイヤーのワールド変換を設定
-	katana->SetHandKatanaMatrix(leftHandNode->m_worldTransform);
-	saya->SetHandKatanaMatrix(leftHandNode->m_worldTransform);
+	for (const auto& sheathWeak : m_player->GetKatanaSheaths())
+	{
+		if (auto sheath = sheathWeak.lock())
+		{
+			sheath->SetHandKatanaMatrix(leftHandNode->m_worldTransform);
+		}
+	}
 }
 
 // 必殺技入力関連
@@ -216,9 +234,9 @@ bool PlayerStateBase::UpdateSpecialAttackInput()
 {
 	if (KeyboardManager::GetInstance().IsKeyJustPressed('Q'))
 	{
-		if (m_playerData.GetPlayerStatus().specialPoint == m_playerData.GetPlayerStatus().specialPointMax)
+		if (m_player->GetStatus().GetPlayerStatus().specialPoint == m_player->GetStatus().GetPlayerStatus().specialPointMax)
 		{
-			m_playerData.SetPlayerStatus().specialPoint = 0;
+			m_player->SetStatus().SetPlayerStatus().specialPoint = 0;
 			auto specialAttackState = std::make_shared<PlayerState_SpecialAttackCutIn>();
 			m_player->ChangeState(specialAttackState);
 			return true;
@@ -307,15 +325,19 @@ bool PlayerStateBase::UpdateSheathKatanaInput()
 	return false;
 }
 
-// ため攻撃入力関連
-bool PlayerStateBase::UpdateChargeAttackInput()
+// Eスキル入力関連
+bool PlayerStateBase::UpdateESkillInput()
 {
-	// チャージが残っている場合のみ、長押しでFullChargeへ
-	if (KeyboardManager::GetInstance().GetKeyPressDuration(VK_LBUTTON) >= 0.5f)
+	if (KeyboardManager::GetInstance().IsKeyJustPressed('E'))
 	{
-		auto state = std::make_shared<PlayerState_FullCharge>();
-		m_player->ChangeState(state);
-		return true;
+
+		if (m_player->GetStatus().GetPlayerStatus().skillPoint >= m_player->GetStatus().GetPlayerStatus().skillPointMax)
+		{
+			m_player->SetStatus().SetPlayerStatus().skillPoint = 0;
+			auto specialAttackState = std::make_shared<PlayerState_ChargeLevelMax>();
+			m_player->ChangeState(specialAttackState);
+			return true;
+		}
 	}
 
 	return false;

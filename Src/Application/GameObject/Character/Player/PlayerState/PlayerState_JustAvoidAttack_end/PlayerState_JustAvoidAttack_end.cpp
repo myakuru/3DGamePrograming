@@ -1,6 +1,5 @@
 ﻿#include "PlayerState_JustAvoidAttack_end.h"
 #include"../../../../../main.h"
-#include"../PlayerState_FullCharge/PlayerState_FullCharge.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_SheathKatana/PlayerState_SheathKatana.h"
 #include"../PlayerState_Run/PlayerState_Run.h"
 #include"../../../../Weapon/Katana/Katana.h"
@@ -43,12 +42,6 @@ void PlayerState_JustAvoidAttack_end::StateStart()
 	m_player->ResetAttackCollision();
 
 	SceneManager::Instance().GetObjectWeakPtr(m_bossEnemy);
-
-	// Chargeカウントを1増やす（最大3まで）
-	if (m_playerData.GetPlayerStatus().chargeCount < 3)
-	{
-		m_playerData.SetPlayerStatus().chargeCount++;
-	}
 }
 
 void PlayerState_JustAvoidAttack_end::StateUpdate()

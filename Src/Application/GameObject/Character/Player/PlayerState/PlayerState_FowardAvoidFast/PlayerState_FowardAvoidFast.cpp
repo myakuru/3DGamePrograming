@@ -14,7 +14,6 @@
 #include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
 #include"Application/GameObject/Character/AfterImage/AfterImage.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_Attack/PlayerState_Attack.h"
-#include"Application/GameObject/Character/Player/PlayerState/PlayerState_FullCharge/PlayerState_FullCharge.h"
 
 void PlayerState_FowardAvoidFast::StateStart()
 {
@@ -32,7 +31,6 @@ void PlayerState_FowardAvoidFast::StateStart()
 	m_player->SetAtkPlayer(true);
 
 	m_afterImagePlayed = false;
-	m_justAvoided = false;
 
 	KdAudioManager::Instance().Play("Asset/Sound/Player/Dash.WAV", false)->SetVolume(1.0f);
 
@@ -55,7 +53,6 @@ void PlayerState_FowardAvoidFast::StateUpdate()
 			bgm->SetPitch(-1.0f);
 		}
 
-		m_justAvoided = true;
 		m_afterImagePlayed = true;
 
 		// 残像
@@ -74,7 +71,7 @@ void PlayerState_FowardAvoidFast::StateUpdate()
 		// 回避中に攻撃ボタンが押されたら回避攻撃へ移行
 		if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
 		{
-			m_player->SetJustAvoidSuccess(false);
+			m_player->SetJustAvoidSuccess(true);
 			auto state = std::make_shared<PlayerState_AvoidAttack>();
 			m_player->ChangeState(state);
 			return;
@@ -82,6 +79,9 @@ void PlayerState_FowardAvoidFast::StateUpdate()
 
 		// 必殺技入力処理
 		if (UpdateSpecialAttackInput()) return;
+
+		// Eスキル入力処理
+		if (UpdateESkillInput()) return;
 	}
 
 	// アニメーションが終了したらIdleへ移行

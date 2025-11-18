@@ -129,8 +129,6 @@ void ImGuiManager::TreeNode()
 		{
 			// フリーカメラオブジェクトリストの描画
 			DrawObjectTreeList(scene->GetCameraObjList(), m_openObject);
-			// マップオブジェクトリストの描画(カリング対応)
-			DrawObjectTreeList(scene->GetMapObjectList(), m_openObject);
 		}
 		ImGui::EndChild();
 
@@ -246,10 +244,6 @@ void ImGuiManager::ShowGameScene()
 					rayInfo.m_type = KdCollider::TypeEvent;
 
 					std::list<KdCollider::CollisionResult> results;
-					for (const auto& it : SceneManager::Instance().GetMapList())
-					{
-						it->SelectObjectIntersects(rayInfo, &results);
-					}
 
 					for (const auto& it : SceneManager::Instance().GetObjList())
 					{

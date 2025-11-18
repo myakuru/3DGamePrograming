@@ -1,21 +1,20 @@
 ﻿#include "PlayerState_Idle.h"
-#include"../../../CharacterBase.h"
-#include"../../../../../main.h"
+#include"Application/main.h"
+#include"Application/Scene/SceneManager.h"
 
-#include"../../../../../Scene/SceneManager.h"
+#include"Application/GameObject/Weapon/Katana/Katana.h"
+#include"Application/GameObject/Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
 
-#include"../PlayerState_Run/PlayerState_Run.h"
-#include"../PlayerState_Attack/PlayerState_Attack.h"
-#include"../PlayerState_FowardAvoid/PlayerState_FowardAvoid.h"
-#include"../PlayerState_ChargeAttack/PlayerState_ChargeAttack.h"
-#include"../PlayerState_Hit/PlayerState_Hit.h"
-#include"../PlayerState_Skill/PlayerState_Skill.h"
-#include"../../../../Weapon/Katana/Katana.h"
-#include"../../../../Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
-#include"../../../../Camera/PlayerCamera/PlayerCamera.h"
-#include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
-#include"../PlayerState_FullCharge/PlayerState_FullCharge.h"
+#include"Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
+
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_Run/PlayerState_Run.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_Attack/PlayerState_Attack.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_FowardAvoid/PlayerState_FowardAvoid.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_ChargeLevel0/PlayerState_ChargeLevel0.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_Hit/PlayerState_Hit.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_Skill/PlayerState_Skill.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_RunEnd/PlayerState_RunEnd.h"
 
 void PlayerState_Idle::StateStart()
@@ -36,7 +35,8 @@ void PlayerState_Idle::StateStart()
 			camera->SetTargetLookAt(m_cameraTargetOffset);
 		}
 	}
-	m_isKeyPressing = false;
+
+	m_lButtonKeyInput = false;
 }
 
 void PlayerState_Idle::StateUpdate()
@@ -79,6 +79,9 @@ void PlayerState_Idle::StateUpdate()
 
 	// 回避入力処理
 	if (UpdateMoveAvoidInput()) return;
+
+	// Eスキル入力処理
+	if (UpdateESkillInput()) return;
 
 	// 押された瞬間
 	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON)) m_lButtonKeyInput = true; // 判定開始

@@ -39,19 +39,14 @@ void EnemyHp::Update()
 			{
 				if (auto enemyPtr = enemy.lock())
 				{
-					// 敵以外はスキップ
-					if(enemyPtr->GetTypeID() != AetheriusEnemy::TypeID) continue;
-
-					// 敵を一時的にキャスト
-					auto castedEnemy = std::static_pointer_cast<AetheriusEnemy>(enemyPtr);
 
 					Math::Vector3 screenPos;
-					cam->ConvertWorldToScreenDetail(castedEnemy->GetPos() + m_offsetPos, screenPos);
+					cam->ConvertWorldToScreenDetail(enemyPtr->GetPos() + m_offsetPos, screenPos);
 
 					// Hpバーの表示割合を計算
 					float hpRate = 0.0f;
 
-					const auto& enemyStatus = castedEnemy->GetEnemyStatus();
+					const auto& enemyStatus = enemyPtr->GetEnemyStatus();
 
 					if (enemyStatus.GetCharacterData().hp > 0)
 					{

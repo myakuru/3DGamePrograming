@@ -117,24 +117,24 @@ void ConstructionSiteStage::SearchEnemy()
 	bool enemyExists = false;
 	bool bossExists = false;
 
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyLike, m_objects);
+	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyLike, m_aetheriusEnemies);
+	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyLike, m_bossEnemies);
 
-	for (const auto& we : m_objects)
+	for (const auto& we : m_aetheriusEnemies)
 	{
 		if (auto enemy = we.lock())
 		{
-			if (enemy->GetTypeID() == AetheriusEnemy::TypeID)
-			{
-				enemyExists = true;
-				break;
-			}
+			enemyExists = true;
+			break;
+		}
+	}
 
-			if (enemy->GetTypeID() == BossEnemy::TypeID)
-			{
-				bossExists = true;
-				break;
-			}
-
+	for (const auto& wb : m_bossEnemies)
+	{
+		if (auto boss = wb.lock())
+		{
+			bossExists = true;
+			break;
 		}
 	}
 

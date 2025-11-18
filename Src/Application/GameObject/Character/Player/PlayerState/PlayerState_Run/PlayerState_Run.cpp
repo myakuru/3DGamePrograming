@@ -53,6 +53,9 @@ void PlayerState_Run::StateUpdate()
 	// 必殺技入力処理
 	if (UpdateSpecialAttackInput()) return;
 
+	// Eスキル入力処理
+	if (UpdateESkillInput()) return;
+
 	// 方向更新
 	m_player->UpdateQuaternion(moveDir);
 	m_player->SetIsMoving(moveDir);

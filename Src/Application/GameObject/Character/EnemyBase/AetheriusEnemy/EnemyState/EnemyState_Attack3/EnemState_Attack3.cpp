@@ -29,10 +29,14 @@ void EnemState_Attack3::StateUpdate()
 
 	// 距離が６以上離れたら追いかける
 	{
-		if (auto player = m_enemy->GetPlayerWeakPtr().lock(); player)
+		for (const auto& player : m_player)
 		{
-			m_playerPos = player->GetPos();
-			m_enemyPos = m_enemy->GetPos();
+			if (auto p = player.lock())
+			{
+				m_playerPos = p->GetPos();
+				m_enemyPos = m_enemy->GetPos();
+				break;
+			}
 		}
 
 		m_distance = (m_playerPos - m_enemyPos).Length();

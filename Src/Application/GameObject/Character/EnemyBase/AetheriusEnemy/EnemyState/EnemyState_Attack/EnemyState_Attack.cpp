@@ -35,9 +35,6 @@ void EnemyState_Attack::StateUpdate()
 	// アニメーション再生時間を取得
 	m_animeTime = m_enemy->GetAnimator()->GetPlayProgress();
 
-	KdDebugGUI::Instance().AddLog("EnemyAttackAnimeTime:%f", m_animeTime);
-	KdDebugGUI::Instance().AddLog("\n");
-
 	// アニメーション時間の35％から100％の間、攻撃判定有効
 	if (m_animeTime >= 0.35f && m_animeTime <= 1.0f)
 	{
@@ -46,10 +43,13 @@ void EnemyState_Attack::StateUpdate()
 
 	// 距離が６以上離れたら追いかける
 	{
-		if (auto player = m_enemy->GetPlayerWeakPtr().lock(); player)
+		for (const auto& player : m_player)
 		{
-			m_playerPos = player->GetPos();
-			m_enemyPos = m_enemy->GetPos();
+			if (auto p = player.lock())
+			{
+				m_playerPos = p->GetPos();
+				m_enemyPos = m_enemy->GetPos();
+			}
 		}
 
 		m_distance = (m_playerPos - m_enemyPos).Length();
