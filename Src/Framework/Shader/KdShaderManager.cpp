@@ -455,18 +455,6 @@ void KdShaderManager::WriteCBDirectionalLight(const Math::Vector3& dir, const Ma
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 void KdShaderManager::WriteCBShadowArea(const Math::Matrix& proj, float dirLightHeight, const Math::Vector3& center)
 {
-	Math::Vector3 lightDir = m_cb9_Light.Get().DirLight_Dir;
-	Math::Vector3 focusPos = center; // 影の中心（プレイヤー）
-	Math::Vector3 upVec = (fabs(lightDir.Dot(Math::Vector3::Up)) > 0.99f) ? Math::Vector3::Right : Math::Vector3::Up;
-
-	// ライトカメラ位置 = 中心 - 方向 * 高さ
-	Math::Vector3 lightPos = focusPos - lightDir * dirLightHeight;
-
-	Math::Matrix lightView = DirectX::XMMatrixLookAtLH(lightPos, focusPos, upVec);
-	Math::Matrix shadowVP = lightView * proj;
-
-	m_cb9_Light.Work().DirLight_mVP = shadowVP;
-	m_cb9_Light.Write();
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -488,6 +476,157 @@ void KdShaderManager::WriteCBPointLight(const std::list<PointLight>& pointLights
 	}
 
 	m_cb9_Light.Write();
+}
+
+void KdShaderManager::WriteCBShadowAreaCSM()
+{
+	Math::Vector3 _LightDir = m_cb9_Light.Get().DirLight_Dir;
+	_LightDir.Normalize();
+	Math::Vector3 _LightPos = m_cb7_Camera.Get().CamPos;
+	Math::Vector3 _UpVec = (_LightDir == Math::Vector3::Up) ? Math::Vector3::Right : Math::Vector3::Up;
+
+	// 1. カメラ情報からFOV・アスペクト比・ニアファー・ファーを取得
+	float _FOV;
+	float _Aspect;
+	float _Near;
+	float _Far;
+
+	Math::Matrix _ProjMat;
+
+	m_StandardShader.GetProjectctionDecompose(_FOV, _Aspect, _Near, _Far, _ProjMat);
+
+	// カメラ情報からフラスタムを計算
+	DirectX::BoundingFrustum _FullFrustum;
+	DirectX::BoundingFrustum::CreateFromMatrix(_FullFrustum, _ProjMat);
+
+	// フラスタムの位置角度を設定するためにカメラのビュー行列をインバートして行列情報を取り込む
+	Math::Vector3		_CameraSize;
+	Math::Quaternion	_CameraDir;
+	Math::Vector3		_CameraPos;
+
+	m_cb7_Camera.Get().mView.Invert().Decompose(_CameraSize, _CameraDir, _CameraPos);
+
+	// フラスタムの位置角度を設定
+	_FullFrustum.Origin = _CameraPos;
+	_FullFrustum.Orientation = _CameraDir;
+
+	// 作成したフラスタムからニアとファーを取得
+	_Near = _FullFrustum.Near;
+	_Far = _FullFrustum.Far;
+
+	// カスケードするフラスタムのニアファーを設定
+	float _CascadeSplits[Cascade::Num + 1]; // 3カスケードなら4要素
+
+	// 分割するカスケードごとのニアファーを計算
+	for (int i = 0; i <= Cascade::Num; i++)
+	{
+		float t = (float)i / Cascade::Num; // 0, 1/3, 2/3, 1
+		float linear = _Near + (_Far - _Near) * t;
+		float log = _Near * powf(_Far / _Near, t);
+
+		_CascadeSplits[i] = std::lerp(linear, log, Cascade::SplitLambda);
+	}
+
+	// フラスタムをカスケード用に複製する
+	DirectX::BoundingFrustum _CascadeFrustum;
+
+	float _CascadeNear[Cascade::Num], _CascadeFar[Cascade::Num];
+
+	// カスケードごとにDirLight_mVPを設定
+	for (int i = 0; i < Cascade::Num; i++)
+	{
+		// 3. カスケード用のフラスタムを作成
+		{
+			_Near = _CascadeSplits[i];
+			_Far = _CascadeSplits[i + 1] * 1.1f;
+
+			_ProjMat = DirectX::XMMatrixPerspectiveFovLH(DirectX::XMConvertToRadians(_FOV), _Aspect, _Near, _Far);
+
+			DirectX::BoundingFrustum::CreateFromMatrix(_CascadeFrustum, _ProjMat);
+		}
+
+		// フラスタムの位置角度を設定
+		_CascadeFrustum.Origin = _CameraPos;
+		_CascadeFrustum.Orientation = _CameraDir;
+
+		_CascadeNear[i] = _Near;
+		_CascadeFar[i] = _Far;
+
+		// 計算したフルフラスタムからAABBを作成しライトビュー行列の作成
+		Math::Matrix _LightView;
+		Math::Vector3 _Center; // フラスタムの中心点
+		{
+			// フラスタムから角を取得
+			DirectX::XMFLOAT3 _FrustumCorners[8];
+			_CascadeFrustum.GetCorners(_FrustumCorners);
+
+
+			DirectX::BoundingBox _FrustumBox;
+			_FrustumBox.CreateFromPoints(_FrustumBox, 8, (Math::Vector3*)_FrustumCorners, sizeof(Math::Vector3));
+
+			_Center = _FrustumBox.Center;
+
+			_LightPos = _Center - _LightDir * _FrustumBox.Extents.z * 2.0f;
+
+			_LightView = DirectX::XMMatrixLookAtLH(_LightPos, _Center, _UpVec);
+		}
+
+		// 計算したカスケードフラスタムからAABBを作成
+		DirectX::BoundingBox _CascadeBox;
+
+		_CascadeBox.Center = _Center;
+		_CascadeBox.Extents = { (_CascadeFrustum.Far - _CascadeFrustum.Near),(_CascadeFrustum.Far - _CascadeFrustum.Near) ,(_CascadeFrustum.Far - _CascadeFrustum.Near) };
+
+		DirectX::XMFLOAT3 _FrustumCorners[8];
+		_CascadeBox.GetCorners(_FrustumCorners);
+
+		Math::Vector3 _FrustumCornersLS[8];
+		for (int c = 0; c < 8; ++c) {
+			Math::Vector3 cornerWS = _FrustumCorners[c];
+			Math::Vector3 cornerLS = DirectX::XMVector3TransformCoord(cornerWS, _LightView);
+			_FrustumCornersLS[c] = cornerLS;
+		}
+
+		// 4. ライト空間で AABB を作成
+		DirectX::BoundingBox _CascadeBoxLS;
+		DirectX::BoundingBox::CreateFromPoints(_CascadeBoxLS, 8, _FrustumCornersLS, sizeof(Math::Vector3));
+
+		// 5. テクセルスナップでシャドウマップの大きさに準じて中心位置を調整
+		{
+			// それぞれのシャドウマップのサイズでテクセルスナップ適用
+			int _ShadowMapExp = Cascade::MaxExp - i;				// シフト演算でずらす数(9～11)
+			float _ShadowSize = 1 << _ShadowMapExp; // 近：2048*2048　中：1024*1024　遠：512*512
+
+			// シャドウマップのX軸Y軸の大きさを求める　（正方形なので同じサイズを代入）
+			float _ShadowMapResX = _ShadowSize; // シャドウマップ解像度X
+			float _ShadowMapResY = _ShadowSize; // シャドウマップ解像度Y
+
+			// それぞれのシャドウマップに合わせたテクセルサイズにする
+			float _TexelSizeX = (_CascadeBoxLS.Extents.x * 2.0f) / _ShadowMapResX;
+			float _TexelSizeY = (_CascadeBoxLS.Extents.y * 2.0f) / _ShadowMapResY;
+
+			// テクセルで直した中心位置にする
+			_CascadeBoxLS.Center.x = floor(_CascadeBoxLS.Center.x / _TexelSizeX) * _TexelSizeX;
+			_CascadeBoxLS.Center.y = floor(_CascadeBoxLS.Center.y / _TexelSizeY) * _TexelSizeY;
+		}
+
+		// 6. この AABB をもとに正射影行列を作る
+		Math::Matrix _LightProj = DirectX::XMMatrixOrthographicOffCenterLH(
+			_CascadeBoxLS.Center.x - _CascadeBoxLS.Extents.x, _CascadeBoxLS.Center.x + _CascadeBoxLS.Extents.x,
+			_CascadeBoxLS.Center.y - _CascadeBoxLS.Extents.y, _CascadeBoxLS.Center.y + _CascadeBoxLS.Extents.y,
+			_CascadeBoxLS.Center.z - _CascadeBoxLS.Extents.z, _CascadeBoxLS.Center.z + _CascadeBoxLS.Extents.z
+		);
+
+		Math::Matrix _SynthesisMat = _LightView * _LightProj;
+
+		m_cb9_Light.Work().DirLight_mVP[i] = _SynthesisMat;
+
+		m_cb9_Light.Write();
+	}
+
+	m_cb7_Camera.Work().CascadeFar = { _CascadeFar[0],_CascadeFar[1] ,_CascadeFar[2] };
+	m_cb7_Camera.Work().CascadeNear = { _CascadeNear[0],_CascadeNear[1], _CascadeNear[2] };
+	m_cb7_Camera.Write();
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////

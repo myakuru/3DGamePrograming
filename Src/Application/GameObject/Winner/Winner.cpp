@@ -9,7 +9,6 @@ const uint32_t Winner::TypeID = KdGameObject::GenerateTypeID();
 void Winner::Init()
 {
 	KdShaderManager::Instance().m_StandardShader.SetGradientColor(m_gradientColor);
-	//m_texture = KdAssets::Instance().m_textures.GetData("Asset/Textures/GameUI/WINNER.png");
 	m_polygon->SetMaterial("Asset/Textures/GameUI/WINNER.png");
 }
 
@@ -44,7 +43,9 @@ void Winner::DrawGradation()
 {
 	if (SceneManager::Instance().m_gameClear)
 	{
+		KdShaderManager::Instance().ChangeDepthStencilState(KdDepthStencilState::ZWriteDisable);
 		SelectDraw3dPolygon::DrawGradation();
+		KdShaderManager::Instance().UndoDepthStencilState();
 	}
 }
 

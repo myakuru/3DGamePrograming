@@ -57,7 +57,7 @@ void Player::Init()
 	// 初期ステータス（暫定）
 	m_characterData->SetCharacterData().hp     = 1000;
 	m_characterData->SetCharacterData().maxHp  = 1000;
-	m_characterData->SetCharacterData().attack = 0;
+	m_characterData->SetCharacterData().attack = 10;
 
 	m_visual.rimLightOn = false;
 }
@@ -92,10 +92,6 @@ void Player::PreUpdate()
 
 void Player::PostUpdate()
 {
-
-	// ライトの影の中心位置をプレイヤーに合わせる
-	auto& amb = KdShaderManager::Instance().WorkAmbientController();
-	amb.SetShadowCenter(m_position);
 
 	CollisionUpdate();
 
@@ -237,6 +233,7 @@ void Player::Update()
 	if (sceneManager.m_gameClear)
 	{
 		m_movement.movement = Math::Vector3::Zero;
+		return;
 	}
 
 	// 近傍の敵をチェック
@@ -261,12 +258,6 @@ void Player::Update()
 				SetHitCheck(false);
 				justTriggeredThisFrame = true;
 				aetheriusEnemy->SetJustAvoidSuccess(false); // 消費は敵側で
-
-				if(m_action.guardBreak)
-				{
-					aetheriusEnemy->SetInvincible(true);
-				}
-
 			}
 		}
 		else if (obj->GetTypeID() == BossEnemy::TypeID)

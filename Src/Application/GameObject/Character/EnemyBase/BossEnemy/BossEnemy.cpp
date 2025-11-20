@@ -34,7 +34,7 @@ void BossEnemy::Init()
 
 	StateInit();
 
-	m_position = { 15.0f,9.8f,-58.0f };
+	m_position = { -8.0f,101.0f,18.0f };
 
 	m_isAtkPlayer = false;
 	m_dissever = 0.0f;
@@ -47,6 +47,10 @@ void BossEnemy::Init()
 	m_lastAction = ActionType::None;
 	m_meleeCooldown = 0.0f;
 	m_waterCooldown = 0.0f;
+
+	m_characterData->SetCharacterData().hp = 500;
+	m_characterData->SetCharacterData().maxHp = 500;
+	m_characterData->SetCharacterData().attack = 10;
 }
 
 void BossEnemy::Update()

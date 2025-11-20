@@ -81,6 +81,14 @@ void BaseScene::PreDraw()
 	{
 		obj->PreDraw();
 	}
+
+	if (SceneManager::Instance().m_sceneCamera)
+	{
+		for (auto& cam : m_CameraObjList)
+		{
+			cam->PreDraw();
+		}
+	}
 }
 
 void BaseScene::Draw()

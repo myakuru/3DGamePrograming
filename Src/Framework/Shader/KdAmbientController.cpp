@@ -172,8 +172,7 @@ void KdAmbientController::WriteLightParams()
 		KdShaderManager::Instance().WriteCBPointLight(m_pointLights);
 	}
 
-	// 影エリア（中心位置を含めて送る）
-	KdShaderManager::Instance().WriteCBShadowArea(m_shadowProj, m_dirLightHeight, m_shadowCenter);
+	KdShaderManager::Instance().WriteCBShadowAreaCSM();
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////

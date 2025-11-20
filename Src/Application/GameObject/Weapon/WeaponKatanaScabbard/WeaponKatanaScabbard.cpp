@@ -36,6 +36,11 @@ void WeaponKatanaScabbard::DrawRimLight()
 	KdShaderManager::Instance().m_StandardShader.SetRimLightEnable(false);
 }
 
+void WeaponKatanaScabbard::GenerateDepthMapFromLight()
+{
+	KdShaderManager::Instance().m_StandardShader.DrawModel(*m_model, m_swordData.m_weaponMatrix, m_color);
+}
+
 void WeaponKatanaScabbard::UpdateMatrix()
 {
 	m_swordHandData.m_weaponRotationMatrix = Math::Matrix::CreateFromYawPitchRoll

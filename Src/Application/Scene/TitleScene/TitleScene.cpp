@@ -10,9 +10,19 @@ void TitleScene::Event()
 	{
 		SceneManager::Instance().SetNextScene
 		(
-			SceneManager::SceneType::Test
+			SceneManager::SceneType::ConstructionSiteStage
 		);
 	}
+
+	KdShaderManager::Instance().m_postProcessShader.SetBrightThreshold(m_brightThreshold);
+	KdShaderManager::Instance().WorkAmbientController().SetFogEnable(m_fogEnable, m_fogUseRange);
+	KdShaderManager::Instance().WorkAmbientController().SetDistanceFog({ m_fogColor }, m_fogDensity);
+	KdShaderManager::Instance().WorkAmbientController().SetheightFog({ m_highFogColor }, m_highFogHeight, m_lowFogHeight, m_highFogDistance);
+
+	KdShaderManager::Instance().WorkAmbientController().SetDirLight(m_directionalLightDir, m_directionalLightColor);
+	KdShaderManager::Instance().WorkAmbientController().SetDirLightShadowArea(m_lightingArea, m_dirLightHeight);
+
+	KdShaderManager::Instance().WorkAmbientController().SetAmbientLight(m_anviLightColor);
 }
 
 void TitleScene::Init()
@@ -20,8 +30,7 @@ void TitleScene::Init()
 	auto& sceneManager = SceneManager::Instance();
 
 	sceneManager.SetIntroCamera(false);
-
 	sceneManager.SetDrawGrayScale(false);
 	sceneManager.SetResultFlag   (false);	// 結果フラグを初期化
-	sceneManager.m_gameClear = false;	    // ゲームクリアフラグを初期化
+	sceneManager.m_gameClear = false;		// ゲームクリアフラグを初期化
 }

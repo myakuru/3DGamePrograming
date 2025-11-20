@@ -8,9 +8,9 @@ Texture2D g_emissiveTex : register(t2); // 発光テクスチャ
 Texture2D g_normalTex : register(t3); // 法線マップ
 
 // 特殊処理用テクスチャ
-Texture2D g_dirShadowMap : register(t10); // 平行光シャドウマップ
-Texture2D g_dissolveTex : register(t11); // ディゾルブマップ
-Texture2D g_environmentTex : register(t12); // 反射景マップ
+Texture2D g_dirShadowMap[3] : register(t10); // 平行光シャドウマップ
+Texture2D g_dissolveTex : register(t13); // ディゾルブマップ
+Texture2D g_environmentTex : register(t14); // 反射景マップ
 
 // サンプラ
 SamplerState g_ss : register(s0); // 通常のテクスチャ描画用
@@ -112,9 +112,6 @@ float4 main(VSOutput In) : SV_Target0
 
 	// UV座標（0～1）から 射影座標（-1～1）へ変換
 	wN = wN * 2.0 - 1.0;
-
-	// 法線マップをリターンする
-	//return float4(normalize(wN), 1.0);
 	
 	{
 		// 3種の法線から法線行列を作成
@@ -159,33 +156,175 @@ float4 main(VSOutput In) : SV_Target0
 	float shadow = 1;
 
 	// ピクセルの3D座標から、DepthMapFromLight空間へ変換
-	float4 liPos = mul(float4(In.wPos, 1), g_DL_mLightVP);
-	liPos.xyz /= liPos.w;
+	float _Depth = mul(float4(In.wPos, 1), g_mView).z; // カメラビュー空間のZ座標取得
+
+	// カスケードインデックス初期化
+	int cascadeIndex = 0;
+
+	if (_Depth <= g_CascadeNear.y)
+	{
+		cascadeIndex = 0;
+	}
+	else if (_Depth <= g_CascadeNear.z)
+	{
+		cascadeIndex = 1;
+	}
+	else
+	{
+		cascadeIndex = 2;
+	}
+
+	//　ピクセルのワールド座標をライトのビューx射影変換行列で変換
+	float4 liPos = mul(float4(In.wPos, 1), g_DL_mLightVP[cascadeIndex]);
+	liPos.xyz /= liPos.w; // 射影座標へ変換
 
 	// 深度マップの範囲内？
 	if (abs(liPos.x) <= 1 && abs(liPos.y) <= 1 && liPos.z <= 1)
 	{
-		// 射影座標 -> UV座標へ変換
+		// 深度情報からカスケードを再判定
+		if (_Depth <= g_CascadeNear.y)
+		{
+			cascadeIndex = 0;
+			//outColor.r += 0.5f;
+			
+		}
+		else if (_Depth <= g_CascadeFar.x)
+		{
+			cascadeIndex = 3;
+			//outColor.rg += 0.5f;
+		}
+		else if (_Depth <= g_CascadeNear.z)
+		{
+			cascadeIndex = 1;
+			//outColor.b += 0.5f;
+		}
+		else if (_Depth <= g_CascadeFar.y)
+		{
+			cascadeIndex = 4;
+			//outColor.gb += 0.5f;
+		}
+		else
+		{
+			cascadeIndex = 2;
+			//outColor.g += 0.5f;
+		}
+
+
+		// 射影座標 -> UV座標 変換
 		float2 uv = liPos.xy * float2(1, -1) * 0.5 + 0.5;
 		// ライトカメラからの距離
 		float z = liPos.z - 0.004; // シャドウアクネ対策
-		
-		// 画像のサイズからテクセルサイズを求める
+
+		// 画像のサイズからテクセルサイズを計算
 		float w, h;
-		g_dirShadowMap.GetDimensions(w, h);
-		float tw = 1.0 / w;
-		float th = 1.0 / h;
-	
-		// uvの周辺3x3も判定し、平均値を求める
-		shadow = 0;
+
+		float fade = 1.0; // シャドウフェード用
+
+		switch (cascadeIndex)
+		{
+			case 0:
+				g_dirShadowMap[0].GetDimensions(w, h);
+				break;
+			case 1:
+				g_dirShadowMap[1].GetDimensions(w, h);
+				break;
+			case 2:
+				g_dirShadowMap[2].GetDimensions(w, h);
+				break;
+			case 3:
+				fade = saturate((g_CascadeFar.x - _Depth) / (g_CascadeFar.x - g_CascadeNear.y));
+				break;
+			case 4:
+				fade = saturate((g_CascadeFar.y - _Depth) / (g_CascadeFar.y - g_CascadeNear.z));
+				break;
+		}
+
+		float tw = 1.0 / w; // テクセル幅
+		float th = 1.0 / h; // テクセル高さ
+
+		// ブレンド用シャドウ値
+		float blendshadoe1 = 0.0f;
+		float blendshadoe2 = 0.0f;
+
+		// uv周辺をサンプリングして平均を取る（PCF）
+		
+		shadow = 0.0f;
+
 		for (int y = -1; y <= 1; y++)
 		{
 			for (int x = -1; x <= 1; x++)
 			{
-				shadow += g_dirShadowMap.SampleCmpLevelZero(g_ssCmp, uv + float2(x * tw, y * th), z);
+				switch (cascadeIndex)
+				{
+					case 0:
+						shadow += g_dirShadowMap[0].SampleCmpLevelZero(g_ssCmp, uv + float2(x * tw, y * th), z);
+						break;
+					case 1:
+						shadow += g_dirShadowMap[1].SampleCmpLevelZero(g_ssCmp, uv + float2(x * tw, y * th), z);
+						break;
+					case 2:
+						shadow += g_dirShadowMap[2].SampleCmpLevelZero(g_ssCmp, uv + float2(x * tw, y * th), z);
+						break;
+					case 3:
+					// カスケード毎に影を取得して、それぞれのブレンド用シャドウ値に加算
+						liPos = mul(float4(In.wPos, 1), g_DL_mLightVP[0]);
+						liPos.xyz /= liPos.w;
+						uv = liPos.xy * float2(1, -1) * 0.5 + 0.5;
+						z = liPos.z - 0.004;
+						g_dirShadowMap[0].GetDimensions(w, h);
+						tw = 1.0 / w; // テクセル幅
+						th = 1.0 / h; // テクセル高さ
+						blendshadoe1 += g_dirShadowMap[0].SampleCmpLevelZero(g_ssCmp, uv + float2(x * tw, y * th), z);
+					
+						liPos = mul(float4(In.wPos, 1), g_DL_mLightVP[1]);
+						liPos.xyz /= liPos.w;
+						uv = liPos.xy * float2(1, -1) * 0.5 + 0.5;
+						g_dirShadowMap[1].GetDimensions(w, h);
+						tw = 1.0 / w; // テクセル幅
+						th = 1.0 / h; // テクセル高さ
+						z = liPos.z - 0.004;
+						blendshadoe2 += g_dirShadowMap[1].SampleCmpLevelZero(g_ssCmp, uv + float2(x * tw, y * th), z);
+						break;
+					case 4:
+						// カスケード毎に影を取得して、それぞれのブレンド用シャドウ値に加算
+						liPos = mul(float4(In.wPos, 1), g_DL_mLightVP[1]);
+						liPos.xyz /= liPos.w;
+						uv = liPos.xy * float2(1, -1) * 0.5 + 0.5;
+						z = liPos.z - 0.004;
+						g_dirShadowMap[1].GetDimensions(w, h);
+						tw = 1.0 / w; // テクセル幅
+						th = 1.0 / h; // テクセル高さ
+						blendshadoe1 += g_dirShadowMap[0].SampleCmpLevelZero(g_ssCmp, uv + float2(x * tw, y * th), z);
+					
+						liPos = mul(float4(In.wPos, 1), g_DL_mLightVP[2]);
+						liPos.xyz /= liPos.w;
+						uv = liPos.xy * float2(1, -1) * 0.5 + 0.5;
+						g_dirShadowMap[2].GetDimensions(w, h);
+						tw = 1.0 / w; // テクセル幅
+						th = 1.0 / h; // テクセル高さ
+						z = liPos.z - 0.004;
+						blendshadoe2 += g_dirShadowMap[2].SampleCmpLevelZero(g_ssCmp, uv + float2(x * tw, y * th), z);
+						break;
+					
+				}
 			}
 		}
-		shadow *= 0.11;
+
+		if (cascadeIndex == 3 || cascadeIndex == 4)
+		{
+			// 3*3でソフトシャドウしてるので9で割る
+			blendshadoe1 /= 9.0f;
+			blendshadoe2 /= 9.0f;
+
+			// フェード量でブレンド
+			shadow = lerp(blendshadoe1, blendshadoe2, fade);
+		}
+		else
+		{
+			// 3*3でソフトシャドウしてるので9で割る
+			shadow /= 9.0f;
+		}
+
 	}
 		
 	//-------------------------

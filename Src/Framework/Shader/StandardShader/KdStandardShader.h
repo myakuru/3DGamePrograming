@@ -4,6 +4,16 @@
 // 基本シェーダー
 //
 //============================================================
+
+namespace Cascade
+{
+	constexpr int Num = 3;	// カスケード数
+	constexpr float MaxClip = 300.0f; // CSMのFarクリップ距離
+	constexpr float MinClip = 1.0f; // CSMのNearクリップ距離
+	constexpr float SplitLambda = 0.7f; // 分割の偏り具合(0～1)
+	constexpr int MaxExp = 12; // シャドウマップの解像度
+}
+
 class KdStandardShader
 {
 public:
@@ -58,6 +68,10 @@ public:
 	struct cbMesh
 	{
 		Math::Matrix	mW;
+
+		// CSM用
+		int 			CascadeCount = 0;
+		int 			_pad0[3] = { 0,0,0 }; // ← ここで16バイト境界に揃える
 	};
 
 	// 定数バッファ(マテリアル単位更新)
@@ -139,7 +153,7 @@ public:
 	// ディゾルブテクスチャ設定
 	void SetDissolveTexture(KdTexture& dissolveMask)
 	{
-		KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(11, 1, dissolveMask.WorkSRViewAddress());
+		KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(13, 1, dissolveMask.WorkSRViewAddress());
 	}
 
 	// デフォルトディゾルブテクスチャ設定
@@ -274,7 +288,12 @@ public:
 		Release();
 	}
 
-	std::shared_ptr<KdTexture>& GetDepthTex() { return m_depthMapFromLightRTPack.m_RTTexture; }
+	// CSM
+	std::shared_ptr<KdTexture>& GetDepthTex(int _index) { return m_cascadeShadowMapRTPack[_index].m_RTTexture; }
+
+	void GetProjectctionDecompose(float& _OutFov, float& _outAspect, float& _outNear, float& _outFar, Math::Matrix& _outProjMat);
+
+	//std::shared_ptr<KdTexture>& GetDepthTex() { return m_depthMapFromLightRTPack.m_RTTexture; }
 
 	// 自分で追加
 	bool IsEnableGradient() const { return m_enableGradient; }
@@ -302,6 +321,9 @@ public:
 	}
 
 private:
+
+	// CSM用の情報をセット
+	void CascadeShadowMapChangea(const DirectX::BoundingBox& _BBox);
 
 	// マテリアルのセット
 	void WriteMaterial(const KdMaterial& material, const Math::Vector4& colRate, const Math::Vector3& emiRate);
@@ -366,6 +388,12 @@ private:
 
 	KdRenderTargetPack	m_depthMapFromLightRTPack;
 	KdRenderTargetChanger m_depthMapFromLightRTChanger;
+
+	// CSM用
+	UINT		m_cascadeCount = 0;
+	KdRenderTargetPack m_cascadeShadowMapRTPack[Cascade::Num];
+	KdRenderTargetChanger m_cascadeShadowMapRTChanger;
+
 
 	bool		m_dirtyCBObj = false;						// 定数バッファのオブジェクトに変更があったかどうか
 

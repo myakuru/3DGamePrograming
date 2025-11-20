@@ -12,6 +12,10 @@ void EnemyStateBase::StateStart()
 	{
 		if (auto p = player.lock())
 		{
+			if (p->GetInvincible())
+			{
+				m_enemy->SetInvincible(false);
+			}
 			m_playerPos = p->GetPos();
 		}
 	}

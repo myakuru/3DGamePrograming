@@ -63,7 +63,7 @@ void PlayerState_Attack4::StateUpdate()
 	m_time += deltaTime;
 
 	// 0.5秒間当たり判定有効
-	m_player->UpdateAttackCollision(7.0f, 1.0f, 7, m_maxAnimeTime, { 0.2f, 0.2f }, 0.3f);
+	m_player->UpdateAttackCollision(5.0f, 2.0f, 7, m_maxAnimeTime, { 0.2f, 0.2f }, 0.3f);
 
 	// 回避入力処理
 	if (UpdateMoveAvoidInput()) return;

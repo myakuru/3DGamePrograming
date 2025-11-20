@@ -59,7 +59,7 @@ void PlayerState_Attack::StateUpdate()
 	float deltaTime = Application::Instance().GetDeltaTime();
 
 	// 当たり判定有効時間: 最初の0.5秒のみ
-	m_player->UpdateAttackCollision(3.0f, 1.0f, 1, 0.1f, { 0.2f, 0.0f }, 0.3f, 0.0f, 0.4f);
+	m_player->UpdateAttackCollision(1.0f, 1.0f, 1, 0.1f, { 0.2f, 0.0f }, 0.3f, 0.0f, 0.4f);
 
 	Math::Vector3 toEnemyDir = m_nearestEnemyPos - m_player->GetPos();
 

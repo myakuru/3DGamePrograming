@@ -44,27 +44,18 @@ void PlayerState_SpecialAttack::StateUpdate()
 	// アニメーション時間のデバッグ表示
 	{
 		m_animeTime = m_player->GetAnimator()->GetPlayProgress();
-
-		m_maxAnimeTime = m_player->GetAnimator()->GetMaxAnimationTime();
-
-		if (m_animeTime > m_maxAnimeTime)
-		{
-			KdDebugGUI::Instance().AddLog(U8("Attackアニメ時間: %f"), m_animeTime);
-			KdDebugGUI::Instance().AddLog("\n");
-		}
 	}
 
-	if (m_player->GetAnimator()->IsAnimationEnd())
+	if (m_animeTime >= 0.6f)
 	{
 		auto state = std::make_shared<PlayerState_SpecialAttack1>();
 		m_player->ChangeState(state);
 		return;
 	}
 
-	// 当たり判定有効時間: 最初の0.5秒のみ
-
-	if (m_animeTime >= 0.5f)
+	if (m_animeTime >= 0.15f)
 	{
+		// 当たり判定
 		m_player->UpdateAttackCollision(10.0f, 7.0f, 6, 0.2f, { 0.4f, 0.4f }, 0.5f, 0.0f, 1.2f);
 
 		if (!m_playSound)
@@ -72,8 +63,8 @@ void PlayerState_SpecialAttack::StateUpdate()
 			KdAudioManager::Instance().Play("Asset/Sound/Player/SpecialAttack.WAV", false)->SetVolume(0.5f);
 			m_playSound = true;
 		}
-
 	}
+
 
 	Math::Vector3 moveDir = m_player->GetMovement();
 
@@ -97,7 +88,7 @@ void PlayerState_SpecialAttack::StateUpdate()
 		}
 	}
 
-	if (m_animeTime >= 0.9f)
+	if (m_animeTime >= 0.55f)
 	{
 		if (auto camera = m_player->GetPlayerCamera().lock(); camera)
 		{
@@ -130,13 +121,13 @@ void PlayerState_SpecialAttack::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
 		// カメラと、プレイヤーの距離を近づける（らーぷ）
 		camera->SetTargetLookAt({ 0.0f,1.0f,-3.5f });
 	}
 
-	if (auto effect = m_specialAttackEffect.lock(); effect)
+	if (auto effect = m_specialAttackEffect.lock())
 	{
 		effect->SetPlayEffect(false);
 	}

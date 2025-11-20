@@ -38,7 +38,7 @@ VSOutputGenShadow main(
 	Out.Pos = mul(pos, g_mWorld);
 	
 	// カメラの逆向きに変換 : ワールド座標系 -> ビュー座標系 -> 射影座標系へ変換
-	Out.Pos = mul(Out.Pos, g_DL_mLightVP);
+	Out.Pos = mul(Out.Pos, g_DL_mLightVP[g_CascadeIndex]);
 
 	// 射影行列を変換されないように保存
 	Out.pPos = Out.Pos;

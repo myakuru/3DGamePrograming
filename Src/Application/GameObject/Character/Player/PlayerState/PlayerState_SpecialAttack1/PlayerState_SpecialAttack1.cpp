@@ -20,7 +20,7 @@ void PlayerState_SpecialAttack1::StateStart()
 	m_player->ResetAttackCollision();
 
 	// アニメーション再生速度を変更
-	m_player->SetAnimeSpeed(10.0f);
+	m_player->SetAnimeSpeed(20.0f);
 
 	m_playSound = false;
 }
@@ -43,7 +43,7 @@ void PlayerState_SpecialAttack1::StateUpdate()
 
 	// 当たり判定有効時間: 最初の0.5秒のみ
 
-	if (m_animeTime >= 0.4f)
+	if (m_animeTime >= 0.2f)
 	{
 		if (auto effect = m_smokeEffect.lock(); effect)
 		{
@@ -61,7 +61,7 @@ void PlayerState_SpecialAttack1::StateUpdate()
 			m_playSound = true;
 		}
 
-		m_player->UpdateAttackCollision(10.0f, 7.0f, 6, 0.3f, { 0.4f, 0.4f }, 0.5f, 0.0f, 1.8f);
+		m_player->UpdateAttackCollision(10.0f, 7.0f, 6, 0.2f, { 0.4f, 0.4f }, 0.5f, 0.0f, 1.2f);
 	}
 
 	Math::Vector3 moveDir = m_player->GetMovement();

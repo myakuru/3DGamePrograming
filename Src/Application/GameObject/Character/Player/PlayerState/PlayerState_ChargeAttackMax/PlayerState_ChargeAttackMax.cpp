@@ -24,6 +24,9 @@ void PlayerState_ChargeAttackMax::StateStart()
 
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
+
+	// ガードブレイク状態にする
+	m_player->SetGuardBreak(true);
 }
 
 void PlayerState_ChargeAttackMax::StateUpdate()

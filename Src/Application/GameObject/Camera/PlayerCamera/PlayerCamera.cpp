@@ -96,7 +96,7 @@ void PlayerCamera::PostUpdate()
 		const Math::Vector3 desiredCamWorldPos = m_mWorld.Translation();
 		SetPos(desiredCamWorldPos);
 
-		// レイキャスト（内部は GetPos/SetPos）
+		// レイキャスト
 		UpdateCameraRayCast();
 
 		// 補正後座標
@@ -135,7 +135,7 @@ void PlayerCamera::PostUpdate()
 
 	if (SceneManager::Instance().m_gameClear && !SceneManager::Instance().IsIntroCamera())
 	{
-		//UpdateWinnerCamera();
+		UpdateWinnerCamera();
 	}
 
 	// 最終的にカメラ行列適用
@@ -146,7 +146,7 @@ void PlayerCamera::PostUpdate()
 
 void PlayerCamera::UpdateWinnerCamera()
 {
-	Application::Instance().SetFpsScale(0.0f); // 一時停止（意図が「停止」ならこのまま。※「リセット」なら 1.0f）
+	Application::Instance().SetFpsScale(0.0f); // 一時停止
 
 	KdShaderManager::Instance().m_postProcessShader.SetEnableStrongBlur(false);
 
@@ -168,7 +168,6 @@ void PlayerCamera::UpdateWinnerCamera()
 		KdShaderManager::Instance().m_postProcessShader.SetEnableNoise(false);
 	}
 
-	// Unscaled はフレーム末に更新されるので、ここでの値は「前フレーム分」
 	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
 	m_time += deltaTime;
 

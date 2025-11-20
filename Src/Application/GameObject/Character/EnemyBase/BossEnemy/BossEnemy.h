@@ -101,7 +101,7 @@ public:
 		m_waterFallCooldown = std::max(0.0f, m_waterFallCooldown - dt);
 	}
 
-	const std::vector<std::weak_ptr<Player>>& GetPlayerList() const { return m_player; }
+	std::vector<std::weak_ptr<Player>>& GetPlayerList() { return m_player; }
 
 private:
 

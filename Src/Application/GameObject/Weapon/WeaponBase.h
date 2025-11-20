@@ -35,6 +35,7 @@ protected:
 	void Init() override;
 	void DrawToon() override;
 	void DrawLit() override;
+	void GenerateDepthMapFromLight() override;
 	void Update() override;
 	void ImGuiInspector() override;
 	void JsonSave(nlohmann::json& _json) const override;

@@ -59,7 +59,7 @@ void PlayerState_Attack2::StateUpdate()
 
 	m_time += deltaTime;
 
-	m_player->UpdateAttackCollision(5.0f, 5.0f, 1, m_maxAnimeTime, { 0.0f, 0.3f }, 0.4f);
+	m_player->UpdateAttackCollision(3.0f, 1.0f, 1, m_maxAnimeTime, { 0.0f, 0.3f }, 0.4f);
 	
 
 	Math::Vector3 moveDir = m_player->GetMovement();

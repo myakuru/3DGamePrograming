@@ -18,29 +18,29 @@ void TitleCamera::PostUpdate()
 {
 	if (!SceneManager::Instance().m_sceneCamera)
 	{
+
 		// カメラの回転
 		UpdateRotateByMouse();
 		m_mRotation = GetRotationMatrix();
 		UpdateMoveKey();
 
+		m_mWorld = m_mLocalPos * m_mRotation;
+		m_mWorld.Translation(m_position);
+		m_spCamera->SetCameraMatrix(m_mWorld);
 	}
+	else
+	{
+		float deltaTime = Application::Instance().GetDeltaTime();
+		//	カメラを行ったり来たりラープさせる
+		m_time += deltaTime * m_moveSpeed;
+		// 0～2をループさせる
+		float u = std::fmod(m_time, 2.0f);
+		// 0～1～0に変換
+		if (u > 1.0f) u = 2.0f - u; // 0～1～0
 
-	float deltaTime = Application::Instance().GetDeltaTime();
 
-	//	カメラを行ったり来たりラープさせる
-	m_time += deltaTime * m_moveSpeed;
-	// 0～2をループさせる
-	float u = std::fmod(m_time, 2.0f);
-	// 0～1～0に変換
-	if (u > 1.0f) u = 2.0f - u; // 0～1～0
-
-
-	m_position = Math::Vector3::Lerp(m_startPos, m_endPos, u);
-	
-
-	m_mWorld = m_mLocalPos * m_mRotation;
-	m_mWorld.Translation(m_position);
-	m_spCamera->SetCameraMatrix(m_mWorld);
+		m_position = Math::Vector3::Lerp(m_startPos, m_endPos, u);
+	}
 }
 
 void TitleCamera::ImGuiInspector()

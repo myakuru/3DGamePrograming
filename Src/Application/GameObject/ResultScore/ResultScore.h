@@ -14,7 +14,7 @@ private:
 
 	void Init() override;
 	void Update() override;
-	void DrawGradation() override;
+	void DrawUnLit() override;
 
 	std::shared_ptr<KdModelData> m_model_S = std::make_shared<KdModelData>();
 	std::shared_ptr<KdModelData> m_model_A = std::make_shared<KdModelData>();

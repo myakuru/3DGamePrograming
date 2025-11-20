@@ -73,4 +73,7 @@ void PlayerState_ChargeAttackMax3::StateEnd()
 		effect->SetPlayEffect(false);
 		effect->StopEffect();
 	}
+
+	// ガードブレイク状態解除
+	m_player->SetGuardBreak(false);
 }

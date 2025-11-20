@@ -111,6 +111,11 @@ void Katana::DrawRimLight()
 
 }
 
+void Katana::GenerateDepthMapFromLight()
+{
+	KdShaderManager::Instance().m_StandardShader.DrawModel(*m_model, m_swordData.m_weaponMatrix, m_color);
+}
+
 void Katana::DrawBright()
 {
 	// 軌跡ポリゴンの描画

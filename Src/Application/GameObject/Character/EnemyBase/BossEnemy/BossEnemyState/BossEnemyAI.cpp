@@ -10,15 +10,16 @@
 #include"../BossEnemyState/BossEnemyState_WaterFall/BossEnemyState_WaterFall.h"
 #include"../BossEnemyState/BossEnemyState_Dodge/BossEnemyState_Dodge.h"
 #include"Application/GameObject/Character/Player/Player.h"
+#include"Application/Scene/SceneManager.h"
 
 #include "Application/main.h"
 
 static float GetDistanceToPlayer(BossEnemy* boss)
 {
 	if (!boss) return FLT_MAX;
-	const auto wp = boss->GetPlayerList();
+	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::PlayerLike, boss->GetPlayerList());
 
-	for (auto& weakPlayer : wp)
+	for (const auto& weakPlayer : boss->GetPlayerList())
 	{
 		if (auto sp = weakPlayer.lock())
 		{

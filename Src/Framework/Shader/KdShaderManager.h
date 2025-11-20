@@ -79,6 +79,11 @@ public:
 
 		Math::Vector3	CamPos;		// カメラのワールド座標
 		int				blank = 0;
+
+		// CSM用
+		Math::Vector3 CascadeNear;
+		Math::Vector3 CascadeFar;
+		float _pad0[2] = { 0.0f, 0.0f }; // ← ここで16バイト境界に揃える
 	};
 
 	// フォグ定数バッファ用構造体
@@ -110,7 +115,8 @@ public:
 		Math::Vector3		DirLight_Color = { 2.25f, 2.25f, 2.25f };	// 光の色
 		float				_blank2 = 0.0f;
 
-		Math::Matrix		DirLight_mVP;					// ビュー行列と正射影行列の合成行列
+		// CSM用
+		Math::Matrix		DirLight_mVP[3];					// ビュー行列と正射影行列の合成行列
 
 		//-----------------
 		// 点光
@@ -198,6 +204,9 @@ public:
 	void WriteCBDirectionalLight(const Math::Vector3& dir, const Math::Vector3& col);
 	void WriteCBShadowArea(const Math::Matrix& proj, float dirLightHeight, const Math::Vector3& center);
 	void WriteCBPointLight(const std::list<PointLight>& pointLights);
+
+	// CSM用のライトビュー射影行列セット
+	void WriteCBShadowAreaCSM();
 
 	//==========================
 	//

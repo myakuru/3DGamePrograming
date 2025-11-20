@@ -259,7 +259,7 @@ void SceneManager::ChangeScene(SceneType _sceneType)
 		break;
 	}
 
-	Time::Instance().Reset(); // 時間をリセット
+	Time::Instance().Reset(); // 時間リセット
 
 	// 現在のシーン情報を更新
 	m_currentSceneType = _sceneType;

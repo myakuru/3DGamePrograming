@@ -180,7 +180,5 @@ private:
 	std::vector <std::weak_ptr<Katana>> m_katana;
 	std::vector <std::weak_ptr<WeaponKatanaScabbard>> m_sheaths;
 
-
-
 	Math::Vector3 tmp = Math::Vector3(10.0f, 9.0f, 1.0f);
 };

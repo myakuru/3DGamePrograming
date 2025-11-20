@@ -19,6 +19,11 @@ void WeaponBase::DrawLit()
 	if (m_bDrawLit) KdShaderManager::Instance().m_StandardShader.DrawModel(*m_model, m_swordData.m_weaponMatrix,m_color);
 }
 
+void WeaponBase::GenerateDepthMapFromLight()
+{
+	if (m_bDrawLit) KdShaderManager::Instance().m_StandardShader.DrawModel(*m_model, m_swordData.m_weaponMatrix, m_color);
+}
+
 void WeaponBase::Update()
 {
 	KdGameObject::Update();

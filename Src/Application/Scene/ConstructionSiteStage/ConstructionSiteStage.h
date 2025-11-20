@@ -38,4 +38,7 @@ private:
 	Math::Vector2 m_radialBlurUvOffset = { 0.5f,0.55f };
 	bool m_radialBlurEnable = false;
 
+	bool m_enemyExists = false;
+	bool m_bossExists = false;
+
 };

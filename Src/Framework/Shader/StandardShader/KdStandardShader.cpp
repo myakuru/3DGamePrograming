@@ -31,8 +31,15 @@ void KdStandardShader::BeginLit()
 		KdShaderManager::Instance().SetPSConstantBuffer(2, m_cb2_Material.GetAddress());
 	}
 
+	// CSM変更点
 	// シャドウマップのテクスチャをセット
-	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(10, 1, m_depthMapFromLightRTPack.m_RTTexture->WorkSRViewAddress());
+	ID3D11ShaderResourceView* srvs[Cascade::Num] =
+	{
+		m_cascadeShadowMapRTPack[0].m_RTTexture->WorkSRView(),
+		m_cascadeShadowMapRTPack[1].m_RTTexture->WorkSRView(),
+		m_cascadeShadowMapRTPack[2].m_RTTexture->WorkSRView()
+	};
+	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(10, Cascade::Num, srvs);
 
 	// ボーン情報をセット(スキンメッシュ対応)
 	KdShaderManager::Instance().SetVSConstantBuffer(3, m_cb3_Bone.GetAddress());
@@ -53,6 +60,9 @@ void KdStandardShader::EndLit()
 {
 	ID3D11ShaderResourceView* pNullSRV = nullptr;
 	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(10, 1, &pNullSRV);
+	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(11, 1, &pNullSRV);
+	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(12, 1, &pNullSRV);
+
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -110,8 +120,8 @@ void KdStandardShader::BeginGenerateDepthMapFromLight()
 		KdShaderManager::Instance().SetPSConstantBuffer(0, m_cb0_Obj.GetAddress());
 	}
 
-	m_depthMapFromLightRTPack.ClearTexture(kRedColor);
-	m_depthMapFromLightRTChanger.ChangeRenderTarget(m_depthMapFromLightRTPack);
+	m_cascadeShadowMapRTPack[0].ClearTexture(kRedColor);
+	m_cascadeShadowMapRTChanger.ChangeRenderTarget(m_cascadeShadowMapRTPack[0]);
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -121,7 +131,7 @@ void KdStandardShader::BeginGenerateDepthMapFromLight()
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 void KdStandardShader::EndGenerateDepthMapFromLight()
 {
-	m_depthMapFromLightRTChanger.UndoRenderTarget();
+	m_cascadeShadowMapRTChanger.UndoRenderTarget();
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -336,25 +346,74 @@ void KdStandardShader::DrawMesh(const KdMesh* mesh, const Math::Matrix& mWorld,
 	// メッシュの頂点情報転送
 	mesh->SetToDevice();
 
-	// 3Dワールド行列転送
-	m_cb1_Mesh.Work().mW = mWorld;
-	m_cb1_Mesh.Write();
-
-	// 全サブセット
-	for (UINT subi = 0; subi < mesh->GetSubsets().size(); subi++)
+	// GenDepthFromLightシェーダーの場合は、カスケードシャドウマップ用に複数回描画を行う
+	if (pNowPS == m_PS_GenDepthFromLight)
 	{
-		// 面が１枚も無い場合はスキップ
-		if (mesh->GetSubsets()[subi].FaceCount == 0)continue;
+		// 後面カリングなしにする
+		KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullNone);
 
-		// マテリアルデータの転送
-		const KdMaterial& material = materials[mesh->GetSubsets()[subi].MaterialNo];
-		WriteMaterial(material, colRate, emissive);
+		// メッシュからバウンディングボックスを取得
+		DirectX::BoundingBox _meshBox;
+		mesh->GetBoundingBox().Transform(_meshBox, mWorld);
 
-		//-----------------------
-		// サブセット描画
-		//-----------------------
-		mesh->DrawSubset(subi);
+		// 描画レンダーのインデックス計算
+		CascadeShadowMapChangea(_meshBox);
+
+		for (int i = 0; i < Cascade::Num; i++)
+		{
+			// 対象のカスケードシャドウマップに描画が必要ない場合はスキップ
+			if ((m_cascadeCount & (1 << i)) == 0) continue;
+			// レンダーターゲットの変更
+			m_cascadeShadowMapRTChanger.UndoRenderTarget();
+			m_cascadeShadowMapRTChanger.ChangeRenderTarget(m_cascadeShadowMapRTPack[i]);
+
+			// 3Dワールド行列転送
+			m_cb1_Mesh.Work().mW = mWorld;
+			m_cb1_Mesh.Work().CascadeCount = i;
+			m_cb1_Mesh.Write();
+
+			// 全サブセット
+			for (UINT subi = 0; subi < mesh->GetSubsets().size(); subi++)
+			{
+				// 面が１枚も無い場合はスキップ
+				if (mesh->GetSubsets()[subi].FaceCount == 0)continue;
+
+				// マテリアルデータの転送
+				const KdMaterial& material = materials[mesh->GetSubsets()[subi].MaterialNo];
+				WriteMaterial(material, colRate, emissive);
+
+				//-----------------------
+				// サブセット描画
+				//-----------------------
+				mesh->DrawSubset(subi);
+			}
+		}
+
+		KdShaderManager::Instance().UndoRasterizerState();
 	}
+	else
+	{
+		// 3Dワールド行列転送
+		m_cb1_Mesh.Work().mW = mWorld;
+		m_cb1_Mesh.Write();
+
+		// 全サブセット
+		for (UINT subi = 0; subi < mesh->GetSubsets().size(); subi++)
+		{
+			// 面が１枚も無い場合はスキップ
+			if (mesh->GetSubsets()[subi].FaceCount == 0)continue;
+
+			// マテリアルデータの転送
+			const KdMaterial& material = materials[mesh->GetSubsets()[subi].MaterialNo];
+			WriteMaterial(material, colRate, emissive);
+
+			//-----------------------
+			// サブセット描画
+			//-----------------------
+			mesh->DrawSubset(subi);
+		}
+	}
+
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -744,6 +803,19 @@ bool KdStandardShader::Init()
 	// エフェクト用
 	m_cb4_Effect.Create();
 
+	// CSM用の深度マップ作成
+	for (int i = 0; i < Cascade::Num; i++)
+	{
+		int ShadowMapExp = Cascade::MaxExp - i; // 12 - 0 ~ 12 - 3
+		int shadowSize = 1 << ShadowMapExp;	// 影のサイズ計算
+		int shadowWidth = shadowSize; // 横幅
+		int shadowHeight = shadowSize; // 縦幅
+
+		// 深度情報を書き込む
+		m_cascadeShadowMapRTPack[i].CreateRenderTarget(shadowWidth, shadowHeight, true, DXGI_FORMAT_R32_FLOAT);
+		m_cascadeShadowMapRTPack[i].ClearTexture(kRedColor);
+	}
+
 	std::shared_ptr<KdTexture> ds = std::make_shared<KdTexture>();
 	ds->CreateDepthStencil(static_cast<int>(std::pow(2.0f, 12.0f)), static_cast<int>(std::pow(2.0f, 12.0f)));
 	D3D11_VIEWPORT vp = {
@@ -790,6 +862,159 @@ void KdStandardShader::Release()
 
 	// エフェクト用
 	m_cb4_Effect.Release();
+}
+
+void KdStandardShader::GetProjectctionDecompose(float& _OutFov, float& _outAspect, float& _outNear, float& _outFar, Math::Matrix& _outProjMat)
+{
+	Math::Matrix mProj = KdShaderManager::Instance().GetCameraCB().mProj;
+
+	// 行列から各種パラメータを逆算
+	_OutFov = DirectX::XMConvertToDegrees(2.0f * atan(1.0f / mProj._22));	// 垂直画角
+	_outAspect = mProj._22 / mProj._11;									// アスペクト比
+	_outNear = mProj._43 / (mProj._33 - 1.0f);							// ニアクリップ距離
+	_outFar = mProj._43 / (mProj._33 + 1.0f);								// ファークリップ距離
+
+	// ニアとファーを設定
+	_outNear = Cascade::MinClip;
+	_outFar = Cascade::MaxClip;
+
+	// 投影行列の再構築
+	_outProjMat = DirectX::XMMatrixPerspectiveFovLH
+	(
+		DirectX::XMConvertToRadians(_OutFov),
+		_outAspect,
+		_outNear,
+		_outFar
+	);
+
+}
+
+void KdStandardShader::CascadeShadowMapChangea(const DirectX::BoundingBox& _BBox)
+{
+	// 1.カメラ情報からFOV、アスペクト比、ニア・ファークリップ距離を取得
+	float fov, aspect, nearClip, farClip;
+
+	Math::Matrix mProj;
+
+	// 各種パラメータを取得
+	GetProjectctionDecompose(fov, aspect, nearClip, farClip, mProj);
+
+	// カメラ情報から各種パラメータを取得
+	DirectX::BoundingFrustum camFrustum;
+	DirectX::BoundingFrustum::CreateFromMatrix(camFrustum, mProj);
+
+	// フラスタムの原点と向きの設定
+	Math::Vector3 CamSize;
+	Math::Quaternion CamDir;
+	Math::Vector3 CameraPos;
+
+	// Decomposeからカメラの位置と向きを取得
+	{
+		KdShaderManager::Instance().GetCameraCB().mView.Invert().Decompose(CamSize, CamDir, CameraPos);
+	}
+
+	// フラスタムの原点と向きを設定
+	camFrustum.Origin = CameraPos;
+	camFrustum.Orientation = CamDir;
+
+	// 作成下フラスタムからニア・ファークリップ距離を取得
+	nearClip = Cascade::MinClip;
+	farClip = Cascade::MaxClip;
+
+	// カスケードシャドウマップの各カスケードに対応するビュー・プロジェクション行列を計算
+	float cascadeSplits[Cascade::Num + 1];	// カスケードの分割位置
+
+	for (int i = 0; i <= Cascade::Num; ++i)
+	{
+		// ニアクリップからファークリップまでの距離を均等に分割
+		float t = static_cast<float>(i) / static_cast<float>(Cascade::Num);
+		float log = nearClip * std::pow(farClip / nearClip, t);
+		float uniform = nearClip + (farClip - nearClip) * t;
+
+		cascadeSplits[i] = std::lerp(uniform, log, Cascade::SplitLambda);
+	}
+
+	// カスケードのインデックス初期化
+	m_cascadeCount = 0;
+
+	// フラスタムをカスケード用に複製
+	DirectX::BoundingFrustum cascadeFrustum;
+
+	// フラスタムをカスケードして、描画範囲を決定
+	for (int cascadeIdx = 0; cascadeIdx < Cascade::Num; ++cascadeIdx)
+	{
+		nearClip = cascadeSplits[cascadeIdx];
+		farClip = cascadeSplits[cascadeIdx + 1] * 1.1f;
+
+		DirectX::BoundingFrustum::CreateFromMatrix(cascadeFrustum, DirectX::XMMatrixPerspectiveFovLH(
+			DirectX::XMConvertToRadians(fov),
+			aspect,
+			nearClip,
+			farClip));
+
+		// フラスタムの原点と向きの設定
+		cascadeFrustum.Origin = CameraPos;
+		cascadeFrustum.Orientation = CamDir;
+	}
+
+	Math::Matrix _LightView;
+	Math::Vector3 _Center; // フラスタムの中心点
+	{
+		Math::Vector3 _LightDir = KdShaderManager::Instance().GetLightCB().DirLight_Dir;
+		Math::Vector3 _UpVec = (_LightDir == Math::Vector3::Up) ? Math::Vector3::Right : Math::Vector3::Up;
+		DirectX::XMFLOAT3 _FrustumCorners[8];
+		cascadeFrustum.GetCorners(_FrustumCorners);
+		// ライト空間で AABB を作成
+		DirectX::BoundingBox _CascadeBox;
+		DirectX::BoundingBox::CreateFromPoints(_CascadeBox, 8, _FrustumCorners, sizeof(DirectX::XMFLOAT3));
+		_Center = _CascadeBox.Center;
+		Math::Vector3 lightPos = _Center - _LightDir * _CascadeBox.Extents.z * 2.0f;
+		// ライトビュー行列を作成
+		_LightView = DirectX::XMMatrixLookAtLH(lightPos, _Center, _UpVec);
+	}
+	// フラスタムを囲うBoxを作成
+	DirectX::BoundingBox _CascadeBox;
+	_CascadeBox.Center = _Center; // ライト空間のBoxの中心を代入
+	_CascadeBox.Extents = { (cascadeFrustum.Far - cascadeFrustum.Near), (cascadeFrustum.Far - cascadeFrustum.Near), (cascadeFrustum.Far - cascadeFrustum.Near) };
+
+	// 生成したBoxから角を取得
+	DirectX::XMFLOAT3 _BoxCorners[8];
+	_CascadeBox.GetCorners(_BoxCorners);
+
+	// 取得した角をライト空間に変換
+	Math::Vector3 _FrustumCornersLS[8];
+	for (int c = 0; c < 8; ++c)
+	{
+		Math::Vector3 cornerWS = _BoxCorners[c];
+		Math::Vector3 cornerLS = DirectX::XMVector3TransformCoord(cornerWS, _LightView);
+		XMStoreFloat3(&_FrustumCornersLS[c], cornerLS);
+	}
+
+	// ライト空間で AABB を作成
+	DirectX::BoundingBox _CascadeBoxLS;
+	DirectX::BoundingBox::CreateFromPoints(_CascadeBoxLS, 8, _FrustumCornersLS, sizeof(DirectX::XMFLOAT3));
+
+	// メッシュのバウンディングボックスをライト空間に変換
+	// フラスタムから角を取得
+	_BBox.GetCorners(_BoxCorners);
+	// 取得した角をライト空間に変換
+	Math::Vector3 BoxCornersLS[8];
+	for (int c = 0; c < 8; ++c) {
+		Math::Vector3 cornerWS = _BoxCorners[c];
+		Math::Vector3 cornerLS = DirectX::XMVector3TransformCoord(cornerWS, _LightView); XMStoreFloat3(&BoxCornersLS[c], cornerLS);
+		// ライト空間で AABB を作成
+		DirectX::BoundingBox _BoxLS;
+		DirectX::BoundingBox::CreateFromPoints(_BoxLS, 8, BoxCornersLS, sizeof(DirectX::XMFLOAT3));
+		// 設定したフラスタムとメッシュのバウンディングボックスと当たり判定
+		bool isHit = false;
+		isHit = _CascadeBoxLS.Intersects(_BoxLS);
+		//重なっていたらインデックスを追加
+		if (isHit)
+		{
+			m_cascadeCount |= (1u << m_cascadeCount);
+		}
+
+	}
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////

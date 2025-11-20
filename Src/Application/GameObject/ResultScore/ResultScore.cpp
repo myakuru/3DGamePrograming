@@ -9,10 +9,10 @@ const uint32_t ResultScore::TypeID = KdGameObject::GenerateTypeID();
 void ResultScore::Init()
 {
 	SelectDraw3dModel::Init();
-	m_model_S = KdAssets::Instance().m_modeldatas.GetData("Asset/3DAssets/Score/S.gltf");
-	m_model_A = KdAssets::Instance().m_modeldatas.GetData("Asset/3DAssets/Score/A.gltf");
-	m_model_B = KdAssets::Instance().m_modeldatas.GetData("Asset/3DAssets/Score/B.gltf");
-	m_model_X = KdAssets::Instance().m_modeldatas.GetData("Asset/3DAssets/Score/X.gltf");
+	m_model_S = KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Score/S.gltf");
+	m_model_A = KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Score/A.gltf");
+	m_model_B = KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Score/B.gltf");
+	m_model_X = KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Score/X.gltf");
 
 	KdShaderManager::Instance().m_StandardShader.SetGradientColor(m_gradientColor);
 
@@ -69,7 +69,7 @@ void ResultScore::Update()
 	m_mWorld.Translation(cameraPos + forward * m_distance + localOffset);
 }
 
-void ResultScore::DrawGradation()
+void ResultScore::DrawUnLit()
 {
 	if (m_time <= 5.0f) return;
 

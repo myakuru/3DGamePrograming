@@ -1,12 +1,12 @@
 ﻿#include "ConstructionSiteStage.h"
-#include"../SceneManager.h"
-#include"../../GameObject/Utility/Time.h"
-#include"../../GameObject/Character/Player/Player.h"
+#include"Application/Scene/SceneManager.h"
+#include"Application/GameObject/Utility/Time.h"
+#include"Application/GameObject/Character/Player/Player.h"
 #include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 
-#include"../../../MyFramework/Manager/JsonManager/JsonManager.h"
-#include"../../main.h"
+#include"MyFramework/Manager/JsonManager/JsonManager.h"
+#include"Application/main.h"
 
 void ConstructionSiteStage::Event()
 {
@@ -109,6 +109,7 @@ void ConstructionSiteStage::Init()
 	KdShaderManager::Instance().m_postProcessShader.SetRadialBlur(m_radialBlurStrength, m_radialBlurSampleNum, m_radialBlurUvOffset); // 放射状ブラーの初期設定
 
 	m_bossAppear = false; // ボス出現フラグを初期化
+	SceneManager::Instance().SetBossAppear(false);
 }
 
 void ConstructionSiteStage::SearchEnemy()

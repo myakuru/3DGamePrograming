@@ -15,7 +15,7 @@ void EnemyState_Attack::StateStart()
 
 	for (const auto& effects : m_shineEffectBlues)
 	{
-		if (auto effect = effects.lock(); effect)
+		if (auto effect = effects.lock())
 		{
 			effect->SetPlayEffect(true);
 			break;

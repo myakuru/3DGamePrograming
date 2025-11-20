@@ -14,6 +14,11 @@ cbuffer cbCamera : register(b7)
 	row_major float4x4  g_mProj;	// 射影変換行列
 	row_major float4x4  g_mProjInv;	// 射影変換行列：逆行列
 	float3              g_CamPos;	// カメラ座標
+
+	// CSM用
+	// カスケード情報
+	float3 g_CascadeNear; // 各カスケードの近クリップ距離
+	float3 g_CascadeFar;  // 各カスケードの遠クリップ距離
 };
 
 //------------------------------
@@ -45,7 +50,7 @@ cbuffer cbLight : register(b9)
 	// 平行光
 	float3  g_DL_Dir;    // 光の方向
 	float3  g_DL_Color;  // 光の色
-	row_major float4x4  g_DL_mLightVP;  // ビュー行列 x 射影行列
+	row_major float4x4  g_DL_mLightVP[3];  // ビュー行列 x 射影行列
 	
 	//--------------
 	// 点光

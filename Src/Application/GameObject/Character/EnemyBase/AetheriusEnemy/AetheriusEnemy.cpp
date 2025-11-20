@@ -12,6 +12,7 @@
 #include"MyFramework/Manager/JsonManager/JsonManager.h"
 #include"EnemyState/EnemyState_Dath/EnemyState_Dath.h"
 #include"../../../../Data/CharacterData/CharacterData.h"
+#include"Application/GameObject/Effect/EffekseerEffect/EnemyHitEffect/EnemyHitEffect.h"
 
 const uint32_t AetheriusEnemy::TypeID = GenerateTypeID();
 
@@ -36,12 +37,14 @@ void AetheriusEnemy::Init()
 	m_Expired = false;
 
 	// 要変更
-	m_characterData->SetCharacterData().hp = 100;
-	m_characterData->SetCharacterData().maxHp = 100;
+	m_characterData->SetCharacterData().hp = 500;
+	m_characterData->SetCharacterData().maxHp = 500;
 	m_characterData->SetCharacterData().attack = 10;
 
 	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemySword, m_enemySwords);
 	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyShield, m_enemyShields);
+
+	// シーン内の EnemyHitEffect を1つ取得（共有の発射台として使う）
 }
 
 void AetheriusEnemy::Update()
@@ -76,17 +79,33 @@ void AetheriusEnemy::Update()
 		}
 	}
 
+	SceneManager::Instance().GetObjectWeakPtr(m_hitEffect);
+
 	if (m_isHit)
 	{
 		m_isHit = false;
 
-		if (m_invincible) return;
+		// ヒットエフェクト再生
+		if (auto hitEffect = m_hitEffect.lock())
+		{
+			if (auto me = std::static_pointer_cast<AetheriusEnemy>(GetMyAdls()))
+			{
+				hitEffect->PlayForEnemy(me);
+			}
+		}
 
-		// ブラー開始トリガー：ここで毎フレーム管理用フラグと時間を初期化
+		// 無敵中なら累積だけリセットして終了
+		if (GetInvincible())
+		{
+			ResetHitCount();
+			return;
+		}
+
+		// ヒット演出
 		m_enableRadialBlur = true;
 		m_blurTime = 0.0f;
 
-		// ダメージステートに変更
+		// Hitステートへ遷移
 		auto spDamageState = std::make_shared<EnemyState_Hit>();
 		ChangeState(spDamageState);
 		return;
@@ -125,10 +144,24 @@ void AetheriusEnemy::ChangeState(std::shared_ptr<EnemyStateBase> _state)
 
 void AetheriusEnemy::Damage(int _damage)
 {
+	if (m_Expired) return;
+
 	m_getDamage = _damage;
 	m_characterData->SetCharacterData().hp -= _damage;
-	if (m_characterData->GetCharacterData().hp <= 0)
+	if (m_characterData->GetCharacterData().hp < 0)
 	{
+		m_characterData->SetCharacterData().hp = 0;
+	}
+
+	if (m_characterData->GetCharacterData().hp == 0)
+	{
+		//　死亡処理
 		m_Expired = true;
+		m_isHit = false;
+		SetInvincible(true); // 不要な追加ヒット抑止
+
+		auto spDeathState = std::make_shared<EnemyState_Death>();
+		ChangeState(spDeathState);
+		return;
 	}
 }

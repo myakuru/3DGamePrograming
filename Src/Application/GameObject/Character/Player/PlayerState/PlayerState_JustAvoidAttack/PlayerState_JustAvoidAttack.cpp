@@ -36,6 +36,7 @@ void PlayerState_JustAvoidAttack::StateStart()
 	// 無敵状態にする
 	m_player->SetInvincible(true);
 
+	// ガードブレイク状態にする
 	m_player->SetGuardBreak(true);
 
 	SceneManager::Instance().GetObjectWeakPtr(m_justAvoidAttackEffect);
