@@ -72,6 +72,8 @@ void PlayerState_Attack2::StateUpdate()
 		m_player->UpdateQuaternionDirect(moveDir);
 	}
 
+	m_player->UpdateMoveDirectionFromInput();
+
 	// 回避入力処理
 	if (UpdateMoveAvoidInput()) return;
 

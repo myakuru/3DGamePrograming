@@ -110,7 +110,7 @@ private:
 	// ステート切り替えフラグ
 	bool m_stateChange = false;
 
-	// 追加: 行動コンテキスト
+	// 行動コンテキスト
 	ActionType m_lastAction = ActionType::None;
 	float m_meleeCooldown = 0.0f;
 	float m_waterCooldown = 0.0f;

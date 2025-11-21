@@ -13,15 +13,19 @@ void NumBer::Init()
 
 	m_displayTime = 10000;
 
-	SceneManager::Instance().GetObjectWeakPtr<Player>(m_player);
+	SceneManager::Instance().GetObjectWeakPtrListByTag< Player >(ObjTag::PlayerLike, m_playerList);
 
 }
 
 void NumBer::Update()
 {
-	if (auto playerStatus = m_player.lock(); playerStatus)
+	for (const auto& p : m_playerList)
 	{
-		m_displayTime = playerStatus->GetStatus().GetCharacterData().hp;
+		if (auto playerStatus = p.lock())
+		{
+			m_displayTime = playerStatus->GetStatus().GetCharacterData().maxHp;
+			break;
+		}
 	}
 }
 

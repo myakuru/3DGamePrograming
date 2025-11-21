@@ -12,6 +12,7 @@
 #include"MyFramework/Manager/JsonManager/JsonManager.h"
 #include"EnemyState/EnemyState_Dath/EnemyState_Dath.h"
 #include"../../../../Data/CharacterData/CharacterData.h"
+
 #include"Application/GameObject/Effect/EffekseerEffect/EnemyHitEffect/EnemyHitEffect.h"
 
 const uint32_t AetheriusEnemy::TypeID = GenerateTypeID();
@@ -94,6 +95,10 @@ void AetheriusEnemy::Update()
 			}
 		}
 
+		// ヒット演出
+		m_enableRadialBlur = true;
+		m_blurTime = 0.0f;
+
 		// 無敵中なら累積だけリセットして終了
 		if (GetInvincible())
 		{
@@ -101,29 +106,49 @@ void AetheriusEnemy::Update()
 			return;
 		}
 
-		// ヒット演出
-		m_enableRadialBlur = true;
-		m_blurTime = 0.0f;
-
 		// Hitステートへ遷移
 		auto spDamageState = std::make_shared<EnemyState_Hit>();
 		ChangeState(spDamageState);
 		return;
 	}
 
-	// --- 毎フレームのブラー管理（ヒット発生とは独立して時間管理する） ---
+	// --- 毎フレームのブラー管理 ---
 	if (m_enableRadialBlur)
 	{
 		m_blurTime += Application::Instance().GetUnscaledDeltaTime();
-		if (m_blurTime <= 0.1f) // ブラー持続時間
+
+		if (m_blurTime <= 0.1f)
+		{
+			m_physics.hitStop = 0.0f; // ヒットストップ時間
+		}
+		else
+		{
+			m_physics.hitStop = 1.0f; // ヒットストップ解除
+		}
+
+		if (m_blurTime <= 0.3f) // ブラー持続時間
 		{
 			KdShaderManager::Instance().m_postProcessShader.SetRadialBlur(0.1f, 2.0f, { 0.5f,0.55f });
 			KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(true);
+
+			if (static_cast<int>(std::floor(m_blurTime)) % 10 == 0)
+			{
+				Math::Vector3 jitter = {
+					KdRandom::GetFloat(-0.1f, 0.1f),	// X軸揺れ
+					KdRandom::GetFloat(-0.1f, 0.1f),	// Y軸揺れ
+					KdRandom::GetFloat(-0.1f, 0.1f)		// Z軸揺れ
+				};
+
+				Math::Vector3 effective = jitter * 0.5f; // 揺れの強さ調整
+				m_mWorld.Translation(m_position + effective);
+			}
 		}
 		else
 		{
 			m_enableRadialBlur = false;
 			m_blurTime = 0.0f; 
+			m_mWorld.Translation(m_position);
+
 			KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(false);
 		}
 	}

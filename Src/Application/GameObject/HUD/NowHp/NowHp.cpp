@@ -7,19 +7,22 @@ const uint32_t NowHp::TypeID = KdGameObject::GenerateTypeID();
 
 void NowHp::Init()
 {
-	m_displayTime = 10000;
+	m_displayTime = 0;
 	m_texture = KdAssets::Instance().m_textures.GetData("Asset/Textures/Time/Hp.png");
 
-	SceneManager::Instance().GetObjectWeakPtr(m_player);
+	SceneManager::Instance().GetObjectWeakPtrListByTag< Player >(ObjTag::PlayerLike, m_playerList);
 }
 
 void NowHp::Update()
 {
-	if (auto playerStatus = m_player.lock(); playerStatus)
+	for (const auto& p : m_playerList)
 	{
-		// HPが増加しているかどうかをチェック
-		m_displayTime = playerStatus->GetStatus().GetCharacterData().hp;
-	}	
+		if (auto playerStatus = p.lock())
+		{
+			m_displayTime = playerStatus->GetStatus().GetCharacterData().hp;
+			break;
+		}
+	}
 }
 
 void NowHp::DrawSprite()

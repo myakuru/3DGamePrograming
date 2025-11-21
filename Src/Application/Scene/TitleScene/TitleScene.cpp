@@ -29,6 +29,20 @@ void TitleScene::Init()
 {
 	auto& sceneManager = SceneManager::Instance();
 
+	// イントロBGM（非ループ）: SetGameSound を使う
+	{
+		auto intro = KdAudioManager::Instance().Play(
+			"Asset/Sound/FieldBGM/ToDo_game_bgm.wav",
+			true
+		);
+		SceneManager::Instance().SetGameSound(intro);
+
+		if (intro)
+		{
+			intro->SetVolume(1.0f);
+		}
+	}
+
 	sceneManager.SetIntroCamera(false);
 	sceneManager.SetDrawGrayScale(false);
 	sceneManager.SetResultFlag   (false);	// 結果フラグを初期化

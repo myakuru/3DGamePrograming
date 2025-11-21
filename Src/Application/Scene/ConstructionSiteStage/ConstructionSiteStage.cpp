@@ -4,6 +4,7 @@
 #include"Application/GameObject/Character/Player/Player.h"
 #include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
+#include"Application/Data/CharacterData/CharacterData.h"
 
 #include"MyFramework/Manager/JsonManager/JsonManager.h"
 #include"Application/main.h"
@@ -13,10 +14,29 @@ void ConstructionSiteStage::Event()
 	// 敵を探して、いなかったらゲームクリアさせる
 	SearchEnemy();
 
+	// イントロBGMが再生終了したらループBGMへ切り替え
+	{
+		auto bgm = SceneManager::Instance().GetGameSound(); // 値取得
+		const bool needSwitch = (!bgm) || !bgm->IsPlaying();
+		if (needSwitch)
+		{
+			auto loopBgm = KdAudioManager::Instance().Play(
+				"Asset/Sound/FieldBGM/ToDo_game_bgm_loop.wav",
+				true
+			);
+			SceneManager::Instance().SetGameSound(loopBgm);
+
+			if (loopBgm)
+			{
+				loopBgm->SetVolume(1.0f);
+			}
+		}
+	}
+
 	if (SceneManager::Instance().m_gameClear)
 	{
-		KdShaderManager::Instance().WorkAmbientController().SetheightFog({ m_fogColor }, 110.0f, -200.0f, 5.0f);
-		m_brightThreshold = 0.47f;
+		KdShaderManager::Instance().WorkAmbientController().SetheightFog({ m_fogColor }, 250.0f, -200.0f, 5.0f);
+		m_brightThreshold = 0.40f;
 		m_fogEnable = true;
 		m_fogUseRange = true;
 		m_fogColor = { 0.93f, 0.86f, 0.0f };
@@ -92,6 +112,20 @@ void ConstructionSiteStage::Init()
 
 	SceneManager::Instance().SetIntroCamera(true); // カメラのイントロを開始
 
+	// イントロBGM（非ループ）: SetGameSound を使う
+	{
+		auto intro = KdAudioManager::Instance().Play(
+			"Asset/Sound/FieldBGM/ToDo_game_bgm.wav",
+			false
+		);
+		SceneManager::Instance().SetGameSound(intro);
+
+		if (intro)
+		{
+			intro->SetVolume(1.0f);
+		}
+	}
+
 	KdShaderManager::Instance().m_postProcessShader.SetBrightThreshold(m_brightThreshold);
 	KdShaderManager::Instance().WorkAmbientController().SetFogEnable(m_fogEnable, m_fogUseRange);
 	KdShaderManager::Instance().WorkAmbientController().SetDistanceFog({ m_fogColor }, m_fogDensity);
@@ -110,6 +144,7 @@ void ConstructionSiteStage::Init()
 
 	m_bossAppear = false; // ボス出現フラグを初期化
 	SceneManager::Instance().SetBossAppear(false);
+	m_bossDefeated = false; // ボス撃破フラグを初期化
 }
 
 void ConstructionSiteStage::SearchEnemy()
@@ -135,6 +170,10 @@ void ConstructionSiteStage::SearchEnemy()
 		if (auto boss = wb.lock())
 		{
 			bossExists = true;
+			if (boss->GetStatus().GetCharacterData().hp <= 0) // ボスの体力を参照
+			{
+				m_bossDefeated = true;
+			}
 			break;
 		}
 	}
@@ -159,7 +198,7 @@ void ConstructionSiteStage::SearchEnemy()
 	}
 
 	// ボスフェーズ中で、シーン上にボスが存在しなければクリア
-	if (m_bossAppear && !bossExists && !enemyExists)
+	if (m_bossAppear && m_bossDefeated && !enemyExists)
 	{
 		SceneManager::Instance().m_gameClear = true;
 	}

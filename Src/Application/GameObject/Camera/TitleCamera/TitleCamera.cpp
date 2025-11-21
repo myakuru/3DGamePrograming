@@ -24,12 +24,6 @@ void TitleCamera::PostUpdate()
 		m_mRotation = GetRotationMatrix();
 		UpdateMoveKey();
 
-		m_mWorld = m_mLocalPos * m_mRotation;
-		m_mWorld.Translation(m_position);
-		m_spCamera->SetCameraMatrix(m_mWorld);
-	}
-	else
-	{
 		float deltaTime = Application::Instance().GetDeltaTime();
 		//	カメラを行ったり来たりラープさせる
 		m_time += deltaTime * m_moveSpeed;
@@ -40,6 +34,10 @@ void TitleCamera::PostUpdate()
 
 
 		m_position = Math::Vector3::Lerp(m_startPos, m_endPos, u);
+
+		m_mWorld = m_mLocalPos * m_mRotation;
+		m_mWorld.Translation(m_position);
+		m_spCamera->SetCameraMatrix(m_mWorld);
 	}
 }
 

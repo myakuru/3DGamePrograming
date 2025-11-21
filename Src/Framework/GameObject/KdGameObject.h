@@ -10,6 +10,7 @@ enum class ObjTag : uint32_t
 	EnemyShield = 1u << 4,
 	PlayerKatana = 1u << 5,
 	PlayerScabbard = 1u << 6,
+	PlayerCamera = 1u << 7,
 };
 
 inline uint32_t ToMask(ObjTag t) { return static_cast<uint32_t>(t); }

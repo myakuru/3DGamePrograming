@@ -81,14 +81,17 @@ public:
 		auto it = m_tagBuckets.find(key);
 		if (it == m_tagBuckets.end()) return;
 
+		// it->second.size()のサイズ分だけ確保
 		out.reserve(it->second.size());
-		for (auto& w : it->second)
+
+		// 型チェックしながら追加
+		for (const auto& weakPtr : it->second)
 		{
-			if (auto sp = w.lock())
+			if (auto sharedPtr = weakPtr.lock())
 			{
-				if (sp->GetTypeID() == T::TypeID)
+				if (sharedPtr->GetTypeID() == T::TypeID)
 				{
-					out.emplace_back(std::static_pointer_cast<T>(sp));
+					out.emplace_back(std::static_pointer_cast<T>(sharedPtr));
 				}
 			}
 		}

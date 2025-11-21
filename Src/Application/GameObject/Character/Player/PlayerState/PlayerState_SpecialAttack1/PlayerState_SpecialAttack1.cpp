@@ -31,21 +31,13 @@ void PlayerState_SpecialAttack1::StateUpdate()
 	// アニメーション時間のデバッグ表示
 	{
 		m_animeTime = m_player->GetAnimator()->GetPlayProgress();
-
-		m_maxAnimeTime = m_player->GetAnimator()->GetMaxAnimationTime();
-
-		if (m_animeTime > m_maxAnimeTime)
-		{
-			KdDebugGUI::Instance().AddLog(U8("Attackアニメ時間: %f"), m_animeTime);
-			KdDebugGUI::Instance().AddLog("\n");
-		}
 	}
 
 	// 当たり判定有効時間: 最初の0.5秒のみ
 
 	if (m_animeTime >= 0.2f)
 	{
-		if (auto effect = m_smokeEffect.lock(); effect)
+		if (auto effect = m_smokeEffect.lock())
 		{
 			effect->SetPlayEffect(true);
 		}
@@ -74,7 +66,7 @@ void PlayerState_SpecialAttack1::StateUpdate()
 		m_player->UpdateQuaternionDirect(moveDir);
 	}
 
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
 		// キャラ前方からヨー角(deg)を計算してカメラ回転に反映
 		if (moveDir != Math::Vector3::Zero)
@@ -104,12 +96,12 @@ void PlayerState_SpecialAttack1::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
-	if (auto effect = m_effect.lock(); effect)
+	if (auto effect = m_effect.lock())
 	{
 		effect->SetPlayEffect(false);
 	}
 
-	if (auto effect = m_smokeEffect.lock(); effect)
+	if (auto effect = m_smokeEffect.lock())
 	{
 		effect->SetPlayEffect(false);
 	}

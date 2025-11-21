@@ -42,7 +42,7 @@ void PlayerState_JustAvoidAttack::StateStart()
 	SceneManager::Instance().GetObjectWeakPtr(m_justAvoidAttackEffect);
 
 	// 残像の設定
-	m_player->GetAfterImage()->AddAfterImage(true, 5, 1, Math::Color(0.0f, 1.0f, 1.0f, 0.5f));
+	m_player->GetAfterImage()->AddAfterImage(true, 10, 3.0f, Math::Color(0.0f, 2.0f, 2.0f, 0.5f));
 
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
@@ -83,8 +83,8 @@ void PlayerState_JustAvoidAttack::StateUpdate()
 	}
 	PlayerStateBase::StateUpdate();
 
-	// 当たり判定有効時間: 最初の0.5秒のみ
-	m_player->UpdateAttackCollision(8.0f, 1.0f, 5, 0.1f, { 0.3f, 0.3f }, 0.3f);
+	// 当たり判定有効時間: 1.2秒
+	m_player->UpdateAttackCollision(10.0f, 7.0f, 6, 0.2f, { 0.4f, 0.4f }, 0.5f, 0.0f, 1.2f);
 
 	UpdateKatanaPos();
 

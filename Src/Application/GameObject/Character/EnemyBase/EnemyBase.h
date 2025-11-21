@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "../CharacterBase.h"
 class Player;
+class EnemyHitEffect;
+
 class EnemyBase : public CharacterBase
 {
 public:
@@ -45,5 +47,10 @@ protected:
 	float m_attackRadius = 1.5f;		// 攻撃判定の半径
 	float m_attackFrame = 0.0f;			// 攻撃判定フレーム
 	float m_chargeAttackTimer = 0.0f;	// 経過時間
+
+	// ブラーを発生させる時間
+	float m_blurTime = 0.0f;
+
+	std::weak_ptr<EnemyHitEffect> m_hitEffect;
 
 };

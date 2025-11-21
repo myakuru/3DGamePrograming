@@ -78,7 +78,7 @@ public:
 		m_currentScene->GetObjectWeakPtrListByTagInSphereFromBuckets(tag, center, radius, outPtrList);
 	}
 
-	// タグで全取得（型付き・ダウンキャスト不要）
+	// タグで全取得
 	template <class T>
 	void GetObjectWeakPtrListByTag(ObjTag tag, std::vector<std::weak_ptr<T>>& outPtrList)
 	{
@@ -86,7 +86,6 @@ public:
 		if (!m_currentScene) return;
 
 		// BaseScene 側のテンプレートAPIは vector を受け取り、型 T のみを収集する
-		// list を渡していたため解決できず C2672 が発生していました
 		m_currentScene->GetObjectWeakPtrListByTagFromBuckets<T>(tag, outPtrList);
 	}
 

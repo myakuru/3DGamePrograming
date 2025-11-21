@@ -41,4 +41,6 @@ private:
 	bool m_enemyExists = false;
 	bool m_bossExists = false;
 
+	bool m_bossDefeated = false;
+
 };

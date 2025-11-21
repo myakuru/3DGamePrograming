@@ -41,6 +41,11 @@ void ResultScene::Init()
 
 	Time::Instance().StartTimer();
 
+	if (auto bgm = SceneManager::Instance().GetGameSound())
+	{
+		bgm->SetPitch(0.0f);
+	}
+
 	KdShaderManager::Instance().m_postProcessShader.SetBrightThreshold(m_brightThreshold);
 	KdShaderManager::Instance().WorkAmbientController().SetFogEnable(m_fogEnable, m_fogUseRange);
 	KdShaderManager::Instance().WorkAmbientController().SetDistanceFog({ m_fogColor }, m_fogDensity);

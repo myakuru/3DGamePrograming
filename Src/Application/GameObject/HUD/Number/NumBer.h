@@ -19,5 +19,5 @@ private:
 	int m_displayTime = 0;
 	bool m_isIncreasing = false;
 
-	std::weak_ptr<Player> m_player;
+	std::vector<std::weak_ptr<Player>> m_playerList;
 };

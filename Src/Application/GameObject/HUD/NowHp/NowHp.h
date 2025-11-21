@@ -16,7 +16,7 @@ private:
 	void Update() override;
 	void DrawSprite() override;
 
-	std::weak_ptr<Player> m_player;
+	std::vector<std::weak_ptr<Player>> m_playerList;
 
 	int m_displayTime = 0;
 	bool m_isIncreasing = false;

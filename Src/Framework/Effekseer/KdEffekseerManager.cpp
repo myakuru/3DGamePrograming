@@ -239,12 +239,12 @@ std::weak_ptr<KdEffekseerObject> KdEffekseerManager::Play(const PlayEfkInfo& inf
 	if (info.UseWorldMatrix)
 	{
 		SetWorldMatrix(handle, info.World);
-		m_efkManager->SetSpeed(handle, info.Speed * deltaTime);
+		m_efkManager->SetSpeed(handle, info.Speed);
 	}
 	else
 	{
 		m_efkManager->SetScale(handle, info.Size.x, info.Size.y, info.Size.z);
-		m_efkManager->SetSpeed(handle, info.Speed * deltaTime);
+		m_efkManager->SetSpeed(handle, info.Speed);
 		Math::Vector3 rotate = ConvertToRadian(info.Rotate);
 		m_efkManager->SetRotation(handle, rotate.x, rotate.y, rotate.z);
 	}
@@ -270,7 +270,7 @@ void KdEffekseerManager::UpdateEffekseerEffect()
 {
 	if (m_isPause) { return; }
 
-	m_efkManager->Update();
+	m_efkManager->Update(Application::Instance().GetUnscaledDeltaTime());
 
 	// ループ再生監視
 	{

@@ -84,7 +84,7 @@ void CharacterBase::Update()
 
 	float deltaTime = Application::Instance().GetDeltaTime();
 
-	m_animator->AdvanceTime(m_modelWork->WorkNodes(), m_physics.fixedFrameRate * deltaTime);
+	m_animator->AdvanceTime(m_modelWork->WorkNodes(), m_physics.fixedFrameRate * deltaTime * m_physics.hitStop);
 	m_modelWork->CalcNodeMatrices();
 
 	// 重力更新

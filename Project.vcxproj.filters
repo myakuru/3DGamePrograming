@@ -328,9 +328,6 @@
     <Filter Include="Src\MyFramework\RegisterObject">
       <UniqueIdentifier>{7ee7aac8-f4d5-4d75-8dbd-7532ec2bbc87}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Scene\ConstructionSiteStage">
-      <UniqueIdentifier>{51cbabc9-3839-42ea-9a72-3aec80705ad9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\Character">
       <UniqueIdentifier>{25ed2d0a-2c8c-45f6-add7-447f17fe4783}</UniqueIdentifier>
     </Filter>
@@ -519,6 +516,9 @@
     </Filter>
     <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AvoidAttack">
       <UniqueIdentifier>{81d92776-12ab-4dd6-bb5c-5377408da1be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Scene\BaseScene\ConstructionSiteStage">
+      <UniqueIdentifier>{51cbabc9-3839-42ea-9a72-3aec80705ad9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1030,7 +1030,7 @@
       <Filter>Src\MyFramework\Manager\ImGuiManager</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Scene\ConstructionSiteStage\ConstructionSiteStage.h">
-      <Filter>Src\Application\Scene\ConstructionSiteStage</Filter>
+      <Filter>Src\Application\Scene\BaseScene\ConstructionSiteStage</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\EnemyBase.h">
       <Filter>Src\Application\GameObject\Character\EnemyBase</Filter>
@@ -1602,7 +1602,7 @@
       <Filter>Src\MyFramework\Manager\ImGuiManager</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Scene\ConstructionSiteStage\ConstructionSiteStage.cpp">
-      <Filter>Src\Application\Scene\ConstructionSiteStage</Filter>
+      <Filter>Src\Application\Scene\BaseScene\ConstructionSiteStage</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\EnemyBase.cpp">
       <Filter>Src\Application\GameObject\Character\EnemyBase</Filter>

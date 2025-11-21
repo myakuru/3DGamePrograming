@@ -26,7 +26,7 @@ void PlayerState_BackWordAvoid::StateStart()
 
 	SceneManager::Instance().GetObjectWeakPtr(m_bossEnemy);
 
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
 		if (auto bossEnemy = m_bossEnemy.lock(); bossEnemy)
 		{
@@ -73,6 +73,11 @@ void PlayerState_BackWordAvoid::StateUpdate()
 		}
 
 		m_afterImagePlayed = true;
+
+		if (auto camera = m_player->GetPlayerCamera().lock())
+		{
+			camera->SetTargetLookAt({ 0.0f, 0.7f, -1.2f });
+		}
 
 		// 残像
 		m_player->GetAfterImage()->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.5f));
@@ -127,6 +132,11 @@ void PlayerState_BackWordAvoid::StateUpdate()
 
 		m_player->SetJustAvoidAttackSuccess(false);
 
+		if (auto bgm = SceneManager::Instance().GetGameSound())
+		{
+			bgm->SetPitch(0.0f);
+		}
+
 		// スローモーション解除（ここを終点にする）
 		Application::Instance().SetFpsScale(1.f);
 		SceneManager::Instance().SetDrawGrayScale(false);
@@ -156,8 +166,12 @@ void PlayerState_BackWordAvoid::StateUpdate()
 
 void PlayerState_BackWordAvoid::StateEnd()
 {
-
 	PlayerStateBase::StateEnd();
+
+	if (auto camera = m_player->GetPlayerCamera().lock())
+	{
+		camera->SetTargetLookAt(m_cameraTargetOffset);
+	}
 
 	m_player->SetAvoidFlg(false);
 	m_player->SetAvoidStartTime(0.0f); // 現在の時間を記録

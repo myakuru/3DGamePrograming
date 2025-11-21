@@ -10,7 +10,9 @@
 #include"BossEnemyState/BossEnemyState_Enter/BossEnemyState_Enter.h"
 #include"BossEnemyState/BossEnemyState_Hit/BossEnemyState_Hit.h"
 #include"../BossEnemy/BossEnemyState/BossEnemyState_Dodge/BossEnemyState_Dodge.h"
-#include "Application\Data\CharacterData\CharacterData.h"
+#include "Application/Data/CharacterData/CharacterData.h"
+
+#include"Application/GameObject/Effect/EffekseerEffect/EnemyHitEffect/EnemyHitEffect.h"
 
 const uint32_t BossEnemy::TypeID = KdGameObject::GenerateTypeID();
 
@@ -92,12 +94,71 @@ void BossEnemy::Update()
 	{
 		m_isHit = false;
 
-		if (m_invincible) return;
+		// ヒットエフェクト再生
+		if (auto hitEffect = m_hitEffect.lock())
+		{
+			if (auto me = std::static_pointer_cast<BossEnemy>(GetMyAdls()))
+			{
+				hitEffect->PlayForBossEnemy(me);
+			}
+		}
 
-		// ダメージステートに変更
+		// ヒット演出
+		m_enableRadialBlur = true;
+		m_blurTime = 0.0f;
+
+		// 無敵中なら累積だけリセットして終了
+		if (GetInvincible())
+		{
+			ResetHitCount();
+			return;
+		}
+
+		// Hitステートへ遷移
 		auto spDamageState = std::make_shared<BossEnemyState_Hit>();
 		ChangeState(spDamageState);
 		return;
+	}
+
+	// --- 毎フレームのブラー管理 ---
+	if (m_enableRadialBlur)
+	{
+		m_blurTime += Application::Instance().GetUnscaledDeltaTime();
+
+		if (m_blurTime <= 0.1f)
+		{
+			m_physics.hitStop = 0.0f; // ヒットストップ時間
+		}
+		else
+		{
+			m_physics.hitStop = 1.0f; // ヒットストップ解除
+		}
+
+		if (m_blurTime <= 0.3f) // ブラー持続時間
+		{
+			KdShaderManager::Instance().m_postProcessShader.SetRadialBlur(0.1f, 2.0f, { 0.5f,0.55f });
+			KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(true);
+
+			if (static_cast<int>(std::floor(m_blurTime)) % 10 == 0)
+			{
+				Math::Vector3 jitter = {
+					KdRandom::GetFloat(-0.1f, 0.1f),	// X軸揺れ
+					KdRandom::GetFloat(-0.1f, 0.1f),	// Y軸揺れ
+					KdRandom::GetFloat(-0.1f, 0.1f)		// Z軸揺れ
+				};
+
+				Math::Vector3 effective = jitter * 0.5f; // 揺れの強さ調整
+				m_mWorld.Translation(m_position + effective);
+			}
+		}
+		else
+		{
+			m_enableRadialBlur = false;
+			m_blurTime = 0.0f;
+			m_mWorld.Translation(m_position);
+
+			KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(false);
+		}
 	}
 
 	// ダメージが半分以下になったら攻撃状態を遷移

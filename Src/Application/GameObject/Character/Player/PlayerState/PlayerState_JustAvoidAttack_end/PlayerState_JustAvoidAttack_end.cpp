@@ -41,6 +41,9 @@ void PlayerState_JustAvoidAttack_end::StateStart()
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
 
+	// 無敵状態にする
+	m_player->SetInvincible(true);
+
 	SceneManager::Instance().GetObjectWeakPtr(m_bossEnemy);
 }
 
@@ -57,7 +60,7 @@ void PlayerState_JustAvoidAttack_end::StateUpdate()
 	}
 
 	// 当たり判定有効時間: 最初の0.5秒のみ
-	m_player->UpdateAttackCollision(8.0f, 1.0f, 5, 0.1f, { 0.3f, 0.3f }, 0.3f);
+	m_player->UpdateAttackCollision(10.0f, 7.0f, 6, 0.2f, { 0.4f, 0.4f }, 0.5f, 0.0f, 1.2f);
 
 	UpdateKatanaPos();
 

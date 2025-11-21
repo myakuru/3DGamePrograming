@@ -33,6 +33,7 @@ public:
 	// 移動ベクトルを設定
 	void SetIsMoving(Math::Vector3 _move);
 	const Math::Vector3& GetMovement() const;
+	const bool GetIsMoving() const { return m_movement.isMoving; }
 
 	Math::Matrix& GetRotationMatrix();
 	void SetRotation(const Math::Quaternion& _rotation);
@@ -80,10 +81,11 @@ protected:
 
 	struct MovementState
 	{
-		Math::Vector3 movement	= Math::Vector3::Zero;	// 現在の移動ベクトル
-		float moveSpeed			= 0.0f;					// 移動速度
-		float rotateSpeed		= 0.0f;					// 回転速度
-		Math::Vector3 lastDir	= Math::Vector3::Zero;	// 最後に移動した方向ベクトル
+		Math::Vector3 movement		= Math::Vector3::Zero;	// 現在の移動ベクトル
+		float moveSpeed				= 0.0f;					// 移動速度
+		float rotateSpeed			= 0.0f;					// 回転速度
+		Math::Vector3 lastDir		= Math::Vector3::Zero;	// 最後に移動した方向ベクトル
+		bool isMoving				= false;				// 移動中かどうか
 	};
 
 	struct PhysicsState
@@ -91,6 +93,7 @@ protected:
 		float gravity		 = 0.0f;	// 重力加速度
 		float gravitySpeed	 = 0.0f;	// 現在の重力速度
 		float fixedFrameRate = 0.0f;    // 60fps換算等
+		float hitStop = 1.0f;    // ヒットストップ時間
 	};
 
 	struct RaycastState
@@ -101,7 +104,7 @@ protected:
 		float forwardRayExtra		= 0.05f;	// 余剰距離(浮動小数ヒット安定用)
 		float bumpSphereRadius		= 0.2f;		// 壁めり込み防止球の半径
 		float bumpSphereYOffset		= 0.3f;		// プレイヤー中心(腰程度)の高さ
-		float collisionMargin		= 1.0f;	// 壁にめり込まないための余白
+		float collisionMargin		= 1.0f;		// 壁にめり込まないための余白
 	};
 
 	struct RenderingState

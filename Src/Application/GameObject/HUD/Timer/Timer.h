@@ -35,4 +35,6 @@ private:
 	// リザルト開始時に一度だけ初期化するためのフラグと開始時間
 	bool  m_resultScaleInited = false;
 
+	const float MAX_Y_POS = 365.0f;
+
 };

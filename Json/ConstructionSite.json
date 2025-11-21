@@ -76,9 +76,9 @@
     "moveSpeed": 0.14000000059604645,
     "path": "Asset\\Models\\Player\\Sapphy\\Sapphy.gltf",
     "pos": {
-      "x": 5.296813488006592,
+      "x": 5.074254035949707,
       "y": 100.99998474121094,
-      "z": -2.184563636779785
+      "z": -3.389714479446411
     },
     "rotateSpeed": 30.0,
     "scale": {
@@ -171,15 +171,15 @@
       "z": 1.0
     },
     "deg": {
-      "x": 23.39999771118164,
-      "y": 302.45001220703125,
+      "x": 7.200003623962402,
+      "y": 326.74981689453125,
       "z": 0.0
     },
     "fov": 70.0,
     "m_cameraPos": {
-      "x": 5.296813488006592,
+      "x": 5.074254989624023,
       "y": 100.99998474121094,
-      "z": -2.184563636779785
+      "z": -3.3897149562835693
     },
     "moveSpeed": 50.0,
     "path": "Asset/Models/Sky/Sky.gltf",
@@ -198,7 +198,7 @@
     "targetLookAt": {
       "x": 0.0,
       "y": 1.0,
-      "z": -2.4999992847442627
+      "z": -2.499999523162842
     },
     "type": 32
   },
@@ -563,7 +563,7 @@
     "type": 9
   },
   {
-    "EffectSpeed": 5.0,
+    "EffectSpeed": 3.0,
     "Name": "class AttacEffect1",
     "color": {
       "w": 1.0,
@@ -579,9 +579,9 @@
     "distance": 3.5,
     "effectColor": {
       "w": 0.3921568691730499,
-      "x": 0.7843137383460999,
-      "y": 0.7843137383460999,
-      "z": 0.7843137383460999
+      "x": 1.9607843160629272,
+      "y": 1.9607843160629272,
+      "z": 1.9607843160629272
     },
     "path": "Asset\\Data\\Effect\\EVFX_Slash\\VFX\\effects\\EVFX02_13_ArcBlade.efkefc",
     "pos": {
@@ -597,7 +597,7 @@
     "type": 9
   },
   {
-    "EffectSpeed": 4.0,
+    "EffectSpeed": 2.0,
     "Name": "class SmokeEffect",
     "color": {
       "w": 1.0,
@@ -665,7 +665,7 @@
     "type": 13
   },
   {
-    "EffectSpeed": 4.0,
+    "EffectSpeed": 3.0,
     "Name": "class GroundFreezes",
     "color": {
       "w": 1.0,
@@ -767,7 +767,7 @@
     "type": 16
   },
   {
-    "EffectSpeed": 7.0,
+    "EffectSpeed": 3.0,
     "Name": "class Rotation",
     "color": {
       "w": 1.0,
@@ -783,9 +783,9 @@
     "distance": 0.0,
     "effectColor": {
       "w": 0.3921568691730499,
-      "x": 0.6470588445663452,
-      "y": 0.7404845356941223,
-      "z": 1.0
+      "x": 1.9607843160629272,
+      "y": 1.9607843160629272,
+      "z": 1.9607843160629272
     },
     "path": "Asset\\Data\\Effect\\EVFX_Slash\\VFX\\effects\\EVFX02_15_SweepBlade.efkefc",
     "pos": {
@@ -801,7 +801,7 @@
     "type": 13
   },
   {
-    "EffectSpeed": 3.0,
+    "EffectSpeed": 2.0,
     "Name": "class SlashAttack2Effect",
     "color": {
       "w": 1.0,
@@ -814,12 +814,12 @@
       "y": 0.0,
       "z": 0.0
     },
-    "distance": 3.5,
+    "distance": 2.0,
     "effectColor": {
       "w": 0.3921568691730499,
-      "x": 0.7058823108673096,
-      "y": 0.8529414534568787,
-      "z": 1.0
+      "x": 1.9607843160629272,
+      "y": 1.9607843160629272,
+      "z": 1.9607843160629272
     },
     "path": "Asset\\Data\\Effect\\Shine\\VFX\\EVFXForge15_10_ShineforgeSlash.efkefc",
     "pos": {
@@ -835,41 +835,7 @@
     "type": 16
   },
   {
-    "EffectSpeed": 3.0,
-    "Name": "class AvoidAttackSlashEffect",
-    "color": {
-      "w": 1.0,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "deg": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "distance": 0.0,
-    "effectColor": {
-      "w": 1.0,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "path": "Asset\\Data\\Effect\\SampleEffect\\SwordFlash.efkefc",
-    "pos": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "scale": {
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "type": 10
-  },
-  {
-    "EffectSpeed": 10.0,
+    "EffectSpeed": 2.0,
     "Name": "class ESkillEffect",
     "color": {
       "w": 1.0,
@@ -903,7 +869,7 @@
     "type": 32
   },
   {
-    "EffectSpeed": 4.0,
+    "EffectSpeed": 3.0,
     "Name": "class SpecialAttack",
     "color": {
       "w": 1.0,
@@ -931,7 +897,7 @@
     },
     "scale": {
       "x": 0.5,
-      "y": 0.5,
+      "y": 0.699999988079071,
       "z": 0.5
     },
     "type": 21
@@ -1081,7 +1047,7 @@
     "type": 32
   },
   {
-    "EffectSpeed": 5.0,
+    "EffectSpeed": 3.0,
     "Name": "class SpecialAttack1",
     "color": {
       "w": 1.0,
@@ -1094,9 +1060,9 @@
       "y": 0.0,
       "z": 0.0
     },
-    "distance": 7.0,
+    "distance": 5.0,
     "effectColor": {
-      "w": 0.3921568691730499,
+      "w": 0.5882353186607361,
       "x": 0.7843137383460999,
       "y": 0.7843137383460999,
       "z": 0.7843137383460999
@@ -1104,7 +1070,7 @@
     "path": "Asset\\Data\\Effect\\Spellblade\\Last.efkefc",
     "pos": {
       "x": 0.0,
-      "y": 3.0,
+      "y": 2.0,
       "z": 0.0
     },
     "scale": {
@@ -1407,7 +1373,7 @@
     "type": 32
   },
   {
-    "EffectSpeed": 1.0,
+    "EffectSpeed": 3.0,
     "Name": "class ChargeAttackEffect",
     "color": {
       "w": 1.0,
@@ -1434,14 +1400,14 @@
       "z": 0.0
     },
     "scale": {
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
     },
     "type": 32
   },
   {
-    "EffectSpeed": 1.0,
+    "EffectSpeed": 4.0,
     "Name": "class ChargeAttackEffect_end",
     "color": {
       "w": 1.0,
@@ -1464,13 +1430,13 @@
     "path": "Asset\\Data\\Effect\\Spellblade\\SlashAll.efkefc",
     "pos": {
       "x": 0.0,
-      "y": 2.0,
+      "y": 1.0,
       "z": 0.0
     },
     "scale": {
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
+      "x": 0.800000011920929,
+      "y": 0.800000011920929,
+      "z": 0.800000011920929
     },
     "type": 32
   },
@@ -1578,7 +1544,7 @@
     "path": "Asset\\Textures\\GameUI\\Designer.png",
     "pos": {
       "x": 333.5,
-      "y": 173.06417846679688,
+      "y": 223.06399536132813,
       "z": 0.0
     },
     "scale": {
@@ -1611,7 +1577,7 @@
     "path": "Asset\\Textures\\GameUI\\Score.png",
     "pos": {
       "x": 654.0,
-      "y": 169.96209716796875,
+      "y": 220.0,
       "z": 0.0
     },
     "scale": {
@@ -1644,7 +1610,7 @@
     "path": "Asset\\Textures\\GameUI\\Bar.png",
     "pos": {
       "x": 470.0,
-      "y": 236.7448272705078,
+      "y": 304.44500732421875,
       "z": 0.0
     },
     "scale": {
@@ -1677,7 +1643,7 @@
     "path": "Asset\\Textures\\Time\\Digit01.png",
     "pos": {
       "x": 650.0,
-      "y": 279.9141845703125,
+      "y": 365.114013671875,
       "z": 0.0
     },
     "scale": {
@@ -1850,7 +1816,7 @@
     "type": 32
   },
   {
-    "EffectSpeed": 4.0,
+    "EffectSpeed": 3.0,
     "Name": "class SpecialAttackSmoke",
     "color": {
       "w": 1.0,
@@ -1866,9 +1832,9 @@
     "distance": 5.0,
     "effectColor": {
       "w": 0.7843137383460999,
-      "x": 0.4901960790157318,
-      "y": 0.9803921580314636,
-      "z": 0.9803921580314636
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
     },
     "path": "Asset\\Data\\Effect\\Spellblade\\SmokeWindow.efkefc",
     "pos": {
@@ -6191,7 +6157,7 @@
   {
     "Name": "class MapGard",
     "color": {
-      "w": 0.800000011920929,
+      "w": 1.0,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -6225,7 +6191,7 @@
   {
     "Name": "class MapGard",
     "color": {
-      "w": 0.800000011920929,
+      "w": 1.0,
       "x": 0.800000011920929,
       "y": 0.800000011920929,
       "z": 0.800000011920929
@@ -6425,9 +6391,9 @@
     "moveSpeed": 0.05000000074505806,
     "path": "Asset\\Models\\Enemy\\Aetherius\\Aetherius.gltf",
     "pos": {
-      "x": 1.6011601686477661,
+      "x": 1.085354208946228,
       "y": 101.19999694824219,
-      "z": 14.341357231140137
+      "z": 14.079693794250488
     },
     "rotationspeed": 10.0,
     "scale": {
@@ -8651,7 +8617,7 @@
     "type": 32
   },
   {
-    "EffectSpeed": 4.0,
+    "EffectSpeed": 3.0,
     "Name": "class EnemyHitEffect",
     "color": {
       "w": 1.0,

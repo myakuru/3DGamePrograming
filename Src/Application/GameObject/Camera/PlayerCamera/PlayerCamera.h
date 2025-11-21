@@ -8,7 +8,7 @@ public:
 
 	static const uint32_t TypeID;
 
-	PlayerCamera() { m_typeID = TypeID; }
+	PlayerCamera() { m_typeID = TypeID;  AddTag(ObjTag::PlayerCamera); }
 	~PlayerCamera() override = default;
 
 	uint32_t GetTypeID() const override { return m_typeID; }

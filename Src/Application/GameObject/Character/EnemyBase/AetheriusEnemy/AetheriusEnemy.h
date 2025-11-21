@@ -4,7 +4,6 @@ class EnemyStateBase;
 class Player;
 class EnemySword;
 class EnemyShield;
-class EnemyHitEffect;
 
 class AetheriusEnemy :public EnemyBase
 {
@@ -93,10 +92,5 @@ private:
 
 	std::vector<std::weak_ptr<EnemySword>> m_enemySwords; // 敵の剣
 	std::vector<std::weak_ptr<EnemyShield>> m_enemyShields; // 敵の盾
-
-	std::weak_ptr<EnemyHitEffect> m_hitEffect;
-
-	// ブラーを発生させる時間
-	float m_blurTime = 0.0f;
 
 };

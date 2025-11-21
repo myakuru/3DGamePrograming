@@ -226,6 +226,8 @@ void Player::CollisionUpdate()
 
 void Player::Update()
 {
+	if (SceneManager::Instance().GetCurrentScene()->GetSceneName() == "Title") return;
+
 	auto &sceneManager = SceneManager::Instance();
 
 	sceneManager.GetObjectWeakPtr(m_refs.playerCamera);
@@ -354,7 +356,7 @@ void Player::UpdateAttackCollision(float _radius        , float         _distanc
 	Math::Vector3 forward = Math::Vector3::TransformNormal(Math::Vector3::Forward, Math::Matrix::CreateFromQuaternion(m_rotation));
 	forward.Normalize();
 
-	const float deltaTime = Application::Instance().GetDeltaTime();
+	const float deltaTime = Application::Instance().GetUnscaledDeltaTime();
 
 	KdCollider::SphereInfo attackSphere = {};
 	attackSphere.m_sphere.Center = m_position + Math::Vector3(0.0f, 0.5f, 0.0f) + forward * _distance;
@@ -557,6 +559,15 @@ void Player::UpdateMoveDirectionFromInput()
 	// 片方のみ押されている場合だけ加算（排他的）
 	if (w || s) m_movement.movement += w ? Math::Vector3::Backward : Math::Vector3::Forward;
 	if (a || d) m_movement.movement += a ? Math::Vector3::Left : Math::Vector3::Right;
+
+	if (!(kb.IsKeyPressed('W') || kb.IsKeyPressed('S') || kb.IsKeyPressed('A') || kb.IsKeyPressed('D')))
+	{
+		m_movement.isMoving = false;
+	}
+	else
+	{
+		m_movement.isMoving = true;
+	}
 
 	if (m_movement.movement.LengthSquared() > 0.0f)
 	{

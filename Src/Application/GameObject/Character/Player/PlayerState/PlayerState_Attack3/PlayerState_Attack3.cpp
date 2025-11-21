@@ -73,18 +73,6 @@ void PlayerState_Attack3::StateUpdate()
 	// アニメーション時間のデバッグ表示
 	{
 		m_animeTime = m_player->GetAnimator()->GetPlayProgress();
-
-		m_maxAnimeTime = m_player->GetAnimator()->GetMaxAnimationTime();
-
-		if (m_animeTime > m_maxAnimeTime)
-		{
-			KdDebugGUI::Instance().AddLog(U8("Attack3アニメ時間: %f"), m_animeTime);
-			KdDebugGUI::Instance().AddLog("\n");
-		}
-		else
-		{
-			m_animeTime = m_maxAnimeTime;
-		}
 	}
 
 	if (m_animeTime >= 0.0f && m_animeTime <= 0.25f)
@@ -112,6 +100,8 @@ void PlayerState_Attack3::StateUpdate()
 
 	// 0.5秒間当たり判定有効
 	m_player->UpdateAttackCollision(5.0f, 2.0f, 5, m_maxAnimeTime, { 0.2f, 0.0f }, 0.3f);
+
+	m_player->UpdateMoveDirectionFromInput();
 
 	// 回避入力処理
 	if (UpdateMoveAvoidInput()) return;

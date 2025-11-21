@@ -63,7 +63,9 @@ void PlayerState_Attack1::StateUpdate()
 
 	// 0.5秒間当たり判定有効
 	m_player->UpdateAttackCollision(1.0f, 1.0f, 1, 0.1f, { 0.2f, 0.2f }, 0.2f);
-	
+
+	m_player->UpdateMoveDirectionFromInput();
+
 	// 回避入力処理
 	if (UpdateMoveAvoidInput()) return;
 

@@ -1,6 +1,7 @@
 ﻿#include"../EffekseerEffectBase.h"
 class AetheriusEnemy;
 class KdEffekseerObject;
+class BossEnemy;
 
 class EnemyHitEffect : public EffekseerEffectBase
 {
@@ -13,8 +14,9 @@ public:
 	void Update() override;
 	void EffectUpdate() override;
 
-	// 追加: 指定エネミーに対してエフェクトを即時再生
+	// 指定エネミーに対してエフェクトを即時再生
 	void PlayForEnemy(const std::shared_ptr<AetheriusEnemy>& enemy);
+	void PlayForBossEnemy(const std::shared_ptr<BossEnemy>& enemy);
 
 private:
 	std::vector<std::weak_ptr<AetheriusEnemy>> m_enemies;

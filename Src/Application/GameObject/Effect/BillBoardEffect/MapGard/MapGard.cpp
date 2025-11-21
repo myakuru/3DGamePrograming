@@ -23,7 +23,7 @@ void MapGard::Init()
 void MapGard::Update()
 {
 	// プレイヤーとの距離（実距離で比較するように修正）
-	if (auto player = m_player.lock(); player)
+	if (auto player = m_player.lock())
 	{
 		m_playerDistance = (player->GetPos() - m_position).Length();
 	}
@@ -47,7 +47,7 @@ void MapGard::Update()
 		KdRandom::GetFloat(-0.1f, 0.1f),
 		KdRandom::GetFloat(-0.1f, 0.1f)
 	};
-	m_offset = jitter; // 必要なら保持。使用しないなら代入を省略可。
+	m_offset = jitter;
 
 	// カメラが存在するなら
 	if (auto spCamera = m_camera.lock(); spCamera)

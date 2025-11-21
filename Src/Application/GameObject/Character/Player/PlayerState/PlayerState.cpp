@@ -274,11 +274,8 @@ bool PlayerStateBase::UpdateMoveAvoidInput()
 		}
 
 		// 短押し判定
-		if (m_rButtonKeyInput &&
-			KeyboardManager::GetInstance().IsKeyJustReleased(VK_RBUTTON)&&
-			!KeyboardManager::GetInstance().IsKeyPressed('W'))
+		if (m_rButtonKeyInput && KeyboardManager::GetInstance().IsKeyJustReleased(VK_RBUTTON) && !m_player->GetIsMoving())
 		{
-
 			if (rDuration >= kShortPressMin && rDuration < kLongPressThreshold)
 			{
 				m_rButtonKeyInput = false;
@@ -292,8 +289,9 @@ bool PlayerStateBase::UpdateMoveAvoidInput()
 		}
 
 		if (m_rButtonKeyInput &&
-			KeyboardManager::GetInstance().IsKeyJustReleased(VK_RBUTTON)&&
-			KeyboardManager::GetInstance().IsKeyPressed('W'))
+			KeyboardManager::GetInstance().IsKeyJustReleased(VK_RBUTTON) &&
+			m_player->GetIsMoving()
+			)
 		{
 			if (rDuration >= kShortPressMin && rDuration < kLongPressThreshold)
 			{
