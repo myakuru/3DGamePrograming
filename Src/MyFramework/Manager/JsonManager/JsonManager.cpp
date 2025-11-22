@@ -43,7 +43,7 @@ void JsonManager::AllSave() const
 std::shared_ptr<KdGameObject> JsonManager::AddJsonObject(const std::string& _className, const nlohmann::json& _json, bool _addToScene) const
 {
 
-	const auto& classMap = RegisterObject::GetInstance().m_ClassNameToID;
+	const auto& classMap = RegisterObject::GetInstance().GetClassNameToID();
 	auto it = classMap.find(_className);
 	if (it != classMap.end())
 	{

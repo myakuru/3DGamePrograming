@@ -30,10 +30,14 @@ public:
 		return m_RegisterObject;
 	}
 
-	std::map<std::string, uint32_t, std::less<>> m_ClassNameToID; // クラス名からID
+	const auto& GetClassNameToID() const
+	{
+		return m_ClassNameToID;
+	}
 
 private:
 	std::map<uint32_t, std::function<std::shared_ptr<KdGameObject>()>> m_RegisterObject;
+	std::map<std::string, uint32_t, std::less<>> m_ClassNameToID; // クラス名からID
 
 public:
 	// シングルトンインスタンスを取得する関数

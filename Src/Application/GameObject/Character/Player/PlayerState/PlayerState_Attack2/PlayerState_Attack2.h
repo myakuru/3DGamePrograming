@@ -13,7 +13,6 @@ private:
 	void StateUpdate() override;
 	void StateEnd() override;
 
-	PlayerState_AttackParameter m_attackParam;
 
 	std::weak_ptr<AttacEffect1> m_slashEffect;
 

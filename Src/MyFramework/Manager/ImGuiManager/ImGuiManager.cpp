@@ -282,7 +282,7 @@ std::string ImGuiManager::ImSelectClass() const
 	// ImGuiのコンボボックスを作成
 	if (ImGui::BeginCombo("##Class", currentName.data()))
 	{
-		for (const auto& [name, id] : RegisterObject::GetInstance().m_ClassNameToID)
+		for (const auto& [name, id] : RegisterObject::GetInstance().GetClassNameToID())
 		{
 			bool selected = (currentName == name);
 			if (ImGui::Selectable(name.c_str(), selected)) currentName = name;

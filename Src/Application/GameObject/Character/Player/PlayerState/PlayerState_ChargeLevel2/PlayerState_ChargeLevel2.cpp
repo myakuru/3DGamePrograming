@@ -17,17 +17,10 @@ void PlayerState_ChargeLevel2::StateStart()
 	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
 	PlayerStateBase::StateStart();
 
-
-	// 当たり判定リセット
-	m_player->ResetAttackCollision();
-}
-
-void PlayerState_ChargeLevel2::StateUpdate()
-{
 	SceneManager::Instance().GetObjectWeakPtr(m_effect);
 	SceneManager::Instance().GetObjectWeakPtr(m_smokeEffect);
 	SceneManager::Instance().GetObjectWeakPtr(m_shineEffect);
-	
+
 	auto smokeEffect = m_smokeEffect.lock();
 	auto shineEffect = m_shineEffect.lock();
 
@@ -39,6 +32,34 @@ void PlayerState_ChargeLevel2::StateUpdate()
 		smokeEffect->SetPlayEffect(true);
 		// キラキラエフェクトの再生
 		shineEffect->SetPlayEffect(true);
+	}
+
+	if (auto camera = m_player->GetPlayerCamera().lock())
+	{
+		camera->SetTargetLookAt({ 0.f,0.5f,-1.8f });
+	}
+
+	// 当たり判定リセット
+	m_player->ResetAttackCollision();
+}
+
+void PlayerState_ChargeLevel2::StateUpdate()
+{
+	m_animeTime = m_player->GetAnimator()->GetPlayProgress();
+
+	// スローモーション処理
+	if (m_animeTime >= 0.5f && m_animeTime <= 0.6f)
+	{
+		m_time += Application::Instance().GetUnscaledDeltaTime();
+
+		if (m_time >= 0.0f && m_time <= 0.1f)
+		{
+			Application::Instance().SetFpsScale(0.1f);
+		}
+		else
+		{
+			Application::Instance().SetFpsScale(1.0f);
+		}
 	}
 
 	// 当たり判定

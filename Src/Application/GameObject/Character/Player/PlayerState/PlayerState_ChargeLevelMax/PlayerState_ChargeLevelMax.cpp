@@ -22,9 +22,9 @@ void PlayerState_ChargeLevelMax::StateStart()
 
 	m_time = 0.0f;
 
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
-		camera->SetTargetLookAt({ 0.f,1.f,-2.0f });
+		camera->SetTargetLookAt({ 0.f,0.5f,-1.7f });
 	}
 
 	SceneManager::Instance().GetObjectWeakPtr(m_shineEffect);
@@ -40,11 +40,31 @@ void PlayerState_ChargeLevelMax::StateStart()
 		effect->SetPlayEffect(true);
 	}
 
+	// アニメーション速度を変更
+	m_player->SetAnimeSpeed(60.0f);
+
 	KdAudioManager::Instance().Play("Asset/Sound/Player/Charge.WAV", false)->SetVolume(1.0f);
 }
 
 void PlayerState_ChargeLevelMax::StateUpdate()
 {
+	m_animeTime = m_player->GetAnimator()->GetPlayProgress();
+
+	// スローモーション処理
+	if (m_animeTime >= 0.5f && m_animeTime <= 0.6f)
+	{
+		m_time += Application::Instance().GetUnscaledDeltaTime();
+
+		if (m_time >= 0.0f && m_time <= 0.1f)
+		{
+			Application::Instance().SetFpsScale(0.1f);
+		}
+		else
+		{
+			Application::Instance().SetFpsScale(1.0f);
+		}
+	}
+
 	// 刀は鞘の中にある状態
 	UpdateUnsheathed();
 

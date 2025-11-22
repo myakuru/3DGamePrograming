@@ -130,9 +130,8 @@ void EnemyBase::UpdateAttackCollision(float _radius, float _distance,
 						playerPtr->SetJustAvoidSuccess(true);
 
 						// プレイヤー設定からスローモーション倍率・グレースケール適用を取得
-						auto& justCfg = playerPtr->GetPlayerConfig().GetJustAvoidParam();
-						Application::Instance().SetFpsScale(justCfg.m_slowMoScale);
-						SceneManager::Instance().SetDrawGrayScale(justCfg.m_useGrayScale);
+						Application::Instance().SetFpsScale(0.1f);
+						SceneManager::Instance().SetDrawGrayScale(true);
 
 						// 必要に応じてこの攻撃の当たり判定を終了
 						m_isChargeAttackActive = false;

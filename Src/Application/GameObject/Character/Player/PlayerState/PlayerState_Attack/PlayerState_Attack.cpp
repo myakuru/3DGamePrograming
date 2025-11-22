@@ -24,9 +24,6 @@ void PlayerState_Attack::StateStart()
 
 	PlayerStateBase::StateStart();
 
-	m_attackParam = m_player->GetPlayerConfig().GetAttack2Param();
-	m_attackParam.m_dashTimer = 0.0f;
-
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
 
@@ -59,7 +56,7 @@ void PlayerState_Attack::StateUpdate()
 	float deltaTime = Application::Instance().GetDeltaTime();
 
 	// 当たり判定有効時間: 最初の0.5秒のみ
-	m_player->UpdateAttackCollision(1.0f, 1.0f, 1, 0.1f, { 0.2f, 0.0f }, 0.3f, 0.0f, 0.4f);
+	m_player->UpdateAttackCollision(m_attackRadius, m_attackDistance, m_attackCount, m_attackTime, m_cameraShakeParam, m_cameraTime, m_attackStartTime, m_attackEndTime);
 
 	Math::Vector3 toEnemyDir = m_nearestEnemyPos - m_player->GetPos();
 
@@ -116,7 +113,7 @@ void PlayerState_Attack::StateUpdate()
 			effect->SetPlayEffect(true);
 		}
 
-		m_player->SetIsMoving(Math::Vector3::Zero);
+		m_player->SetIsMoving(m_moveSpeed);
 
 		if (m_animeTime >= 0.7f)
 		{
@@ -138,8 +135,42 @@ void PlayerState_Attack::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
-	if (auto swordEffect = m_slashEffect.lock(); swordEffect)
+	if (auto swordEffect = m_slashEffect.lock())
 	{
 		swordEffect->SetPlayEffect(false);
 	}
+}
+
+void PlayerState_Attack::ExposeParametersImGui()
+{
+	ImGui::InputFloat("Attack Radius", &m_attackRadius);
+	ImGui::InputFloat("Attack Distance", &m_attackDistance);
+	ImGui::InputInt("Attack Count", &m_attackCount);
+	ImGui::InputFloat("Attack Time", &m_attackTime);
+	ImGui::InputFloat("Attack Start Time", &m_attackStartTime);
+	ImGui::InputFloat("Attack End Time", &m_attackEndTime);
+	ImGui::DragFloat3("Move Speed", &m_moveSpeed.x, 0.1f);
+}
+
+void PlayerState_Attack::LoadParametersJson(const nlohmann::json& _json)
+{
+	if (_json.contains("Player") && _json["Player"].contains("MoveSpeed"))
+	{
+		m_attackRadius = _json["Player"]["AttackRadius"].get<float>();
+		m_attackDistance = _json["Player"]["AttackDistance"].get<float>();
+		m_attackCount = _json["Player"]["AttackCount"].get<int>();
+		m_attackTime = _json["Player"]["AttackTime"].get<float>();
+		m_attackStartTime = _json["Player"]["AttackStartTime"].get<float>();
+		m_attackEndTime = _json["Player"]["AttackEndTime"].get<float>();
+	}
+}
+
+void PlayerState_Attack::SaveParametersJson(nlohmann::json& _json) const
+{
+	_json["Player"]["AttackRadius"] = m_attackRadius;
+	_json["Player"]["AttackDistance"] = m_attackDistance;
+	_json["Player"]["AttackCount"] = m_attackCount;
+	_json["Player"]["AttackTime"] = m_attackTime;
+	_json["Player"]["AttackStartTime"] = m_attackStartTime;
+	_json["Player"]["AttackEndTime"] = m_attackEndTime;
 }

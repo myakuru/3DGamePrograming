@@ -18,6 +18,4 @@ private:
 
 	std::weak_ptr<JustAvoidAttackEffect> m_justAvoidAttackEffect;
 
-	JustAvoidParameter m_justAvoidParam;
-
 };

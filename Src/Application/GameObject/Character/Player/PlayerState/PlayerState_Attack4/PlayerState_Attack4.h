@@ -16,6 +16,4 @@ private:
 
 	std::weak_ptr<GroundFreezes> m_groundFreezes;
 	std::weak_ptr<Rotation> m_rotation;
-
-	PlayerState_AttackParameter m_attackParam;
 };

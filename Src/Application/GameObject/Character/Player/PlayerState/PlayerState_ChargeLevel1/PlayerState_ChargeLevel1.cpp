@@ -23,26 +23,26 @@ void PlayerState_ChargeLevel1::StateStart()
 
 	m_time = 0.0f;
 
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
-		camera->SetTargetLookAt({ 0.f,1.f,-2.0f });
+		camera->SetTargetLookAt({ 0.f,0.5f,-1.9f });
 	}
 
 	SceneManager::Instance().GetObjectWeakPtr(m_shineEffect);
 	SceneManager::Instance().GetObjectWeakPtr(m_groundFreezes);
 
-	if (auto effect = m_shineEffect.lock(); effect)
+	if (auto effect = m_shineEffect.lock())
 	{
 		effect->SetPlayEffect(true);
 	}
 
-	if (auto effect = m_groundFreezes.lock(); effect)
+	if (auto effect = m_groundFreezes.lock())
 	{
 		effect->SetPlayEffect(true);
 	}
 
 	// アニメーション速度を変更
-	m_player->SetAnimeSpeed(80.0f);
+	m_player->SetAnimeSpeed(60.0f);
 
 	KdAudioManager::Instance().Play("Asset/Sound/Player/Charge.WAV", false)->SetVolume(1.0f);
 
@@ -50,9 +50,26 @@ void PlayerState_ChargeLevel1::StateStart()
 
 void PlayerState_ChargeLevel1::StateUpdate()
 {
-	float deltaTime = Application::Instance().GetDeltaTime();
+	m_animeTime = m_player->GetAnimator()->GetPlayProgress();
 
-	m_time += deltaTime;
+	// スローモーション処理
+	if (m_animeTime >= 0.5f && m_animeTime <= 0.6f)
+	{
+		m_time += Application::Instance().GetUnscaledDeltaTime();
+
+		if (m_time >= 0.0f && m_time <= 0.1f)
+		{
+			Application::Instance().SetFpsScale(0.1f);
+		}
+		else
+		{
+			Application::Instance().SetFpsScale(1.0f);
+		}
+	}
+	else
+	{
+		Application::Instance().SetFpsScale(1.0f);
+	}
 
 	// 刀は鞘の中にある状態
 	UpdateUnsheathed();

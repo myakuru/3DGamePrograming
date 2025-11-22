@@ -6,12 +6,12 @@
 // 前方宣言
 class Katana;
 class WeaponKatanaScabbard;
-class PlayerStateBase;
 class AetheriusEnemy;
 class AfterImage;
 
 class Player : public CharacterBase
 {
+
 
 	// ====== 状態グループ ======
 
@@ -55,8 +55,8 @@ public:
 	// クラスごとに一意なTypeIDを持たせる
 	static const uint32_t TypeID;
 
-	Player () { m_typeID = TypeID; AddTag(ObjTag::PlayerLike); }
-	~Player() override = default;
+	Player();
+	~Player() override;
 
 	// ライフサイクル
 	void Init        () override;
@@ -156,6 +156,10 @@ public:
 	std::vector <std::weak_ptr<WeaponKatanaScabbard>> GetKatanaSheaths() { return m_sheaths; }
 
 private:
+
+	void CreateStates();
+	void ApplyPrototypeParametersTo(PlayerStateBase& runtime);
+
 	// 内部移動処理
 	void ApplyHorizontalMove   (const Math::Vector3& _inputMove, float _deltaTime);
 	void ApplyPushWithCollision(const Math::Vector3& _rawPush);
@@ -172,6 +176,7 @@ private:
 	float             m_unScaledeltaTime = 0.0f;			// デフォルトのdeltaTime保存
 
 	PlayerConfig      m_playerConfig;						// プレイヤーの設定
+	std::vector<std::unique_ptr<PlayerStateBase>> m_states;	// ステート群
 
 	// 参照
 	std::list<std::weak_ptr<KdGameObject>> m_enemyLike;

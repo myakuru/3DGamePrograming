@@ -14,8 +14,6 @@ private:
 	void StateEnd() override;
 
 
-	PlayerState_Attack2Parameter m_attackParam;
-
 	std::weak_ptr<ESkillEffect> m_effect;
 
 

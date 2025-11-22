@@ -459,6 +459,7 @@
     <ClInclude Include="Src\MyFramework\Manager\JsonManager\JsonManager.h" />
     <ClInclude Include="Src\MyFramework\Manager\KeyboardManager\KeyboardManager.h" />
     <ClInclude Include="Src\MyFramework\Manager\XInputManager\XInputManager.h" />
+    <ClInclude Include="Src\MyFramework\RegisterObject\PlayerStateParameterFactory.h" />
     <ClInclude Include="Src\MyFramework\RegisterObject\RegisterObject.h" />
     <ClInclude Include="Src\MyFramework\State\StateBase\StateBase.h" />
     <ClInclude Include="Src\MyFramework\State\StateManager\StateManager.h" />
@@ -522,6 +523,7 @@
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_WaterFall\BossEnemyState_WaterFall.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\EnemyBase.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\Player\Player.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerConfig.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Attack1\PlayerState_Attack1.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Attack2\PlayerState_Attack2.cpp" />

@@ -7,12 +7,16 @@
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_FowardAvoid/PlayerState_FowardAvoid.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_SheathKatana/PlayerState_SheathKatana.h"
-#include"Application/GameObject/Character/Player/PlayerState/PlayerState_ChargeLevelMax/PlayerState_ChargeLevelMax.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_SpecialAttack/PlayerState_SpecialAttack.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_FowardAvoidFast/PlayerState_FowardAvoidFast.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_ChargeLevel0/PlayerState_ChargeLevel0.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_BackWordAvoid/PlayerState_BackWordAvoid.h"
 
 #include"Application/Data/CharacterData/CharacterData.h"
+
+PlayerStateBase::PlayerStateBase() = default;
+
+PlayerStateBase::~PlayerStateBase() = default;
 
 void PlayerStateBase::StateStart()
 {
@@ -234,7 +238,7 @@ bool PlayerStateBase::UpdateSpecialAttackInput()
 {
 	if (KeyboardManager::GetInstance().IsKeyJustPressed('Q'))
 	{
-		//if (m_player->GetStatus().GetPlayerStatus().specialPoint == m_player->GetStatus().GetPlayerStatus().specialPointMax)
+		if (m_player->GetStatus().GetPlayerStatus().specialPoint == m_player->GetStatus().GetPlayerStatus().specialPointMax)
 		{
 			m_player->SetStatus().SetPlayerStatus().specialPoint = 0;
 			auto specialAttackState = std::make_shared<PlayerState_SpecialAttackCutIn>();
@@ -332,7 +336,7 @@ bool PlayerStateBase::UpdateESkillInput()
 		if (m_player->GetStatus().GetPlayerStatus().skillPoint >= m_player->GetStatus().GetPlayerStatus().skillPointMax)
 		{
 			m_player->SetStatus().SetPlayerStatus().skillPoint = 0;
-			auto specialAttackState = std::make_shared<PlayerState_ChargeLevelMax>();
+			auto specialAttackState = std::make_shared<PlayerState_ChargeLevel0>();
 			m_player->ChangeState(specialAttackState);
 			return true;
 		}

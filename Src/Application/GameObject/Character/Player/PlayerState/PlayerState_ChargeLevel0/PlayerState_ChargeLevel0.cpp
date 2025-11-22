@@ -5,15 +5,20 @@
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_ChargeLevel1/PlayerState_ChargeLevel1.h"
 #include"Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
 
+/// <summary>
+/// ChargeLevel0ステートからMaxまでいき、
+/// PlayerState_ChargeAttackMaxからMax3まで遷移する。
+/// </summary>
+
 void PlayerState_ChargeLevel0::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("ChargeAttack0");
 	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
 	PlayerStateBase::StateStart();
 
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
-		camera->SetTargetLookAt({ 0.f,1.f,-1.5f });
+		camera->SetTargetLookAt({ 0.f,1.f,-2.0f });
 	}
 
 	// 無敵状態にする
@@ -26,15 +31,34 @@ void PlayerState_ChargeLevel0::StateStart()
 	// アニメーション速度を変更
 	m_player->SetAnimeSpeed(60.0f);
 
+	// 無敵状態にする(PlayerState_ChargeAttackMax3)まで継続
+	m_player->SetInvincible(true);
+
 }
 
 void PlayerState_ChargeLevel0::StateUpdate()
 {
 	// アニメーション時間のデバッグ表示
+	m_animeTime = m_player->GetAnimator()->GetPlayProgress();
+
+	// スローモーション処理
+	if (m_animeTime >= 0.5f && m_animeTime <= 0.6f)
 	{
-		m_animeTime = m_player->GetAnimator()->GetPlayProgress();
+		m_time += Application::Instance().GetUnscaledDeltaTime();
+
+		if (m_time >= 0.0f && m_time <= 0.1f)
+		{
+			Application::Instance().SetFpsScale(0.1f);
+		}
+		else
+		{
+			Application::Instance().SetFpsScale(1.0f);
+		}
 	}
-	
+	else
+	{
+		Application::Instance().SetFpsScale(1.0f);
+	}
 
 	if (m_animeTime >= 0.5f)
 	{

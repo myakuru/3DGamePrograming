@@ -22,8 +22,6 @@ void PlayerState_Skill::StateStart()
 	// 敵との当たり判定を無効化
 	m_player->SetAtkPlayer(true);
 
-	m_attackParam.m_dashTimer = 0.0f;
-
 	// 残像の設定
 	m_player->GetAfterImage()->AddAfterImage(true, 10, 0.05f, { 0.0f,0.5f,1.0f,0.5f });
 }
@@ -54,11 +52,11 @@ void PlayerState_Skill::StateUpdate()
 	m_player->UpdateAttackCollision(8.0f, 1.0f, 5, 0.1f, { 0.3f, 0.3f }, 0.3f);
 
 	float deltaTime = Application::Instance().GetDeltaTime();
-	if (m_attackParam.m_dashTimer < 0.1f)
+	if (m_time < 0.1f)
 	{
 		float dashSpeed = 5.0f;
 		m_player->SetIsMoving(m_attackDirection * dashSpeed);
-		m_attackParam.m_dashTimer += deltaTime;
+		m_time += deltaTime;
 	}
 	else
 	{

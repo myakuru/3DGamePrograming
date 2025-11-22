@@ -7,10 +7,19 @@ class BossEnemy;
 class PlayerStateBase : public StateBase
 {
 public:
-	PlayerStateBase() = default;
-	~PlayerStateBase() override = default;
+	PlayerStateBase();
+	~PlayerStateBase() override;
 
 	void SetPlayer(Player* player) { m_player = player; }
+
+	void ExposeParametersImGui() override {}
+	// JSON 読み込み (呼ばれないなら空)
+	void LoadParametersJson(const nlohmann::json& _json) override {}
+	// 保存 (必要なら)
+	void SaveParametersJson(nlohmann::json& _json) const override {}
+
+	virtual void ApplyFromConfig(const PlayerStateBase& other) {}
+
 
 protected:
 

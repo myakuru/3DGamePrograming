@@ -22,8 +22,6 @@ void PlayerState_Attack2::StateStart()
 	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
 	PlayerStateBase::StateStart();
 
-	m_attackParam = m_player->GetPlayerConfig().GetAttackParam();
-
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
 
@@ -57,8 +55,6 @@ void PlayerState_Attack2::StateUpdate()
 
 	float deltaTime = Application::Instance().GetDeltaTime();
 
-	m_time += deltaTime;
-
 	m_player->UpdateAttackCollision(3.0f, 1.0f, 1, m_maxAnimeTime, { 0.0f, 0.3f }, 0.4f);
 	
 
@@ -91,11 +87,12 @@ void PlayerState_Attack2::StateUpdate()
 
 	UpdateKatanaPos();
 
-	if (m_attackParam.m_dashTimer < 0.2f)
+
+	if (m_time < 0.2f)
 	{
 		float dashSpeed = 1.0f;
 		m_player->SetIsMoving(m_attackDirection * dashSpeed);
-		m_attackParam.m_dashTimer += deltaTime;
+		m_time += deltaTime;
 	}
 	else
 	{

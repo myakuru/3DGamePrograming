@@ -82,9 +82,13 @@ void PlayerState_BackWordAvoid::StateUpdate()
 		// 残像
 		m_player->GetAfterImage()->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.5f));
 
-		const auto& justCfg = m_player->GetPlayerConfig().GetJustAvoidParam();
-		Application::Instance().SetFpsScale(justCfg.m_slowMoScale);
-		SceneManager::Instance().SetDrawGrayScale(justCfg.m_useGrayScale);
+		// 無敵化(アニメーションが終了するまで)
+		m_player->SetInvincible(true);
+		// 被ヒット判定解除
+		m_player->SetHitCheck(false);
+
+		Application::Instance().SetFpsScale(0.1f);
+		SceneManager::Instance().SetDrawGrayScale(true);
 	}
 
 	// 前方ベクトルを取得
@@ -182,5 +186,7 @@ void PlayerState_BackWordAvoid::StateEnd()
 
 	// 敵との当たり判定を無効化解除（押し出し処理を元に戻す）
 	m_player->SetAtkPlayer(false);
+
+	m_player->SetInvincible(false);
 		
 }

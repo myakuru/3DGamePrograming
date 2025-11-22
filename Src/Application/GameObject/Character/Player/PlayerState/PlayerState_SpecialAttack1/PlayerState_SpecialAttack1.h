@@ -15,8 +15,6 @@ private:
 	void StateUpdate() override;
 	void StateEnd() override;
 
-	PlayerState_Attack2Parameter m_attackParam;
-
 	std::weak_ptr<SpecialAttack1> m_effect;
 
 	bool m_effectOnce = false;       // 再生要求を出したか

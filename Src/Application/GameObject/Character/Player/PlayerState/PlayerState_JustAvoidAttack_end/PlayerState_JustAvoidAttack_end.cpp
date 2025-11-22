@@ -41,9 +41,6 @@ void PlayerState_JustAvoidAttack_end::StateStart()
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
 
-	// 無敵状態にする
-	m_player->SetInvincible(true);
-
 	SceneManager::Instance().GetObjectWeakPtr(m_bossEnemy);
 }
 

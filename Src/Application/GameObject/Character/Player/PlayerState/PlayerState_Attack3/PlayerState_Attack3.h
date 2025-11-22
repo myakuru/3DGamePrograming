@@ -15,6 +15,4 @@ private:
 
 	std::weak_ptr<SlashAttack2Effect> m_slashEffect;
 
-	PlayerState_AttackParameter m_attackParam;
-
 };

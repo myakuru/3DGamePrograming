@@ -60,8 +60,6 @@ void PlayerState_Attack4::StateUpdate()
 
 	float deltaTime = Application::Instance().GetDeltaTime();
 
-	m_time += deltaTime;
-
 	// 0.5秒間当たり判定有効
 	m_player->UpdateAttackCollision(5.0f, 2.0f, 7, m_maxAnimeTime, { 0.2f, 0.2f }, 0.3f);
 
@@ -93,11 +91,11 @@ void PlayerState_Attack4::StateUpdate()
 
 	UpdateKatanaPos();
 
-	if (m_attackParam.m_dashTimer < 0.2f)
+	if (m_time < 0.2f)
 	{
 		float dashSpeed = 1.0f;
 		m_player->SetIsMoving(m_attackDirection * dashSpeed);
-		m_attackParam.m_dashTimer += deltaTime;
+		m_time += deltaTime;
 	}
 	else
 	{

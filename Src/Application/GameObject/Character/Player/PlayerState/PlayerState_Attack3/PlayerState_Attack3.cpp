@@ -96,8 +96,6 @@ void PlayerState_Attack3::StateUpdate()
 
 	float deltaTime = Application::Instance().GetDeltaTime();
 
-	m_time += deltaTime;
-
 	// 0.5秒間当たり判定有効
 	m_player->UpdateAttackCollision(5.0f, 2.0f, 5, m_maxAnimeTime, { 0.2f, 0.0f }, 0.3f);
 
@@ -130,11 +128,11 @@ void PlayerState_Attack3::StateUpdate()
 		m_player->UpdateQuaternionDirect(moveDir);
 	}
 
-	if (m_attackParam.m_dashTimer < 1.0f)
+	if (m_time < 1.0f)
 	{
 		float dashSpeed = 0.2f;
 		m_player->SetIsMoving(m_attackDirection * dashSpeed);
-		m_attackParam.m_dashTimer += deltaTime;
+		m_time += deltaTime;
 	}
 	else
 	{

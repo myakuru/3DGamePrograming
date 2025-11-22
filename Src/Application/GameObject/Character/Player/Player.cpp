@@ -16,8 +16,16 @@
 #include "Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 #include "Application/GameObject/Collition/Collition.h"
 #include "Application/GameObject/Character/AfterImage/AfterImage.h"
+#include"Application/GameObject/Character/Player/PlayerState/PlayerState_Attack/PlayerState_Attack.h"
 
 const uint32_t Player::TypeID = KdGameObject::GenerateTypeID();
+
+Player::Player()
+{
+	m_typeID = TypeID; AddTag(ObjTag::PlayerLike);
+}
+
+Player::~Player() = default;
 
 void Player::Init()
 {
@@ -60,6 +68,8 @@ void Player::Init()
 	m_characterData->SetCharacterData().attack = 10;
 
 	m_visual.rimLightOn = false;
+
+	CreateStates();
 }
 
 void Player::PreUpdate()
@@ -502,7 +512,8 @@ void Player::ImGuiInspector()
 		DirectX::XMConvertToRadians(m_degree.z));
 
 	ImGui::Separator();
-	m_playerConfig.InGuiInspector();
+	m_playerConfig.InGuiInspector(m_states);
+	
 }
 
 void Player::JsonInput(const nlohmann::json& _json)
@@ -515,8 +526,7 @@ void Player::JsonInput(const nlohmann::json& _json)
 	if (_json.contains("cameraShakeTime")) m_cameraShake.time = _json["cameraShakeTime"].get<float>();
 	if (_json.contains("rotateSpeed"))    m_movement.rotateSpeed = _json["rotateSpeed"].get<float>();
 	if (_json.contains("degree"))         m_degree = JSON_MANAGER.JsonToVector(_json["degree"]);
-
-	m_playerConfig.JsonInput(_json);
+	m_playerConfig.JsonInput(_json, m_states);
 }
 
 void Player::JsonSave(nlohmann::json& _json) const
@@ -529,8 +539,7 @@ void Player::JsonSave(nlohmann::json& _json) const
 	_json["cameraShakeTime"] = m_cameraShake.time;
 	_json["rotateSpeed"] = m_movement.rotateSpeed;
 	_json["degree"] = JSON_MANAGER.VectorToJson(m_degree);
-
-	m_playerConfig.JsonSave(_json);
+	m_playerConfig.JsonSave(_json, m_states);
 }
 
 void Player::StateInit()
@@ -542,6 +551,8 @@ void Player::StateInit()
 void Player::ChangeState(std::shared_ptr<PlayerStateBase> _state)
 {
 	_state->SetPlayer(this);
+	// Configからパラメータ注入（StateStart前に行う）
+	ApplyPrototypeParametersTo(*_state);
 	m_stateManager.ChangeState(_state);
 }
 
@@ -580,6 +591,28 @@ void Player::TakeDamage(int _damage)
 {
 	m_characterData->SetCharacterData().hp -= _damage;
 	if (m_characterData->GetCharacterData().hp < 0) m_characterData->SetCharacterData().hp = 0;
+}
+
+void Player::CreateStates()
+{
+	m_states.clear();
+	m_states.reserve(8); // 予想数を入れて再配置減少
+
+	m_states.emplace_back(std::make_unique<PlayerState_Attack>());
+}
+
+void Player::ApplyPrototypeParametersTo(PlayerStateBase& runtime)
+{
+	// 同じ派生型のプロトタイプを探してパラメータをコピー
+	for (auto& proto : m_states)
+	{
+		if (!proto) continue;
+		if (typeid(*proto) == typeid(runtime))
+		{
+			runtime.ApplyFromConfig(*proto);
+			break;
+		}
+	}
 }
 
 void Player::ApplyHorizontalMove(const Math::Vector3& _inputMove, float _deltaTime)

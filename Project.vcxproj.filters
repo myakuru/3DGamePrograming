@@ -406,9 +406,6 @@
     <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_JustAvoidAttack_end">
       <UniqueIdentifier>{59d7c162-c61d-46b8-a84c-40306da30baf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\MyFramework\Manager\ImGuiManager">
-      <UniqueIdentifier>{879c7b19-c6b0-4933-a569-763119b37800}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\Character\EnemyBase">
       <UniqueIdentifier>{e10ff7ef-e9c2-496b-9d43-0c69bcb0cb9c}</UniqueIdentifier>
     </Filter>
@@ -519,6 +516,9 @@
     </Filter>
     <Filter Include="Src\Application\Scene\BaseScene\ConstructionSiteStage">
       <UniqueIdentifier>{51cbabc9-3839-42ea-9a72-3aec80705ad9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\MyFramework\Manager\ImGuiManager">
+      <UniqueIdentifier>{879c7b19-c6b0-4933-a569-763119b37800}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1146,6 +1146,9 @@
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectManager.h">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect</Filter>
     </ClInclude>
+    <ClInclude Include="Src\MyFramework\RegisterObject\PlayerStateParameterFactory.h">
+      <Filter>Src\MyFramework\RegisterObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -1717,6 +1720,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectManager.cpp">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerConfig.cpp">
+      <Filter>Src\Application\GameObject\Character\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

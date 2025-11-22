@@ -24,10 +24,6 @@ void PlayerState_Attack1::StateStart()
 
 	PlayerStateBase::StateStart();
 
-	m_attackParam = m_player->GetPlayerConfig().GetAttack1Param();
-
-	m_attackParam.m_dashTimer = 0.0f;
-
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
 
@@ -59,8 +55,6 @@ void PlayerState_Attack1::StateUpdate()
 
 	float deltaTime = Application::Instance().GetDeltaTime();
 
-	m_time += deltaTime;
-
 	// 0.5秒間当たり判定有効
 	m_player->UpdateAttackCollision(1.0f, 1.0f, 1, 0.1f, { 0.2f, 0.2f }, 0.2f);
 
@@ -87,11 +81,11 @@ void PlayerState_Attack1::StateUpdate()
 		m_player->UpdateQuaternionDirect(moveDir);
 	}
 
-	if (m_attackParam.m_dashTimer < 0.2f)
+	if (m_time < 0.2f)
 	{
 		float dashSpeed = 1.0f;
 		m_player->SetIsMoving(m_attackDirection * dashSpeed);
-		m_attackParam.m_dashTimer += deltaTime;
+		m_time += deltaTime;
 	}
 	else
 	{
