@@ -520,6 +520,9 @@
     <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death">
       <UniqueIdentifier>{738f0d64-4890-43fd-aaf3-e7ad27b58676}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyConfig">
+      <UniqueIdentifier>{a017f3c4-be5a-48c5-a279-c73cb621b7b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -1152,6 +1155,9 @@
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death\EnemyState_Death.h">
       <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyConfig\BossEnemyConfig.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyConfig</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -1729,6 +1735,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death\EnemyState_Death.cpp">
       <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyConfig\BossEnemyConfig.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyConfig</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -13,9 +13,6 @@ void EnemyState_Attack2::StateStart()
 
 	// 当たり判定リセット
 	m_enemy->ResetAttackCollision();
-
-	m_stateParameter.dashSpeedTime = 0.2f;
-	m_stateParameter.dashSpeed = 1.0f;
 }
 
 void EnemyState_Attack2::StateUpdate()

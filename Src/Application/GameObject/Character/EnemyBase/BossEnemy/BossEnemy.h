@@ -4,6 +4,8 @@ class BossEnemyStateBase;
 class Player;
 class EnemySword;
 class EnemyShield;
+class BossEnemyConfig;
+
 class BossEnemy :public EnemyBase
 {
 public:
@@ -105,7 +107,13 @@ public:
 
 private:
 
+	void ImGuiInspector() override;
+	void JsonInput(const nlohmann::json& _json) override;
+	void JsonSave(nlohmann::json& _json) const override;
+
 	std::vector<std::weak_ptr<Player>> m_player;
+
+	std::shared_ptr<BossEnemyConfig> m_bossEnemyConfig;
 
 	// ステート切り替えフラグ
 	bool m_stateChange = false;

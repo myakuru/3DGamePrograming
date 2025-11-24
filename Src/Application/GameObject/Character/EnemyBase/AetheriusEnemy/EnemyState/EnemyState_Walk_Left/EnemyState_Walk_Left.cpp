@@ -12,9 +12,6 @@ void EnemyState_Walk_Left::StateStart()
 	auto anime = m_enemy->GetAnimeModel()->GetAnimation("Walk_Left");
 	m_enemy->GetAnimator()->SetAnimation(anime);
 	m_enemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
-
-	m_stateParameter.changeStateTime = 2.0f;
-	m_stateParameter.dashSpeed = 0.2f;
 }
 
 void EnemyState_Walk_Left::StateUpdate()

@@ -239,7 +239,6 @@ void EnemyBase::ImGuiInspector()
 	CharacterBase::ImGuiInspector();
 
 	ImGui::DragFloat(U8("重力の大きさ"), &m_physics.gravitySpeed, 0.01f);
-	ImGui::DragFloat(U8("アニメーション速度"), &m_physics.fixedFrameRate, 1.f);
 	ImGui::Text(U8("プレイヤーの回転速度"));
 	ImGui::DragFloat(U8("回転速度"), &m_movement.rotateSpeed, 0.1f);
 

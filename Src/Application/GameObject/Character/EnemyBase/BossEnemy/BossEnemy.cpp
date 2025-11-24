@@ -14,6 +14,8 @@
 
 #include"Application/GameObject/Effect/EffekseerEffect/EnemyHitEffect/EnemyHitEffect.h"
 
+#include "Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemyConfig/BossEnemyConfig.h"
+
 const uint32_t BossEnemy::TypeID = KdGameObject::GenerateTypeID();
 
 void BossEnemy::Init()
@@ -49,6 +51,22 @@ void BossEnemy::Init()
 	m_lastAction = ActionType::None;
 	m_meleeCooldown = 0.0f;
 	m_waterCooldown = 0.0f;
+
+	m_bossEnemyConfig = std::make_shared<BossEnemyConfig>();
+
+	if (m_bossEnemyConfig)
+	{
+		m_bossEnemyConfig->CreateStates();
+	}
+
+	if (m_bossEnemyConfig)
+	{
+		const nlohmann::json cfg = JSON_MANAGER.JsonDeserialize("Json/BossEnemyConfig/BossEnemyConfig");
+		if (!cfg.is_null())
+		{
+			m_bossEnemyConfig->JsonInput(cfg);
+		}
+	}
 
 	m_characterData->SetCharacterData().hp = 500;
 	m_characterData->SetCharacterData().maxHp = 500;
@@ -179,6 +197,10 @@ void BossEnemy::StateInit()
 void BossEnemy::ChangeState(std::shared_ptr<BossEnemyStateBase> _state)
 {
 	_state->SetBossEnemy(this);
+	if (m_bossEnemyConfig)
+	{
+		m_bossEnemyConfig->ApplyPrototypeParametersTo(*_state);
+	}
 	m_stateManager.ChangeState(_state);
 }
 
@@ -189,5 +211,32 @@ void BossEnemy::Damage(int _damage)
 	if (m_characterData->GetCharacterData().hp <= 0)
 	{
 		m_Expired = true;
+	}
+}
+
+void BossEnemy::ImGuiInspector()
+{
+	EnemyBase::ImGuiInspector();
+	if (m_bossEnemyConfig)
+	{
+		m_bossEnemyConfig->InGuiInspector();
+	}
+}
+
+void BossEnemy::JsonInput(const nlohmann::json& _json)
+{
+	EnemyBase::JsonInput(_json);
+	if (m_bossEnemyConfig)
+	{
+		m_bossEnemyConfig->JsonInput(_json);
+	}
+}
+
+void BossEnemy::JsonSave(nlohmann::json& _json) const
+{
+	EnemyBase::JsonSave(_json);
+	if (m_bossEnemyConfig)
+	{
+		m_bossEnemyConfig->JsonSave();
 	}
 }

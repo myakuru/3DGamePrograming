@@ -15,9 +15,6 @@ void EnemyState_Hit::StateStart()
 
 	// 累積ヒット回数は Enemy 本体で管理
 	m_enemy->IncrementHitCount();
-
-	m_stateParameter.dashSpeedTime = 0.2f;
-	m_stateParameter.dashSpeed = -0.5f;
 }
 
 void EnemyState_Hit::StateUpdate()

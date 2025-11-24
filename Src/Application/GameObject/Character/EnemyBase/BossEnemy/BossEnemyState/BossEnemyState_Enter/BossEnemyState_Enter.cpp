@@ -6,10 +6,10 @@
 void BossEnemyState_Enter::StateStart()
 {
 	auto anime = m_bossEnemy->GetAnimeModel()->GetAnimation("Anim_Enter");
-	m_bossEnemy->GetAnimator()->SetAnimation(anime, 0.25f, false);
+	m_bossEnemy->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 	BossEnemyStateBase::StateStart();
 	// アニメーション速度を変更
-	m_bossEnemy->SetAnimeSpeed(60.0f);
+	m_bossEnemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	m_effectPlayed = false;
 }
@@ -21,9 +21,9 @@ void BossEnemyState_Enter::StateUpdate()
 
 	SceneManager::Instance().GetObjectWeakPtr(m_enterEffect);
 
-	if (m_animeTime >= 0.2f && !m_effectPlayed)
+	if (!m_effectPlayed)
 	{
-		if (auto effect = m_enterEffect.lock(); effect)
+		if (auto effect = m_enterEffect.lock())
 		{
 			effect->SetPlayEffect(true);
 			m_effectPlayed = true;
@@ -42,8 +42,43 @@ void BossEnemyState_Enter::StateUpdate()
 
 void BossEnemyState_Enter::StateEnd()
 {
-	if (auto effect = m_enterEffect.lock(); effect)
+	if (auto effect = m_enterEffect.lock())
 	{
 		effect->SetPlayEffect(false);
 	}
+}
+
+void BossEnemyState_Enter::ApplyFromConfig(const BossEnemyStateBase& other)
+{
+	assert(typeid(other) == typeid(BossEnemyState_Enter));
+	const auto& p = static_cast<const BossEnemyState_Enter&>(other);
+	m_stateParameter.blendTime = p.m_stateParameter.blendTime;
+	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
+}
+
+void BossEnemyState_Enter::ExposeParametersImGui()
+{
+	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
+	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed, 1.0f, 1.0f, 200.0f);
+}
+
+void BossEnemyState_Enter::LoadParametersJson(const nlohmann::json& js)
+{
+	if (!js.contains("BossEnemyState_Enter")) return;
+	const auto& stateNode = js["BossEnemyState_Enter"];
+	if (stateNode.contains("BossEnemy"))
+	{
+		const auto& enemyNode = stateNode["BossEnemy"];
+		if (enemyNode.contains("blendTime")) m_stateParameter.blendTime = enemyNode["blendTime"].get<float>();
+		if (enemyNode.contains("animationSpeed")) m_stateParameter.animationSpeed = enemyNode["animationSpeed"].get<float>();
+	}
+}
+
+void BossEnemyState_Enter::SaveParametersJson(nlohmann::json& js) const
+{
+	if (!js.contains("BossEnemyState_Enter")) js["BossEnemyState_Enter"] = nlohmann::json::object();
+	auto& stateNode = js["BossEnemyState_Enter"];
+
+	stateNode["BossEnemy"]["blendTime"] = m_stateParameter.blendTime;
+	stateNode["BossEnemy"]["animationSpeed"] = m_stateParameter.animationSpeed;
 }

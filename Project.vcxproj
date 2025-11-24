@@ -303,6 +303,7 @@
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Walk_Left\EnemyState_Walk_Left.h" />
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Walk_Right\EnemyState_Walk_Right.h" />
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemy.h" />
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyConfig\BossEnemyConfig.h" />
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyAI.h" />
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState.h" />
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Attack_L\BossEnemyState_Attack_L.h" />
@@ -508,6 +509,7 @@
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Walk_Left\EnemyState_Walk_Left.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Walk_Right\EnemyState_Walk_Right.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemy.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyConfig\BossEnemyConfig.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyAI.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Attack_L\BossEnemyState_Attack_L.cpp" />
