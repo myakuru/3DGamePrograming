@@ -11,9 +11,10 @@ void EnemyState_Walk_Left::StateStart()
 
 	auto anime = m_enemy->GetAnimeModel()->GetAnimation("Walk_Left");
 	m_enemy->GetAnimator()->SetAnimation(anime);
-	m_enemy->SetAnimeSpeed(60.0f);
+	m_enemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
-	m_time = 0.0f;
+	m_stateParameter.changeStateTime = 2.0f;
+	m_stateParameter.dashSpeed = 0.2f;
 }
 
 void EnemyState_Walk_Left::StateUpdate()
@@ -55,9 +56,9 @@ void EnemyState_Walk_Left::StateUpdate()
 	right.Normalize();
 
 	// 右に少しずつ移動
-	m_enemy->SetIsMoving(right * 0.2f);
+	m_enemy->SetIsMoving(right * m_stateParameter.dashSpeed);
 
-	if (m_time >= 2.0f)
+	if (m_time >= m_stateParameter.changeStateTime)
 	{
 		//Attackステートに移行
 		auto attack = std::make_shared<EnemyState_Attack>();
@@ -68,4 +69,45 @@ void EnemyState_Walk_Left::StateUpdate()
 
 void EnemyState_Walk_Left::StateEnd()
 {
+}
+
+void EnemyState_Walk_Left::ApplyFromConfig(const EnemyStateBase& other)
+{
+	assert(typeid(other) == typeid(EnemyState_Walk_Left));
+	const auto& p = static_cast<const EnemyState_Walk_Left&>(other);
+	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
+	m_stateParameter.changeStateTime = p.m_stateParameter.changeStateTime;
+	m_stateParameter.dashSpeed = p.m_stateParameter.dashSpeed;
+}
+
+void EnemyState_Walk_Left::ExposeParametersImGui()
+{
+	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
+	ImGui::DragFloat(U8("状態遷移までの時間"), &m_stateParameter.changeStateTime);
+	ImGui::DragFloat(U8("横移動速度"), &m_stateParameter.dashSpeed);
+}
+
+void EnemyState_Walk_Left::LoadParametersJson(const nlohmann::json& js)
+{
+	if (!js.contains("EnemyState_Walk_Left")) return;
+	const auto& stateNode = js["EnemyState_Walk_Left"];
+	if (stateNode.contains("AetheriusEnemy"))
+	{
+		const auto& enemyNode = stateNode["AetheriusEnemy"];
+		if (enemyNode.contains("animationSpeed"))
+		{
+			m_stateParameter.animationSpeed = enemyNode["animationSpeed"].get<float>();
+			m_stateParameter.changeStateTime = enemyNode["changeStateTime"].get<float>();
+			m_stateParameter.dashSpeed = enemyNode["dashSpeed"].get<float>();
+		}
+	}
+}
+
+void EnemyState_Walk_Left::SaveParametersJson(nlohmann::json& js) const
+{
+	if (!js.contains("EnemyState_Walk_Left")) js["EnemyState_Walk_Left"] = nlohmann::json::object();
+	auto& stateNode = js["EnemyState_Walk_Left"];
+	stateNode["AetheriusEnemy"]["animationSpeed"] = m_stateParameter.animationSpeed;
+	stateNode["AetheriusEnemy"]["changeStateTime"] = m_stateParameter.changeStateTime;
+	stateNode["AetheriusEnemy"]["dashSpeed"] = m_stateParameter.dashSpeed;
 }

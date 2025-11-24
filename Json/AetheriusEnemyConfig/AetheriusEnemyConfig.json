@@ -1,0 +1,90 @@
+{
+  "EnemState_Attack3": {
+    "AetheriusEnemy": {
+      "attackCount": 1,
+      "attackDistance": 1.0,
+      "attackEndTime": 0.4000000059604645,
+      "attackInterval": 0.10000000149011612,
+      "attackRadius": 3.0,
+      "attackStartTime": 0.0,
+      "blendTime": 0.25,
+      "dashSpeed": 0.699999988079071,
+      "dashSpeedTime": 0.20000000298023224
+    }
+  },
+  "EnemyState_Attack": {
+    "AetheriusEnemy": {
+      "attackCount": 1,
+      "attackDistance": 1.0,
+      "attackEndTime": 0.4000000059604645,
+      "attackInterval": 0.10000000149011612,
+      "attackRadius": 3.0,
+      "attackStartTime": 0.0,
+      "blendTime": 0.25,
+      "dashSpeed": 0.699999988079071,
+      "dashSpeedTime": 0.20000000298023224
+    }
+  },
+  "EnemyState_Attack1": {
+    "AetheriusEnemy": {
+      "attackCount": 1,
+      "attackDistance": 1.0,
+      "attackEndTime": 0.4000000059604645,
+      "attackInterval": 0.10000000149011612,
+      "attackRadius": 3.0,
+      "attackStartTime": 0.0,
+      "blendTime": 0.25,
+      "dashSpeed": 0.699999988079071,
+      "dashSpeedTime": 0.20000000298023224
+    }
+  },
+  "EnemyState_Attack2": {
+    "AetheriusEnemy": {
+      "attackCount": 1,
+      "attackDistance": 1.0,
+      "attackEndTime": 0.4000000059604645,
+      "attackInterval": 0.10000000149011612,
+      "attackRadius": 3.0,
+      "attackStartTime": 0.0,
+      "blendTime": 0.25,
+      "dashSpeed": 0.699999988079071,
+      "dashSpeedTime": 0.20000000298023224
+    }
+  },
+  "EnemyState_Death": {
+    "AetheriusEnemy": {
+      "blendTime": 0.25
+    }
+  },
+  "EnemyState_Hit": {
+    "AetheriusEnemy": {
+      "blendTime": 0.25,
+      "dashSpeed": 0.699999988079071,
+      "dashSpeedTime": 0.20000000298023224
+    }
+  },
+  "EnemyState_Idle": {
+    "AetheriusEnemy": {
+      "animationSpeed": 60.0
+    }
+  },
+  "EnemyState_Run": {
+    "AetheriusEnemy": {
+      "animationSpeed": 60.0
+    }
+  },
+  "EnemyState_Walk_Left": {
+    "AetheriusEnemy": {
+      "animationSpeed": 60.0,
+      "changeStateTime": 0.699999988079071,
+      "dashSpeed": 0.699999988079071
+    }
+  },
+  "EnemyState_Walk_Right": {
+    "AetheriusEnemy": {
+      "animationSpeed": 60.0,
+      "changeStateTime": 0.699999988079071,
+      "dashSpeed": 0.699999988079071
+    }
+  }
+}

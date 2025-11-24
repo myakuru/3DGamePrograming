@@ -427,9 +427,6 @@
     <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack3">
       <UniqueIdentifier>{5e22bb8b-c5a5-40a3-aca1-8eb53cdd6e69}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Dath">
-      <UniqueIdentifier>{838e5f48-5881-4d41-aed1-4953650ba5ef}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Hit">
       <UniqueIdentifier>{83320a89-75b2-44a7-b9ef-e8549d3b5a99}</UniqueIdentifier>
     </Filter>
@@ -519,6 +516,9 @@
     </Filter>
     <Filter Include="Src\MyFramework\Manager\ImGuiManager">
       <UniqueIdentifier>{879c7b19-c6b0-4933-a569-763119b37800}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death">
+      <UniqueIdentifier>{738f0d64-4890-43fd-aaf3-e7ad27b58676}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1050,9 +1050,6 @@
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack3\EnemState_Attack3.h">
       <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack3</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Dath\EnemyState_Dath.h">
-      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Dath</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Hit\EnemyState_Hit.h">
       <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Hit</Filter>
     </ClInclude>
@@ -1148,6 +1145,12 @@
     </ClInclude>
     <ClInclude Include="Src\MyFramework\RegisterObject\PlayerStateParameterFactory.h">
       <Filter>Src\MyFramework\RegisterObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemyConfig.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death\EnemyState_Death.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1625,9 +1628,6 @@
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack3\EnemState_Attack3.cpp">
       <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack3</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Dath\EnemyState_Dath.cpp">
-      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Dath</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Hit\EnemyState_Hit.cpp">
       <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Hit</Filter>
     </ClCompile>
@@ -1723,6 +1723,12 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerConfig.cpp">
       <Filter>Src\Application\GameObject\Character\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemyConfig.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death\EnemyState_Death.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

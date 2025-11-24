@@ -12,7 +12,7 @@ void EnemyState_Run::StateStart()
 
 	auto anime = m_enemy->GetAnimeModel()->GetAnimation("Run");
 	m_enemy->GetAnimator()->SetAnimation(anime);
-	m_enemy->SetAnimeSpeed(60.0f);
+	m_enemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
 }
 
 void EnemyState_Run::StateUpdate()
@@ -61,4 +61,37 @@ void EnemyState_Run::StateUpdate()
 
 void EnemyState_Run::StateEnd()
 {
+}
+
+void EnemyState_Run::ApplyFromConfig(const EnemyStateBase& other)
+{
+	assert(typeid(other) == typeid(EnemyState_Run));
+	const auto& p = static_cast<const EnemyState_Run&>(other);
+	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
+}
+
+void EnemyState_Run::ExposeParametersImGui()
+{
+	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
+}
+
+void EnemyState_Run::LoadParametersJson(const nlohmann::json& js)
+{
+	if (!js.contains("EnemyState_Run")) return;
+	const auto& stateNode = js["EnemyState_Run"];
+	if (stateNode.contains("AetheriusEnemy"))
+	{
+		const auto& enemyNode = stateNode["AetheriusEnemy"];
+		if (enemyNode.contains("animationSpeed"))
+		{
+			m_stateParameter.animationSpeed = enemyNode["animationSpeed"].get<float>();
+		}
+	}
+}
+
+void EnemyState_Run::SaveParametersJson(nlohmann::json& js) const
+{
+	if (!js.contains("EnemyState_Run")) js["EnemyState_Run"] = nlohmann::json::object();
+	auto& stateNode = js["EnemyState_Run"];
+	stateNode["AetheriusEnemy"]["animationSpeed"] = m_stateParameter.animationSpeed;
 }

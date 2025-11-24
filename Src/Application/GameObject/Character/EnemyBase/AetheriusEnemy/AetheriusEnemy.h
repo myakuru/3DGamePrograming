@@ -4,6 +4,7 @@ class EnemyStateBase;
 class Player;
 class EnemySword;
 class EnemyShield;
+class AetheriusEnemyConfig;
 
 class AetheriusEnemy :public EnemyBase
 {
@@ -89,6 +90,12 @@ public:
 private:
 
 	void StateInit();
+
+	void ImGuiInspector() override;
+	void JsonInput(const nlohmann::json& _json) override;
+	void JsonSave(nlohmann::json& _json) const override;
+
+	std::shared_ptr<AetheriusEnemyConfig> m_config; // 敵の設定データ
 
 	std::vector<std::weak_ptr<EnemySword>> m_enemySwords; // 敵の剣
 	std::vector<std::weak_ptr<EnemyShield>> m_enemyShields; // 敵の盾

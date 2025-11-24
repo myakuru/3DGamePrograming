@@ -5,12 +5,37 @@
 class Player;
 class EnemyStateBase : public StateBase
 {
+	struct StateParameter
+	{
+		// 当たり判定系
+		float attackRadius = 3.0f;
+		float attackDistance = 1.0f;
+		int   attackCount = 1;
+		float attackInterval = 0.1f;    // 旧 m_attackTime
+		float attackStartTime = 0.0f;
+		float attackEndTime = 0.4f;
+
+
+		float dashSpeed = 0.7f;				// ダッシュ移動速度
+		float blendTime = 0.25f;			// ブレンドエフェクト表示時間
+		float animationSpeed = 60.0f;		// アニメーション速度
+		float dashSpeedTime = 0.2f;			// ダッシュ移動速度時間
+		float changeStateTime = 0.7f;		// 状態遷移までの時間
+	};
+
 public:
 	EnemyStateBase() = default;
 	~EnemyStateBase() override = default;
 
 	void SetEnemy(AetheriusEnemy* enemy) { m_enemy = enemy; }
 
+	void ExposeParametersImGui() override {}
+	// JSON 読み込み
+	void LoadParametersJson(const nlohmann::json& _json) override {}
+	// 保存
+	void SaveParametersJson(nlohmann::json& _json) const override {}
+	// ImGuiで編集した変数を実行時反映させるための関数
+	virtual void ApplyFromConfig(const EnemyStateBase& other) {}
 
 protected:
 
@@ -39,5 +64,7 @@ protected:
 	float m_animeTime = 0.0f;
 
 	std::vector<std::weak_ptr<Player>> m_player;
+
+	StateParameter m_stateParameter;
 
 };

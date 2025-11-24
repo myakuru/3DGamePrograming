@@ -105,8 +105,8 @@ void PlayerConfig::CreateStates()
 {
 	m_states.clear();
 	m_stateNames.clear();
-	m_states.reserve(24);
-	m_stateNames.reserve(24);
+	m_states.reserve(30);
+	m_stateNames.reserve(30);
 
 	// 攻撃
 	m_states.emplace_back(std::make_unique<PlayerState_Attack>());          m_stateNames.emplace_back("Attack");

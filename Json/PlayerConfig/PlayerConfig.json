@@ -306,7 +306,8 @@
       "afterImageInterval": 5.0,
       "afterImageMax": 10,
       "animationSpeed": 100.0,
-      "blendTime": 0.25
+      "blendTime": 0.25,
+      "moveSpeed": 2.0
     }
   },
   "PlayerState_Hit": {

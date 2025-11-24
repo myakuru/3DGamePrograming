@@ -19,4 +19,6 @@ private:
 
 	bool m_afterImagePlayed = false; // 残像エフェクトが再生されたかどうか
 
+	float m_moveSpeed = 2.0f;
+
 };

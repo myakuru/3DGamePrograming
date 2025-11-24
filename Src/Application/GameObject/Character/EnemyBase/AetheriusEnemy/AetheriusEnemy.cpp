@@ -10,10 +10,11 @@
 #include"Application/GameObject/Collition/Collition.h"
 #include"Application/main.h"
 #include"MyFramework/Manager/JsonManager/JsonManager.h"
-#include"EnemyState/EnemyState_Dath/EnemyState_Dath.h"
+#include"EnemyState/EnemyState_Death/EnemyState_Death.h"
 #include"../../../../Data/CharacterData/CharacterData.h"
 
 #include"Application/GameObject/Effect/EffekseerEffect/EnemyHitEffect/EnemyHitEffect.h"
+#include "Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemyConfig.h"
 
 const uint32_t AetheriusEnemy::TypeID = GenerateTypeID();
 
@@ -44,6 +45,22 @@ void AetheriusEnemy::Init()
 
 	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemySword, m_enemySwords);
 	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyShield, m_enemyShields);
+
+	m_config = std::make_shared<AetheriusEnemyConfig>();
+
+	if (m_config)
+	{
+		m_config->CreateStates();
+	}
+
+	if (m_config)
+	{
+		const nlohmann::json cfg = JSON_MANAGER.JsonDeserialize("Json/AetheriusEnemyConfig/AetheriusEnemyConfig");
+		if (!cfg.is_null())
+		{
+			m_config->JsonInput(cfg);
+		}
+	}
 
 	// シーン内の EnemyHitEffect を1つ取得（共有の発射台として使う）
 }
@@ -161,9 +178,40 @@ void AetheriusEnemy::StateInit()
 	ChangeState(idleState);
 }
 
+void AetheriusEnemy::ImGuiInspector()
+{
+	EnemyBase::ImGuiInspector();
+	if (m_config)
+	{
+		m_config->InGuiInspector();
+	}
+}
+
+void AetheriusEnemy::JsonInput(const nlohmann::json& _json)
+{
+	EnemyBase::JsonInput(_json);
+	if (m_config)
+	{
+		m_config->JsonInput(_json);
+	}
+}
+
+void AetheriusEnemy::JsonSave(nlohmann::json& _json) const
+{
+	EnemyBase::JsonSave(_json);
+	if (m_config)
+	{
+		m_config->JsonSave();
+	}
+}
+
 void AetheriusEnemy::ChangeState(std::shared_ptr<EnemyStateBase> _state)
 {
 	_state->SetEnemy(this);
+	if (m_config)
+	{
+		m_config->ApplyPrototypeParametersTo(*_state);
+	}
 	m_stateManager.ChangeState(_state);
 }
 
