@@ -17,6 +17,7 @@
 #include "Application/GameObject/Collition/Collition.h"
 #include "Application/GameObject/Character/AfterImage/AfterImage.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_Attack/PlayerState_Attack.h"
+#include "Application/GameObject/Character/Player/PlayerConfig.h"
 
 const uint32_t Player::TypeID = KdGameObject::GenerateTypeID();
 
@@ -69,7 +70,22 @@ void Player::Init()
 
 	m_visual.rimLightOn = false;
 
-	CreateStates();
+	m_playerConfig = std::make_shared<PlayerConfig>();
+
+	if (m_playerConfig)
+	{
+		m_playerConfig->CreateStates();
+	}
+
+	// PlayerConfig.json を読み込み、その内容を PlayerConfig に反映
+	if (m_playerConfig)
+	{
+		const nlohmann::json cfg = JSON_MANAGER.JsonDeserialize("Json/PlayerConfig/PlayerConfig");
+		if (!cfg.is_null())
+		{
+			m_playerConfig->JsonInput(cfg);
+		}
+	}
 }
 
 void Player::PreUpdate()
@@ -445,7 +461,7 @@ void Player::UpdateAttackCollision(float _radius        , float         _distanc
 				else if (obj->GetTypeID() == BossEnemy::TypeID)
 				{
 					auto b = std::static_pointer_cast<BossEnemy>(obj);
-					b->Damage(m_characterData->GetCharacterData().attack);
+				 b->Damage(m_characterData->GetCharacterData().attack);
 					b->SetEnemyHit(true);
 				}
 				hitAny = true;
@@ -485,39 +501,38 @@ void Player::ImGuiInspector()
 {
 	CharacterBase::ImGuiInspector();
 
-	ImGui::Text(U8("プレイヤーの設定"));
-	ImGui::DragFloat(U8("重力の大きさ"), &m_physics.gravitySpeed, 0.01f);
-	ImGui::DragFloat(U8("フレームレート制限"), &m_physics.fixedFrameRate, 1.f);
+	// ファイルパス（必要なら .json 付きに合わせる）
+	//constexpr const char* kPlayerConfigPath = "Json/PlayerConfig";
 
-	ImGui::Text(U8("プレイヤーの状態"));
-	ImGui::DragFloat(U8("移動速度"), &m_movement.moveSpeed, 0.1f);
-
-	ImGui::Text(U8("Attack１のカメラの揺れ"));
-	ImGui::DragFloat2(U8("揺れの大きさ"), &m_cameraShake.power.x, 0.01f);
-
-	ImGui::Text(U8("Attack1のカメラの揺れ時間"));
-	ImGui::DragFloat(U8("揺れの時間"), &m_cameraShake.time, 0.01f);
-
-	ImGui::Text(U8("プレイヤーの回転速度"));
-	ImGui::DragFloat(U8("回転速度"), &m_movement.rotateSpeed, 0.1f);
-
-	ImGui::DragFloat3(U8("回転(Yaw Pitch Roll)"), &m_degree.x, 1.0f);
-
+	ImGui::Text(U8("プレイヤー設定 (Prototype + Runtime 同一ビュー)"));
 	ImGui::Separator();
 
-	// クォータニオン表示
+	// 基本パラメータ
+	ImGui::DragFloat(U8("重力の大きさ"), &m_physics.gravitySpeed, 0.01f);
+	ImGui::DragFloat(U8("フレームレート制限"), &m_physics.fixedFrameRate, 1.f);
+	ImGui::DragFloat(U8("移動速度"), &m_movement.moveSpeed, 0.1f);
+	ImGui::DragFloat(U8("回転速度"), &m_movement.rotateSpeed, 0.1f);
+	ImGui::DragFloat3(U8("回転(Yaw Pitch Roll)"), &m_degree.x, 1.0f);
+
+	ImGui::DragFloat2(U8("Attack1揺れPow"), &m_cameraShake.power.x, 0.01f);
+	ImGui::DragFloat(U8("Attack1揺れ時間"), &m_cameraShake.time, 0.01f);
+
+	// Quaternion 再計算
 	m_rotation = Math::Quaternion::CreateFromYawPitchRoll(
 		DirectX::XMConvertToRadians(m_degree.y),
 		DirectX::XMConvertToRadians(m_degree.x),
 		DirectX::XMConvertToRadians(m_degree.z));
 
 	ImGui::Separator();
-	m_playerConfig.InGuiInspector(m_states);
-	
+	ImGui::Text(U8("変更したいステート"));
+	m_playerConfig->InGuiInspector();
+	ImGui::Separator();
 }
 
 void Player::JsonInput(const nlohmann::json& _json)
 {
+
+
 	CharacterBase::JsonInput(_json);
 	if (_json.contains("GravitySpeed"))   m_physics.gravitySpeed = _json["GravitySpeed"].get<float>();
 	if (_json.contains("fixedFps"))       m_physics.fixedFrameRate = _json["fixedFps"].get<float>();
@@ -526,7 +541,6 @@ void Player::JsonInput(const nlohmann::json& _json)
 	if (_json.contains("cameraShakeTime")) m_cameraShake.time = _json["cameraShakeTime"].get<float>();
 	if (_json.contains("rotateSpeed"))    m_movement.rotateSpeed = _json["rotateSpeed"].get<float>();
 	if (_json.contains("degree"))         m_degree = JSON_MANAGER.JsonToVector(_json["degree"]);
-	m_playerConfig.JsonInput(_json, m_states);
 }
 
 void Player::JsonSave(nlohmann::json& _json) const
@@ -539,7 +553,13 @@ void Player::JsonSave(nlohmann::json& _json) const
 	_json["cameraShakeTime"] = m_cameraShake.time;
 	_json["rotateSpeed"] = m_movement.rotateSpeed;
 	_json["degree"] = JSON_MANAGER.VectorToJson(m_degree);
-	m_playerConfig.JsonSave(_json, m_states);
+
+
+	// PlayerConfig.json を PlayerConfig から生成して保存
+	if (m_playerConfig)
+	{
+		m_playerConfig->JsonSave();
+	}
 }
 
 void Player::StateInit()
@@ -552,7 +572,10 @@ void Player::ChangeState(std::shared_ptr<PlayerStateBase> _state)
 {
 	_state->SetPlayer(this);
 	// Configからパラメータ注入（StateStart前に行う）
-	ApplyPrototypeParametersTo(*_state);
+	if (m_playerConfig)
+	{
+		m_playerConfig->ApplyPrototypeParametersTo(*_state);
+	}
 	m_stateManager.ChangeState(_state);
 }
 
@@ -591,28 +614,6 @@ void Player::TakeDamage(int _damage)
 {
 	m_characterData->SetCharacterData().hp -= _damage;
 	if (m_characterData->GetCharacterData().hp < 0) m_characterData->SetCharacterData().hp = 0;
-}
-
-void Player::CreateStates()
-{
-	m_states.clear();
-	m_states.reserve(8); // 予想数を入れて再配置減少
-
-	m_states.emplace_back(std::make_unique<PlayerState_Attack>());
-}
-
-void Player::ApplyPrototypeParametersTo(PlayerStateBase& runtime)
-{
-	// 同じ派生型のプロトタイプを探してパラメータをコピー
-	for (auto& proto : m_states)
-	{
-		if (!proto) continue;
-		if (typeid(*proto) == typeid(runtime))
-		{
-			runtime.ApplyFromConfig(*proto);
-			break;
-		}
-	}
 }
 
 void Player::ApplyHorizontalMove(const Math::Vector3& _inputMove, float _deltaTime)

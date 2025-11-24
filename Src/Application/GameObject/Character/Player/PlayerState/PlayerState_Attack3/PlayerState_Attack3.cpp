@@ -19,7 +19,7 @@
 void PlayerState_Attack3::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("Attack3");
-	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 
 	PlayerStateBase::StateStart();
 
@@ -35,12 +35,9 @@ void PlayerState_Attack3::StateStart()
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
 
-	m_time = 0.0f;
-	m_lButtonKeyInput = false;
-
 	SceneManager::Instance().GetObjectWeakPtr(m_slashEffect);
 
-	if (auto effect = m_slashEffect.lock(); effect)
+	if (auto effect = m_slashEffect.lock())
 	{
 		effect->SetPlayEffect(true);
 	}
@@ -48,9 +45,9 @@ void PlayerState_Attack3::StateStart()
 	SceneManager::Instance().GetObjectWeakPtr(m_bossEnemy);
 
 	// カメラの位置を変更
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
-		if (auto bossEnemy = m_bossEnemy.lock(); bossEnemy)
+		if (auto bossEnemy = m_bossEnemy.lock())
 		{
 			camera->SetTargetLookAt({ 0.0,1.0f,-7.5f });
 		}
@@ -63,7 +60,7 @@ void PlayerState_Attack3::StateStart()
 	// 残像の設定
 	m_player->GetAfterImage()->AddAfterImage(true, 3, 1, Math::Color(0.0f, 1.0f, 1.0f, 1.0f));
 
-	m_player->SetAnimeSpeed(70.0f);
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	KdAudioManager::Instance().Play("Asset/Sound/Player/Attack3.WAV", false)->SetVolume(0.5f);
 }
@@ -75,29 +72,21 @@ void PlayerState_Attack3::StateUpdate()
 		m_animeTime = m_player->GetAnimator()->GetPlayProgress();
 	}
 
-	if (m_animeTime >= 0.0f && m_animeTime <= 0.25f)
-	{
-		KdShaderManager::Instance().m_postProcessShader.SetEnableStrongBlur(true);
-	}
-	else if(m_animeTime >= 0.3f && m_animeTime <= 0.45f)
-	{
-		KdShaderManager::Instance().m_postProcessShader.SetEnableStrongBlur(true);
-	}
-	else if(m_animeTime >= 0.55f && m_animeTime <= 0.7f)
-	{
-		KdShaderManager::Instance().m_postProcessShader.SetEnableStrongBlur(true);
-	}
-	else
-	{
-		KdShaderManager::Instance().m_postProcessShader.SetEnableStrongBlur(false);
-	}
-
 	PlayerStateBase::StateUpdate();
 
 	float deltaTime = Application::Instance().GetDeltaTime();
 
 	// 0.5秒間当たり判定有効
-	m_player->UpdateAttackCollision(5.0f, 2.0f, 5, m_maxAnimeTime, { 0.2f, 0.0f }, 0.3f);
+	m_player->UpdateAttackCollision(
+		m_stateParameter.attackRadius,
+		m_stateParameter.attackDistance,
+		m_stateParameter.attackCount,
+		m_stateParameter.attackInterval,
+		m_stateParameter.cameraShake,
+		m_stateParameter.cameraTime,
+		m_stateParameter.attackStartTime,
+		m_stateParameter.attackEndTime
+	);
 
 	m_player->UpdateMoveDirectionFromInput();
 
@@ -128,10 +117,9 @@ void PlayerState_Attack3::StateUpdate()
 		m_player->UpdateQuaternionDirect(moveDir);
 	}
 
-	if (m_time < 1.0f)
+	if (m_time < m_stateParameter.dashSpeedTime)
 	{
-		float dashSpeed = 0.2f;
-		m_player->SetIsMoving(m_attackDirection * dashSpeed);
+		m_player->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
 		m_time += deltaTime;
 	}
 	else
@@ -140,7 +128,7 @@ void PlayerState_Attack3::StateUpdate()
 		m_player->SetIsMoving(Math::Vector3::Zero);
 
 		// 攻撃入力受付
-		if (m_animeTime >= 0.7f)
+		if (m_animeTime >= m_stateParameter.changeStateTime)
 		{
 			// 攻撃入力処理
 			if (UpdateAttackInput<PlayerState_Attack4>()) return;
@@ -157,7 +145,7 @@ void PlayerState_Attack3::StateEnd()
 	PlayerStateBase::StateEnd();
 
 	// エフェクトの停止
-	if (auto effect = m_slashEffect.lock(); effect)
+	if (auto effect = m_slashEffect.lock())
 	{
 		effect->SetPlayEffect(false);
 	}

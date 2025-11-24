@@ -14,7 +14,7 @@
 void PlayerState_ChargeLevel2::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("ChargeAttack1");
-	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 	PlayerStateBase::StateStart();
 
 	SceneManager::Instance().GetObjectWeakPtr(m_effect);
@@ -38,6 +38,8 @@ void PlayerState_ChargeLevel2::StateStart()
 	{
 		camera->SetTargetLookAt({ 0.f,0.5f,-1.8f });
 	}
+
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
@@ -117,4 +119,38 @@ void PlayerState_ChargeLevel2::StateEnd()
 	// 無敵状態解除
 	m_player->SetInvincible(false);
 
+}
+
+void PlayerState_ChargeLevel2::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_ChargeLevel2));
+	const auto& p = static_cast<const PlayerState_ChargeLevel2&>(other);
+	m_stateParameter.blendTime = p.m_stateParameter.blendTime;
+	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
+}
+
+void PlayerState_ChargeLevel2::ExposeParametersImGui()
+{
+	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
+	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
+}
+
+void PlayerState_ChargeLevel2::LoadParametersJson(const nlohmann::json& js)
+{
+	if (!js.contains("PlayerState_ChargeLevel2")) return;
+	const auto& stateNode = js["PlayerState_ChargeLevel2"];
+	if (stateNode.contains("Player"))
+	{
+		const auto& playerNode = stateNode["Player"];
+		if (playerNode.contains("blendTime")) m_stateParameter.blendTime = playerNode["blendTime"].get<float>();
+		if (playerNode.contains("animationSpeed")) m_stateParameter.animationSpeed = playerNode["animationSpeed"].get<float>();
+	}
+}
+
+void PlayerState_ChargeLevel2::SaveParametersJson(nlohmann::json& js) const
+{
+	auto& stateNode = js["PlayerState_ChargeLevel2"];
+	auto& playerNode = stateNode["Player"];
+	playerNode["blendTime"] = m_stateParameter.blendTime;
+	playerNode["animationSpeed"] = m_stateParameter.animationSpeed;
 }

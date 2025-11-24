@@ -10,7 +10,7 @@
 void PlayerState_Skill::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("Eskill");
-	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 	
 
 	PlayerStateBase::StateStart();
@@ -24,12 +24,12 @@ void PlayerState_Skill::StateStart()
 
 	// 残像の設定
 	m_player->GetAfterImage()->AddAfterImage(true, 10, 0.05f, { 0.0f,0.5f,1.0f,0.5f });
+
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 }
 
 void PlayerState_Skill::StateUpdate()
 {
-	m_player->SetAnimeSpeed(100.0f);
-
 	// 攻撃中の移動方向で回転を更新
 	if (m_player->GetMovement() != Math::Vector3::Zero)
 	{
@@ -49,13 +49,22 @@ void PlayerState_Skill::StateUpdate()
 	UpdateKatanaPos();
 
 	// 当たり判定有効時間: 最初の0.5秒のみ
-	m_player->UpdateAttackCollision(8.0f, 1.0f, 5, 0.1f, { 0.3f, 0.3f }, 0.3f);
+	m_player->UpdateAttackCollision
+	(
+		m_stateParameter.attackRadius,
+		m_stateParameter.attackDistance,
+		m_stateParameter.attackCount,
+		m_stateParameter.attackInterval,
+		m_stateParameter.cameraShake,
+		m_stateParameter.cameraTime,
+		m_stateParameter.attackStartTime,
+		m_stateParameter.attackEndTime
+	);
 
 	float deltaTime = Application::Instance().GetDeltaTime();
-	if (m_time < 0.1f)
+	if (m_time < m_stateParameter.dashSpeedTime)
 	{
-		float dashSpeed = 5.0f;
-		m_player->SetIsMoving(m_attackDirection * dashSpeed);
+		m_player->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
 		m_time += deltaTime;
 	}
 	else

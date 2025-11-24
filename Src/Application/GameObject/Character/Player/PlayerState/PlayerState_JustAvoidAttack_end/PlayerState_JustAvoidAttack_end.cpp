@@ -18,19 +18,18 @@
 void PlayerState_JustAvoidAttack_end::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("JustAvoidAttack");
-	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 	PlayerStateBase::StateStart();
-	m_time = 0.0f;
 
 	// 敵との当たり判定を無効化
 	m_player->SetAtkPlayer(true);
 
 	// アニメーション速度を変更
-	m_player->SetAnimeSpeed(100.0f);
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	SceneManager::Instance().GetObjectWeakPtr(m_justAvoidAttackEffect);
 
-	if (auto effect = m_justAvoidAttackEffect.lock(); effect)
+	if (auto effect = m_justAvoidAttackEffect.lock())
 	{
 		effect->SetPlayEffect(true);
 	}
@@ -57,7 +56,16 @@ void PlayerState_JustAvoidAttack_end::StateUpdate()
 	}
 
 	// 当たり判定有効時間: 最初の0.5秒のみ
-	m_player->UpdateAttackCollision(10.0f, 7.0f, 6, 0.2f, { 0.4f, 0.4f }, 0.5f, 0.0f, 1.2f);
+	m_player->UpdateAttackCollision(
+		m_stateParameter.attackRadius,
+		m_stateParameter.attackDistance,
+		m_stateParameter.attackCount,
+		m_stateParameter.attackInterval,
+		m_stateParameter.cameraShake,
+		m_stateParameter.cameraTime,
+		m_stateParameter.attackStartTime,
+		m_stateParameter.attackEndTime
+	);
 
 	UpdateKatanaPos();
 
@@ -95,9 +103,9 @@ void PlayerState_JustAvoidAttack_end::StateEnd()
 	m_player->SetJustAvoidAttackSuccess(false);
 
 
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
-		if (auto bossEnemy = m_bossEnemy.lock(); bossEnemy)
+		if (auto bossEnemy = m_bossEnemy.lock())
 		{
 			camera->SetTargetLookAt(m_cameraBossTargetOffset);
 		}
@@ -107,7 +115,7 @@ void PlayerState_JustAvoidAttack_end::StateEnd()
 		}
 	}
 
-	if (auto effect = m_justAvoidAttackEffect.lock(); effect)
+	if (auto effect = m_justAvoidAttackEffect.lock())
 	{
 		effect->SetPlayEffect(false);
 	}
@@ -119,4 +127,105 @@ void PlayerState_JustAvoidAttack_end::StateEnd()
 	{
 		bgm->SetPitch(0.0f);
 	}
+}
+
+void PlayerState_JustAvoidAttack_end::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_JustAvoidAttack_end));
+	const auto& p = static_cast<const PlayerState_JustAvoidAttack_end&>(other);
+	m_stateParameter.blendTime = p.m_stateParameter.blendTime;
+	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
+
+	// 当たり判定設定
+	m_stateParameter.attackRadius = p.m_stateParameter.attackRadius;
+	m_stateParameter.attackDistance = p.m_stateParameter.attackDistance;
+	m_stateParameter.attackCount = p.m_stateParameter.attackCount;
+	m_stateParameter.attackInterval = p.m_stateParameter.attackInterval;
+	m_stateParameter.attackStartTime = p.m_stateParameter.attackStartTime;
+	m_stateParameter.attackEndTime = p.m_stateParameter.attackEndTime;
+}
+
+void PlayerState_JustAvoidAttack_end::ExposeParametersImGui()
+{
+	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
+	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
+
+	const float kLabelWidth = 160.0f;
+	const float kItemWidth = 180.0f;
+
+	// 当たり判定
+	if (ImGui::CollapsingHeader(U8("当たり判定"), ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		if (ImGui::BeginTable("tbl_hit", 2, ImGuiTableFlags_SizingStretchProp | ImGuiTableFlags_BordersInnerV))
+		{
+			ImGui::TableSetupColumn("label", ImGuiTableColumnFlags_WidthFixed, kLabelWidth);
+			ImGui::TableSetupColumn("value", ImGuiTableColumnFlags_WidthStretch);
+
+			// 半径
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("当たり判定の半径"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth);
+			ImGui::SliderFloat("##attackRadius", &m_stateParameter.attackRadius, 0.0f, 10.0f, "%.2f");
+
+			// 距離
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("当たり判定の距離"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth);
+			ImGui::SliderFloat("##attackDistance", &m_stateParameter.attackDistance, 0.0f, 10.0f, "%.2f");
+
+			// 回数
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("当たり判定の回数"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth);
+			ImGui::SliderInt("##attackCount", &m_stateParameter.attackCount, 0, 10);
+
+			// 間隔
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("当たり判定の間隔(秒)"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth);
+			ImGui::SliderFloat("##attackInterval", &m_stateParameter.attackInterval, 0.0f, 1.0f, "%.03f");
+
+			// 開始/終了時間（同時編集）
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("当たり判定の時間範囲(秒)"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth * 1.3f);
+			ImGui::DragFloatRange2("##attackTimeRange", &m_stateParameter.attackStartTime, &m_stateParameter.attackEndTime, 0.01f, 0.0f, 10.0f,
+				U8("開始: %.02f"), U8("終了: %.02f"));
+			if (m_stateParameter.attackEndTime < m_stateParameter.attackStartTime) m_stateParameter.attackEndTime = m_stateParameter.attackStartTime;
+
+			ImGui::EndTable();
+		}
+	}
+}
+
+void PlayerState_JustAvoidAttack_end::LoadParametersJson(const nlohmann::json& js)
+{
+	if (!js.contains("PlayerState_JustAvoidAttack_end")) return;
+	const auto& stateNode = js["PlayerState_JustAvoidAttack_end"];
+	if (stateNode.contains("Player"))
+	{
+		const auto& playerNode = stateNode["Player"];
+		if (playerNode.contains("blendTime")) m_stateParameter.blendTime = playerNode["blendTime"].get<float>();
+		if (playerNode.contains("animationSpeed")) m_stateParameter.animationSpeed = playerNode["animationSpeed"].get<float>();
+
+		// 当たり判定設定
+		if (playerNode.contains("attackRadius")) m_stateParameter.attackRadius = playerNode["attackRadius"].get<float>();
+		if (playerNode.contains("attackDistance")) m_stateParameter.attackDistance = playerNode["attackDistance"].get<float>();
+		if (playerNode.contains("attackCount")) m_stateParameter.attackCount = playerNode["attackCount"].get<int>();
+		if (playerNode.contains("attackInterval")) m_stateParameter.attackInterval = playerNode["attackInterval"].get<float>();
+		if (playerNode.contains("attackStartTime")) m_stateParameter.attackStartTime = playerNode["attackStartTime"].get<float>();
+		if (playerNode.contains("attackEndTime")) m_stateParameter.attackEndTime = playerNode["attackEndTime"].get<float>();
+	}
+}
+
+void PlayerState_JustAvoidAttack_end::SaveParametersJson(nlohmann::json& js) const
+{
+	if (!js.contains("PlayerState_JustAvoidAttack_end")) js["PlayerState_JustAvoidAttack_end"] = nlohmann::json::object();
+	auto& stateNode = js["PlayerState_JustAvoidAttack_end"];
+
+	stateNode["Player"]["blendTime"] = m_stateParameter.blendTime;
+	stateNode["Player"]["animationSpeed"] = m_stateParameter.animationSpeed;
+
+	// 当たり判定設定
+	stateNode["Player"]["attackRadius"] = m_stateParameter.attackRadius;
+	stateNode["Player"]["attackDistance"] = m_stateParameter.attackDistance;
+	stateNode["Player"]["attackCount"] = m_stateParameter.attackCount;
+	stateNode["Player"]["attackInterval"] = m_stateParameter.attackInterval;
+	stateNode["Player"]["attackStartTime"] = m_stateParameter.attackStartTime;
+	stateNode["Player"]["attackEndTime"] = m_stateParameter.attackEndTime;
 }

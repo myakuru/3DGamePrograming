@@ -19,7 +19,7 @@
 void PlayerState_Attack4::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("Attack4");
-	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 
 	PlayerStateBase::StateStart();
 
@@ -36,13 +36,10 @@ void PlayerState_Attack4::StateStart()
 	m_player->ResetAttackCollision();
 
 	SceneManager::Instance().GetObjectWeakPtr(m_groundFreezes);
-	SceneManager::Instance().GetObjectWeakPtr(m_rotation);
+	SceneManager::Instance().GetObjectWeakPtr(m_rotationEffect);
 	SceneManager::Instance().GetObjectWeakPtr(m_bossEnemy);
 
-	m_time = 0.0f;
-	m_lButtonKeyInput = false;
-
-	m_player->SetAnimeSpeed(70.0f);
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	KdAudioManager::Instance().Play("Asset/Sound/Player/Attack4.WAV", false)->SetVolume(0.5f);
 }
@@ -52,8 +49,6 @@ void PlayerState_Attack4::StateUpdate()
 	// アニメーション時間のデバッグ表示
 	{
 		m_animeTime = m_player->GetAnimator()->GetPlayProgress();
-
-		m_maxAnimeTime = m_player->GetAnimator()->GetMaxAnimationTime();
 	}
 
 	PlayerStateBase::StateUpdate();
@@ -61,7 +56,16 @@ void PlayerState_Attack4::StateUpdate()
 	float deltaTime = Application::Instance().GetDeltaTime();
 
 	// 0.5秒間当たり判定有効
-	m_player->UpdateAttackCollision(5.0f, 2.0f, 7, m_maxAnimeTime, { 0.2f, 0.2f }, 0.3f);
+	m_player->UpdateAttackCollision(
+		m_stateParameter.attackRadius,
+		m_stateParameter.attackDistance,
+		m_stateParameter.attackCount,
+		m_stateParameter.attackInterval,
+		m_stateParameter.cameraShake,
+		m_stateParameter.cameraTime,
+		m_stateParameter.attackStartTime,
+		m_stateParameter.attackEndTime
+	);
 
 	m_player->UpdateMoveDirectionFromInput();
 
@@ -91,10 +95,9 @@ void PlayerState_Attack4::StateUpdate()
 
 	UpdateKatanaPos();
 
-	if (m_time < 0.2f)
+	if (m_time < m_stateParameter.dashSpeedTime)
 	{
-		float dashSpeed = 1.0f;
-		m_player->SetIsMoving(m_attackDirection * dashSpeed);
+		m_player->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
 		m_time += deltaTime;
 	}
 	else
@@ -103,19 +106,19 @@ void PlayerState_Attack4::StateUpdate()
 
 		m_player->SetIsMoving(Math::Vector3::Zero);
 
-		if (auto effect = m_groundFreezes.lock(); effect)
+		if (auto effect = m_groundFreezes.lock())
 		{
 			effect->SetPlayEffect(true);
 		}
 
-		if (auto effect = m_rotation.lock(); effect)
+		if (auto effect = m_rotationEffect.lock())
 		{
 			effect->SetPlayEffect(true);
 		}
 
 
 		// 攻撃入力受付
-		if (m_animeTime >= 0.7f)
+		if (m_animeTime >= m_stateParameter.changeStateTime)
 		{
 			// 攻撃入力処理
 			if (UpdateAttackInput<PlayerState_Attack1>()) return;
@@ -142,12 +145,12 @@ void PlayerState_Attack4::StateEnd()
 		}
 	}
 
-	if (auto effect = m_groundFreezes.lock(); effect)
+	if (auto effect = m_groundFreezes.lock())
 	{
 		effect->SetPlayEffect(false);
 	}
 
-	if (auto effect = m_rotation.lock(); effect)
+	if (auto effect = m_rotationEffect.lock())
 	{
 		effect->SetPlayEffect(false);
 	}

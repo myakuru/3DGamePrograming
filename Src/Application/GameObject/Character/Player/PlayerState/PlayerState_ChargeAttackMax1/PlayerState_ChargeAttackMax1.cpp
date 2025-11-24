@@ -7,10 +7,10 @@
 void PlayerState_ChargeAttackMax1::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("ChargeMax");
-	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 	PlayerStateBase::StateStart();
 	// アニメーション速度を変更
-	m_player->SetAnimeSpeed(120.0f);
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	SceneManager::Instance().GetObjectWeakPtr(m_effect);
 
@@ -37,7 +37,14 @@ void PlayerState_ChargeAttackMax1::StateUpdate()
 	}
 
 	// 攻撃の当たり判定更新
-	m_player->UpdateAttackCollision(15.0f, 1.0f, 5.0f, m_maxAnimeTime, { 0.3f, 0.3f }, 0.1f);
+	m_player->UpdateAttackCollision(
+		m_stateParameter.attackRadius,
+		m_stateParameter.attackDistance,
+		m_stateParameter.attackCount,
+		m_stateParameter.attackInterval,
+		m_stateParameter.cameraShake,
+		m_stateParameter.cameraTime
+	);
 
 	// 刀は鞘の中にある状態
 	UpdateUnsheathed();

@@ -11,13 +11,10 @@
 void PlayerState_AvoidAttack::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("AvoidAttack");
-	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 	PlayerStateBase::StateStart();
-	m_time = 0.0f;
 
 	// 当たり判定リセット
-	m_lButtonKeyInput = false;
-
 	m_player->ResetAttackCollision();
 
 	SceneManager::Instance().GetObjectWeakPtr(m_effect);
@@ -30,12 +27,18 @@ void PlayerState_AvoidAttack::StateUpdate()
 	// アニメーション時間
 	{
 		m_animeTime = m_player->GetAnimator()->GetPlayProgress();
-
-		m_maxAnimeTime = m_player->GetAnimator()->GetMaxAnimationTime();
 	}
-
 	
-	m_player->UpdateAttackCollision(5.0f, 5.0f, 1, m_maxAnimeTime, { 0.3f, 0.0f }, 0.3f);
+	m_player->UpdateAttackCollision(
+		m_stateParameter.attackRadius,
+		m_stateParameter.attackDistance,
+		m_stateParameter.attackCount,
+		m_stateParameter.attackInterval,
+		m_stateParameter.cameraShake,
+		m_stateParameter.cameraTime,
+		m_stateParameter.attackStartTime,
+		m_stateParameter.attackEndTime
+	);
 
 	// 必殺技入力処理
 	if (UpdateSpecialAttackInput()) return;
@@ -71,10 +74,9 @@ void PlayerState_AvoidAttack::StateUpdate()
 		camera->SetTargetRotation({ 0.0f, yawDeg, 0.0f });
 	}
 
-	if (m_time < 0.3f)
+	if (m_time < m_stateParameter.dashSpeedTime)
 	{
-		float dashSpeed = 2.0f;
-		m_player->SetIsMoving(m_attackDirection * dashSpeed);
+		m_player->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
 		m_time += deltaTime;
 	}
 	else
@@ -82,7 +84,7 @@ void PlayerState_AvoidAttack::StateUpdate()
 		// 移動を止める
 		m_player->SetIsMoving(Math::Vector3::Zero);
 
-		if (auto effect = m_effect.lock(); effect)
+		if (auto effect = m_effect.lock())
 		{
 			effect->SetPlayEffect(true);
 		}
@@ -94,7 +96,7 @@ void PlayerState_AvoidAttack::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
-	if (auto effect = m_effect.lock(); effect)
+	if (auto effect = m_effect.lock())
 	{
 		effect->SetPlayEffect(true);
 		effect->StopEffect();

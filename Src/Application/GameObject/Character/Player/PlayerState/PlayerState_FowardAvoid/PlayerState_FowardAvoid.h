@@ -1,10 +1,10 @@
 ﻿#pragma once
 #include"../PlayerState.h"
-class PlayerState_ForwardAvoid :public PlayerStateBase
+class PlayerState_FowardAvoid :public PlayerStateBase
 {
 public:
-	PlayerState_ForwardAvoid() = default;
-	~PlayerState_ForwardAvoid() override = default;
+	PlayerState_FowardAvoid() = default;
+	~PlayerState_FowardAvoid() override = default;
 
 private:
 
@@ -12,13 +12,15 @@ private:
 	void StateUpdate() override;
 	void StateEnd() override;
 
-	float m_chargeTime = 0.0f; // チャージ時間
-
-	bool m_isCharging = false; // チャージ中かどうか
-	bool m_isCharged = false; // チャージが完了したかどうか
+	void ApplyFromConfig(const PlayerStateBase& other) override;
+	void ExposeParametersImGui() override;
+	void LoadParametersJson(const nlohmann::json& js) override;
+	void SaveParametersJson(nlohmann::json& js) const override;
 
 	bool m_afterImagePlayed = false; // 残像エフェクトが再生されたかどうか
 
-	bool m_justAvoided = false; // ジャスト回避が成功したかどうか
+	Math::Vector3 m_startCameraOffset = { 0.0f, 1.0f, -4.5f };
+	Math::Vector3 m_startBossCameraOffset = { 0.0f,1.0f,-7.5f };
+	Math::Vector3 m_justAvoidCameraOffset = { 0.0f,0.7f,-1.2f };
 
 };

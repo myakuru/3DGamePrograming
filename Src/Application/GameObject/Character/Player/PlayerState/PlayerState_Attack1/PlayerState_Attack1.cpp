@@ -19,7 +19,7 @@
 void PlayerState_Attack1::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("Attack1");
-	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 	
 
 	PlayerStateBase::StateStart();
@@ -43,7 +43,7 @@ void PlayerState_Attack1::StateStart()
 	// エフェクトの取得
 	SceneManager::Instance().GetObjectWeakPtr(m_effect);
 
-	m_player->SetAnimeSpeed(70.0f);
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	KdAudioManager::Instance().Play("Asset/Sound/Player/Attack1.wav", false)->SetVolume(0.5f);
 }
@@ -55,8 +55,17 @@ void PlayerState_Attack1::StateUpdate()
 
 	float deltaTime = Application::Instance().GetDeltaTime();
 
-	// 0.5秒間当たり判定有効
-	m_player->UpdateAttackCollision(1.0f, 1.0f, 1, 0.1f, { 0.2f, 0.2f }, 0.2f);
+	// 判定有効
+	m_player->UpdateAttackCollision(
+		m_stateParameter.attackRadius,
+		m_stateParameter.attackDistance,
+		m_stateParameter.attackCount,
+		m_stateParameter.attackInterval,
+		m_stateParameter.cameraShake,
+		m_stateParameter.cameraTime,
+		m_stateParameter.attackStartTime,
+		m_stateParameter.attackEndTime
+	);
 
 	m_player->UpdateMoveDirectionFromInput();
 
@@ -81,10 +90,9 @@ void PlayerState_Attack1::StateUpdate()
 		m_player->UpdateQuaternionDirect(moveDir);
 	}
 
-	if (m_time < 0.2f)
+	if (m_time < m_stateParameter.dashSpeedTime)
 	{
-		float dashSpeed = 1.0f;
-		m_player->SetIsMoving(m_attackDirection * dashSpeed);
+		m_player->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
 		m_time += deltaTime;
 	}
 	else
@@ -104,7 +112,7 @@ void PlayerState_Attack1::StateUpdate()
 		}
 
 		// 攻撃入力受付
-		if (m_animeTime >= 0.7f)
+		if (m_animeTime >= m_stateParameter.changeStateTime)
 		{
 			// Eスキル入力処理
 			if (UpdateESkillInput()) return;
@@ -126,7 +134,7 @@ void PlayerState_Attack1::StateEnd()
 	PlayerStateBase::StateEnd();
 
 	// エフェクトがあったらフラグをfalseにする
-	if(auto effect = m_effect.lock(); effect)
+	if(auto effect = m_effect.lock())
 	{
 		effect->SetPlayEffect(false);
 		effect->StopEffect();

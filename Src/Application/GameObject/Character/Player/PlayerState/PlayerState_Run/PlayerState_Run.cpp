@@ -15,7 +15,7 @@ void PlayerState_Run::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("Run");
 	m_player->GetAnimator()->SetAnimation(anime);
-	m_player->SetAnimeSpeed(70.0f);
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 	PlayerStateBase::StateStart();
 
 	if (!m_runSound)
@@ -102,4 +102,35 @@ bool PlayerState_Run::UpdateMoveInput()
 	}
 
 	return false;
+}
+
+void PlayerState_Run::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_Run));
+	const auto& p = static_cast<const PlayerState_Run&>(other);
+	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
+}
+
+void PlayerState_Run::ExposeParametersImGui()
+{
+	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
+}
+
+void PlayerState_Run::LoadParametersJson(const nlohmann::json& js)
+{
+	if (!js.contains("PlayerState_Run")) return;
+	const auto& stateNode = js["PlayerState_Run"];
+	if (stateNode.contains("Player"))
+	{
+		const auto& playerNode = stateNode["Player"];
+		if (playerNode.contains("blendTime")) m_stateParameter.blendTime = playerNode["blendTime"].get<float>();
+	}
+}
+
+void PlayerState_Run::SaveParametersJson(nlohmann::json& js) const
+{
+	if (!js.contains("PlayerState_Run")) js["PlayerState_Run"] = nlohmann::json::object();
+	auto& stateNode = js["PlayerState_Run"];
+
+	stateNode["Player"]["blendTime"] = m_stateParameter.blendTime;
 }

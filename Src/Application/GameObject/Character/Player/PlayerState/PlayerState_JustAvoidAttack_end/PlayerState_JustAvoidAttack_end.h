@@ -13,8 +13,10 @@ private:
 	void StateUpdate() override;
 	void StateEnd() override;
 
-	Math::Vector3 m_targetPoint = Math::Vector3::Zero;
-	bool m_reachedBehind = false;
+	void ApplyFromConfig(const PlayerStateBase& other) override;
+	void ExposeParametersImGui() override;
+	void LoadParametersJson(const nlohmann::json& js) override;
+	void SaveParametersJson(nlohmann::json& js) const override;
 
 	std::weak_ptr<JustAvoidAttackEffect> m_justAvoidAttackEffect;
 

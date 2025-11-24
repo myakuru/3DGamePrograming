@@ -7,7 +7,7 @@
 void PlayerState_ChargeAttackMax::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("Eskill");
-	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 	PlayerStateBase::StateStart();
 	m_time = 0.0f;
 
@@ -15,7 +15,7 @@ void PlayerState_ChargeAttackMax::StateStart()
 	m_player->SetAtkPlayer(true);
 
 	// アニメーション速度を変更
-	m_player->SetAnimeSpeed(100.0f);
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	KdAudioManager::Instance().Play("Asset/Sound/Player/ChargeAttack.WAV", false)->SetVolume(1.0f);
 
@@ -43,7 +43,16 @@ void PlayerState_ChargeAttackMax::StateUpdate()
 	UpdateKatanaPos();
 
 	// 攻撃の当たり判定更新
-	m_player->UpdateAttackCollision(15.0f, 1.0f, 2.0f, m_maxAnimeTime, { 0.0f, 0.0f }, 0.1f);
+	m_player->UpdateAttackCollision(
+		m_stateParameter.attackRadius,
+		m_stateParameter.attackDistance,
+		m_stateParameter.attackCount,
+		m_stateParameter.attackInterval,
+		m_stateParameter.cameraShake,
+		m_stateParameter.cameraTime,
+		m_stateParameter.attackStartTime,
+		m_stateParameter.attackEndTime
+	);
 
 	// 攻撃中の移動方向で回転を更新
 	if (m_player->GetMovement() != Math::Vector3::Zero)
@@ -124,4 +133,31 @@ void PlayerState_ChargeAttackMax::StateEnd()
 
 	// 残像の設定を元に戻す
 	m_player->GetAfterImage()->AddAfterImage();
+}
+
+void PlayerState_ChargeAttackMax::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_ChargeAttackMax));
+	const auto& p = static_cast<const PlayerState_ChargeAttackMax&>(other);
+	m_stateParameter = p.m_stateParameter;  // 構造体一括コピー
+}
+
+void PlayerState_ChargeAttackMax::ExposeParametersImGui()
+{
+	m_stateParameter.ExposeImGui();
+}
+
+void PlayerState_ChargeAttackMax::LoadParametersJson(const nlohmann::json& js)
+{
+	if (!js.contains("PlayerState_ChargeAttackMax")) return;
+	const auto& stateNode = js["PlayerState_ChargeAttackMax"];
+	if (stateNode.contains("Player"))
+	{
+		m_stateParameter.LoadJson(stateNode["Player"]);
+	}
+}
+
+void PlayerState_ChargeAttackMax::SaveParametersJson(nlohmann::json& js) const
+{
+	m_stateParameter.SaveJson(js["PlayerState_ChargeAttackMax"]);
 }

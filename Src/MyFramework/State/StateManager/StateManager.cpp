@@ -23,3 +23,14 @@ void StateManager::Update()
 		m_nowState->StateUpdate();
 	}
 }
+
+StateManager::StateManager()
+	: m_nowState(nullptr)
+{
+
+}
+
+StateManager::~StateManager()
+{
+
+}

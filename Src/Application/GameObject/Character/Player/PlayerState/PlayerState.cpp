@@ -300,7 +300,7 @@ bool PlayerStateBase::UpdateMoveAvoidInput()
 			if (rDuration >= kShortPressMin && rDuration < kLongPressThreshold)
 			{
 				m_rButtonKeyInput = false;
-				auto backAvoid = std::make_shared<PlayerState_ForwardAvoid>();
+				auto backAvoid = std::make_shared<PlayerState_FowardAvoid>();
 				m_player->ChangeState(backAvoid);
 				return true;
 			}
@@ -343,4 +343,191 @@ bool PlayerStateBase::UpdateESkillInput()
 	}
 
 	return false;
+}
+
+void PlayerStateBase::StateParameter::ExposeImGui()
+{
+	// 簡易ヘルプツールチップ
+	auto Help = [](const char* desc)
+		{
+			ImGui::SameLine();
+			ImGui::TextDisabled("(?)");
+			if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+			{
+				ImGui::BeginTooltip();
+				ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+				ImGui::TextUnformatted(desc);
+				ImGui::PopTextWrapPos();
+				ImGui::EndTooltip();
+			}
+		};
+
+	ImGui::PushID("PlayerStateParams");
+	const float kLabelWidth = 160.0f;
+	const float kItemWidth = 180.0f;
+
+	// 当たり判定
+	if (ImGui::CollapsingHeader(U8("当たり判定"), ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		if (ImGui::BeginTable("tbl_hit", 2, ImGuiTableFlags_SizingStretchProp | ImGuiTableFlags_BordersInnerV))
+		{
+			ImGui::TableSetupColumn("label", ImGuiTableColumnFlags_WidthFixed, kLabelWidth);
+			ImGui::TableSetupColumn("value", ImGuiTableColumnFlags_WidthStretch);
+
+			// 半径
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("当たり判定の半径"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth);
+			ImGui::SliderFloat("##attackRadius", &attackRadius, 0.0f, 10.0f, "%.2f");
+			Help(U8("攻撃の判定半径。0で無効。"));
+
+			// 距離
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("当たり判定の距離"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth);
+			ImGui::SliderFloat("##attackDistance", &attackDistance, 0.0f, 10.0f, "%.2f");
+			Help(U8("攻撃中心からの到達距離。"));
+
+			// 回数
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("当たり判定の回数"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth);
+			ImGui::SliderInt("##attackCount", &attackCount, 0, 10);
+			Help(U8("攻撃を複数回ヒットさせる場合の回数。"));
+
+			// 間隔
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("当たり判定の間隔(秒)"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth);
+			ImGui::SliderFloat("##attackInterval", &attackInterval, 0.0f, 1.0f, "%.03f");
+			Help(U8("複数回判定する際の間隔。"));
+
+			// 開始/終了時間（同時編集）
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("当たり判定の時間範囲(秒)"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth * 1.3f);
+			ImGui::DragFloatRange2("##attackTimeRange", &attackStartTime, &attackEndTime, 0.01f, 0.0f, 10.0f,
+				U8("開始: %.02f"), U8("終了: %.02f"));
+			if (attackEndTime < attackStartTime) attackEndTime = attackStartTime;
+			Help(U8("アニメ時間に対する有効区間。終了は開始以上に自動補正されます。"));
+
+			ImGui::EndTable();
+		}
+	}
+
+	// カメラ
+	if (ImGui::CollapsingHeader(U8("カメラ")))
+	{
+		if (ImGui::BeginTable("tbl_camera", 2, ImGuiTableFlags_SizingStretchProp | ImGuiTableFlags_BordersInnerV))
+		{
+			ImGui::TableSetupColumn("label", ImGuiTableColumnFlags_WidthFixed, kLabelWidth);
+			ImGui::TableSetupColumn("value", ImGuiTableColumnFlags_WidthStretch);
+
+			// 揺れパラメータ
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("カメラ揺れ(幅, 周波数)"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth);
+			ImGui::DragFloat2("##cameraShake", &cameraShake.x, 0.01f, 0.0f, 5.0f, "%.02f");
+			Help(U8("X: 振幅, Y: 周波数など用途に合わせて解釈。0で無効。"));
+
+			// 揺れ時間
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("カメラ揺れ時間(秒)"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth);
+			ImGui::DragFloat("##cameraTime", &cameraTime);
+
+			ImGui::EndTable();
+		}
+	}
+
+	// 移動/ダッシュ
+	if (ImGui::CollapsingHeader(U8("移動 / ダッシュ")))
+	{
+		if (ImGui::BeginTable("tbl_move", 2, ImGuiTableFlags_SizingStretchProp | ImGuiTableFlags_BordersInnerV))
+		{
+			ImGui::TableSetupColumn("label", ImGuiTableColumnFlags_WidthFixed, kLabelWidth);
+			ImGui::TableSetupColumn("value", ImGuiTableColumnFlags_WidthStretch);
+
+			// 移動速度
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("移動速度 (X,Y,Z)"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth * 1.2f);
+			ImGui::DragFloat3("##moveSpeed", &moveSpeed.x, 0.01f, -20.0f, 20.0f, "%.02f");
+
+			// ダッシュ速度
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("ダッシュ速度"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth);
+			ImGui::DragFloat("##dashSpeed", &dashSpeed);
+
+			// ダッシュ速度時間
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("ダッシュ速度時間(秒)"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth);
+			ImGui::DragFloat("##dashSpeedTime", &dashSpeedTime);
+
+			ImGui::EndTable();
+		}
+	}
+
+	// アニメ / 状態遷移
+	if (ImGui::CollapsingHeader(U8("アニメ / 状態遷移")))
+	{
+		if (ImGui::BeginTable("tbl_anim", 2, ImGuiTableFlags_SizingStretchProp | ImGuiTableFlags_BordersInnerV))
+		{
+			ImGui::TableSetupColumn("label", ImGuiTableColumnFlags_WidthFixed, kLabelWidth);
+			ImGui::TableSetupColumn("value", ImGuiTableColumnFlags_WidthStretch);
+
+			// ブレンド時間
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("ブレンド時間(秒)"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth);
+			ImGui::SliderFloat("##blendTime", &blendTime, 0.0f, 2.0f, "%.02f");
+
+			// アニメーション速度
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("アニメーション速度"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth);
+			ImGui::SliderFloat("##animationSpeed", &animationSpeed, 0.0f, 200.0f, "%.0f");
+
+			// ステートの切り替え
+			ImGui::TableNextRow(); ImGui::TableSetColumnIndex(0); ImGui::Text(U8("ステートの切り替え"));
+			ImGui::TableSetColumnIndex(1); ImGui::SetNextItemWidth(kItemWidth);
+			ImGui::SliderFloat("##changeStateTime", &changeStateTime, 0.0f, 5.0f, "%.02f");
+
+			ImGui::EndTable();
+		}
+	}
+
+	ImGui::PopID();
+}
+
+void PlayerStateBase::StateParameter::LoadJson(const nlohmann::json& pj)
+{
+	if (pj.contains("AttackRadius"))    attackRadius = pj["AttackRadius"].get<float>();
+	if (pj.contains("AttackDistance"))  attackDistance = pj["AttackDistance"].get<float>();
+	if (pj.contains("AttackCount"))     attackCount = pj["AttackCount"].get<int>();
+	if (pj.contains("AttackTime"))      attackInterval = pj["AttackTime"].get<float>();
+	if (pj.contains("AttackStartTime")) attackStartTime = pj["AttackStartTime"].get<float>();
+	if (pj.contains("AttackEndTime"))   attackEndTime = pj["AttackEndTime"].get<float>();
+	if (pj.contains("MoveSpeedX"))      moveSpeed.x = pj["MoveSpeedX"].get<float>();
+	if (pj.contains("MoveSpeedY"))      moveSpeed.y = pj["MoveSpeedY"].get<float>();
+	if (pj.contains("MoveSpeedZ"))      moveSpeed.z = pj["MoveSpeedZ"].get<float>();
+	if (pj.contains("CameraShakeX"))    cameraShake.x = pj["CameraShakeX"].get<float>();
+	if (pj.contains("CameraShakeY"))    cameraShake.y = pj["CameraShakeY"].get<float>();
+	if (pj.contains("CameraShakeTime")) cameraTime = pj["CameraShakeTime"].get<float>();
+	if (pj.contains("DashSpeed"))       dashSpeed = pj["DashSpeed"].get<float>();
+	if (pj.contains("BleedTime"))      blendTime = pj["BleedTime"].get<float>();
+	if (pj.contains("AnimationSpeed")) animationSpeed = pj["AnimationSpeed"].get<float>();
+	if (pj.contains("DashSpeedTime"))  dashSpeedTime = pj["DashSpeedTime"].get<float>();
+	if (pj.contains("ChangeStateTime")) changeStateTime = pj["ChangeStateTime"].get<float>();
+}
+
+void PlayerStateBase::StateParameter::SaveJson(nlohmann::json& js) const
+{
+	js["Player"]["AttackRadius"] = attackRadius;
+	js["Player"]["AttackDistance"] = attackDistance;
+	js["Player"]["AttackCount"] = attackCount;
+	js["Player"]["AttackTime"] = attackInterval;
+	js["Player"]["AttackStartTime"] = attackStartTime;
+	js["Player"]["AttackEndTime"] = attackEndTime;
+	js["Player"]["MoveSpeedX"] = moveSpeed.x;
+	js["Player"]["MoveSpeedY"] = moveSpeed.y;
+	js["Player"]["MoveSpeedZ"] = moveSpeed.z;
+	js["Player"]["CameraShakeX"] = cameraShake.x;
+	js["Player"]["CameraShakeY"] = cameraShake.y;
+	js["Player"]["CameraShakeTime"] = cameraTime;
+	js["Player"]["DashSpeed"] = dashSpeed;
+	js["Player"]["BleedTime"] = blendTime;
+	js["Player"]["AnimationSpeed"] = animationSpeed;
+	js["Player"]["DashSpeedTime"] = dashSpeedTime;
+	js["Player"]["ChangeStateTime"] = changeStateTime;
 }

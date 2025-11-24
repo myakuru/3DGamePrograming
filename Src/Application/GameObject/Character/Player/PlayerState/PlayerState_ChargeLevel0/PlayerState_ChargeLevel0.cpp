@@ -13,7 +13,7 @@
 void PlayerState_ChargeLevel0::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("ChargeAttack0");
-	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 	PlayerStateBase::StateStart();
 
 	if (auto camera = m_player->GetPlayerCamera().lock())
@@ -24,12 +24,10 @@ void PlayerState_ChargeLevel0::StateStart()
 	// 無敵状態にする
 	m_player->SetInvincible(true);
 
-	m_time = 0.0f;
-
 	KdAudioManager::Instance().Play("Asset/Sound/Player/Charge.WAV", false)->SetVolume(1.0f);
 
 	// アニメーション速度を変更
-	m_player->SetAnimeSpeed(60.0f);
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	// 無敵状態にする(PlayerState_ChargeAttackMax3)まで継続
 	m_player->SetInvincible(true);
@@ -60,7 +58,8 @@ void PlayerState_ChargeLevel0::StateUpdate()
 		Application::Instance().SetFpsScale(1.0f);
 	}
 
-	if (m_animeTime >= 0.5f)
+	// 0.5f
+	if (m_animeTime >= m_stateParameter.changeStateTime)
 	{
 		auto state = std::make_shared<PlayerState_ChargeLevel1>();
 		m_player->ChangeState(state);
@@ -91,4 +90,43 @@ void PlayerState_ChargeLevel0::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
+}
+
+void PlayerState_ChargeLevel0::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_ChargeLevel0));
+	const auto& p = static_cast<const PlayerState_ChargeLevel0&>(other);
+	m_stateParameter.blendTime = p.m_stateParameter.blendTime;
+	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
+	m_stateParameter.changeStateTime = p.m_stateParameter.changeStateTime;
+}
+
+void PlayerState_ChargeLevel0::ExposeParametersImGui()
+{
+	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
+	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
+	ImGui::Separator();
+	ImGui::DragFloat(U8("状態遷移時間"), &m_stateParameter.changeStateTime);
+}
+
+void PlayerState_ChargeLevel0::LoadParametersJson(const nlohmann::json& js)
+{
+	if (!js.contains("PlayerState_ChargeLevel0")) return;
+	const auto& stateNode = js["PlayerState_ChargeLevel0"];
+	if (stateNode.contains("Player"))
+	{
+		const auto& playerNode = stateNode["Player"];
+		if (playerNode.contains("blendTime")) m_stateParameter.blendTime = playerNode["blendTime"].get<float>();
+		if (playerNode.contains("animationSpeed")) m_stateParameter.animationSpeed = playerNode["animationSpeed"].get<float>();
+		if (playerNode.contains("changeStateTime")) m_stateParameter.changeStateTime = playerNode["changeStateTime"].get<float>();
+	}
+}
+
+void PlayerState_ChargeLevel0::SaveParametersJson(nlohmann::json& js) const
+{
+	auto& stateNode = js["PlayerState_ChargeLevel0"];
+	auto& playerNode = stateNode["Player"];
+	playerNode["blendTime"] = m_stateParameter.blendTime;
+	playerNode["animationSpeed"] = m_stateParameter.animationSpeed;
+	playerNode["changeStateTime"] = m_stateParameter.changeStateTime;
 }

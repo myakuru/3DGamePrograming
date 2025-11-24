@@ -16,15 +16,15 @@
 #include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
 #include"Application/GameObject/Character/AfterImage/AfterImage.h"
 
-void PlayerState_ForwardAvoid::StateStart()
+void PlayerState_FowardAvoid::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("AvoidForward");
-	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 
 	m_player->SetAvoidFlg(true);
 	m_player->SetAvoidStartTime(Application::Instance().GetDeltaTime()); // 現在の時間を記録
 
-	m_player->SetAnimeSpeed(120.0f);
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	// 回避時の処理
 	m_player->SetAvoidStartTime(0.0f);
@@ -39,21 +39,20 @@ void PlayerState_ForwardAvoid::StateStart()
 	{
 		if (auto bossEnemy = m_bossEnemy.lock())
 		{
-			camera->SetTargetLookAt({ 0.0f,1.0f,-7.5f });
+			camera->SetTargetLookAt(m_startCameraOffset);
 		}
 		else
 		{
-			camera->SetTargetLookAt({ 0.0f, 1.0f, -4.5f });
+			camera->SetTargetLookAt(m_startBossCameraOffset);
 		}
 	}
 
 	m_afterImagePlayed = false;
-	m_justAvoided = false;
 
 	KdAudioManager::Instance().Play("Asset/Sound/Player/BackWardAvoid.WAV", false)->SetVolume(1.0f);
 }
 
-void PlayerState_ForwardAvoid::StateUpdate()
+void PlayerState_FowardAvoid::StateUpdate()
 {
 	float deltaTime = Application::Instance().GetDeltaTime();
 	m_time += deltaTime; // これが回避開始からの経過時間になる
@@ -75,11 +74,16 @@ void PlayerState_ForwardAvoid::StateUpdate()
 			bgm->SetPitch(-1.0f);
 		}
 
-		m_justAvoided = true;
 		m_afterImagePlayed = true;
 
 		// 残像
-		m_player->GetAfterImage()->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.5f));
+		m_player->GetAfterImage()->AddAfterImage
+		(
+			true,
+			m_stateParameter.afterImageMax,
+			m_stateParameter.afterImageInterval,
+			m_stateParameter.afterImageColor
+		);
 
 		Application::Instance().SetFpsScale(0.1f);
 		SceneManager::Instance().SetDrawGrayScale(true);
@@ -135,21 +139,19 @@ void PlayerState_ForwardAvoid::StateUpdate()
 
 	UpdateUnsheathed();
 
-	float dashSpeed = 1.0f;
-
-	m_player->SetIsMoving(forward * dashSpeed);
+	m_player->SetIsMoving(forward * m_stateParameter.dashSpeed);
 }
 
-void PlayerState_ForwardAvoid::StateEnd()
+void PlayerState_FowardAvoid::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
 	m_player->SetAvoidFlg(false);
 	m_player->SetAvoidStartTime(0.0f);
 
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
-		if (auto bossEnemy = m_bossEnemy.lock(); bossEnemy)
+		if (auto bossEnemy = m_bossEnemy.lock())
 		{
 			camera->SetTargetLookAt(m_cameraBossTargetOffset);
 		}
@@ -164,8 +166,74 @@ void PlayerState_ForwardAvoid::StateEnd()
 	// 敵との当たり判定を無効化
 	m_player->SetAtkPlayer(false);
 
-	m_justAvoided = false;
-
 	m_player->GetAfterImage()->AddAfterImage();
 		
+}
+
+void PlayerState_FowardAvoid::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_FowardAvoid));
+	const auto& p = static_cast<const PlayerState_FowardAvoid&>(other);
+	m_stateParameter.blendTime = p.m_stateParameter.blendTime;  // 構造体一括コピー
+	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
+	m_stateParameter.dashSpeed = p.m_stateParameter.dashSpeed;
+	m_startCameraOffset = p.m_startCameraOffset;
+	m_startBossCameraOffset = p.m_startBossCameraOffset;
+
+	// 残像設定
+	m_stateParameter.afterImageMax = p.m_stateParameter.afterImageMax;
+	m_stateParameter.afterImageInterval = p.m_stateParameter.afterImageInterval;
+	m_stateParameter.afterImageColor = p.m_stateParameter.afterImageColor;
+}
+
+void PlayerState_FowardAvoid::ExposeParametersImGui()
+{
+	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
+	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
+	ImGui::DragFloat(U8("ダッシュ速度"), &m_stateParameter.dashSpeed);
+	ImGui::DragFloat3(U8("カメラ注視点オフセット"), &m_startCameraOffset.x);
+	ImGui::DragFloat3(U8("ボス戦時カメラ注視点オフセット"), &m_startBossCameraOffset.x);
+	ImGui::Separator();
+	// 残像設定
+	ImGui::DragInt(U8("残像最大数"), &m_stateParameter.afterImageMax, 1.0f, 1, 20);
+	ImGui::DragFloat(U8("残像生成間隔"), &m_stateParameter.afterImageInterval, 0.01f, 0.01f, 1.0f);
+	ImGui::ColorEdit4(U8("残像色"), &m_stateParameter.afterImageColor.x);
+
+}
+
+void PlayerState_FowardAvoid::LoadParametersJson(const nlohmann::json& js)
+{
+	if (!js.contains("PlayerState_FowardAvoid")) return;
+	const auto& stateNode = js["PlayerState_FowardAvoid"];
+	if (stateNode.contains("Player"))
+	{
+		const auto& playerNode = stateNode["Player"];
+		if (playerNode.contains("blendTime")) m_stateParameter.blendTime = playerNode["blendTime"].get<float>();
+		if (playerNode.contains("animationSpeed")) m_stateParameter.animationSpeed = playerNode["animationSpeed"].get<float>();
+		if (playerNode.contains("dashSpeed")) m_stateParameter.dashSpeed = playerNode["dashSpeed"].get<float>();
+		if (playerNode.contains("m_cameraTargetOffset")) m_startCameraOffset = JSON_MANAGER.JsonToVector(playerNode["m_cameraTargetOffset"]);
+		if (playerNode.contains("m_cameraBossTargetOffset")) m_startBossCameraOffset = JSON_MANAGER.JsonToVector(playerNode["m_cameraBossTargetOffset"]);
+
+		// 残像設定
+		if (playerNode.contains("afterImageMax")) m_stateParameter.afterImageMax = playerNode["afterImageMax"].get<int>();
+		if (playerNode.contains("afterImageInterval")) m_stateParameter.afterImageInterval = playerNode["afterImageInterval"].get<float>();
+		if (playerNode.contains("afterImageColor")) m_stateParameter.afterImageColor = JSON_MANAGER.JsonToVector4(playerNode["afterImageColor"]);
+	}
+}
+
+void PlayerState_FowardAvoid::SaveParametersJson(nlohmann::json& js) const
+{
+	if (!js.contains("PlayerState_FowardAvoid")) js["PlayerState_FowardAvoid"] = nlohmann::json::object();
+	auto& stateNode = js["PlayerState_FowardAvoid"];
+
+	stateNode["Player"]["blendTime"] = m_stateParameter.blendTime;
+	stateNode["Player"]["animationSpeed"] = m_stateParameter.animationSpeed;
+	stateNode["Player"]["dashSpeed"] = m_stateParameter.dashSpeed;
+	stateNode["Player"]["m_cameraTargetOffset"] = JSON_MANAGER.VectorToJson(m_startCameraOffset);
+	stateNode["Player"]["m_cameraBossTargetOffset"] = JSON_MANAGER.VectorToJson(m_startBossCameraOffset);
+
+	// 残像設定
+	stateNode["Player"]["afterImageMax"] = m_stateParameter.afterImageMax;
+	stateNode["Player"]["afterImageInterval"] = m_stateParameter.afterImageInterval;
+	stateNode["Player"]["afterImageColor"] = JSON_MANAGER.Vector4ToJson(m_stateParameter.afterImageColor);
 }

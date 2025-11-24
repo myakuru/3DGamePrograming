@@ -8,9 +8,8 @@
 void PlayerState_ChargeAttackMax2::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("Eskill");
-	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 	PlayerStateBase::StateStart();
-	m_time = 0.0f;
 
 	// 敵との当たり判定を無効化
 	m_player->SetAtkPlayer(true);
@@ -38,7 +37,14 @@ void PlayerState_ChargeAttackMax2::StateUpdate()
 	PlayerStateBase::StateUpdate();
 
 	// 攻撃の当たり判定更新
-	m_player->UpdateAttackCollision(15.0f, 1.0f, 2.0f, m_maxAnimeTime, { 0.2f, 0.2f }, 0.1f);
+	m_player->UpdateAttackCollision(
+		m_stateParameter.attackRadius,
+		m_stateParameter.attackDistance,
+		m_stateParameter.attackCount,
+		m_stateParameter.attackInterval,
+		m_stateParameter.cameraShake,
+		m_stateParameter.cameraTime
+	);
 
 	UpdateKatanaPos();
 
@@ -81,7 +87,7 @@ void PlayerState_ChargeAttackMax2::StateUpdate()
 			}
 
 			// カメラをキャラの後ろに回す（セッター使用）
-			if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+			if (auto camera = m_player->GetPlayerCamera().lock())
 			{
 				camera->SetTargetLookAt(m_cameraBossTargetOffset);
 

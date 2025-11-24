@@ -7,14 +7,14 @@
 void PlayerState_ChargeAttackMax3::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("ChargeMax");
-	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 	PlayerStateBase::StateStart();
 	// アニメーション速度を変更
-	m_player->SetAnimeSpeed(60.0f);
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	SceneManager::Instance().GetObjectWeakPtr(m_effect);
 
-	if (auto effect = m_effect.lock(); effect)
+	if (auto effect = m_effect.lock())
 	{
 		effect->SetPlayEffect(true);
 	}
@@ -36,7 +36,14 @@ void PlayerState_ChargeAttackMax3::StateUpdate()
 	}
 
 	// 攻撃の当たり判定更新
-	m_player->UpdateAttackCollision(15.0f, 1.0f, 5.0f, m_maxAnimeTime, { 0.3f, 0.3f }, 0.1f);
+	m_player->UpdateAttackCollision(
+		m_stateParameter.attackRadius,
+		m_stateParameter.attackDistance,
+		m_stateParameter.attackCount,
+		m_stateParameter.attackInterval,
+		m_stateParameter.cameraShake,
+		m_stateParameter.cameraTime
+	);
 
 	// 刀は鞘の中にある状態
 	UpdateUnsheathed();
@@ -58,7 +65,7 @@ void PlayerState_ChargeAttackMax3::StateUpdate()
 void PlayerState_ChargeAttackMax3::StateEnd()
 {
 	PlayerStateBase::StateEnd();
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
 		camera->SetTargetLookAt(Math::Vector3(0.0f, 1.0f, -3.5f));
 		camera->SetDistanceSmooth(8.f);
@@ -68,7 +75,7 @@ void PlayerState_ChargeAttackMax3::StateEnd()
 	// 無敵状態解除
 	m_player->SetInvincible(false);
 
-	if (auto effect = m_effect.lock(); effect)
+	if (auto effect = m_effect.lock())
 	{
 		effect->SetPlayEffect(false);
 		effect->StopEffect();

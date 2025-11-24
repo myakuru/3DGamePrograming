@@ -24,9 +24,9 @@ void PlayerState_Idle::StateStart()
 
 	SceneManager::Instance().GetObjectWeakPtr(m_bossEnemy);
 
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
-		if(auto bossEnemy = m_bossEnemy.lock(); bossEnemy)
+		if(auto bossEnemy = m_bossEnemy.lock())
 		{
 			camera->SetTargetLookAt(m_cameraBossTargetOffset);
 		}
@@ -36,12 +36,13 @@ void PlayerState_Idle::StateStart()
 		}
 	}
 
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
+
 	m_lButtonKeyInput = false;
 }
 
 void PlayerState_Idle::StateUpdate()
 {
-	m_player->SetAnimeSpeed(60.0f);
 
 	UpdateUnsheathed();
 
@@ -97,5 +98,36 @@ void PlayerState_Idle::StateUpdate()
 void PlayerState_Idle::StateEnd()
 {
 	PlayerStateBase::StateEnd();
+}
+
+void PlayerState_Idle::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_Idle));
+	const auto& p = static_cast<const PlayerState_Idle&>(other);
+	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
+}
+
+void PlayerState_Idle::ExposeParametersImGui()
+{
+	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
+}
+
+void PlayerState_Idle::LoadParametersJson(const nlohmann::json& js)
+{
+	if (!js.contains("PlayerState_Idle")) return;
+	const auto& stateNode = js["PlayerState_Idle"];
+	if (stateNode.contains("Player"))
+	{
+		const auto& playerNode = stateNode["Player"];
+		if (playerNode.contains("animationSpeed")) m_stateParameter.animationSpeed = playerNode["animationSpeed"].get<float>();
+	}
+}
+
+void PlayerState_Idle::SaveParametersJson(nlohmann::json& js) const
+{
+	if (!js.contains("PlayerState_Idle")) js["PlayerState_Idle"] = nlohmann::json::object();
+	auto& stateNode = js["PlayerState_Idle"];
+
+	stateNode["Player"]["animationSpeed"] = m_stateParameter.animationSpeed;
 }
 

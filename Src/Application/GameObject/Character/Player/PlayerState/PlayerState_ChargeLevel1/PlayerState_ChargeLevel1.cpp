@@ -14,14 +14,9 @@
 void PlayerState_ChargeLevel1::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("ChargeAttack0");
-	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 
 	PlayerStateBase::StateStart();
-
-	m_chargeTime = 0.0f;
-	m_isCharging = false;
-
-	m_time = 0.0f;
 
 	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
@@ -42,7 +37,7 @@ void PlayerState_ChargeLevel1::StateStart()
 	}
 
 	// アニメーション速度を変更
-	m_player->SetAnimeSpeed(60.0f);
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	KdAudioManager::Instance().Play("Asset/Sound/Player/Charge.WAV", false)->SetVolume(1.0f);
 
@@ -53,18 +48,9 @@ void PlayerState_ChargeLevel1::StateUpdate()
 	m_animeTime = m_player->GetAnimator()->GetPlayProgress();
 
 	// スローモーション処理
-	if (m_animeTime >= 0.5f && m_animeTime <= 0.6f)
+	if (m_animeTime >= m_startSlowMotionTime && m_animeTime <= m_endSlowMotionTime)
 	{
-		m_time += Application::Instance().GetUnscaledDeltaTime();
-
-		if (m_time >= 0.0f && m_time <= 0.1f)
-		{
-			Application::Instance().SetFpsScale(0.1f);
-		}
-		else
-		{
-			Application::Instance().SetFpsScale(1.0f);
-		}
+		Application::Instance().SetFpsScale(0.1f);
 	}
 	else
 	{
@@ -82,7 +68,6 @@ void PlayerState_ChargeLevel1::StateUpdate()
 		moveDir.Normalize();
 		m_player->UpdateQuaternionDirect(moveDir);
 	}
-
 	
 	m_player->SetIsMoving(m_attackDirection);
 		
@@ -103,18 +88,60 @@ void PlayerState_ChargeLevel1::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
-		camera->SetTargetLookAt({ 0.f,1.f,-2.5f });
+		camera->SetTargetLookAt(m_cameraTargetOffset);
 	}
 
-	if (auto effect = m_shineEffect.lock(); effect)
+	if (auto effect = m_shineEffect.lock())
 	{
 		effect->SetPlayEffect(false);
 	}
 
-	if (auto effect = m_groundFreezes.lock(); effect)
+	if (auto effect = m_groundFreezes.lock())
 	{
 		effect->SetPlayEffect(false);
 	}
+}
+
+void PlayerState_ChargeLevel1::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_ChargeLevel1));
+	const auto& p = static_cast<const PlayerState_ChargeLevel1&>(other);
+	m_stateParameter.blendTime = p.m_stateParameter.blendTime;
+	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
+	m_startSlowMotionTime = p.m_startSlowMotionTime;
+	m_endSlowMotionTime = p.m_endSlowMotionTime;
+}
+
+void PlayerState_ChargeLevel1::ExposeParametersImGui()
+{
+	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
+	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
+	ImGui::DragFloat(U8("スローモーション開始時間"), &m_startSlowMotionTime);
+	ImGui::DragFloat(U8("スローモーション終了時間"), &m_endSlowMotionTime);
+}
+
+void PlayerState_ChargeLevel1::LoadParametersJson(const nlohmann::json& js)
+{
+	if (!js.contains("PlayerState_ChargeLevel1")) return;
+	const auto& stateNode = js["PlayerState_ChargeLevel1"];
+	if (stateNode.contains("Player"))
+	{
+		const auto& playerNode = stateNode["Player"];
+		if (playerNode.contains("blendTime")) m_stateParameter.blendTime = playerNode["blendTime"].get<float>();
+		if (playerNode.contains("animationSpeed")) m_stateParameter.animationSpeed = playerNode["animationSpeed"].get<float>();
+		if (playerNode.contains("startSlowMotionTime")) m_startSlowMotionTime = playerNode["startSlowMotionTime"].get<float>();
+		if (playerNode.contains("endSlowMotionTime")) m_endSlowMotionTime = playerNode["endSlowMotionTime"].get<float>();
+	}
+}
+
+void PlayerState_ChargeLevel1::SaveParametersJson(nlohmann::json& js) const
+{
+	auto& stateNode = js["PlayerState_ChargeLevel1"];
+	auto& playerNode = stateNode["Player"];
+	playerNode["blendTime"] = m_stateParameter.blendTime;
+	playerNode["animationSpeed"] = m_stateParameter.animationSpeed;
+	playerNode["startSlowMotionTime"] = m_startSlowMotionTime;
+	playerNode["endSlowMotionTime"] = m_endSlowMotionTime;
 }

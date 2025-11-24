@@ -10,8 +10,8 @@
 void PlayerState_RunEnd::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("RunEnd");
-	m_player->GetAnimator()->SetAnimation(anime, 0.1f, false);
-	m_player->SetAnimeSpeed(70.0f);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 }
 
 void PlayerState_RunEnd::StateUpdate()
@@ -58,10 +58,9 @@ void PlayerState_RunEnd::StateUpdate()
 
 	UpdateUnsheathed();
 
-	if (m_time < 0.5f)
+	if (m_time < m_stateParameter.dashSpeedTime)
 	{
-		const float dashSpeed = 0.3f;
-		m_player->SetIsMoving(m_attackDirection * dashSpeed);
+		m_player->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
 		m_time += deltaTime;
 	}
 	else
@@ -112,4 +111,47 @@ bool PlayerState_RunEnd::UpdateMoveInput()
 	}
 
 	return false;
+}
+
+void PlayerState_RunEnd::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_RunEnd));
+	const auto& p = static_cast<const PlayerState_RunEnd&>(other);
+	m_stateParameter.blendTime = p.m_stateParameter.blendTime;
+	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
+	m_stateParameter.dashSpeedTime = p.m_stateParameter.dashSpeedTime;
+	m_stateParameter.dashSpeed = p.m_stateParameter.dashSpeed;
+}
+
+void PlayerState_RunEnd::ExposeParametersImGui()
+{
+	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
+	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
+	ImGui::DragFloat(U8("ダッシュ速度時間"), &m_stateParameter.dashSpeedTime);
+	ImGui::DragFloat(U8("ダッシュ速度"), &m_stateParameter.dashSpeed);
+}
+
+void PlayerState_RunEnd::LoadParametersJson(const nlohmann::json& js)
+{
+	if (!js.contains("PlayerState_RunEnd")) return;
+	const auto& stateNode = js["PlayerState_RunEnd"];
+	if (stateNode.contains("Player"))
+	{
+		const auto& playerNode = stateNode["Player"];
+		if (playerNode.contains("blendTime")) m_stateParameter.blendTime = playerNode["blendTime"].get<float>();
+		if (playerNode.contains("animationSpeed")) m_stateParameter.animationSpeed = playerNode["animationSpeed"].get<float>();
+		if (playerNode.contains("dashSpeedTime")) m_stateParameter.dashSpeedTime = playerNode["dashSpeedTime"].get<float>();
+		if (playerNode.contains("dashSpeed")) m_stateParameter.dashSpeed = playerNode["dashSpeed"].get<float>();
+	}
+}
+
+void PlayerState_RunEnd::SaveParametersJson(nlohmann::json& js) const
+{
+	if (!js.contains("PlayerState_RunEnd")) js["PlayerState_RunEnd"] = nlohmann::json::object();
+	auto& stateNode = js["PlayerState_RunEnd"];
+
+	stateNode["Player"]["blendTime"] = m_stateParameter.blendTime;
+	stateNode["Player"]["animationSpeed"] = m_stateParameter.animationSpeed;
+	stateNode["Player"]["dashSpeedTime"] = m_stateParameter.dashSpeedTime;
+	stateNode["Player"]["dashSpeed"] = m_stateParameter.dashSpeed;
 }

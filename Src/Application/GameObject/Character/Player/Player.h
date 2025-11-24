@@ -1,13 +1,14 @@
 ﻿#pragma once
 
 #include "../CharacterBase.h"
-#include "PlayerConfig.h"
 
 // 前方宣言
 class Katana;
 class WeaponKatanaScabbard;
 class AetheriusEnemy;
 class AfterImage;
+class PlayerConfig;
+class PlayerStateBase;
 
 class Player : public CharacterBase
 {
@@ -139,7 +140,6 @@ public:
 	bool GetUseSpecial() const { return m_action.useSpecial; }
 
 	void SetAtkPlayer(bool _flg) { m_action.isAtkPlayer = _flg; }
-	PlayerConfig& GetPlayerConfig() { return m_playerConfig; }
 
 	// onceEffect
 	void SetOnceEffect(bool _v) { m_action.onceEffect = _v; }
@@ -157,9 +157,6 @@ public:
 
 private:
 
-	void CreateStates();
-	void ApplyPrototypeParametersTo(PlayerStateBase& runtime);
-
 	// 内部移動処理
 	void ApplyHorizontalMove   (const Math::Vector3& _inputMove, float _deltaTime);
 	void ApplyPushWithCollision(const Math::Vector3& _rawPush);
@@ -172,11 +169,11 @@ private:
 	Player::ActionFlags       m_action      = {};	// 各種アクションフラグ
 	Player::VisualState       m_visual      = {};	// 残像関係
 
-	float             m_attackBossEnemyRadius = 2.0f;		// ボスに対する当たり判定半径
-	float             m_unScaledeltaTime = 0.0f;			// デフォルトのdeltaTime保存
+	float		m_attackBossEnemyRadius = 2.0f;		// ボスに対する当たり判定半径
+	float		m_unScaledeltaTime = 0.0f;			// デフォルトのdeltaTime保存
 
-	PlayerConfig      m_playerConfig;						// プレイヤーの設定
-	std::vector<std::unique_ptr<PlayerStateBase>> m_states;	// ステート群
+	std::shared_ptr<PlayerConfig>  m_playerConfig;	// プレイヤーの設定
+
 
 	// 参照
 	std::list<std::weak_ptr<KdGameObject>> m_enemyLike;

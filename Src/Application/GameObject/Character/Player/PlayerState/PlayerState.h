@@ -2,10 +2,40 @@
 #include"MyFramework/State/StateBase/StateBase.h"
 #include"Application/GameObject/Character/Player/PlayerConfig.h"
 #include"Application/GameObject/Character/Player/Player.h"
+#include"Application/main.h"
+#include"MyFramework/Manager/JsonManager/JsonManager.h"
 
 class BossEnemy;
 class PlayerStateBase : public StateBase
 {
+	struct StateParameter
+	{
+		float attackRadius = 1.0f;
+		float attackDistance = 1.0f;
+		int   attackCount = 1;
+		float attackInterval = 0.1f;    // 旧 m_attackTime
+		float attackStartTime = 0.0f;
+		float attackEndTime = 0.4f;
+		Math::Vector3 moveSpeed = Math::Vector3::Zero;
+		Math::Vector2 cameraShake = { 0.2f, 0.0f };
+		float cameraTime = 0.3f;
+
+		float dashSpeed = 0.7f;				// ダッシュ移動速度
+		float blendTime = 0.25f;			// ブレンドエフェクト表示時間
+		float animationSpeed = 60.0f;		// アニメーション速度
+		float dashSpeedTime = 0.2f;			// ダッシュ移動速度時間
+		float changeStateTime = 0.7f;		// 状態遷移までの時間
+
+		// 残像関係
+		int afterImageMax = 5;	// 残像発生最大数
+		float afterImageInterval = 0.1f; // 残像発生間隔
+		Math::Vector4 afterImageColor = { 0.0f,2.0f,2.0f,1.0f }; // 残像色
+
+		void ExposeImGui();
+		void LoadJson(const nlohmann::json& pj);
+		void SaveJson(nlohmann::json& js) const;
+	};
+
 public:
 	PlayerStateBase();
 	~PlayerStateBase() override;
@@ -13,11 +43,11 @@ public:
 	void SetPlayer(Player* player) { m_player = player; }
 
 	void ExposeParametersImGui() override {}
-	// JSON 読み込み (呼ばれないなら空)
+	// JSON 読み込み
 	void LoadParametersJson(const nlohmann::json& _json) override {}
-	// 保存 (必要なら)
+	// 保存
 	void SaveParametersJson(nlohmann::json& _json) const override {}
-
+	// ImGuiで編集した変数を実行時反映させるための関数
 	virtual void ApplyFromConfig(const PlayerStateBase& other) {}
 
 
@@ -78,9 +108,14 @@ protected:
 
 	std::weak_ptr<BossEnemy> m_bossEnemy;
 
-	Math::Vector3 m_cameraTargetOffset = { 0.0f,1.0f,-2.5f };
+	// カメラターゲットオフセットデフォルト値
+	const Math::Vector3 m_cameraTargetOffset = { 0.0f,1.0f,-2.5f };
+	const Math::Vector3 m_cameraBossTargetOffset = { 0.0f,1.0f,-5.5f };
 
-	Math::Vector3 m_cameraBossTargetOffset = { 0.0f,1.0f,-5.5f };
+	// カメラ距離・高さスムーズ係数
+	const float m_cameraDistanceSmooth = 8.0f;
+	const float m_cameraRotationSmooth = 8.0f;
+
 
 	std::shared_ptr<KdSoundInstance> m_runSound = nullptr;
 
@@ -92,5 +127,7 @@ protected:
 	std::shared_ptr<KdGameObject>	m_nearestEnemy;
 	Math::Vector3					m_nearestEnemyPos = Math::Vector3::Zero;
 	float							m_minDistSq = std::numeric_limits<float>::max();
+
+	StateParameter m_stateParameter;
 
 };

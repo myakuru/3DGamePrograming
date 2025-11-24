@@ -19,10 +19,11 @@
 
 void PlayerState_Attack::StateStart()
 {
-	auto anime = m_player->GetAnimeModel()->GetAnimation("Attack");
-	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
-
 	PlayerStateBase::StateStart();
+
+	// アニメーション再生
+	auto anime = m_player->GetAnimeModel()->GetAnimation("Attack");
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
@@ -36,27 +37,32 @@ void PlayerState_Attack::StateStart()
 		}
 	}
 
-	m_lButtonKeyInput = false;		// 次段コンボ予約フラグ初期化
-	m_time = 0.0f;					// 当たり判定用
-
+	// エフェクト取得
 	SceneManager::Instance().GetObjectWeakPtr(m_slashEffect);
-	m_player->SetAnimeSpeed(70.0f);
+	// アニメーション速度設定
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	KdAudioManager::Instance().Play("Asset/Sound/Player/Attack.wav", false)->SetVolume(1.0f);
-
-	m_lButtonKeyInput = false;
 }
 
 void PlayerState_Attack::StateUpdate()
 {
-
 	// アニメーション時間の取得
 	m_animeTime = m_player->GetAnimator()->GetPlayProgress();
 
 	float deltaTime = Application::Instance().GetDeltaTime();
 
-	// 当たり判定有効時間: 最初の0.5秒のみ
-	m_player->UpdateAttackCollision(m_attackRadius, m_attackDistance, m_attackCount, m_attackTime, m_cameraShakeParam, m_cameraTime, m_attackStartTime, m_attackEndTime);
+	// 判定有効
+	m_player->UpdateAttackCollision(
+		m_stateParameter.attackRadius,
+		m_stateParameter.attackDistance,
+		m_stateParameter.attackCount,
+		m_stateParameter.attackInterval,
+		m_stateParameter.cameraShake,
+		m_stateParameter.cameraTime,
+		m_stateParameter.attackStartTime,
+		m_stateParameter.attackEndTime
+	);
 
 	Math::Vector3 toEnemyDir = m_nearestEnemyPos - m_player->GetPos();
 
@@ -99,23 +105,22 @@ void PlayerState_Attack::StateUpdate()
 	}
 
 	// 先行ダッシュ処理
-	if (m_time < 0.2f)
+	if (m_time < m_stateParameter.dashSpeedTime)
 	{
-		const float dashSpeed = 0.7f;
-		m_player->SetIsMoving(m_attackDirection * dashSpeed);
+		m_player->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
 		m_time += deltaTime;
 	}
 	else
 	{
 		// エフェクト再生・移動停止
-		if (auto effect = m_slashEffect.lock(); effect)
+		if (auto effect = m_slashEffect.lock())
 		{
 			effect->SetPlayEffect(true);
 		}
 
-		m_player->SetIsMoving(m_moveSpeed);
+		m_player->SetIsMoving(m_stateParameter.moveSpeed);
 
-		if (m_animeTime >= 0.7f)
+		if (m_animeTime >= m_stateParameter.changeStateTime)
 		{
 
 			// 攻撃入力処理
@@ -143,34 +148,21 @@ void PlayerState_Attack::StateEnd()
 
 void PlayerState_Attack::ExposeParametersImGui()
 {
-	ImGui::InputFloat("Attack Radius", &m_attackRadius);
-	ImGui::InputFloat("Attack Distance", &m_attackDistance);
-	ImGui::InputInt("Attack Count", &m_attackCount);
-	ImGui::InputFloat("Attack Time", &m_attackTime);
-	ImGui::InputFloat("Attack Start Time", &m_attackStartTime);
-	ImGui::InputFloat("Attack End Time", &m_attackEndTime);
-	ImGui::DragFloat3("Move Speed", &m_moveSpeed.x, 0.1f);
+	m_stateParameter.ExposeImGui();
 }
 
-void PlayerState_Attack::LoadParametersJson(const nlohmann::json& _json)
+void PlayerState_Attack::LoadParametersJson(const nlohmann::json& js)
 {
-	if (_json.contains("Player") && _json["Player"].contains("MoveSpeed"))
+	if (!js.contains("PlayerState_Attack")) return;
+	const auto& stateNode = js["PlayerState_Attack"];
+	if (stateNode.contains("Player"))
 	{
-		m_attackRadius = _json["Player"]["AttackRadius"].get<float>();
-		m_attackDistance = _json["Player"]["AttackDistance"].get<float>();
-		m_attackCount = _json["Player"]["AttackCount"].get<int>();
-		m_attackTime = _json["Player"]["AttackTime"].get<float>();
-		m_attackStartTime = _json["Player"]["AttackStartTime"].get<float>();
-		m_attackEndTime = _json["Player"]["AttackEndTime"].get<float>();
+		m_stateParameter.LoadJson(stateNode["Player"]);
 	}
 }
 
-void PlayerState_Attack::SaveParametersJson(nlohmann::json& _json) const
+void PlayerState_Attack::SaveParametersJson(nlohmann::json& js) const
 {
-	_json["Player"]["AttackRadius"] = m_attackRadius;
-	_json["Player"]["AttackDistance"] = m_attackDistance;
-	_json["Player"]["AttackCount"] = m_attackCount;
-	_json["Player"]["AttackTime"] = m_attackTime;
-	_json["Player"]["AttackStartTime"] = m_attackStartTime;
-	_json["Player"]["AttackEndTime"] = m_attackEndTime;
+	m_stateParameter.SaveJson(js["PlayerState_Attack"]);
+	js["PlayerState_Attack"]["m_dashSpeed"] = m_stateParameter.dashSpeed;
 }

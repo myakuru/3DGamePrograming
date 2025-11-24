@@ -18,17 +18,24 @@
 void PlayerState_FowardAvoidFast::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("AvoidForward");
-	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 
 	m_player->SetAvoidFlg(true);
 	m_player->SetAvoidStartTime(Application::Instance().GetDeltaTime()); // 現在の時間を記録
 
-	m_player->SetAnimeSpeed(120.0f);
-
-	m_player->GetAfterImage()->AddAfterImage(true, 5, 4.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.5f));
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	// 敵との当たり判定を無効化
 	m_player->SetAtkPlayer(true);
+
+	// 残像エフェクト開始
+	m_player->GetAfterImage()->AddAfterImage
+	(
+		true,
+		m_stateParameter.afterImageMax,
+		m_stateParameter.afterImageInterval,
+		m_stateParameter.afterImageColor
+	);
 
 	m_afterImagePlayed = false;
 
@@ -54,9 +61,6 @@ void PlayerState_FowardAvoidFast::StateUpdate()
 		}
 
 		m_afterImagePlayed = true;
-
-		// 残像
-		m_player->GetAfterImage()->AddAfterImage(true, 5, 1.0f, Math::Color(0.0f, 1.0f, 1.0f, 0.5f));
 
 		Application::Instance().SetFpsScale(0.1f);
 		SceneManager::Instance().SetDrawGrayScale(true);
@@ -130,4 +134,59 @@ void PlayerState_FowardAvoidFast::StateEnd()
 
 	// 敵との当たり判定を有効化
 	m_player->SetAtkPlayer(false);
+}
+
+void PlayerState_FowardAvoidFast::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_FowardAvoidFast));
+	const auto& p = static_cast<const PlayerState_FowardAvoidFast&>(other);
+	m_stateParameter.blendTime = p.m_stateParameter.blendTime;  // 構造体一括コピー
+	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
+
+	// 残像設定
+	m_stateParameter.afterImageMax = p.m_stateParameter.afterImageMax;
+	m_stateParameter.afterImageInterval = p.m_stateParameter.afterImageInterval;
+	m_stateParameter.afterImageColor = p.m_stateParameter.afterImageColor;
+}
+
+void PlayerState_FowardAvoidFast::ExposeParametersImGui()
+{
+	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
+	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
+	ImGui::Separator();
+	// 残像設定
+	ImGui::DragInt(U8("残像最大数"), &m_stateParameter.afterImageMax, 1.0f, 1, 20);
+	ImGui::DragFloat(U8("残像生成間隔"), &m_stateParameter.afterImageInterval, 0.01f, 0.01f, 1.0f);
+	ImGui::ColorEdit4(U8("残像色"), &m_stateParameter.afterImageColor.x);
+}
+
+void PlayerState_FowardAvoidFast::LoadParametersJson(const nlohmann::json& js)
+{
+	if (!js.contains("PlayerState_FowardAvoidFast")) return;
+	const auto& stateNode = js["PlayerState_FowardAvoidFast"];
+	if (stateNode.contains("Player"))
+	{
+		const auto& playerNode = stateNode["Player"];
+		if (playerNode.contains("blendTime")) m_stateParameter.blendTime = playerNode["blendTime"].get<float>();
+		if (playerNode.contains("animationSpeed")) m_stateParameter.animationSpeed = playerNode["animationSpeed"].get<float>();
+
+		// 残像設定
+		if (playerNode.contains("afterImageMax")) m_stateParameter.afterImageMax = playerNode["afterImageMax"].get<int>();
+		if (playerNode.contains("afterImageInterval")) m_stateParameter.afterImageInterval = playerNode["afterImageInterval"].get<float>();
+		if (playerNode.contains("afterImageColor")) m_stateParameter.afterImageColor = JSON_MANAGER.JsonToVector4(playerNode["afterImageColor"]);
+	}
+}
+
+void PlayerState_FowardAvoidFast::SaveParametersJson(nlohmann::json& js) const
+{
+	if (!js.contains("PlayerState_FowardAvoidFast")) js["PlayerState_FowardAvoidFast"] = nlohmann::json::object();
+	auto& stateNode = js["PlayerState_FowardAvoidFast"];
+
+	stateNode["Player"]["blendTime"] = m_stateParameter.blendTime;
+	stateNode["Player"]["animationSpeed"] = m_stateParameter.animationSpeed;
+
+	// 残像設定
+	stateNode["Player"]["afterImageMax"] = m_stateParameter.afterImageMax;
+	stateNode["Player"]["afterImageInterval"] = m_stateParameter.afterImageInterval;
+	stateNode["Player"]["afterImageColor"] = JSON_MANAGER.Vector4ToJson(m_stateParameter.afterImageColor);
 }

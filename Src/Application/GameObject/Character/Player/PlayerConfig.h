@@ -1,29 +1,28 @@
 ﻿#pragma once
+#include <memory>
+#include <vector>
+#include <string>
 
-class PlayerStateBase; // 前方宣言
+class PlayerStateBase;
+
 class PlayerConfig
 {
 public:
-	// 共通パラメータのみ(例)
-	float commonMoveSpeed = 5.0f;
+	void InGuiInspector();
+	void JsonInput(const nlohmann::json& js);
+	void JsonSave() const;
+	void CreateStates();
+	void ApplyPrototypeParametersTo(PlayerStateBase& runtime);
 
-	void InGuiInspector(const std::vector<std::unique_ptr<PlayerStateBase>>& states);
+	//　現在選択されているステート名取得
+	const std::string& GetSelectedStateName() const { return m_currentStateName; }
 
-	void JsonInput(const nlohmann::json& js,
-		const std::vector<std::unique_ptr<PlayerStateBase>>& states);
+private:
+	// コンボ描画専用
+	void DrawStateComboImGui();
 
-	void JsonSave(nlohmann::json& js,
-		const std::vector<std::unique_ptr<PlayerStateBase>>& states) const;
-
-	struct AttackParams
-	{
-		float attackRadius = 1.0f;
-		float attackDistance = 1.0f;
-		int   attackCount = 1;
-		float attackTime = 0.1f;
-		float attackStartTime = 0.0f;
-		float attackEndTime = 0.4f;
-		Math::Vector3 moveSpeed = Math::Vector3::Zero;
-	};
-	AttackParams attack;
+	std::vector<std::unique_ptr<PlayerStateBase>> m_states;
+	std::vector<std::string> m_stateNames;
+	int m_selectedStateIndex = -1;
+	std::string m_currentStateName = "None";
 };

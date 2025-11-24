@@ -14,16 +14,16 @@ private:
 	void StateUpdate() override;
 	void StateEnd() override;
 
-	float m_chargeTime = 0.0f; // チャージ時間
 
-	bool m_isCharging = false; // チャージ中かどうか
-	bool m_isCharged = false; // チャージが完了したかどうか
+	void ApplyFromConfig(const PlayerStateBase& other) override;
+	void ExposeParametersImGui() override;
+	void LoadParametersJson(const nlohmann::json& js) override;
+	void SaveParametersJson(nlohmann::json& js) const override;
 
 	std::weak_ptr<ShineEffectBlue> m_shineEffect; // エフェクト
 	std::weak_ptr<GroundFreezes> m_groundFreezes; // エフェクト
 
-	int m_chargeAttackCount = 0;      // 何回呼んだか
-
-	bool m_flag = false; // 攻撃フラグ
+	float m_startSlowMotionTime = 0.0f; // スローモーション開始時間
+	float m_endSlowMotionTime = 0.1f;   // スローモーション終了時間
 
 };

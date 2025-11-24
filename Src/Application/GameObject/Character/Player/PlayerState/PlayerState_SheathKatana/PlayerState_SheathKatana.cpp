@@ -13,14 +13,12 @@
 void PlayerState_SheathKatana::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("SheathKatana");
-	m_player->GetAnimator()->SetAnimation(anime, 0.9f, false);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 
 
 	PlayerStateBase::StateStart();
 
 	if (!m_SheathKatanaSound) m_SheathKatanaSound = KdAudioManager::Instance().Play("Asset/Sound/Player/SheathKatana.wav", false);
-
-	m_lButtonKeyInput = false;
 }
 
 void PlayerState_SheathKatana::StateUpdate()
@@ -92,4 +90,35 @@ void PlayerState_SheathKatana::StateEnd()
 		m_SheathKatanaSound->Stop();
 		m_SheathKatanaSound.reset();
 	}
+}
+
+void PlayerState_SheathKatana::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_SheathKatana));
+	const auto& p = static_cast<const PlayerState_SheathKatana&>(other);
+	m_stateParameter.blendTime = p.m_stateParameter.blendTime;
+}
+
+void PlayerState_SheathKatana::ExposeParametersImGui()
+{
+	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
+}
+
+void PlayerState_SheathKatana::LoadParametersJson(const nlohmann::json& js)
+{
+	if (!js.contains("PlayerState_SheathKatana")) return;
+	const auto& stateNode = js["PlayerState_SheathKatana"];
+	if (stateNode.contains("Player"))
+	{
+		const auto& playerNode = stateNode["Player"];
+		if (playerNode.contains("blendTime")) m_stateParameter.blendTime = playerNode["blendTime"].get<float>();
+	}
+}
+
+void PlayerState_SheathKatana::SaveParametersJson(nlohmann::json& js) const
+{
+	if (!js.contains("PlayerState_SheathKatana")) js["PlayerState_SheathKatana"] = nlohmann::json::object();
+	auto& stateNode = js["PlayerState_SheathKatana"];
+
+	stateNode["Player"]["blendTime"] = m_stateParameter.blendTime;
 }

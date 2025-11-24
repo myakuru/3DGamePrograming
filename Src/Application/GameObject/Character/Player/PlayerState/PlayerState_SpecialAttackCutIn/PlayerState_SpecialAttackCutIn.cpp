@@ -8,18 +8,18 @@
 void PlayerState_SpecialAttackCutIn::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("CutIn");
-	m_player->GetAnimator()->SetAnimation(anime, 0.25f, false);
+	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 
 	PlayerStateBase::StateStart();
 
-	m_player->SetAnimeSpeed(60.0f);
+	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	// カメラの位置を変更
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
-		camera->SetTargetLookAt({ 0.0f,0.6f,-1.7f });
-		camera->SetRotationSmooth(5.0f);
-		camera->SetDistanceSmooth(5.0f);
+		camera->SetTargetLookAt(m_cameraCutInOffset);
+		camera->SetRotationSmooth(m_cameraStartRotationSmooth);
+		camera->SetDistanceSmooth(m_cameraStartDistanceSmooth);
 	}
 
 	// 攻撃時はtrueにする
@@ -34,8 +34,6 @@ void PlayerState_SpecialAttackCutIn::StateStart()
 	// 無敵状態にする
 	m_player->SetInvincible(true);
 
-	m_time = 0.0f;
-
 }
 
 void PlayerState_SpecialAttackCutIn::StateUpdate()
@@ -43,14 +41,6 @@ void PlayerState_SpecialAttackCutIn::StateUpdate()
 	// アニメーション時間のデバッグ表示
 	{
 		m_animeTime = m_player->GetAnimator()->GetPlayProgress();
-
-		m_maxAnimeTime = m_player->GetAnimator()->GetMaxAnimationTime();
-
-		if (m_animeTime > m_maxAnimeTime)
-		{
-			KdDebugGUI::Instance().AddLog(U8("Attackアニメ時間: %f"), m_animeTime);
-			KdDebugGUI::Instance().AddLog("\n");
-		}
 	}
 
 	Math::Vector3 moveDir = m_player->GetMovement();
@@ -64,7 +54,7 @@ void PlayerState_SpecialAttackCutIn::StateUpdate()
 	}
 
 
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
 		// キャラ前方からヨー角(deg)を計算してカメラ回転に反映
 		if (moveDir != Math::Vector3::Zero)
@@ -72,20 +62,19 @@ void PlayerState_SpecialAttackCutIn::StateUpdate()
 			moveDir.Normalize();
 			const float yawRad = std::atan2(-moveDir.x, -moveDir.z);
 			const float yawDeg = DirectX::XMConvertToDegrees(yawRad);
-			camera->SetTargetRotation({ 10.0f, yawDeg , 5.0f });
+			camera->SetTargetRotation({ m_cameraCutInRotation.x, yawDeg , m_cameraCutInRotation.z });
 		}
 	}
 
-	if (m_animeTime >= 0.6)
+	if (m_animeTime >= m_cutInCameraTime)
 	{
-		if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+		if (auto camera = m_player->GetPlayerCamera().lock())
 		{
-			camera->SetTargetLookAt({ 0.0f,1.0f,-0.7f });
+			camera->SetTargetLookAt(m_cameraCutInOffset);
 		}
 	}
 
-
-	m_player->SetIsMoving(m_attackDirection * 0.01f);
+	m_player->SetIsMoving(m_attackDirection * m_stateParameter.moveSpeed);
 
 	UpdateKatanaPos();
 
@@ -102,12 +91,67 @@ void PlayerState_SpecialAttackCutIn::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 	// カメラの位置を変更
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
+	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
-		camera->SetTargetLookAt({ 0.f,1.f,-4.0f });
-		camera->SetTargetRotation({ 0.0f,90.0f,0.0f });
+		/*camera->SetTargetLookAt({ 0.f,1.f,-4.0f });
+		camera->SetTargetRotation({ 0.0f,90.0f,0.0f });*/
 
-		camera->SetRotationSmooth(8.0f);
-		camera->SetDistanceSmooth(8.0f);
+		camera->SetRotationSmooth(m_cameraRotationSmooth);
+		camera->SetDistanceSmooth(m_cameraDistanceSmooth);
 	}
+}
+
+void PlayerState_SpecialAttackCutIn::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_SpecialAttackCutIn));
+	const auto& p = static_cast<const PlayerState_SpecialAttackCutIn&>(other);
+	m_stateParameter.blendTime = p.m_stateParameter.blendTime;
+	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
+	m_cameraStartRotationSmooth = p.m_cameraStartRotationSmooth;
+	m_cameraStartDistanceSmooth = p.m_cameraStartDistanceSmooth;
+	m_stateParameter.moveSpeed = p.m_stateParameter.moveSpeed;
+	m_cameraCutInOffset = p.m_cameraCutInOffset;
+	m_cameraCutInRotation = p.m_cameraCutInRotation;
+}
+
+void PlayerState_SpecialAttackCutIn::ExposeParametersImGui()
+{
+	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
+	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
+	ImGui::DragFloat(U8("カメラ回転スムーズ"), &m_cameraStartRotationSmooth);
+	ImGui::DragFloat(U8("カメラ距離スムーズ"), &m_cameraStartDistanceSmooth);
+	ImGui::DragFloat(U8("移動速度"), &m_stateParameter.moveSpeed.x);
+	ImGui::DragFloat3(U8("カメラカットイン時オフセット"), &m_cameraCutInOffset.x);
+	ImGui::DragFloat3(U8("カメラカットイン時回転"), &m_cameraCutInRotation.x);
+}
+
+void PlayerState_SpecialAttackCutIn::LoadParametersJson(const nlohmann::json& js)
+{
+	if (!js.contains("PlayerState_JustAvoidAttack")) return;
+	const auto& stateNode = js["PlayerState_JustAvoidAttack"];
+	if (stateNode.contains("Player"))
+	{
+		const auto& playerNode = stateNode["Player"];
+		if (playerNode.contains("blendTime")) m_stateParameter.blendTime = playerNode["blendTime"].get<float>();
+		if (playerNode.contains("animationSpeed")) m_stateParameter.animationSpeed = playerNode["animationSpeed"].get<float>();
+		if (playerNode.contains("cameraStartRotationSmooth")) m_cameraStartRotationSmooth = playerNode["cameraStartRotationSmooth"].get<float>();
+		if (playerNode.contains("cameraStartDistanceSmooth")) m_cameraStartDistanceSmooth = playerNode["cameraStartDistanceSmooth"].get<float>();
+		if (playerNode.contains("moveSpeed")) m_stateParameter.moveSpeed = JSON_MANAGER.JsonToVector(playerNode["moveSpeed"]);
+		if (playerNode.contains("cameraCutInOffset")) m_cameraCutInOffset = JSON_MANAGER.JsonToVector(playerNode["cameraCutInOffset"]);
+		if (playerNode.contains("cameraCutInRotation")) m_cameraCutInRotation = JSON_MANAGER.JsonToVector(playerNode["cameraCutInRotation"]);
+	}
+}
+
+void PlayerState_SpecialAttackCutIn::SaveParametersJson(nlohmann::json& js) const
+{
+	if (!js.contains("PlayerState_JustAvoidAttack")) js["PlayerState_JustAvoidAttack"] = nlohmann::json::object();
+	auto& stateNode = js["PlayerState_JustAvoidAttack"];
+
+	stateNode["Player"]["blendTime"] = m_stateParameter.blendTime;
+	stateNode["Player"]["animationSpeed"] = m_stateParameter.animationSpeed;
+	stateNode["Player"]["cameraStartRotationSmooth"] = m_cameraStartRotationSmooth;
+	stateNode["Player"]["cameraStartDistanceSmooth"] = m_cameraStartDistanceSmooth;
+	stateNode["Player"]["moveSpeed"] = JSON_MANAGER.VectorToJson(m_stateParameter.moveSpeed);
+	stateNode["Player"]["cameraCutInOffset"] = JSON_MANAGER.VectorToJson(m_cameraCutInOffset);
+	stateNode["Player"]["cameraCutInRotation"] = JSON_MANAGER.VectorToJson(m_cameraCutInRotation);
 }
