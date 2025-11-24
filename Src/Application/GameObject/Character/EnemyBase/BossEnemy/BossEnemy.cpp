@@ -15,6 +15,7 @@
 #include"Application/GameObject/Effect/EffekseerEffect/EnemyHitEffect/EnemyHitEffect.h"
 
 #include "Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemyConfig/BossEnemyConfig.h"
+#include "BossEnemyState/BossEnemyAI.h"
 
 const uint32_t BossEnemy::TypeID = KdGameObject::GenerateTypeID();
 
@@ -66,6 +67,11 @@ void BossEnemy::Init()
 		{
 			m_bossEnemyConfig->JsonInput(cfg);
 		}
+	}
+
+	{
+		const nlohmann::json ai = JSON_MANAGER.JsonDeserialize("Json/BossEnemyConfig/BossEnemyAI/BossEnemyAI");
+		BossEnemyAI::JsonInput(ai);
 	}
 
 	m_characterData->SetCharacterData().hp = 500;
@@ -239,4 +245,5 @@ void BossEnemy::JsonSave(nlohmann::json& _json) const
 	{
 		m_bossEnemyConfig->JsonSave();
 	}
+	BossEnemyAI::JsonSave();
 }

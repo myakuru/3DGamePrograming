@@ -38,7 +38,7 @@ public:
 	// JSON 読み込み
 	void LoadParametersJson(const nlohmann::json& _json) override {}
 	// 保存
-	void SaveParametersJson(nlohmann::json& _json) const override {}
+	void SaveParametersJson(nlohmann::json& _json) const override{}
 	// ImGuiで編集した変数を実行時反映させるための関数
 	virtual void ApplyFromConfig(const BossEnemyStateBase& other) {}
 
