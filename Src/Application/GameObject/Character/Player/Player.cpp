@@ -32,6 +32,7 @@ void Player::Init()
 {
 	CharacterBase::Init();
 
+	// デフォルトはIdleステートにする
 	m_animator->SetAnimation(m_modelWork->GetData()->GetAnimation("Idle"));
 	m_modelWork->CalcNodeMatrices(); // ノードの再計算
 
@@ -45,6 +46,8 @@ void Player::Init()
 	// フラグ初期化（新しい構造体へ移行）
 	m_action.onceEffect  = false;
 	m_action.isAtkPlayer = false;
+
+	// 無敵・被弾フラグ初期化
 	SetInvincible(false);
 	SetHitCheck  (false);
 
@@ -70,6 +73,7 @@ void Player::Init()
 
 	m_visual.rimLightOn = false;
 
+	// ステートのデーターを作成
 	m_playerConfig = std::make_shared<PlayerConfig>();
 
 	if (m_playerConfig)
@@ -118,7 +122,6 @@ void Player::PreUpdate()
 
 void Player::PostUpdate()
 {
-
 	CollisionUpdate();
 
 	if (m_action.isAtkPlayer) return;
@@ -456,13 +459,13 @@ void Player::UpdateAttackCollision(float _radius        , float         _distanc
 				{
 					auto e = std::static_pointer_cast<AetheriusEnemy>(obj);
 					e->Damage(m_characterData->GetCharacterData().attack);
-					e->SetEnemyHit(true);
+					e->SetHitCheck(true);
 				}
 				else if (obj->GetTypeID() == BossEnemy::TypeID)
 				{
 					auto b = std::static_pointer_cast<BossEnemy>(obj);
 				 b->Damage(m_characterData->GetCharacterData().attack);
-					b->SetEnemyHit(true);
+					b->SetHitCheck(true);
 				}
 				hitAny = true;
 			}
@@ -501,9 +504,6 @@ void Player::ImGuiInspector()
 {
 	CharacterBase::ImGuiInspector();
 
-	// ファイルパス（必要なら .json 付きに合わせる）
-	//constexpr const char* kPlayerConfigPath = "Json/PlayerConfig";
-
 	ImGui::Text(U8("プレイヤー設定 (Prototype + Runtime 同一ビュー)"));
 	ImGui::Separator();
 
@@ -531,8 +531,6 @@ void Player::ImGuiInspector()
 
 void Player::JsonInput(const nlohmann::json& _json)
 {
-
-
 	CharacterBase::JsonInput(_json);
 	if (_json.contains("GravitySpeed"))   m_physics.gravitySpeed = _json["GravitySpeed"].get<float>();
 	if (_json.contains("fixedFps"))       m_physics.fixedFrameRate = _json["fixedFps"].get<float>();

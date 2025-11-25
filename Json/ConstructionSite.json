@@ -71,9 +71,9 @@
     "moveSpeed": 0.14000000059604645,
     "path": "Asset\\Models\\Player\\Sapphy\\Sapphy.gltf",
     "pos": {
-      "x": -15.901352882385254,
+      "x": -15.413705825805664,
       "y": 100.99998474121094,
-      "z": 23.40620994567871
+      "z": 11.915266990661621
     },
     "rotateSpeed": 30.0,
     "scale": {
@@ -166,15 +166,15 @@
       "z": 1.0
     },
     "deg": {
-      "x": 0.0,
-      "y": 164.06570434570313,
+      "x": 32.2500114440918,
+      "y": 244.15504455566406,
       "z": 0.0
     },
     "fov": 70.0,
     "m_cameraPos": {
-      "x": -15.901352882385254,
+      "x": -15.413614273071289,
       "y": 100.99998474121094,
-      "z": 23.40620994567871
+      "z": 11.915310859680176
     },
     "moveSpeed": 50.0,
     "path": "Asset/Models/Sky/Sky.gltf",
@@ -193,7 +193,7 @@
     "targetLookAt": {
       "x": 0.0,
       "y": 1.0,
-      "z": -2.5
+      "z": -2.5000009536743164
     },
     "type": 32
   },
@@ -1122,7 +1122,7 @@
       "y": 0.0,
       "z": 0.0
     },
-    "drawFlags": true,
+    "drawFlags": false,
     "path": "Asset/Models/Sky/Sky.gltf",
     "pos": {
       "x": 0.0,
@@ -1857,7 +1857,7 @@
       "y": 0.0,
       "z": 0.0
     },
-    "drawFlags": true,
+    "drawFlags": false,
     "path": "Asset\\Textures\\EnemyUI\\BossBlackBar.png",
     "pos": {
       "x": 412.6000061035156,
@@ -6354,7 +6354,9 @@
     "type": 32
   },
   {
+    "Expired": false,
     "GravitySpeed": 0.0,
+    "LastDamage": 0,
     "Name": "class AetheriusEnemy",
     "color": {
       "w": 1.0,
@@ -6368,7 +6370,7 @@
       "z": 0.0
     },
     "dissolveColor": {
-      "x": 0.0,
+      "x": 1.0,
       "y": 0.0,
       "z": 0.0
     },
@@ -7270,7 +7272,9 @@
     "type": 160
   },
   {
+    "Expired": false,
     "GravitySpeed": 0.0,
+    "LastDamage": 10,
     "Name": "class AetheriusEnemy",
     "color": {
       "w": 1.0,
@@ -7302,11 +7306,11 @@
     "moveSpeed": 0.05000000074505806,
     "path": "Asset\\Models\\Enemy\\Aetherius\\Aetherius.gltf",
     "pos": {
-      "x": -10.61083698272705,
+      "x": -0.6166591048240662,
       "y": 100.80000305175781,
-      "z": 4.875794887542725
+      "z": 15.410744667053223
     },
-    "rotationspeed": 20.0,
+    "rotationspeed": 10.0,
     "scale": {
       "x": 1.0,
       "y": 1.0,

@@ -1,19 +1,17 @@
 ﻿#include "BossEnemy.h"
-#include"Application/GameObject/Character/Player/Player.h"
-#include"Application/Scene/SceneManager.h"
-#include"Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
-#include"Application/GameObject/Weapon/EnemySword/EnemySword.h"
-#include"Application/GameObject/Weapon/EnemyShield/EnemyShield.h"
-#include"Application/GameObject/Collition/Collition.h"
-#include"Application/main.h"
-#include"MyFramework/Manager/JsonManager/JsonManager.h"
-#include"BossEnemyState/BossEnemyState_Enter/BossEnemyState_Enter.h"
-#include"BossEnemyState/BossEnemyState_Hit/BossEnemyState_Hit.h"
-#include"../BossEnemy/BossEnemyState/BossEnemyState_Dodge/BossEnemyState_Dodge.h"
+#include "Application/GameObject/Character/Player/Player.h"
+#include "Application/Scene/SceneManager.h"
+#include "Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
+#include "Application/GameObject/Weapon/EnemySword/EnemySword.h"
+#include "Application/GameObject/Weapon/EnemyShield/EnemyShield.h"
+#include "Application/GameObject/Collition/Collition.h"
+#include "Application/main.h"
+#include "MyFramework/Manager/JsonManager/JsonManager.h"
+#include "BossEnemyState/BossEnemyState_Enter/BossEnemyState_Enter.h"
+#include "BossEnemyState/BossEnemyState_Hit/BossEnemyState_Hit.h"
+#include "BossEnemyState/BossEnemyState_Dodge/BossEnemyState_Dodge.h"
 #include "Application/Data/CharacterData/CharacterData.h"
-
-#include"Application/GameObject/Effect/EffekseerEffect/EnemyHitEffect/EnemyHitEffect.h"
-
+#include "Application/GameObject/Effect/EffekseerEffect/EnemyHitEffect/EnemyHitEffect.h"
 #include "Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemyConfig/BossEnemyConfig.h"
 #include "BossEnemyState/BossEnemyAI.h"
 
@@ -21,104 +19,80 @@ const uint32_t BossEnemy::TypeID = KdGameObject::GenerateTypeID();
 
 void BossEnemy::Init()
 {
-	CharacterBase::Init();
+	EnemyBase::Init(); // CharacterBase::Init() 呼び出し済み
 
 	m_modelWork->SetModelData("Asset/Models/Enemy/BossEnemy/BossEnemy.gltf");
-
 	SetDrawFlag("DrawLit", true);
 
 	m_movement.rotateSpeed = 10.0f;
+	m_movement.moveSpeed = 0.1f;
 
 	m_animator->SetAnimation(m_modelWork->GetData()->GetAnimation("Idle"));
 
-	m_pCollider = std::make_unique<KdCollider>();
-
-	m_pCollider->RegisterCollisionShape("EnemySphere", m_sphere, KdCollider::TypeDamage);
-
-	m_pCollider->RegisterCollisionShape("PlayerSphere", m_sphere, KdCollider::TypeEnemyHit);
-
-	StateInit();
-
-	m_position = { -8.0f,101.0f,18.0f };
-
-	m_isAtkPlayer = false;
-	m_dissever = 0.0f;
-
-	m_movement.moveSpeed = 0.1f;
-
-	m_invincible = false;
-	m_stateChange = false;
+	m_position = { -8.0f, 101.0f, 18.0f };
 
 	m_lastAction = ActionType::None;
-	m_meleeCooldown = 0.0f;
-	m_waterCooldown = 0.0f;
 
-	m_bossEnemyConfig = std::make_shared<BossEnemyConfig>();
+	// ステート初期化
+	StateInit();
 
-	if (m_bossEnemyConfig)
-	{
-		m_bossEnemyConfig->CreateStates();
-	}
-
-	if (m_bossEnemyConfig)
-	{
-		const nlohmann::json cfg = JSON_MANAGER.JsonDeserialize("Json/BossEnemyConfig/BossEnemyConfig");
-		if (!cfg.is_null())
-		{
-			m_bossEnemyConfig->JsonInput(cfg);
-		}
-	}
-
-	{
-		const nlohmann::json ai = JSON_MANAGER.JsonDeserialize("Json/BossEnemyConfig/BossEnemyAI/BossEnemyAI");
-		BossEnemyAI::JsonInput(ai);
-	}
-
+	// ステータス初期値（暫定）
 	m_characterData->SetCharacterData().hp = 500;
 	m_characterData->SetCharacterData().maxHp = 500;
 	m_characterData->SetCharacterData().attack = 10;
+
+	// Config 読み込み
+	m_bossEnemyConfig = std::make_shared<BossEnemyConfig>();
+	if (m_bossEnemyConfig)
+	{
+		m_bossEnemyConfig->CreateStates();
+		const nlohmann::json cfg = JSON_MANAGER.JsonDeserialize("Json/BossEnemyConfig/BossEnemyConfig");
+		if (!cfg.is_null()) m_bossEnemyConfig->JsonInput(cfg);
+	}
+
+	// AI
+	m_bossEnemyAI = std::make_shared<BossEnemyAI>();
+	if (m_bossEnemyAI)
+	{
+		const nlohmann::json ai = JSON_MANAGER.JsonDeserialize("Json/BossEnemyConfig/BossEnemyAI/BossEnemyAI");
+		if (!ai.is_null()) m_bossEnemyAI->JsonInput(ai);
+	}
 }
 
 void BossEnemy::Update()
 {
-	// 球の中心座標と半径を設定
-	m_sphere.Center = m_position + Math::Vector3(0.0f, 0.7f, 0.0f); // 敵の位置＋オフセット
-	m_sphere.Radius = 0.2f; // 半径0.5
-
+	// 球の中心と半径（デバッグ表示）
+	m_sphere.Center = m_position + Math::Vector3(0.0f, 0.7f, 0.0f);
+	m_sphere.Radius = 0.2f;
 	m_pDebugWire->AddDebugSphere(m_sphere.Center, m_sphere.Radius, kBlueColor);
 
-	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
+	float unscaledDt = Application::Instance().GetUnscaledDeltaTime();
+	float dt = Application::Instance().GetDeltaTime();
 
-	if (SceneManager::Instance().m_gameClear == true)
+	// ゲームクリアで強制終了
+	if (SceneManager::Instance().m_gameClear) m_expired = true;
+
+	// 死亡後のディゾルブ進行
+	if (m_expired)
 	{
-		m_isExpired = true;
-	}
-
-	if (m_Expired)
-	{
-
-		if (m_dissever < 1.0f)
+		if (m_rendering.dissolvePower < 1.0f)
 		{
-			m_dissever += 2.0f * deltaTime;
-		}
-		else
-		{
-			m_dissever = 1.0f;
-			m_isExpired = true;
+			m_rendering.dissolvePower += 2.0f * unscaledDt;
+			if (m_rendering.dissolvePower > 1.0f) m_rendering.dissolvePower = 1.0f;
 		}
 	}
 
-	// クールダウン処理
-	TickCooldowns(Application::Instance().GetDeltaTime());
+	// クールダウン
+	TickCooldowns(dt);
 
-	CharacterBase::Update();
+	EnemyBase::Update(); // アニメ・移動等
 
-	// ヒット処理。
-	if (m_isHit)
+	// 被弾処理（旧 m_isHit）
+	if (GetHitCheck())
 	{
-		m_isHit = false;
+		SetHitCheck(false);
 
-		// ヒットエフェクト再生
+		// エフェクト
 		if (auto hitEffect = m_hitEffect.lock())
 		{
 			if (auto me = std::static_pointer_cast<BossEnemy>(GetMyAdls()))
@@ -127,77 +101,70 @@ void BossEnemy::Update()
 			}
 		}
 
-		// ヒット演出
-		m_enableRadialBlur = true;
-		m_blurTime = 0.0f;
+		// ブラー開始
+		SetEnableRadialBlur(true);
+		m_visual.blurTime = 0.0f;
 
-		// 無敵中なら累積だけリセットして終了
+		// 無敵なら累積だけリセット
 		if (GetInvincible())
 		{
 			ResetHitCount();
 			return;
 		}
 
-		// Hitステートへ遷移
+		// Hitステートへ
 		auto spDamageState = std::make_shared<BossEnemyState_Hit>();
 		ChangeState(spDamageState);
 		return;
 	}
 
-	// --- 毎フレームのブラー管理 ---
-	if (m_enableRadialBlur)
+	// ブラー制御
+	if (GetEnableRadialBlur())
 	{
-		m_blurTime += Application::Instance().GetUnscaledDeltaTime();
+		m_visual.blurTime += unscaledDt;
 
-		if (m_blurTime <= 0.1f)
-		{
-			m_physics.hitStop = 0.0f; // ヒットストップ時間
-		}
-		else
-		{
-			m_physics.hitStop = 1.0f; // ヒットストップ解除
-		}
+		// ヒットストップ
+		if (m_visual.blurTime <= 0.1f) m_physics.hitStop = 0.0f;
+		else                           m_physics.hitStop = 1.0f;
 
-		if (m_blurTime <= 0.3f) // ブラー持続時間
+		if (m_visual.blurTime <= 0.3f)
 		{
 			KdShaderManager::Instance().m_postProcessShader.SetRadialBlur(0.1f, 2.0f, { 0.5f,0.55f });
 			KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(true);
 
-			if (static_cast<int>(std::floor(m_blurTime)) % 10 == 0)
+			if (static_cast<int>(std::floor(m_visual.blurTime)) % 10 == 0)
 			{
-				Math::Vector3 jitter = {
-					KdRandom::GetFloat(-0.1f, 0.1f),	// X軸揺れ
-					KdRandom::GetFloat(-0.1f, 0.1f),	// Y軸揺れ
-					KdRandom::GetFloat(-0.1f, 0.1f)		// Z軸揺れ
+				Math::Vector3 jitter{
+					KdRandom::GetFloat(-0.1f, 0.1f),
+					KdRandom::GetFloat(-0.1f, 0.1f),
+					KdRandom::GetFloat(-0.1f, 0.1f)
 				};
-
-				Math::Vector3 effective = jitter * 0.5f; // 揺れの強さ調整
-				m_mWorld.Translation(m_position + effective);
+				m_mWorld.Translation(m_position + jitter * 0.5f);
 			}
 		}
 		else
 		{
-			m_enableRadialBlur = false;
-			m_blurTime = 0.0f;
+			SetEnableRadialBlur(false);
+			m_visual.blurTime = 0.0f;
 			m_mWorld.Translation(m_position);
-
 			KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(false);
 		}
 	}
 
-	// ダメージが半分以下になったら攻撃状態を遷移
-	if (m_characterData->GetCharacterData().hp <= m_characterData->GetCharacterData().maxHp / 2 && !m_stateChange)
+	// HP 半分以下で回避ステートへ（1回だけ）
+	if (m_characterData->GetCharacterData().hp <= (m_characterData->GetCharacterData().maxHp / 2)
+		&& m_lastAction != ActionType::Dodge)
 	{
-		auto state = std::make_shared<BossEnemyState_Dodge>();
-		ChangeState(state);
+		auto dodgeState = std::make_shared<BossEnemyState_Dodge>();
+		ChangeState(dodgeState);
 		return;
 	}
 }
 
 void BossEnemy::StateInit()
 {
-	auto spIdleState = std::make_shared<BossEnemyState_Enter>();
-	ChangeState(spIdleState);
+	auto enterState = std::make_shared<BossEnemyState_Enter>();
+	ChangeState(enterState);
 }
 
 void BossEnemy::ChangeState(std::shared_ptr<BossEnemyStateBase> _state)
@@ -212,11 +179,21 @@ void BossEnemy::ChangeState(std::shared_ptr<BossEnemyStateBase> _state)
 
 void BossEnemy::Damage(int _damage)
 {
-	m_getDamage = _damage;
+	if (m_expired) return;
+
+	m_lastDamageReceived = _damage;
 	m_characterData->SetCharacterData().hp -= _damage;
-	if (m_characterData->GetCharacterData().hp <= 0)
+	if (m_characterData->GetCharacterData().hp < 0)
 	{
-		m_Expired = true;
+		m_characterData->SetCharacterData().hp = 0;
+	}
+
+	if (m_characterData->GetCharacterData().hp == 0)
+	{
+		m_expired = true;
+		SetInvincible(true);
+		SetHitCheck(false);
+		// 死亡後の追加演出が必要ならここにステート遷移を追加
 	}
 }
 
@@ -227,23 +204,48 @@ void BossEnemy::ImGuiInspector()
 	{
 		m_bossEnemyConfig->InGuiInspector();
 	}
+
+	ImGui::Separator();
+	ImGui::Text(U8("BossEnemy 拡張"));
+	ImGui::Text(U8("LastAction")); ImGui::SameLine();
+	ImGui::TextColored({ 1,1,0,1 }, std::to_string(static_cast<int>(m_lastAction)).c_str());
+	ImGui::DragFloat(U8("MeleeCD"), &m_meleeCooldown, 0.01f, 0.0f);
+	ImGui::DragFloat(U8("WaterCD"), &m_waterCooldown, 0.01f, 0.0f);
+	ImGui::DragFloat(U8("WaterFallCD"), &m_waterFallCooldown, 0.01f, 0.0f);
+	ImGui::Checkbox(U8("Expired"), &m_expired);
+	ImGui::DragInt(U8("LastDamageReceived"), &m_lastDamageReceived);
 }
 
 void BossEnemy::JsonInput(const nlohmann::json& _json)
 {
 	EnemyBase::JsonInput(_json);
-	if (m_bossEnemyConfig)
-	{
-		m_bossEnemyConfig->JsonInput(_json);
-	}
+	if (m_bossEnemyConfig) m_bossEnemyConfig->JsonInput(_json);
+
+	if (_json.contains("Boss_LastAction"))       m_lastAction = static_cast<ActionType>(_json["Boss_LastAction"].get<int>());
+	if (_json.contains("Boss_MeleeCooldown"))    m_meleeCooldown = _json["Boss_MeleeCooldown"].get<float>();
+	if (_json.contains("Boss_WaterCooldown"))    m_waterCooldown = _json["Boss_WaterCooldown"].get<float>();
+	if (_json.contains("Boss_WaterFallCooldown"))m_waterFallCooldown = _json["Boss_WaterFallCooldown"].get<float>();
+	if (_json.contains("Boss_Expired"))          m_expired = _json["Boss_Expired"].get<bool>();
+	if (_json.contains("Boss_LastDamage"))       m_lastDamageReceived = _json["Boss_LastDamage"].get<int>();
 }
 
 void BossEnemy::JsonSave(nlohmann::json& _json) const
 {
 	EnemyBase::JsonSave(_json);
-	if (m_bossEnemyConfig)
-	{
-		m_bossEnemyConfig->JsonSave();
-	}
-	BossEnemyAI::JsonSave();
+	if (m_bossEnemyConfig) m_bossEnemyConfig->JsonSave();
+	if (m_bossEnemyAI)     m_bossEnemyAI->JsonSave();
+
+	_json["Boss_LastAction"] = static_cast<int>(m_lastAction);
+	_json["Boss_MeleeCooldown"] = m_meleeCooldown;
+	_json["Boss_WaterCooldown"] = m_waterCooldown;
+	_json["Boss_WaterFallCooldown"] = m_waterFallCooldown;
+	_json["Boss_Expired"] = m_expired;
+	_json["Boss_LastDamage"] = m_lastDamageReceived;
+}
+
+void BossEnemy::SetDissolve(float v)
+{
+	if (v < 0.0f) v = 0.0f;
+	else if (v > 1.0f) v = 1.0f;
+	m_rendering.dissolvePower = v;
 }

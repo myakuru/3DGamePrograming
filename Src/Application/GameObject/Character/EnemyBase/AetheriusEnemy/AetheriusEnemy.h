@@ -1,103 +1,56 @@
 ﻿#pragma once
 #include "../EnemyBase.h"
+
 class EnemyStateBase;
 class Player;
 class EnemySword;
 class EnemyShield;
 class AetheriusEnemyConfig;
 
-class AetheriusEnemy :public EnemyBase
+class AetheriusEnemy : public EnemyBase
 {
 public:
-	// クラスごとに一意なTypeIDを持たせる
+	// クラスごとに一意なTypeID
 	static const uint32_t TypeID;
-	AetheriusEnemy() { m_typeID = TypeID; AddTag(ObjTag::EnemyLike); } // タグ付与
+	AetheriusEnemy() { m_typeID = TypeID; AddTag(ObjTag::EnemyLike); }
 	~AetheriusEnemy() override = default;
 
 	void Init() override;
 	void Update() override;
+
+	// ステート遷移
 	void ChangeState(std::shared_ptr<EnemyStateBase> _state);
 
-	// ダメージを受ける
+	// ダメージ処理
 	void Damage(int _damage);
 
-	void HitCheck(bool _isHit)
-	{
-		m_isAtkPlayer = _isHit;
-	}
+	int GetDamage() const { return m_lastDamageReceived; }
 
-	bool GetHitCheck() const
-	{
-		return m_isAtkPlayer;
-	}
+	const CharacterData& GetEnemyStatus() const { return *m_characterData; }
 
-	// Enemyがダメージ受けたときのセッター
-	bool EnemyHit() const
-	{
-		return m_isHit;
-	}
-
-	void SetEnemyHit(bool _hit)
-	{
-		m_isHit = _hit;
-	}
-	int GetDamage() const
-	{
-		return m_getDamage;
-	}
-
-	const CharacterData& GetEnemyStatus()
-	{
-		return *m_characterData;
-	}
-
-	// 回避成功フラグの取得
-	bool GetJustAvoidSuccess() const { return m_justAvoidSuccess; }
-	void SetJustAvoidSuccess(bool flag) { m_justAvoidSuccess = flag; }
-
-	// 当たり判定リセット
-	void ResetAttackCollision()
-	{
-		m_chargeAttackCount = 0;
-		m_chargeAttackTimer = 0.0f;
-		m_isChargeAttackActive = false;
-		m_hitOnce = false;
-
-		// 時間ウィンドウも初期化
-		m_attackActiveTime = 0.0f;
-		m_attackActiveBegin = 0.0f;
-		m_attackActiveEnd = 3.0f;
-	}
-
-	// 敵への累積ヒット回数（全ステート共通）
+	// 累積ヒット回数（旧インターフェース維持）
 	int  GetHitCount() const { return m_totalHitCount; }
 	void IncrementHitCount() { ++m_totalHitCount; }
 	void ResetHitCount() { m_totalHitCount = 0; }
 
-	void SetDissolve(float v)
-	{
-		// 0～1にクランプ
-		if (v < 0.0f) v = 0.0f;
-		else if (v > 1.0f) v = 1.0f;
-		m_dissever = v;
-	}
-
-	float GetDissolve() const
-	{
-		return m_dissever;
-	}
+	// ディゾルブ
+	void  SetDissolve(float v);
+	float GetDissolve() const { return m_rendering.dissolvePower; }
 
 private:
-
 	void StateInit();
 
 	void ImGuiInspector() override;
 	void JsonInput(const nlohmann::json& _json) override;
 	void JsonSave(nlohmann::json& _json) const override;
 
-	std::shared_ptr<AetheriusEnemyConfig> m_config; // 敵の設定データ
+	std::shared_ptr<AetheriusEnemyConfig> m_config;
 
-	std::vector<std::weak_ptr<EnemySword>> m_enemySwords; // 敵の剣
-	std::vector<std::weak_ptr<EnemyShield>> m_enemyShields; // 敵の盾
+	std::vector<std::weak_ptr<EnemySword>>  m_enemySwords;
+	std::vector<std::weak_ptr<EnemyShield>> m_enemyShields;
 
+	// 死亡フラグ
+	bool m_expired = false;
+	// 直近受けたダメージ
+	int  m_lastDamageReceived = 0;
 };

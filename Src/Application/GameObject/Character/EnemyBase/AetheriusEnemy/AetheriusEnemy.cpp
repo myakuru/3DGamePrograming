@@ -1,60 +1,41 @@
 ﻿#include "AetheriusEnemy.h"
 
-#include"Application/GameObject/Character/Player/Player.h"
-#include"Application/Scene/SceneManager.h"
-#include"EnemyState/EnemyState_Idle/EnemyState_Idle.h"
-#include"EnemyState/EnemyState_Hit/EnemyState_Hit.h"
-#include"Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
-#include"Application/GameObject/Weapon/EnemySword/EnemySword.h"
-#include"Application/GameObject/Weapon/EnemyShield/EnemyShield.h"
-#include"Application/GameObject/Collition/Collition.h"
-#include"Application/main.h"
-#include"MyFramework/Manager/JsonManager/JsonManager.h"
-#include"EnemyState/EnemyState_Death/EnemyState_Death.h"
-#include"../../../../Data/CharacterData/CharacterData.h"
-
-#include"Application/GameObject/Effect/EffekseerEffect/EnemyHitEffect/EnemyHitEffect.h"
+#include "Application/GameObject/Character/Player/Player.h"
+#include "Application/Scene/SceneManager.h"
+#include "EnemyState/EnemyState_Idle/EnemyState_Idle.h"
+#include "EnemyState/EnemyState_Hit/EnemyState_Hit.h"
+#include "Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
+#include "Application/GameObject/Weapon/EnemySword/EnemySword.h"
+#include "Application/GameObject/Weapon/EnemyShield/EnemyShield.h"
+#include "Application/GameObject/Collition/Collition.h"
+#include "Application/main.h"
+#include "MyFramework/Manager/JsonManager/JsonManager.h"
+#include "EnemyState/EnemyState_Death/EnemyState_Death.h"
+#include "../../../../Data/CharacterData/CharacterData.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EnemyHitEffect/EnemyHitEffect.h"
 #include "Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemyConfig.h"
 
 const uint32_t AetheriusEnemy::TypeID = GenerateTypeID();
 
 void AetheriusEnemy::Init()
 {
-	CharacterBase::Init();
+	EnemyBase::Init(); // CharacterBase::Init() は EnemyBase 内で呼ばれる
 
-	// 初期状態のアニメーション設定
-	m_animator->SetAnimation(m_modelWork->GetData()->GetAnimation("Idle"));
-
-	// 当たり判定の設定
-	m_pCollider = std::make_unique<KdCollider>();
-	m_pCollider->RegisterCollisionShape("EnemySphere", m_sphere, KdCollider::TypeDamage);
-	m_pCollider->RegisterCollisionShape("PlayerSphere", m_sphere, KdCollider::TypeEnemyHit);
-
-	// ステート初期化
-	StateInit();
-
-	m_isAtkPlayer = false;
-	m_dissever = 0.0f;
-	m_invincible = false;
-	m_Expired = false;
-
-	// 要変更
+	// 基本ステータス（暫定。Config 反映前の初期値）
 	m_characterData->SetCharacterData().hp = 500;
 	m_characterData->SetCharacterData().maxHp = 500;
 	m_characterData->SetCharacterData().attack = 10;
 
+	// 武器参照取得
 	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemySword, m_enemySwords);
 	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyShield, m_enemyShields);
 
+	// Config
 	m_config = std::make_shared<AetheriusEnemyConfig>();
-
 	if (m_config)
 	{
 		m_config->CreateStates();
-	}
 
-	if (m_config)
-	{
 		const nlohmann::json cfg = JSON_MANAGER.JsonDeserialize("Json/AetheriusEnemyConfig/AetheriusEnemyConfig");
 		if (!cfg.is_null())
 		{
@@ -62,14 +43,14 @@ void AetheriusEnemy::Init()
 		}
 	}
 
-	// シーン内の EnemyHitEffect を1つ取得（共有の発射台として使う）
+	StateInit();
 }
 
 void AetheriusEnemy::Update()
 {
-	// 自分の武器が未割り当て/消滅なら一度だけ取得して所有者に設定する
-	CharacterBase::Update();
+	EnemyBase::Update(); // アニメーション・移動など
 
+	// 剣
 	for (const auto& w : m_enemySwords)
 	{
 		if (auto weapon = w.lock())
@@ -83,12 +64,12 @@ void AetheriusEnemy::Update()
 		}
 	}
 
+	// 盾
 	for (const auto& w : m_enemyShields)
 	{
 		if (auto weapon = w.lock())
 		{
 			weapon->SetOwnerEnemy(std::static_pointer_cast<AetheriusEnemy>(shared_from_this()));
-
 			if (auto leftHandNode = m_modelWork->FindWorkNode("weapon_l"))
 			{
 				weapon->SetEnemyLeftHandMatrix(leftHandNode->m_worldTransform);
@@ -99,11 +80,12 @@ void AetheriusEnemy::Update()
 
 	SceneManager::Instance().GetObjectWeakPtr(m_hitEffect);
 
-	if (m_isHit)
+	// 被弾処理（旧 m_isHit → CombatState.flags.isHit）
+	if (GetHitCheck())
 	{
-		m_isHit = false;
+		SetHitCheck(false);
 
-		// ヒットエフェクト再生
+		// ヒットエフェクト
 		if (auto hitEffect = m_hitEffect.lock())
 		{
 			if (auto me = std::static_pointer_cast<AetheriusEnemy>(GetMyAdls()))
@@ -112,64 +94,56 @@ void AetheriusEnemy::Update()
 			}
 		}
 
-		// ヒット演出
-		m_enableRadialBlur = true;
-		m_blurTime = 0.0f;
+		// 演出開始（ラジアルブラー/ヒットストップ）
+		m_visual.enableRadialBlur = true;
+		m_visual.blurTime = 0.0f;
 
-		// 無敵中なら累積だけリセットして終了
+		// 無敵中なら累積ヒットリセットのみ
 		if (GetInvincible())
 		{
 			ResetHitCount();
 			return;
 		}
 
-		// Hitステートへ遷移
+		// Hit ステートへ
 		auto spDamageState = std::make_shared<EnemyState_Hit>();
 		ChangeState(spDamageState);
 		return;
 	}
 
-	// --- 毎フレームのブラー管理 ---
-	if (m_enableRadialBlur)
+	// ラジアルブラー制御
+	if (m_visual.enableRadialBlur)
 	{
-		m_blurTime += Application::Instance().GetUnscaledDeltaTime();
+		m_visual.blurTime += Application::Instance().GetUnscaledDeltaTime();
 
-		if (m_blurTime <= 0.1f)
-		{
-			m_physics.hitStop = 0.0f; // ヒットストップ時間
-		}
-		else
-		{
-			m_physics.hitStop = 1.0f; // ヒットストップ解除
-		}
+		// ヒットストップ
+		if (m_visual.blurTime <= 0.1f)  m_physics.hitStop = 0.0f;
+		else                            m_physics.hitStop = 1.0f;
 
-		if (m_blurTime <= 0.3f) // ブラー持続時間
+		if (m_visual.blurTime <= 0.3f)
 		{
 			KdShaderManager::Instance().m_postProcessShader.SetRadialBlur(0.1f, 2.0f, { 0.5f,0.55f });
 			KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(true);
 
-			if (static_cast<int>(std::floor(m_blurTime)) % 10 == 0)
+			// 微妙な位置揺らぎ
+			if (static_cast<int>(std::floor(m_visual.blurTime)) % 10 == 0)
 			{
 				Math::Vector3 jitter = {
-					KdRandom::GetFloat(-0.1f, 0.1f),	// X軸揺れ
-					KdRandom::GetFloat(-0.1f, 0.1f),	// Y軸揺れ
-					KdRandom::GetFloat(-0.1f, 0.1f)		// Z軸揺れ
+					KdRandom::GetFloat(-0.1f, 0.1f),
+					KdRandom::GetFloat(-0.1f, 0.1f),
+					KdRandom::GetFloat(-0.1f, 0.1f)
 				};
-
-				Math::Vector3 effective = jitter * 0.5f; // 揺れの強さ調整
-				m_mWorld.Translation(m_position + effective);
+				m_mWorld.Translation(m_position + jitter * 0.5f);
 			}
 		}
 		else
 		{
-			m_enableRadialBlur = false;
-			m_blurTime = 0.0f; 
+			m_visual.enableRadialBlur = false;
+			m_visual.blurTime = 0.0f;
 			m_mWorld.Translation(m_position);
-
 			KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(false);
 		}
 	}
-
 }
 
 void AetheriusEnemy::StateInit()
@@ -185,6 +159,11 @@ void AetheriusEnemy::ImGuiInspector()
 	{
 		m_config->InGuiInspector();
 	}
+
+	ImGui::Separator();
+	ImGui::Text(U8("AetheriusEnemy 拡張"));
+	ImGui::Checkbox(U8("Expired"), &m_expired);
+	ImGui::DragInt(U8("LastDamageReceived"), &m_lastDamageReceived);
 }
 
 void AetheriusEnemy::JsonInput(const nlohmann::json& _json)
@@ -194,6 +173,8 @@ void AetheriusEnemy::JsonInput(const nlohmann::json& _json)
 	{
 		m_config->JsonInput(_json);
 	}
+	if (_json.contains("Expired"))          m_expired = _json["Expired"].get<bool>();
+	if (_json.contains("LastDamage"))       m_lastDamageReceived = _json["LastDamage"].get<int>();
 }
 
 void AetheriusEnemy::JsonSave(nlohmann::json& _json) const
@@ -203,6 +184,8 @@ void AetheriusEnemy::JsonSave(nlohmann::json& _json) const
 	{
 		m_config->JsonSave();
 	}
+	_json["Expired"] = m_expired;
+	_json["LastDamage"] = m_lastDamageReceived;
 }
 
 void AetheriusEnemy::ChangeState(std::shared_ptr<EnemyStateBase> _state)
@@ -217,9 +200,10 @@ void AetheriusEnemy::ChangeState(std::shared_ptr<EnemyStateBase> _state)
 
 void AetheriusEnemy::Damage(int _damage)
 {
-	if (m_Expired) return;
+	if (m_expired) return;
 
-	m_getDamage = _damage;
+	m_lastDamageReceived = _damage;
+
 	m_characterData->SetCharacterData().hp -= _damage;
 	if (m_characterData->GetCharacterData().hp < 0)
 	{
@@ -228,13 +212,20 @@ void AetheriusEnemy::Damage(int _damage)
 
 	if (m_characterData->GetCharacterData().hp == 0)
 	{
-		//　死亡処理
-		m_Expired = true;
-		m_isHit = false;
-		SetInvincible(true); // 不要な追加ヒット抑止
+		// 死亡
+		m_expired = true;
+		SetHitCheck(false);
+		SetInvincible(true);
 
 		auto spDeathState = std::make_shared<EnemyState_Death>();
 		ChangeState(spDeathState);
 		return;
 	}
+}
+
+void AetheriusEnemy::SetDissolve(float v)
+{
+	if (v < 0.0f) v = 0.0f;
+	else if (v > 1.0f) v = 1.0f;
+	m_rendering.dissolvePower = v;
 }

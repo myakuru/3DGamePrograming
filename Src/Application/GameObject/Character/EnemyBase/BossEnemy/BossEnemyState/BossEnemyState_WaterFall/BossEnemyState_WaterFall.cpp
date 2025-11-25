@@ -13,7 +13,6 @@ void BossEnemyState_WaterFall::StateStart()
 	m_bossEnemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
 	// 当たり判定リセット
 	m_bossEnemy->ResetAttackCollision();
-	m_bossEnemy->SetStateChange(true);
 
 	m_bossEnemy->SetInvincible(true);
 

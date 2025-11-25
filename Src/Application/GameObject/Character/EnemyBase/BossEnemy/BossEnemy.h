@@ -1,99 +1,51 @@
 ﻿#pragma once
 #include "../EnemyBase.h"
+
 class BossEnemyStateBase;
 class Player;
 class EnemySword;
 class EnemyShield;
 class BossEnemyConfig;
+class BossEnemyAI;
 
-class BossEnemy :public EnemyBase
+class BossEnemy : public EnemyBase
 {
 public:
-	// クラスごとに一意なTypeIDを持たせる
 	static const uint32_t TypeID;
-	BossEnemy() { m_typeID = TypeID; AddTag(ObjTag::EnemyLike); } // タグ付与
+	BossEnemy() { m_typeID = TypeID; AddTag(ObjTag::EnemyLike); }
 	~BossEnemy() override = default;
 
 	// 行動種別
-	enum class ActionType { None, Idle, Run, AttackL, AttackR, Water, WaterFall,Dodge };
+	enum class ActionType { None, Idle, Run, AttackL, AttackR, Water, WaterFall, Dodge };
 
 	void Init() override;
 	void Update() override;
 
-
 	void StateInit();
 	void ChangeState(std::shared_ptr<BossEnemyStateBase> _state);
 
-	// ダメージを受ける
+	// ダメージ
 	void Damage(int _damage);
 
-	void HitCheck(bool _isHit)
-	{
-		m_isAtkPlayer = _isHit;
-	}
+	int  GetDamage() const { return m_lastDamageReceived; }
 
-	bool GetHitCheck() const
-	{
-		return m_isAtkPlayer;
-	}
+	const CharacterData& GetStatus() const { return *m_characterData; }
 
-	// Enemyがダメージ受けたときのセッター
-	bool EnemyHit() const
-	{
-		return m_isHit;
-	}
-
-	void SetEnemyHit(bool _hit)
-	{
-		m_isHit = _hit;
-	}
-	int GetDamage() const
-	{
-		return m_getDamage;
-	}
-
-	const CharacterData& GetStatus()
-	{
-		return *m_characterData;
-	}
-
-	// 回避成功フラグの取得
-	bool GetJustAvoidSuccess() const { return m_justAvoidSuccess; }
-	void SetJustAvoidSuccess(bool flag) { m_justAvoidSuccess = flag; }
-
-	// 当たり判定リセット
-	void ResetAttackCollision()
-	{
-		m_chargeAttackCount = 0;
-		m_chargeAttackTimer = 0.0f;
-		m_isChargeAttackActive = false;
-		m_hitOnce = false;
-	}
-
-	// Hit状態への遷移しなくなる。
-	void SetInvincible(bool _flag) { m_invincible = _flag; }
-
-	bool GetInvincible() const { return m_invincible; }
-
-	// 敵への累積ヒット回数（全ステート共通）
+	// 累積ヒット回数
 	int  GetHitCount() const { return m_totalHitCount; }
 	void IncrementHitCount() { ++m_totalHitCount; }
 	void ResetHitCount() { m_totalHitCount = 0; }
 
-	// ステート切り替えフラグの取得
-	void SetStateChange(bool flag) { m_stateChange = flag; }
-
-	// 行動コンテキストAPI
+	// 行動コンテキスト
 	void SetLastAction(ActionType t) { m_lastAction = t; }
 	ActionType GetLastAction() const { return m_lastAction; }
 
 	void SetMeleeCooldown(float sec) { m_meleeCooldown = std::max(m_meleeCooldown, sec); }
-	float GetMeleeCooldown() const { return m_meleeCooldown; }
-
 	void SetWaterCooldown(float sec) { m_waterCooldown = std::max(m_waterCooldown, sec); }
-	float GetWaterCooldown() const { return m_waterCooldown; }
-
 	void SetWaterFallCooldown(float sec) { m_waterFallCooldown = std::max(m_waterFallCooldown, sec); }
+
+	float GetMeleeCooldown() const { return m_meleeCooldown; }
+	float GetWaterCooldown() const { return m_waterCooldown; }
 	float GetWaterFallCooldown() const { return m_waterFallCooldown; }
 
 	void TickCooldowns(float dt)
@@ -105,8 +57,13 @@ public:
 
 	std::vector<std::weak_ptr<Player>>& GetPlayerList() { return m_player; }
 
-private:
+	std::shared_ptr<BossEnemyAI> GetBossEnemyAI() { return m_bossEnemyAI; }
 
+	// ディゾルブ
+	void  SetDissolve(float v);
+	float GetDissolve() const { return m_rendering.dissolvePower; }
+
+private:
 	void ImGuiInspector() override;
 	void JsonInput(const nlohmann::json& _json) override;
 	void JsonSave(nlohmann::json& _json) const override;
@@ -114,13 +71,17 @@ private:
 	std::vector<std::weak_ptr<Player>> m_player;
 
 	std::shared_ptr<BossEnemyConfig> m_bossEnemyConfig;
-
-	// ステート切り替えフラグ
-	bool m_stateChange = false;
+	std::shared_ptr<BossEnemyAI>     m_bossEnemyAI;
 
 	// 行動コンテキスト
 	ActionType m_lastAction = ActionType::None;
-	float m_meleeCooldown = 0.0f;
-	float m_waterCooldown = 0.0f;
-	float m_waterFallCooldown = 0.0f;
+	float      m_meleeCooldown = 0.0f;
+	float      m_waterCooldown = 0.0f;
+	float      m_waterFallCooldown = 0.0f;
+
+	// 死亡済み
+	bool m_expired = false;
+
+	// 直近受けたダメージ
+	int  m_lastDamageReceived = 0;
 };

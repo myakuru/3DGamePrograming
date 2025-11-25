@@ -29,7 +29,7 @@ void BossEnemyState_Hit::StateUpdate()
 	// 無敵中
 	if (m_bossEnemy->GetInvincible())
 	{
-		auto next = BossEnemyAI::DecideNext(m_bossEnemy);
+		auto next = m_bossEnemy->GetBossEnemyAI()->DecideNext(m_bossEnemy);
 		m_bossEnemy->ChangeState(next);
 		return;
 	}
@@ -37,7 +37,7 @@ void BossEnemyState_Hit::StateUpdate()
 	// アニメーション終了
 	if (m_bossEnemy->GetAnimator()->IsAnimationEnd())
 	{
-		auto next = BossEnemyAI::DecideNext(m_bossEnemy);
+		auto next = m_bossEnemy->GetBossEnemyAI()->DecideNext(m_bossEnemy);
 		m_bossEnemy->ChangeState(next);
 		return;
 	}

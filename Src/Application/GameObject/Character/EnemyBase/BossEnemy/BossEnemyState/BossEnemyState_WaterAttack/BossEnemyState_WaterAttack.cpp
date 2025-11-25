@@ -14,7 +14,6 @@ void BossEnemyState_WaterAttack::StateStart()
 	m_bossEnemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
 	// 当たり判定リセット
 	m_bossEnemy->ResetAttackCollision();
-	m_bossEnemy->SetStateChange(true);
 
 	// 行動CDと直前行動
 	m_bossEnemy->SetWaterCooldown(6.0f);

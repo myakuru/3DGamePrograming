@@ -35,14 +35,11 @@ void BossEnemyState_Run::StateUpdate()
 	// 10m未満になったらAIに委譲
 	if (m_distance < m_targetDistance)
 	{
-		auto next = BossEnemyAI::DecideNext(m_bossEnemy);
+		auto next = m_bossEnemy->GetBossEnemyAI()->DecideNext(m_bossEnemy);
 
 		// 自分と同じ Run への再遷移は行わない（毎フレームアニメを張り直すのを防ぐ）
-		if (!std::dynamic_pointer_cast<BossEnemyState_Run>(next))
-		{
-			m_bossEnemy->ChangeState(next);
-			return;
-		}
+		m_bossEnemy->ChangeState(next);
+		return;
 	}
 
 	// 追いかける（状態維持時のみ適用）

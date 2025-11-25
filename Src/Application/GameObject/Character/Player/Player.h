@@ -96,7 +96,7 @@ public:
 		wnd.end     = 3.0f;
 	}
 
-	// デバッグ/永続化
+	// デバッグ
 	void ImGuiInspector() override;
 	void JsonInput(const nlohmann::json& _json) override;
 	void JsonSave(nlohmann::json& _json) const override;

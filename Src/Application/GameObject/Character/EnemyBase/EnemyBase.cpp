@@ -1,10 +1,10 @@
 ﻿#include "EnemyBase.h"
 #include "../Player/Player.h"
-#include"../../../main.h"
-#include"../../../Scene/SceneManager.h"
-#include"../../../Data/CharacterData/CharacterData.h"
-#include"../../../../MyFramework/Manager/JsonManager/JsonManager.h"
-#include"Application/GameObject/Collition/Collition.h"
+#include "Application/main.h"
+#include "Application/Scene/SceneManager.h"
+#include "Application/Data/CharacterData/CharacterData.h"
+#include "MyFramework/Manager/JsonManager/JsonManager.h"
+#include "Application/GameObject/Collition/Collition.h"
 
 void EnemyBase::Init()
 {
@@ -15,36 +15,53 @@ void EnemyBase::Init()
 	m_animator->SetAnimation(m_modelWork->GetData()->GetAnimation("Idle"));
 
 	m_pCollider = std::make_unique<KdCollider>();
-
 	m_pCollider->RegisterCollisionShape("EnemySphere", m_sphere, KdCollider::TypeDamage);
-
 	m_pCollider->RegisterCollisionShape("PlayerSphere", m_sphere, KdCollider::TypeEnemyHit);
 
-	m_isAtkPlayer = false;
+	m_action.isAttack = false;
+	m_visual.enableRadialBlur = false;
 
-	m_dissever = 0.0f;
+	SetInvincible(false);
 
-	m_invincible = false;
-
-	m_Expired = false;
-}
-
-void EnemyBase::Update()
-{
+	ResetAttackCollision();
 }
 
 void EnemyBase::DrawLit()
 {
-	//ディゾルブ処理
-	KdShaderManager::Instance().m_StandardShader.SetDissolve(m_dissever, &m_rendering.dissolvePower, &m_rendering.dissolveColor);
+	// ディゾルブ適用
+	KdShaderManager::Instance().m_StandardShader.SetDissolve(
+		/* 外部進行度(旧 m_dissever が別所にあるなら適宜差し替え) */ m_rendering.dissolvePower,
+		&m_rendering.dissolvePower,
+		&m_rendering.dissolveColor);
 	SelectDraw3dModel::DrawLit();
 }
 
+void EnemyBase::ResetAttackCollision()
+{
+	// 連続攻撃状態初期化
+	m_charge.count = 0;
+	m_charge.timer = 0.0f;
+	m_charge.active = false;
+	m_charge.targetTotal = 0;
+	m_charge.interval = 0.0f;
+
+	m_action.attackSetupDone = false;
+	m_avoid.justSuccess = false;
+
+	// CharacterBase の攻撃ウィンドウを初期化
+	auto wnd = AttackWindow();
+	wnd.elapsed = 0.0f;
+	wnd.begin = 0.0f;
+	wnd.end = 3.0f;
+}
+
 void EnemyBase::UpdateAttackCollision(float _radius, float _distance,
-	int _attackCount, float _attackTimer,
+	int _attackCount, float _attackInterval,
 	float _activeBeginSec, float _activeEndSec)
 {
-	Math::Vector3 forward = Math::Vector3::TransformNormal(Math::Vector3::Forward, Math::Matrix::CreateFromQuaternion(m_rotation));
+	Math::Vector3 forward = Math::Vector3::TransformNormal(
+		Math::Vector3::Forward,
+		Math::Matrix::CreateFromQuaternion(m_rotation));
 	forward.Normalize();
 
 	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
@@ -53,165 +70,143 @@ void EnemyBase::UpdateAttackCollision(float _radius, float _distance,
 	attackSphere.m_sphere.Center = m_position + Math::Vector3(0.0f, 0.5f, 0.0f) + forward * _distance;
 	attackSphere.m_sphere.Radius = _radius;
 	attackSphere.m_type = KdCollider::TypeDamage;
-
 	m_pDebugWire->AddDebugSphere(attackSphere.m_sphere.Center, attackSphere.m_sphere.Radius);
 
 	// 初回セットアップ
-	if (!m_hitOnce)
+	if (!m_action.attackSetupDone)
 	{
-		m_isChargeAttackActive = true;
-		m_chargeAttackCount = 0;
-		m_chargeAttackTimer = 0.0f;
-		m_hitOnce = true;
+		m_action.attackSetupDone = true;
 
-		// Just回避の一発ゲートをリセット
-		m_justAvoidSuccess = false;
+		m_charge.active = true;
+		m_charge.count = 0;
+		m_charge.timer = 0.0f;
+		m_charge.targetTotal = _attackCount;
+		m_charge.interval = _attackInterval;
 
-		// クランプしない。開始 > 終了なら入れ替えのみ
-		float begin = _activeBeginSec;
-		float end = _activeEndSec;
-		if (begin > end) { float t = begin; begin = end; end = t; }
+		m_avoid.justSuccess = false;
 
-		m_attackActiveTime = 0.0f;
-		m_attackActiveBegin = begin;
-		m_attackActiveEnd = end;
+		auto wnd = AttackWindow();
+		if (_activeBeginSec > _activeEndSec) std::swap(_activeBeginSec, _activeEndSec);
+		wnd.elapsed = 0.0f;
+		wnd.begin = _activeBeginSec;
+		wnd.end = _activeEndSec;
 	}
 
-	if (!m_isChargeAttackActive) return;
+	if (!m_charge.active) return;
 
-	// 攻撃ウィンドウを進める
-	m_attackActiveTime += deltaTime;
+	// 攻撃ウィンドウ経過
+	auto wnd = AttackWindow();
+	wnd.elapsed += deltaTime;
 
-	// 開始前は何もしない
-	if (m_attackActiveTime < m_attackActiveBegin) return;
+	// 有効開始前
+	if (wnd.elapsed < wnd.begin) return;
 
-	// 既にJust回避が成立していたら、この攻撃中は以後の再判定をしない
-	if (m_justAvoidSuccess)
+	// Just回避成立後はこの攻撃終了
+	if (m_avoid.justSuccess)
 	{
-		// 必要ならこの攻撃自体を終了させたい場合は以下を有効化
-		m_isChargeAttackActive = false;
-		m_justAvoidSuccess = false; // 次回の攻撃に備えてリセット
+		m_charge.active = false;
+		m_avoid.justSuccess = false; // 次回へ備える
 		return;
 	}
 
-	// 終了超過で攻撃終了
-	if (m_attackActiveTime > m_attackActiveEnd)
+	// ウィンドウ終了超過
+	if (wnd.elapsed > wnd.end)
 	{
-		m_isChargeAttackActive = false;
+		m_charge.active = false;
 		return;
 	}
 
-	{
-		constexpr float kBroadPhaseMargin = 0.5f;
-		const float searchRadius = attackSphere.m_sphere.Radius + kBroadPhaseMargin;
-		SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::PlayerLike, m_refs.playerObjects);
-	}
+	// 対象探索（ブロードフェーズ余白）
+	constexpr float kBroadPhaseMargin = 0.5f;
+	const float searchRadius = attackSphere.m_sphere.Radius + kBroadPhaseMargin;
+	(void)searchRadius; // 必要なら距離利用で絞り込み
+	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::PlayerLike, m_refs.playerObjects);
 
-	// ジャスト回避成功チェック（有効時間内のみ）
-	for (const auto& players : m_refs.playerObjects)
+	// Just回避チェック
+	for (const auto& wPlayer : m_refs.playerObjects)
 	{
-		if (auto playerPtr = players.lock())
+		if (auto player = wPlayer.lock())
 		{
-
 			std::list<KdCollider::CollisionResult> results;
-			if (playerPtr->Intersects(attackSphere, &results) && !results.empty())
+			if (player->Intersects(attackSphere, &results) && !results.empty())
 			{
-
-				// プレイヤーが回避中か判定
-				if (playerPtr->GetAvoidFlg())
+				if (player->GetAvoidFlg())
 				{
-					const float kJustAvoidWindowSec = 0.5f; // 30f/60fps
-					const float avoidElapsed = playerPtr->GetAvoidStartTime();
+					const float kJustAvoidWindowSec = 0.5f;
+					const float avoidElapsed = player->GetAvoidStartTime();
 					if (avoidElapsed >= 0.0f && avoidElapsed <= kJustAvoidWindowSec)
 					{
-						m_justAvoidSuccess = true;
+						m_avoid.justSuccess = true;
+						player->SetJustAvoidSuccess(true);
 
-						// プレイヤーへも成立通知（プレイヤー側の状態遷移/効果に利用）
-						playerPtr->SetJustAvoidSuccess(true);
-
-						// プレイヤー設定からスローモーション倍率・グレースケール適用を取得
 						Application::Instance().SetFpsScale(0.1f);
 						SceneManager::Instance().SetDrawGrayScale(true);
 
-						// 必要に応じてこの攻撃の当たり判定を終了
-						m_isChargeAttackActive = false;
-
-						return; // ダメージ処理は行わない
+						m_charge.active = false;
+						return;
 					}
 				}
 			}
 		}
 	}
 
-	// 多段ヒットのインターバル管理
-	m_chargeAttackTimer += deltaTime;
-
-	if (m_chargeAttackCount < _attackCount && m_chargeAttackTimer >= _attackTimer)
+	// 多段ヒットインターバル
+	m_charge.timer += deltaTime;
+	if (m_charge.count < m_charge.targetTotal && m_charge.timer >= m_charge.interval)
 	{
-		for (const auto& players : m_refs.playerObjects)
+		for (const auto& wPlayer : m_refs.playerObjects)
 		{
-			if (auto playerPtr = players.lock())
+			if (auto player = wPlayer.lock())
 			{
 				std::list<KdCollider::CollisionResult> results;
-
-				if (playerPtr->Intersects(attackSphere, &results) && !results.empty())
+				if (player->Intersects(attackSphere, &results) && !results.empty())
 				{
-					playerPtr->TakeDamage(m_characterData->GetCharacterData().attack);
-					playerPtr->SetHitCheck(true);
+					player->TakeDamage(m_characterData->GetCharacterData().attack);
+					player->SetHitCheck(true);
 				}
 			}
 		}
 
-		m_chargeAttackCount++;
-		m_chargeAttackTimer = 0.0f;
+		m_charge.count++;
+		m_charge.timer = 0.0f;
 
-		if (m_chargeAttackCount >= _attackCount)
+		if (m_charge.count >= m_charge.targetTotal)
 		{
-			m_isChargeAttackActive = false;
+			m_charge.active = false;
 		}
 	}
 }
 
 void EnemyBase::PostUpdate()
 {
-	// 球判定
-	// 球判定用の変数
+	// 既存の押し出し処理（球判定）は CharacterBase::PostUpdate に類似実装あり。
+	// Enemy特有の高さ/Yオフセットが違うため、ここはそのまま維持。
 	KdCollider::SphereInfo sphereInfo;
-	// 球の中心座標を設定
 	sphereInfo.m_sphere.Center = m_position + Math::Vector3(0.0f, 0.5f, 0.0f);
-	// 球の半径を設定
 	sphereInfo.m_sphere.Radius = 0.2f;
-	// アタリ判定をしたいタイプを設定
-	sphereInfo.m_type = KdCollider::TypeBump; // 地面のアタリ判定
+	sphereInfo.m_type = KdCollider::TypeBump;
 
 	m_pDebugWire->AddDebugSphere(sphereInfo.m_sphere.Center, sphereInfo.m_sphere.Radius);
 
-	// 球に当たったオブジェクト情報を格納するリスト
 	std::list<KdCollider::CollisionResult> retSpherelist;
 
 	if (m_refs.collision.expired()) return;
-
 	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, m_refs.collisionObjects);
 
-	for (auto& weakCol : m_refs.collisionObjects)
+	for (auto& wCol : m_refs.collisionObjects)
 	{
-		if (auto col = weakCol.lock())
+		if (auto col = wCol.lock())
 		{
 			col->Intersects(sphereInfo, &retSpherelist);
 		}
 	}
 
-	// 球にあたったリストから一番近いオブジェクトを探す
-	// オーバーした長さが1番長いものを探す。
-	// 使いまわしの変数を使う
 	float maxOverLap = 0.0f;
 	bool hit = false;
-	// 当たった方向を格納する変数
 	Math::Vector3 hitDir;
 
 	for (auto& ret : retSpherelist)
 	{
-		// 球からはみ出た長さが１番長いものを探す。
 		if (maxOverLap < ret.m_overlapDistance)
 		{
 			maxOverLap = ret.m_overlapDistance;
@@ -222,14 +217,9 @@ void EnemyBase::PostUpdate()
 
 	if (hit)
 	{
-		// 正規化して押し出す方向を求める
 		hitDir.Normalize();
-
-		// Y方向の押し出しを無効化（XZ平面のみ）
 		hitDir.y = 0.0f;
 		hitDir.Normalize();
-
-		//当たってたらその方向から押し出す
 		m_position += hitDir * maxOverLap;
 	}
 }
@@ -238,14 +228,40 @@ void EnemyBase::ImGuiInspector()
 {
 	CharacterBase::ImGuiInspector();
 
-	ImGui::DragFloat(U8("重力の大きさ"), &m_physics.gravitySpeed, 0.01f);
-	ImGui::Text(U8("プレイヤーの回転速度"));
+	ImGui::Text(U8("移動 / 物理"));
 	ImGui::DragFloat(U8("回転速度"), &m_movement.rotateSpeed, 0.1f);
-
-	ImGui::Text(U8("現在の状態"));
 	ImGui::DragFloat(U8("移動速度"), &m_movement.moveSpeed, 0.1f);
+	ImGui::DragFloat(U8("重力速度"), &m_physics.gravitySpeed, 0.01f);
+	ImGui::DragFloat(U8("再生速度 (fixedFrameRate)"), &m_physics.fixedFrameRate, 0.01f);
 
-	// ディゾルブ関係
+	ImGui::Separator();
+	ImGui::Text(U8("攻撃ウィンドウ"));
+	{
+		auto wnd = AttackWindow();
+		ImGui::DragFloat(U8("経過時間"), &wnd.elapsed, 0.01f);
+		ImGui::DragFloat(U8("開始秒"), &wnd.begin, 0.01f);
+		ImGui::DragFloat(U8("終了秒"), &wnd.end, 0.01f);
+	}
+
+	ImGui::Separator();
+	ImGui::Text(U8("ChargeState"));
+	ImGui::DragInt(U8("ヒット数"), &m_charge.count);
+	ImGui::DragInt(U8("目標ヒット数"), &m_charge.targetTotal);
+	ImGui::DragFloat(U8("インターバル"), &m_charge.interval, 0.01f);
+	ImGui::Checkbox(U8("アクティブ"), &m_charge.active);
+
+	ImGui::Separator();
+	ImGui::Text(U8("Avoid / Flags"));
+	ImGui::Checkbox(U8("Just回避成功"), &m_avoid.justSuccess);
+	ImGui::Checkbox(U8("攻撃初期化済"), &m_action.attackSetupDone);
+	ImGui::Checkbox(U8("プレイヤーへ攻撃中"), &m_action.isAttack);
+
+	ImGui::Separator();
+	ImGui::Text(U8("ビジュアル"));
+	ImGui::Checkbox(U8("ラジアルブラー有効"), &m_visual.enableRadialBlur);
+	ImGui::DragFloat(U8("ブラー時間"), &m_visual.blurTime, 0.01f);
+
+	ImGui::Separator();
 	ImGui::ColorEdit3(U8("ディゾルブカラー"), &m_rendering.dissolveColor.x);
 	ImGui::DragFloat(U8("ディゾルブ進行度"), &m_rendering.dissolvePower, 0.01f, 0.0f, 1.0f);
 }
@@ -253,12 +269,12 @@ void EnemyBase::ImGuiInspector()
 void EnemyBase::JsonInput(const nlohmann::json& _json)
 {
 	CharacterBase::JsonInput(_json);
-	if (_json.contains("GravitySpeed")) m_physics.gravitySpeed = _json["GravitySpeed"].get<float>();
-	if (_json.contains("fixedFps")) m_physics.fixedFrameRate = _json["fixedFps"].get<float>();
-	if (_json.contains("moveSpeed")) m_movement.moveSpeed = _json["moveSpeed"].get<float>();
-	if (_json.contains("rotationspeed")) m_movement.rotateSpeed = _json["rotationspeed"].get<float>();
-	if (_json.contains("dissolveColor"))  m_rendering.dissolveColor = JSON_MANAGER.JsonToVector(_json["dissolveColor"]);
-	if (_json.contains("dissolvePower")) m_rendering.dissolvePower = _json["dissolvePower"].get<float>();
+	if (_json.contains("GravitySpeed"))     m_physics.gravitySpeed = _json["GravitySpeed"].get<float>();
+	if (_json.contains("fixedFps"))         m_physics.fixedFrameRate = _json["fixedFps"].get<float>();
+	if (_json.contains("moveSpeed"))        m_movement.moveSpeed = _json["moveSpeed"].get<float>();
+	if (_json.contains("rotationspeed"))    m_movement.rotateSpeed = _json["rotationspeed"].get<float>();
+	if (_json.contains("dissolveColor"))    m_rendering.dissolveColor = JSON_MANAGER.JsonToVector(_json["dissolveColor"]);
+	if (_json.contains("dissolvePower"))    m_rendering.dissolvePower = _json["dissolvePower"].get<float>();
 }
 
 void EnemyBase::JsonSave(nlohmann::json& _json) const
@@ -275,14 +291,9 @@ void EnemyBase::JsonSave(nlohmann::json& _json) const
 void EnemyBase::UpdateQuaternion(Math::Vector3& _moveVector)
 {
 	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
-
 	if (_moveVector == Math::Vector3::Zero) return;
 
 	_moveVector.Normalize();
-
-	// 敵方向ベクトルからクォータニオンを作成
 	Math::Quaternion targetRotation = Math::Quaternion::LookRotation(_moveVector, Math::Vector3::Up);
-
-	// 滑らかに回転させる
 	m_rotation = Math::Quaternion::Slerp(m_rotation, targetRotation, deltaTime * m_physics.fixedFrameRate);
 }

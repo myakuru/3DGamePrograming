@@ -45,7 +45,6 @@ void BossEnemyState_WaterAttack_end::StateUpdate()
 
 void BossEnemyState_WaterAttack_end::StateEnd()
 {
-	m_bossEnemy->SetStateChange(false);
 }
 
 void BossEnemyState_WaterAttack_end::ApplyFromConfig(const BossEnemyStateBase& other)

@@ -1,56 +1,81 @@
 ﻿#pragma once
 #include "../CharacterBase.h"
+
 class Player;
 class EnemyHitEffect;
 
 class EnemyBase : public CharacterBase
 {
 public:
-
 	EnemyBase() = default;
 	~EnemyBase() override = default;
 
+	// 攻撃判定更新（攻撃半径、距離、ヒット回数、ヒット間隔、開始秒・終了秒）
 	void UpdateAttackCollision(float _radius = 1.f, float _distance = 1.1f,
-		int _attackCount = 5, float _attackTimer = 0.3f,
+		int _attackCount = 5, float _attackInterval = 0.3f,
 		float _activeBeginSec = 0.0f, float _activeEndSec = 3.0f);
 
-protected:
+	// 攻撃ウィンドウ + 連続攻撃状態リセット
+	void ResetAttackCollision();
 
+	// 状態アクセサ（派生から利用しやすくする）
+	bool  GetJustAvoidSuccess() const { return m_avoid.justSuccess; }
+	void  SetJustAvoidSuccess(bool f) { m_avoid.justSuccess = f; }
+
+	int   GetChargeCount()     const { return m_charge.count; }
+	float GetChargeTimer()     const { return m_charge.timer; }
+	bool  IsChargeActive()     const { return m_charge.active; }
+
+	bool  IsAttackSetupDone()  const { return m_action.attackSetupDone; }
+	bool  IsAtkPlayer()        const { return m_action.isAttack; }
+	void  SetAttack(bool f) { m_action.isAttack = f; }
+
+	bool  GetEnableRadialBlur() const { return m_visual.enableRadialBlur; }
+	void  SetEnableRadialBlur(bool f) { m_visual.enableRadialBlur = f; }
+
+protected:
 	void Init() override;
-	void Update() override;
-	void DrawLit() override;
 	void PostUpdate() override;
+	void DrawLit() override;
 	void ImGuiInspector() override;
 	void JsonInput(const nlohmann::json& _json) override;
 	void JsonSave(nlohmann::json& _json) const override;
-
 	void UpdateQuaternion(Math::Vector3& _moveVector) override;
 
-	// ジャスト回避成功フラグ
-	bool m_justAvoidSuccess = false;
-	bool m_hitOnce = false;
-	bool m_isChargeAttackActive = false;						// 連続攻撃中か
-	bool m_invincible = false;					// 無敵判定用
-	bool m_Expired = false;				// 敵を消滅させるかどうか
-	bool m_isHit = false;				// ヒット判定
-	bool m_isAtkPlayer = false;
-	bool m_enableRadialBlur = false;		// 放射状ブラーエフェクト有効フラグ
+	// ====== 内部状態 ======
+	struct AvoidState
+	{
+		bool justSuccess = false;	// ジャスト回避成功
+	};
 
-	int m_chargeAttackCount = 0;								// 何回ダメージを与えたか
-	int m_totalHitCount = 0;					// 累積ヒット回数（無敵判定用）
-	int m_getDamage = 0;				// 受けるダメージ量
+	struct ChargeState
+	{
+		int   count = 0;			// 累計ヒット数
+		float timer = 0.0f;			// インターバル経過
+		bool  active = false;		// 多段攻撃処理中
+		int   targetTotal = 0;		// 目標ヒット回数
+		float interval = 0.0f;		// 1ヒットごとの間隔
+	};
 
-	// 攻撃の有効時間ウィンドウ（クランプなし）
-	float m_attackActiveTime = 0.0f;	// 攻撃開始からの経過時間
-	float m_attackActiveBegin = 0.0f;	// 当たり判定が有効になる開始秒
-	float m_attackActiveEnd = 3.0f;		// 当たり判定が無効化される終了秒
-	float m_attackRadius = 1.5f;		// 攻撃判定の半径
-	float m_attackFrame = 0.0f;			// 攻撃判定フレーム
-	float m_chargeAttackTimer = 0.0f;	// 経過時間
+	struct ActionFlags
+	{
+		bool attackSetupDone = false;	// 攻撃ウィンドウ初期化済
+		bool isAttack = false;		// プレイヤーへ攻撃中フラグ
+	};
 
-	// ブラーを発生させる時間
-	float m_blurTime = 0.0f;
+	struct VisualState
+	{
+		bool  enableRadialBlur = false;	// 放射状ブラー有効フラグ
+		float blurTime = 0.0f;			// ブラー時間管理用
+	};
+
+	AvoidState  m_avoid{};
+	ChargeState m_charge{};
+	ActionFlags m_action{};
+	VisualState m_visual{};
+
+	int   m_totalHitCount = 0;		// 無敵判定などに使う累積ヒット
+	int   m_getDamage = 0;			// 受けたダメージ蓄積（未使用なら削除可）
 
 	std::weak_ptr<EnemyHitEffect> m_hitEffect;
-
 };

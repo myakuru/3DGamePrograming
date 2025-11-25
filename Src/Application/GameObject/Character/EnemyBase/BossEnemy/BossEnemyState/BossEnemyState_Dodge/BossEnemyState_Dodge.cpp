@@ -11,7 +11,6 @@ void BossEnemyState_Dodge::StateStart()
 	m_bossEnemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	m_bossEnemy->SetInvincible(true);
-	m_bossEnemy->SetStateChange(true);
 }
 
 void BossEnemyState_Dodge::StateUpdate()

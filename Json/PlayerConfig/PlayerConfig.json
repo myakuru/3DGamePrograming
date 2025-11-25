@@ -315,7 +315,7 @@
       "animationSpeed": 60.0,
       "blendTime": 0.25,
       "changeStateTime": 0.699999988079071,
-      "dashSpeed": 0.699999988079071,
+      "dashSpeed": -0.699999988079071,
       "dashSpeedTime": 0.20000000298023224
     }
   },

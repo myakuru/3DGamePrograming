@@ -26,7 +26,7 @@ void BossEnemyState_Idle::StateUpdate()
 	if (m_time < m_minWaitSec) return;
 
 	// 待機後はAIに委譲
-	auto next = BossEnemyAI::DecideNext(m_bossEnemy);
+	auto next = m_bossEnemy->GetBossEnemyAI()->DecideNext(m_bossEnemy);
 	m_bossEnemy->ChangeState(next);
 }
 
