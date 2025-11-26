@@ -20,71 +20,33 @@ PlayerStateBase::~PlayerStateBase() = default;
 
 void PlayerStateBase::StateStart()
 {
-	// プレイヤー位置
-	const Math::Vector3 playerPos = m_player->GetPos();
-
-	// 検索半径（g_focusMaxDistSq と整合）
-	constexpr float kSearchRadius = 50.0f;               // = sqrt(50^2)
-	constexpr float kSearchRadiusSq = kSearchRadius * kSearchRadius;
-
-	// 1) 既存フォーカスが有効なら採用（距離とボス出現状態も考慮）
-	if (m_focusRemainSec > 0.0f)
-	{
-		if (auto f = m_focusTarget.lock())
-		{
-			if (!f->IsExpired())
-			{
-				// 未出現ボスは無視
-				if (!(f->GetTypeID() == BossEnemy::TypeID && !SceneManager::Instance().IsBossAppear()))
-				{
-					const Math::Vector3 fpos = f->GetPos();
-					const float distSq = (fpos - playerPos).LengthSquared();
-					if (distSq <= kSearchRadiusSq)
-					{
-						m_nearestEnemy = f;
-						m_nearestEnemyPos = fpos;
-						m_minDistSq = distSq;
-					}
-				}
-			}
-		}
-		// 無効なら解除
-		if (!m_nearestEnemy)
-		{
-			m_focusTarget.reset();
-			m_focusRemainSec = 0.0f;
-		}
-	}
-
-	// 再取得
 	if (!m_nearestEnemy)
 	{
 		std::list<std::weak_ptr<KdGameObject>> candidates;
 		// 近い敵ものを列挙
 		SceneManager::Instance().GetObjectWeakPtrListByTagInSphere
 		(
-			ObjTag::EnemyLike, playerPos, kSearchRadius, candidates
+			ObjTag::EnemyLike, m_player->GetPos(), candidates
 		);
 
 		// 最も近い敵を探索
-		for (auto& w : candidates)
+		for (const auto& w : candidates)
 		{
 			auto sp = w.lock();
 			if (!sp) { continue; }
-			
-			// 未出現ボスは除外
-			if (sp->GetTypeID() == BossEnemy::TypeID && !SceneManager::Instance().IsBossAppear())
-			{
-				continue;
-			}
 
 			const Math::Vector3 epos = sp->GetPos();
-			const float distSq = (epos - playerPos).LengthSquared();
+			const float distSq = (epos - m_player->GetPos()).LengthSquared();
 			if (distSq < m_minDistSq)
 			{
 				m_minDistSq = distSq;
 				m_nearestEnemyPos = epos;
 				m_nearestEnemy = sp;
+			}
+			else
+			{
+				m_nearestEnemy = nullptr;
+				m_nearestEnemyPos = Math::Vector3::Zero;
 			}
 		}
 
@@ -96,10 +58,10 @@ void PlayerStateBase::StateStart()
 		}
 	}
 
-	// 3) 攻撃方向を決定（敵がいればその方向、いなければ最後の移動方向）
+	// 攻撃方向を決定（敵がいればその方向、いなければ最後の移動方向）
 	if (m_nearestEnemy)
 	{
-		m_attackDirection = m_nearestEnemyPos - playerPos;
+		m_attackDirection = m_nearestEnemyPos - m_player->GetPos();
 		m_attackDirection.y = 0.0f;
 
 		if (m_attackDirection != Math::Vector3::Zero)
@@ -113,7 +75,7 @@ void PlayerStateBase::StateStart()
 		m_attackDirection = m_player->GetLastMoveDirection();
 		if (m_attackDirection != Math::Vector3::Zero)
 		{
-			m_player->UpdateQuaternionDirect(m_attackDirection);
+			m_player->UpdateQuaternion(m_attackDirection);
 		}
 	}
 
@@ -280,16 +242,10 @@ bool PlayerStateBase::UpdateMoveAvoidInput()
 		// 短押し判定
 		if (m_rButtonKeyInput && KeyboardManager::GetInstance().IsKeyJustReleased(VK_RBUTTON) && !m_player->GetIsMoving())
 		{
-			if (rDuration >= kShortPressMin && rDuration < kLongPressThreshold)
-			{
-				m_rButtonKeyInput = false;
-				auto backAvoid = std::make_shared<PlayerState_BackWordAvoid>();
-				m_player->ChangeState(backAvoid);
-				return true;
-			}
-
-			// 0.1秒未満なら何もしない
 			m_rButtonKeyInput = false;
+			auto backAvoid = std::make_shared<PlayerState_BackWordAvoid>();
+			m_player->ChangeState(backAvoid);
+			return true;
 		}
 
 		if (m_rButtonKeyInput &&
@@ -345,6 +301,7 @@ bool PlayerStateBase::UpdateESkillInput()
 	return false;
 }
 
+// パラメータ編集
 void PlayerStateBase::StateParameter::ExposeImGui()
 {
 	// 簡易ヘルプツールチップ

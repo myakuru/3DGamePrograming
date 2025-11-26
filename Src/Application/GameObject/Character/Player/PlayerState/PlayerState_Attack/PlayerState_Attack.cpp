@@ -52,6 +52,16 @@ void PlayerState_Attack::StateUpdate()
 
 	float deltaTime = Application::Instance().GetDeltaTime();
 
+	if (!m_nearestEnemy)
+	{
+		// カメラ方向に向かって攻撃するようにする。
+		m_attackDirection = m_player->GetLastMoveDirection();
+		if (m_attackDirection != Math::Vector3::Zero)
+		{
+			m_player->UpdateQuaternion(m_attackDirection);
+		}
+	}
+
 	// 判定有効
 	m_player->UpdateAttackCollision(
 		m_stateParameter.attackRadius,
@@ -63,29 +73,6 @@ void PlayerState_Attack::StateUpdate()
 		m_stateParameter.attackStartTime,
 		m_stateParameter.attackEndTime
 	);
-
-	Math::Vector3 toEnemyDir = m_nearestEnemyPos - m_player->GetPos();
-
-	// キャラを敵の方向へ
-	if (toEnemyDir != Math::Vector3::Zero)
-	{
-		toEnemyDir.y = 0.0f;
-		toEnemyDir.Normalize();
-		m_player->UpdateQuaternionDirect(toEnemyDir);
-	}
-
-	if (auto camera = m_player->GetPlayerCamera().lock())
-	{
-		camera->SetTargetLookAt(m_cameraTargetOffset);
-
-		if (toEnemyDir != Math::Vector3::Zero)
-		{
-			const float yaw = std::atan2f(toEnemyDir.x, toEnemyDir.z);
-			const float yawDeg = DirectX::XMConvertToDegrees(yaw);
-			camera->SetTargetRotation({ 0.0f, yawDeg, 0.0f });
-		}
-
-	}
 
 	m_player->UpdateMoveDirectionFromInput();
 

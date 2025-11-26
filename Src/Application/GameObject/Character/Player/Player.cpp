@@ -1,6 +1,6 @@
 ﻿#include "Player.h"
 #include "Application/Scene/SceneManager.h"
-#include "Application/Scene\BaseScene\BaseScene.h"
+#include "Application/Scene/BaseScene/BaseScene.h"
 #include "Application/GameObject/Weapon/Katana/Katana.h"
 #include "Application/GameObject/Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
 #include "Application/main.h"
@@ -141,7 +141,7 @@ void Player::PostUpdate()
 	{
 		constexpr float kBroadPhaseMargin = 1.0f;
 		const float     searchRadius = enemyHit.m_sphere.Radius + kBroadPhaseMargin;
-		SceneManager::Instance().GetObjectWeakPtrListByTagInSphere(ObjTag::EnemyLike, enemyHit.m_sphere.Center, searchRadius, m_enemyLike);
+		SceneManager::Instance().GetObjectWeakPtrListByTagInSphere(ObjTag::EnemyLike, enemyHit.m_sphere.Center, m_enemyLike);
 	}
 
 	// 球と敵の当たり判定をチェック
@@ -160,12 +160,12 @@ void Player::PostUpdate()
 
 	for (const auto& ret : retSpherelist)
 	{
-		if (maxOverLap < ret.m_overlapDistance)
-		{
-			maxOverLap = ret.m_overlapDistance;
-			hitDir = ret.m_hitDir;
-			hit = true;
-		}
+		if (maxOverLap > ret.m_overlapDistance) { continue; }
+		
+		maxOverLap = ret.m_overlapDistance;
+		hitDir = ret.m_hitDir;
+		hit = true;
+		
 	}
 
 	if (hit)
@@ -210,7 +210,6 @@ void Player::CollisionUpdate()
 	// 球に当たったオブジェクト情報を格納するリスト
 	std::list<KdCollider::CollisionResult> retSpherelist;
 
-
 	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, Refs().collisionObjects);
 
 	for (const auto& collision : Refs().collisionObjects)
@@ -232,15 +231,15 @@ void Player::CollisionUpdate()
 	// 当たった方向を格納する変数
 	Math::Vector3 hitDir;
 
-	for (auto& ret : retSpherelist)
+	for (const auto& ret : retSpherelist)
 	{
 		// 球からはみ出た長さが１番長いものを探す。
-		if (maxOverLap < ret.m_overlapDistance)
-		{
-			maxOverLap = ret.m_overlapDistance;
-			hitDir = ret.m_hitDir;
-			hit = true;
-		}
+		if (maxOverLap > ret.m_overlapDistance) { continue; }
+		
+		maxOverLap = ret.m_overlapDistance;
+		hitDir = ret.m_hitDir;
+		hit = true;
+		
 	}
 
 	if (hit)
@@ -266,52 +265,6 @@ void Player::Update()
 	{
 		Movement().movement = Math::Vector3::Zero;
 		return;
-	}
-
-	// 近傍の敵をチェック
-	std::list<std::weak_ptr<KdGameObject>> nearEnemies;
-	{
-		constexpr float kNearbyCheckRadius = 12.0f;
-		sceneManager.GetObjectWeakPtrListByTagInSphere(ObjTag::EnemyLike, m_position, kNearbyCheckRadius, nearEnemies);
-	}
-
-	bool justTriggeredThisFrame = false;
-
-	for (const auto& wk : nearEnemies)
-	{
-		auto obj = wk.lock();
-		if (!obj) continue;
-
-		if (obj->GetTypeID() == AetheriusEnemy::TypeID)
-		{
-			auto aetheriusEnemy = std::static_pointer_cast<AetheriusEnemy>(obj);
-			if (aetheriusEnemy->GetJustAvoidSuccess())
-			{
-				SetHitCheck(false);
-				justTriggeredThisFrame = true;
-				aetheriusEnemy->SetJustAvoidSuccess(false); // 消費は敵側で
-			}
-		}
-		else if (obj->GetTypeID() == BossEnemy::TypeID)
-		{
-			auto bossEnemy = std::static_pointer_cast<BossEnemy>(obj);
-			if (bossEnemy->GetJustAvoidSuccess())
-			{
-				SetHitCheck(false);
-				justTriggeredThisFrame = true;
-				bossEnemy->SetJustAvoidSuccess(false); // 消費は敵側で
-				if (m_action.guardBreak)
-				{
-					bossEnemy->SetInvincible(true);
-				}
-			}
-		}
-	}
-
-	// 今フレームにジャスト回避が成立したら、プレイヤー側のフラグをON
-	if (justTriggeredThisFrame)
-	{
-		SetJustAvoidSuccess(true);
 	}
 
 	// 無敵状態ならヒットしない
@@ -380,9 +333,9 @@ void Player::Update()
 	m_mWorld = scale * quaternion * translation;
 }
 
-void Player::UpdateAttackCollision(float _radius, float         _distance, int   _attackCount,
-	float _attackTimer, Math::Vector2 _cameraShakePow, float _cameraTime,
-	float _activeBeginSec, float         _activeEndSec)
+void Player::UpdateAttackCollision(float _radius         , float         _distance      , int   _attackCount ,
+								   float _attackTimer    , Math::Vector2 _cameraShakePow, float _cameraTime  ,
+								   float _activeBeginSec , float         _activeEndSec)
 {
 	Math::Vector3 forward = Math::Vector3::TransformNormal(Math::Vector3::Forward, Math::Matrix::CreateFromQuaternion(m_rotation));
 	forward.Normalize();
@@ -446,7 +399,7 @@ void Player::UpdateAttackCollision(float _radius, float         _distance, int  
 		{
 			constexpr float kBroadPhaseMargin = 0.5f;
 			const float searchRadius = attackSphere.m_sphere.Radius + kBroadPhaseMargin;
-			SceneManager::Instance().GetObjectWeakPtrListByTagInSphere(ObjTag::EnemyLike, attackSphere.m_sphere.Center, searchRadius, nearEnemies);
+			SceneManager::Instance().GetObjectWeakPtrListByTagInSphere(ObjTag::EnemyLike, attackSphere.m_sphere.Center, nearEnemies);
 		}
 
 		for (const auto& wk : nearEnemies)
@@ -534,13 +487,14 @@ void Player::ImGuiInspector()
 void Player::JsonInput(const nlohmann::json& _json)
 {
 	CharacterBase::JsonInput(_json);
-	if (_json.contains("GravitySpeed"))    Physics().gravitySpeed = _json["GravitySpeed"].get<float>();
+
+	if (_json.contains("GravitySpeed"))    Physics().gravitySpeed   = _json["GravitySpeed"].get<float>();
 	if (_json.contains("fixedFps"))        Physics().fixedFrameRate = _json["fixedFps"].get<float>();
-	if (_json.contains("moveSpeed"))       Movement().moveSpeed = _json["moveSpeed"].get<float>();
-	if (_json.contains("cameraShake"))     m_cameraShake.power = JSON_MANAGER.JsonToVector2(_json["cameraShake"]);
-	if (_json.contains("cameraShakeTime")) m_cameraShake.time = _json["cameraShakeTime"].get<float>();
-	if (_json.contains("rotateSpeed"))     Movement().rotateSpeed = _json["rotateSpeed"].get<float>();
-	if (_json.contains("degree"))          m_degree = JSON_MANAGER.JsonToVector(_json["degree"]);
+	if (_json.contains("moveSpeed"))       Movement().moveSpeed     = _json["moveSpeed"].get<float>();
+	if (_json.contains("cameraShake"))     m_cameraShake.power      = JSON_MANAGER.JsonToVector2(_json["cameraShake"]);
+	if (_json.contains("cameraShakeTime")) m_cameraShake.time       = _json["cameraShakeTime"].get<float>();
+	if (_json.contains("rotateSpeed"))     Movement().rotateSpeed   = _json["rotateSpeed"].get<float>();
+	if (_json.contains("degree"))          m_degree                 = JSON_MANAGER.JsonToVector(_json["degree"]);
 }
 
 void Player::JsonSave(nlohmann::json& _json) const
@@ -594,7 +548,7 @@ void Player::UpdateMoveDirectionFromInput()
 	if (w || s) Movement().movement += w ? Math::Vector3::Backward : Math::Vector3::Forward;
 	if (a || d) Movement().movement += a ? Math::Vector3::Left : Math::Vector3::Right;
 
-	if (!(kb.IsKeyPressed('W') || kb.IsKeyPressed('S') || kb.IsKeyPressed('A') || kb.IsKeyPressed('D')))
+	if (!(w || s || a || d))
 	{
 		Movement().isMoving = false;
 	}
@@ -610,7 +564,7 @@ void Player::UpdateMoveDirectionFromInput()
 	}
 }
 
-void Player::TakeDamage(int _damage)
+void Player::TakeDamage(int _damage)const
 {
 	GetCharacterData()->SetCharacterData().hp -= _damage;
 	if (GetCharacterData()->GetCharacterData().hp < 0) GetCharacterData()->SetCharacterData().hp = 0;
@@ -656,13 +610,13 @@ void Player::ApplyHorizontalMove(const Math::Vector3& _inputMove, float _deltaTi
 	Math::Vector3 hitPos = Math::Vector3::Zero;
 	for (const auto& h : rayHits)
 	{
-		if (bestOverlap < h.m_overlapDistance)
-		{
-			bestOverlap = h.m_overlapDistance;
-			hitPos = h.m_hitPos;
-			hitNormal = h.m_hitDir; // 面の法線
-			blocked = true;
-		}
+		if (bestOverlap > h.m_overlapDistance) { continue; }
+		
+		bestOverlap = h.m_overlapDistance;
+		hitPos = h.m_hitPos;
+		hitNormal = h.m_hitDir; // 面の法線
+		blocked = true;
+		
 	}
 
 	if (blocked)
@@ -689,10 +643,10 @@ void Player::ApplyPushWithCollision(const Math::Vector3& _rawPush)
 	const Math::Vector3 dir = push / len;
 
 	KdCollider::RayInfo ray = {};
-	ray.m_pos = m_position + Math::Vector3(0.0f, Raycast().bumpSphereYOffset, 0.0f);
-	ray.m_dir = dir;
-	ray.m_range = len + Raycast().bumpSphereRadius;
-	ray.m_type = KdCollider::TypeBump;
+	ray.m_pos               = m_position + Math::Vector3(0.0f, Raycast().bumpSphereYOffset, 0.0f);
+	ray.m_dir               = dir;
+	ray.m_range             = len + Raycast().bumpSphereRadius;
+	ray.m_type              = KdCollider::TypeBump;
 
 	std::list<KdCollider::CollisionResult> rayHits;
 
@@ -700,7 +654,7 @@ void Player::ApplyPushWithCollision(const Math::Vector3& _rawPush)
 
 	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, Refs().collisionObjects);
 
-	for (auto& wk : Refs().collisionObjects)
+	for (const auto& wk : Refs().collisionObjects)
 	{
 		auto collisionObj = wk.lock();
 
@@ -750,10 +704,12 @@ void Player::ApplyVerticalMove(float _deltaY)
 	auto sweep = [&](KdCollider::Type type, std::list<KdCollider::CollisionResult>& out)
 		{
 			KdCollider::RayInfo ray;
+
 			ray.m_pos = start + Math::Vector3(0.0f, Raycast().bumpSphereYOffset, 0.0f);
 			ray.m_dir = (_deltaY < 0.0f) ? Math::Vector3(0.0f, -1.0f, 0.0f) : Math::Vector3(0.0f, 1.0f, 0.0f);
 			ray.m_range = std::abs(_deltaY) + Raycast().bumpSphereRadius;
 			ray.m_type = type;
+
 			m_pDebugWire->AddDebugLine(ray.m_pos, ray.m_dir, ray.m_range, kRedColor);
 
 			if (!Refs().collision.expired()) return;
@@ -772,8 +728,9 @@ void Player::ApplyVerticalMove(float _deltaY)
 		};
 
 	std::list<KdCollider::CollisionResult> rayHits;
-	sweep(KdCollider::TypeGround, rayHits);
-	sweep(KdCollider::TypeBump, rayHits);
+
+	sweep(KdCollider::TypeGround , rayHits);
+	sweep(KdCollider::TypeBump   , rayHits);
 
 	bool blocked = false;
 	float bestOverlap = 0.0f;

@@ -76,6 +76,16 @@ void PlayerState_Attack3::StateUpdate()
 
 	float deltaTime = Application::Instance().GetDeltaTime();
 
+	if (!m_nearestEnemy)
+	{
+		// カメラ方向に向かって攻撃するようにする。
+		m_attackDirection = m_player->GetLastMoveDirection();
+		if (m_attackDirection != Math::Vector3::Zero)
+		{
+			m_player->UpdateQuaternion(m_attackDirection);
+		}
+	}
+
 	// 0.5秒間当たり判定有効
 	m_player->UpdateAttackCollision(
 		m_stateParameter.attackRadius,
@@ -106,16 +116,6 @@ void PlayerState_Attack3::StateUpdate()
 	}
 
 	UpdateKatanaPos();
-
-
-	// 攻撃中の移動方向で回転を更新
-	if (m_player->GetMovement() != Math::Vector3::Zero)
-	{
-		Math::Vector3 moveDir = m_player->GetMovement();
-		moveDir.y = 0.0f;
-		moveDir.Normalize();
-		m_player->UpdateQuaternionDirect(moveDir);
-	}
 
 	if (m_time < m_stateParameter.dashSpeedTime)
 	{

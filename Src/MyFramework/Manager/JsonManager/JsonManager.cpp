@@ -149,7 +149,7 @@ nlohmann::json JsonManager::VectorToJson(const Math::Vector3& _vec) const
 	return nlohmann::json
 	{
 		{"x", _vec.x },
-		{"y",_vec.y },
+		{"y", _vec.y },
 		{"z", _vec.z}
 	};
 }

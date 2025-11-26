@@ -71,8 +71,8 @@ public:
 	}
 
 	// タグで近傍取得
-	void GetObjectWeakPtrListByTagInSphere(ObjTag tag, const Math::Vector3& center, float radius,
-		std::list<std::weak_ptr<KdGameObject>>& outPtrList)
+	void GetObjectWeakPtrListByTagInSphere(ObjTag tag, const Math::Vector3& center, 
+		std::list<std::weak_ptr<KdGameObject>>& outPtrList, float radius = 5.0f)
 	{
 		if (!m_currentScene) { outPtrList.clear(); return; }
 		m_currentScene->GetObjectWeakPtrListByTagInSphereFromBuckets(tag, center, radius, outPtrList);

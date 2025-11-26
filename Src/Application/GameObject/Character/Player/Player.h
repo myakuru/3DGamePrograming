@@ -147,7 +147,7 @@ public:
 	bool GetGuardBreak() const { return m_action.guardBreak; }
 
 	// ダメージ処理
-	void TakeDamage(int _damage);
+	void TakeDamage(int _damage) const;
 
 	// カタナ取得
 	std::vector <std::weak_ptr<Katana>> GetKatanas() { return m_katana; }
