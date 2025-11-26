@@ -1,6 +1,6 @@
 ﻿#include "Player.h"
 #include "Application/Scene/SceneManager.h"
-#include "Application/Scene/BaseScene/BaseScene.h"
+#include "Application/Scene\BaseScene\BaseScene.h"
 #include "Application/GameObject/Weapon/Katana/Katana.h"
 #include "Application/GameObject/Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
 #include "Application/main.h"
@@ -26,6 +26,7 @@ Player::Player()
 	m_typeID = TypeID; AddTag(ObjTag::PlayerLike);
 }
 
+// デストラクタ(ユニークポインタを使用してるため、cppで定義)
 Player::~Player() = default;
 
 void Player::Init()
@@ -33,23 +34,23 @@ void Player::Init()
 	CharacterBase::Init();
 
 	// デフォルトはIdleステートにする
-	m_animator->SetAnimation(m_modelWork->GetData()->GetAnimation("Idle"));
+	GetAnimator()->SetAnimation(m_modelWork->GetData()->GetAnimation("Idle"));
 	m_modelWork->CalcNodeMatrices(); // ノードの再計算
 
 	StateInit();
 
 	// 当たり判定の設定
 	m_pCollider = std::make_unique<KdCollider>();
-	m_pCollider->RegisterCollisionShape("PlayerSphere", m_sphere, KdCollider::TypeDamage);
-	m_pCollider->RegisterCollisionShape("PlayerSphere", m_sphere, KdCollider::TypeGround);
+	m_pCollider->RegisterCollisionShape("PlayerSphere", GetBoundingSphere(), KdCollider::TypeDamage);
+	m_pCollider->RegisterCollisionShape("PlayerSphere", GetBoundingSphere(), KdCollider::TypeGround);
 
 	// フラグ初期化（新しい構造体へ移行）
-	m_action.onceEffect  = false;
+	m_action.onceEffect = false;
 	m_action.isAtkPlayer = false;
 
 	// 無敵・被弾フラグ初期化
 	SetInvincible(false);
-	SetHitCheck  (false);
+	SetHitCheck(false);
 
 	// 残像初期化
 	m_visual.afterImage = std::make_shared<AfterImage>();
@@ -60,16 +61,16 @@ void Player::Init()
 
 	// 角度からクォータニオン生成
 	m_rotation = Math::Quaternion::CreateFromYawPitchRoll(
-		DirectX::XMConvertToRadians(m_degree.y) ,
-		DirectX::XMConvertToRadians(m_degree.x) ,
+		DirectX::XMConvertToRadians(m_degree.y),
+		DirectX::XMConvertToRadians(m_degree.x),
 		DirectX::XMConvertToRadians(m_degree.z));
 
 	m_dissever = 0.0f;
 
 	// 初期ステータス（暫定）
-	m_characterData->SetCharacterData().hp     = 1000;
-	m_characterData->SetCharacterData().maxHp  = 1000;
-	m_characterData->SetCharacterData().attack = 10;
+	GetCharacterData()->SetCharacterData().hp = 1000;
+	GetCharacterData()->SetCharacterData().maxHp = 1000;
+	GetCharacterData()->SetCharacterData().attack = 10;
 
 	m_visual.rimLightOn = false;
 
@@ -101,7 +102,7 @@ void Player::PreUpdate()
 	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::PlayerScabbard, m_sheaths);
 
 	// カタナの取得
-	for(const auto & katanaWeak : m_katana)
+	for (const auto& katanaWeak : m_katana)
 	{
 		if (auto katana = katanaWeak.lock())
 		{
@@ -110,7 +111,7 @@ void Player::PreUpdate()
 		}
 	}
 
-	for(const auto & sheathWeak : m_sheaths)
+	for (const auto& sheathWeak : m_sheaths)
 	{
 		if (auto sheath = sheathWeak.lock())
 		{
@@ -129,7 +130,7 @@ void Player::PostUpdate()
 	KdCollider::SphereInfo enemyHit = {};
 	enemyHit.m_sphere.Center = m_position + Math::Vector3(0.0f, 0.5f, 0.0f);
 	enemyHit.m_sphere.Radius = 0.5f;
-	enemyHit.m_type          = KdCollider::TypeEnemyHit; // 敵のアタリ判定
+	enemyHit.m_type = KdCollider::TypeEnemyHit; // 敵のアタリ判定
 
 	m_pDebugWire->AddDebugSphere(enemyHit.m_sphere.Center, enemyHit.m_sphere.Radius);
 
@@ -139,7 +140,7 @@ void Player::PostUpdate()
 	// 敵の取得（近傍のみ）
 	{
 		constexpr float kBroadPhaseMargin = 1.0f;
-		const float     searchRadius      = enemyHit.m_sphere.Radius + kBroadPhaseMargin;
+		const float     searchRadius = enemyHit.m_sphere.Radius + kBroadPhaseMargin;
 		SceneManager::Instance().GetObjectWeakPtrListByTagInSphere(ObjTag::EnemyLike, enemyHit.m_sphere.Center, searchRadius, m_enemyLike);
 	}
 
@@ -154,7 +155,7 @@ void Player::PostUpdate()
 
 	// 最も重なりの大きい衝突を採用
 	float maxOverLap = 0.0f;
-	bool  hit        = false;
+	bool  hit = false;
 	Math::Vector3 hitDir;
 
 	for (const auto& ret : retSpherelist)
@@ -210,14 +211,14 @@ void Player::CollisionUpdate()
 	std::list<KdCollider::CollisionResult> retSpherelist;
 
 
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, m_refs.collisionObjects);
+	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, Refs().collisionObjects);
 
-	for (const auto& collision : m_refs.collisionObjects)
+	for (const auto& collision : Refs().collisionObjects)
 	{
 		auto collisionObj = collision.lock();
 		if (!collisionObj) continue;
 
-		collisionObj->Intersects(sphereInfo, &retSpherelist);	
+		collisionObj->Intersects(sphereInfo, &retSpherelist);
 	}
 
 	bool hit = false;
@@ -257,13 +258,13 @@ void Player::Update()
 {
 	if (SceneManager::Instance().GetCurrentScene()->GetSceneName() == "Title") return;
 
-	auto &sceneManager = SceneManager::Instance();
+	auto& sceneManager = SceneManager::Instance();
 
-	sceneManager.GetObjectWeakPtr(m_refs.playerCamera);
+	sceneManager.GetObjectWeakPtr(Refs().playerCamera);
 
 	if (sceneManager.m_gameClear)
 	{
-		m_movement.movement = Math::Vector3::Zero;
+		Movement().movement = Math::Vector3::Zero;
 		return;
 	}
 
@@ -313,6 +314,7 @@ void Player::Update()
 		SetJustAvoidSuccess(true);
 	}
 
+	// 無敵状態ならヒットしない
 	if (GetInvincible())
 	{
 		SetHitCheck(false);
@@ -322,7 +324,7 @@ void Player::Update()
 	if (GetHitCheck())
 	{
 		// 無敵状態ならヒットしない
-		if (GetInvincible()) return; 
+		if (GetInvincible()) return;
 
 		auto spDamageState = std::make_shared<PlayerState_Hit>();
 		ChangeState(spDamageState);
@@ -335,10 +337,10 @@ void Player::Update()
 
 	// スキル・スペシャル使用可能判定
 	{
-		m_action.useSkill = (m_characterData->GetPlayerStatus().skillPoint >= 30.0);
-		m_action.useSpecial = (m_characterData->GetPlayerStatus().specialPoint == m_characterData->GetPlayerStatus().specialPointMax);
+		m_action.useSkill = (GetCharacterData()->GetPlayerStatus().skillPoint >= 30.0);
+		m_action.useSpecial = (GetCharacterData()->GetPlayerStatus().specialPoint == GetCharacterData()->GetPlayerStatus().specialPointMax);
 
-		m_visual.rimLightOn = (m_characterData->GetPlayerStatus().chargeCount >= 3);
+		m_visual.rimLightOn = (GetCharacterData()->GetPlayerStatus().chargeCount >= 3);
 	}
 
 
@@ -346,41 +348,41 @@ void Player::Update()
 	if (m_avoid.justAvoidAttack)
 	{
 		const float unScaleDeltaTime = Application::Instance().GetUnscaledDeltaTime();
-		m_animator->AdvanceTime(m_modelWork->WorkNodes(), m_physics.fixedFrameRate * unScaleDeltaTime);
+		GetAnimator()->AdvanceTime(m_modelWork->WorkNodes(), Physics().fixedFrameRate * unScaleDeltaTime);
 		m_modelWork->CalcNodeMatrices();
 
 
-		m_raycast.prevPosition = m_position;                         // 移動前位置を保存
-		m_physics.gravity += m_physics.gravitySpeed * unScaleDeltaTime;     // 重力更新
-		ApplyHorizontalMove(m_movement.movement, unScaleDeltaTime);
+		Raycast().prevPosition = m_position;                         // 移動前位置を保存
+		Physics().gravity += Physics().gravitySpeed * unScaleDeltaTime;     // 重力更新
+		ApplyHorizontalMove(Movement().movement, unScaleDeltaTime);
 	}
 	else
 	{
-		const float deltaTime   = Application::Instance().GetDeltaTime();
+		const float deltaTime = Application::Instance().GetDeltaTime();
 		const float unScaleDeltaTime = Application::Instance().GetUnscaledDeltaTime();
 
-		m_animator->AdvanceTime(m_modelWork->WorkNodes(), m_physics.fixedFrameRate* deltaTime);
+		GetAnimator()->AdvanceTime(m_modelWork->WorkNodes(), Physics().fixedFrameRate * deltaTime);
 		m_modelWork->CalcNodeMatrices();
 
-		m_raycast.prevPosition  = m_position;
-		m_physics.gravity      += m_physics.gravitySpeed * deltaTime;
-		ApplyHorizontalMove(m_movement.movement, unScaleDeltaTime);
+		Raycast().prevPosition = m_position;
+		Physics().gravity += Physics().gravitySpeed * deltaTime;
+		ApplyHorizontalMove(Movement().movement, unScaleDeltaTime);
 	}
 
 	// 垂直移動
-	ApplyVerticalMove(m_physics.gravity);
+	ApplyVerticalMove(Physics().gravity);
 
 	// ワールド行列
-	const Math::Matrix scale       = Math::Matrix::CreateScale         (m_scale);
-	const Math::Matrix quaternion  = Math::Matrix::CreateFromQuaternion(m_rotation);
-	const Math::Matrix translation = Math::Matrix::CreateTranslation   (m_position);
+	const Math::Matrix scale = Math::Matrix::CreateScale(m_scale);
+	const Math::Matrix quaternion = Math::Matrix::CreateFromQuaternion(m_rotation);
+	const Math::Matrix translation = Math::Matrix::CreateTranslation(m_position);
 
 	m_mWorld = scale * quaternion * translation;
 }
 
-void Player::UpdateAttackCollision(float _radius        , float         _distance       , int   _attackCount , 
-								   float _attackTimer   , Math::Vector2 _cameraShakePow , float _cameraTime  , 
-								   float _activeBeginSec, float         _activeEndSec)
+void Player::UpdateAttackCollision(float _radius, float         _distance, int   _attackCount,
+	float _attackTimer, Math::Vector2 _cameraShakePow, float _cameraTime,
+	float _activeBeginSec, float         _activeEndSec)
 {
 	Math::Vector3 forward = Math::Vector3::TransformNormal(Math::Vector3::Forward, Math::Matrix::CreateFromQuaternion(m_rotation));
 	forward.Normalize();
@@ -390,7 +392,7 @@ void Player::UpdateAttackCollision(float _radius        , float         _distanc
 	KdCollider::SphereInfo attackSphere = {};
 	attackSphere.m_sphere.Center = m_position + Math::Vector3(0.0f, 0.5f, 0.0f) + forward * _distance;
 	attackSphere.m_sphere.Radius = _radius;
-	attackSphere.m_type          = KdCollider::TypeDamage;
+	attackSphere.m_type = KdCollider::TypeDamage;
 
 	m_pDebugWire->AddDebugSphere(attackSphere.m_sphere.Center, attackSphere.m_sphere.Radius);
 
@@ -398,21 +400,21 @@ void Player::UpdateAttackCollision(float _radius        , float         _distanc
 	if (!m_action.onceEffect)
 	{
 		m_charge.active = true;
-		m_charge.count  = 0;
-		m_charge.timer  = 0.0f;
+		m_charge.count = 0;
+		m_charge.timer = 0.0f;
 
 		// クランプしない。開始 > 終了なら入れ替えのみ行う
 		float begin = _activeBeginSec;
-		float end   = _activeEndSec;
+		float end = _activeEndSec;
 
-		if (begin > end) 
+		if (begin > end)
 		{
-			float t = begin; begin = end; end = t; 
+			float t = begin; begin = end; end = t;
 		}
 
-		m_combat.attackWindow.elapsed = 0.0f;
-		m_combat.attackWindow.begin   = begin;
-		m_combat.attackWindow.end = end;
+		Combat().attackWindow.elapsed = 0.0f;
+		Combat().attackWindow.begin = begin;
+		Combat().attackWindow.end = end;
 
 		m_action.onceEffect = true;
 	}
@@ -420,13 +422,13 @@ void Player::UpdateAttackCollision(float _radius        , float         _distanc
 	if (!m_charge.active) return;
 
 	// 攻撃ウィンドウ経過
-	m_combat.attackWindow.elapsed += deltaTime;
+	Combat().attackWindow.elapsed += deltaTime;
 
 	// 開始前はまだ当てない
-	if (m_combat.attackWindow.elapsed < m_combat.attackWindow.begin) return;
+	if (Combat().attackWindow.elapsed < Combat().attackWindow.begin) return;
 
 	// 終了超過で攻撃終了
-	if (m_combat.attackWindow.elapsed > m_combat.attackWindow.end)
+	if (Combat().attackWindow.elapsed > Combat().attackWindow.end)
 	{
 		m_charge.active = false;
 		return;
@@ -458,13 +460,13 @@ void Player::UpdateAttackCollision(float _radius        , float         _distanc
 				if (obj->GetTypeID() == AetheriusEnemy::TypeID)
 				{
 					auto e = std::static_pointer_cast<AetheriusEnemy>(obj);
-					e->Damage(m_characterData->GetCharacterData().attack);
+					e->Damage(GetCharacterData()->GetCharacterData().attack);
 					e->SetHitCheck(true);
 				}
 				else if (obj->GetTypeID() == BossEnemy::TypeID)
 				{
 					auto b = std::static_pointer_cast<BossEnemy>(obj);
-				 b->Damage(m_characterData->GetCharacterData().attack);
+					b->Damage(GetCharacterData()->GetCharacterData().attack);
 					b->SetHitCheck(true);
 				}
 				hitAny = true;
@@ -473,21 +475,21 @@ void Player::UpdateAttackCollision(float _radius        , float         _distanc
 
 		if (hitAny)
 		{
-			if (auto camera = m_refs.playerCamera.lock())
+			if (auto camera = Refs().playerCamera.lock())
 			{
 				camera->StartShake(_cameraShakePow, _cameraTime);
 			}
 
 			// SkillPoint
-			if (m_characterData->GetPlayerStatus().skillPoint <= m_characterData->GetPlayerStatus().skillPointMax)
+			if (GetCharacterData()->GetPlayerStatus().skillPoint <= GetCharacterData()->GetPlayerStatus().skillPointMax)
 			{
-				m_characterData->SetPlayerStatus().skillPoint += _attackCount;
+				GetCharacterData()->SetPlayerStatus().skillPoint += _attackCount;
 			}
 
 
 			// SpecialPoint 飽和加算（絶対上限付き）
-			m_characterData->SetPlayerStatus().specialPoint =
-				std::min(m_characterData->GetPlayerStatus().specialPoint + (_attackCount * 20), m_characterData->GetPlayerStatus().specialPointMax);
+			GetCharacterData()->SetPlayerStatus().specialPoint =
+				std::min(GetCharacterData()->GetPlayerStatus().specialPoint + (_attackCount * 20), GetCharacterData()->GetPlayerStatus().specialPointMax);
 		}
 
 		m_charge.count++;
@@ -508,10 +510,10 @@ void Player::ImGuiInspector()
 	ImGui::Separator();
 
 	// 基本パラメータ
-	ImGui::DragFloat(U8("重力の大きさ"), &m_physics.gravitySpeed, 0.01f);
-	ImGui::DragFloat(U8("フレームレート制限"), &m_physics.fixedFrameRate, 1.f);
-	ImGui::DragFloat(U8("移動速度"), &m_movement.moveSpeed, 0.1f);
-	ImGui::DragFloat(U8("回転速度"), &m_movement.rotateSpeed, 0.1f);
+	ImGui::DragFloat(U8("重力の大きさ"), &Physics().gravitySpeed, 0.01f);
+	ImGui::DragFloat(U8("フレームレート制限"), &Physics().fixedFrameRate, 1.f);
+	ImGui::DragFloat(U8("移動速度"), &Movement().moveSpeed, 0.1f);
+	ImGui::DragFloat(U8("回転速度"), &Movement().rotateSpeed, 0.1f);
 	ImGui::DragFloat3(U8("回転(Yaw Pitch Roll)"), &m_degree.x, 1.0f);
 
 	ImGui::DragFloat2(U8("Attack1揺れPow"), &m_cameraShake.power.x, 0.01f);
@@ -532,24 +534,24 @@ void Player::ImGuiInspector()
 void Player::JsonInput(const nlohmann::json& _json)
 {
 	CharacterBase::JsonInput(_json);
-	if (_json.contains("GravitySpeed"))   m_physics.gravitySpeed = _json["GravitySpeed"].get<float>();
-	if (_json.contains("fixedFps"))       m_physics.fixedFrameRate = _json["fixedFps"].get<float>();
-	if (_json.contains("moveSpeed"))      m_movement.moveSpeed = _json["moveSpeed"].get<float>();
-	if (_json.contains("cameraShake"))    m_cameraShake.power = JSON_MANAGER.JsonToVector2(_json["cameraShake"]);
+	if (_json.contains("GravitySpeed"))    Physics().gravitySpeed = _json["GravitySpeed"].get<float>();
+	if (_json.contains("fixedFps"))        Physics().fixedFrameRate = _json["fixedFps"].get<float>();
+	if (_json.contains("moveSpeed"))       Movement().moveSpeed = _json["moveSpeed"].get<float>();
+	if (_json.contains("cameraShake"))     m_cameraShake.power = JSON_MANAGER.JsonToVector2(_json["cameraShake"]);
 	if (_json.contains("cameraShakeTime")) m_cameraShake.time = _json["cameraShakeTime"].get<float>();
-	if (_json.contains("rotateSpeed"))    m_movement.rotateSpeed = _json["rotateSpeed"].get<float>();
-	if (_json.contains("degree"))         m_degree = JSON_MANAGER.JsonToVector(_json["degree"]);
+	if (_json.contains("rotateSpeed"))     Movement().rotateSpeed = _json["rotateSpeed"].get<float>();
+	if (_json.contains("degree"))          m_degree = JSON_MANAGER.JsonToVector(_json["degree"]);
 }
 
 void Player::JsonSave(nlohmann::json& _json) const
 {
 	CharacterBase::JsonSave(_json);
-	_json["GravitySpeed"] = m_physics.gravitySpeed;
-	_json["fixedFps"] = m_physics.fixedFrameRate;
-	_json["moveSpeed"] = m_movement.moveSpeed;
+	_json["GravitySpeed"] = Physics().gravitySpeed;
+	_json["fixedFps"] = Physics().fixedFrameRate;
+	_json["moveSpeed"] = Movement().moveSpeed;
 	_json["cameraShake"] = JSON_MANAGER.Vector2ToJson(m_cameraShake.power);
 	_json["cameraShakeTime"] = m_cameraShake.time;
-	_json["rotateSpeed"] = m_movement.rotateSpeed;
+	_json["rotateSpeed"] = Movement().rotateSpeed;
 	_json["degree"] = JSON_MANAGER.VectorToJson(m_degree);
 
 
@@ -586,59 +588,59 @@ void Player::UpdateMoveDirectionFromInput()
 	const bool a = kb.IsKeyPressed('A');
 	const bool d = kb.IsKeyPressed('D');
 
-	m_movement.movement = Math::Vector3::Zero;
+	Movement().movement = Math::Vector3::Zero;
 
 	// 片方のみ押されている場合だけ加算（排他的）
-	if (w || s) m_movement.movement += w ? Math::Vector3::Backward : Math::Vector3::Forward;
-	if (a || d) m_movement.movement += a ? Math::Vector3::Left : Math::Vector3::Right;
+	if (w || s) Movement().movement += w ? Math::Vector3::Backward : Math::Vector3::Forward;
+	if (a || d) Movement().movement += a ? Math::Vector3::Left : Math::Vector3::Right;
 
 	if (!(kb.IsKeyPressed('W') || kb.IsKeyPressed('S') || kb.IsKeyPressed('A') || kb.IsKeyPressed('D')))
 	{
-		m_movement.isMoving = false;
+		Movement().isMoving = false;
 	}
 	else
 	{
-		m_movement.isMoving = true;
+		Movement().isMoving = true;
 	}
 
-	if (m_movement.movement.LengthSquared() > 0.0f)
+	if (Movement().movement.LengthSquared() > 0.0f)
 	{
-		m_movement.movement.Normalize();
-		m_movement.lastDir = m_movement.movement;
+		Movement().movement.Normalize();
+		Movement().lastDir = Movement().movement;
 	}
 }
 
 void Player::TakeDamage(int _damage)
 {
-	m_characterData->SetCharacterData().hp -= _damage;
-	if (m_characterData->GetCharacterData().hp < 0) m_characterData->SetCharacterData().hp = 0;
+	GetCharacterData()->SetCharacterData().hp -= _damage;
+	if (GetCharacterData()->GetCharacterData().hp < 0) GetCharacterData()->SetCharacterData().hp = 0;
 }
 
 void Player::ApplyHorizontalMove(const Math::Vector3& _inputMove, float _deltaTime)
 {
 	if (_inputMove == Math::Vector3::Zero) return;
 
-	const Math::Vector3 desired    = _inputMove * m_movement.moveSpeed * m_physics.fixedFrameRate * _deltaTime;
+	const Math::Vector3 desired = _inputMove * Movement().moveSpeed * Physics().fixedFrameRate * _deltaTime;
 	const float         desiredLen = desired.Length();
 	if (desiredLen <= FLT_EPSILON) return;
 
 	const Math::Vector3 dir = desired / desiredLen;
 
 	KdCollider::RayInfo ray;
-	ray.m_pos   = m_raycast.prevPosition + Math::Vector3(0.0f, m_raycast.bumpSphereYOffset, 0.0f);
-	ray.m_dir   = dir;
-	ray.m_range = desiredLen + m_raycast.bumpSphereRadius;
-	ray.m_type  = KdCollider::TypeBump;
+	ray.m_pos = Raycast().prevPosition + Math::Vector3(0.0f, Raycast().bumpSphereYOffset, 0.0f);
+	ray.m_dir = dir;
+	ray.m_range = desiredLen + Raycast().bumpSphereRadius;
+	ray.m_type = KdCollider::TypeBump;
 
 	m_pDebugWire->AddDebugLine(ray.m_pos, ray.m_dir, ray.m_range, kRedColor);
 
 	std::list<KdCollider::CollisionResult> rayHits;
 
-	if (!m_refs.collision.expired()) return;
+	if (!Refs().collision.expired()) return;
 
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, m_refs.collisionObjects);
+	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, Refs().collisionObjects);
 
-	for (const auto& weakCol : m_refs.collisionObjects)
+	for (const auto& weakCol : Refs().collisionObjects)
 	{
 		auto collisionObj = weakCol.lock();
 
@@ -649,7 +651,7 @@ void Player::ApplyHorizontalMove(const Math::Vector3& _inputMove, float _deltaTi
 
 	Math::Vector3 hitNormal = Math::Vector3::Zero;
 
-	bool  blocked     = false;
+	bool  blocked = false;
 	float bestOverlap = 0.0f;
 	Math::Vector3 hitPos = Math::Vector3::Zero;
 	for (const auto& h : rayHits)
@@ -657,22 +659,22 @@ void Player::ApplyHorizontalMove(const Math::Vector3& _inputMove, float _deltaTi
 		if (bestOverlap < h.m_overlapDistance)
 		{
 			bestOverlap = h.m_overlapDistance;
-			hitPos      = h.m_hitPos;
+			hitPos = h.m_hitPos;
 			hitNormal = h.m_hitDir; // 面の法線
-			blocked     = true;
+			blocked = true;
 		}
 	}
 
 	if (blocked)
 	{
 		const float hitDist = (hitPos - ray.m_pos).Length();
-		const float allow   = std::max(0.0f, hitDist - m_raycast.bumpSphereRadius - m_raycast.collisionMargin);
+		const float allow = std::max(0.0f, hitDist - Raycast().bumpSphereRadius - Raycast().collisionMargin);
 
-		m_position = m_raycast.prevPosition + dir * allow;
+		m_position = Raycast().prevPosition + dir * allow;
 	}
 	else
 	{
-		m_position = m_raycast.prevPosition + desired;
+		m_position = Raycast().prevPosition + desired;
 	}
 }
 
@@ -687,25 +689,25 @@ void Player::ApplyPushWithCollision(const Math::Vector3& _rawPush)
 	const Math::Vector3 dir = push / len;
 
 	KdCollider::RayInfo ray = {};
-	ray.m_pos   = m_position + Math::Vector3(0.0f, m_raycast.bumpSphereYOffset, 0.0f);
-	ray.m_dir   = dir;
-	ray.m_range = len + m_raycast.bumpSphereRadius;
-	ray.m_type  = KdCollider::TypeBump;
+	ray.m_pos = m_position + Math::Vector3(0.0f, Raycast().bumpSphereYOffset, 0.0f);
+	ray.m_dir = dir;
+	ray.m_range = len + Raycast().bumpSphereRadius;
+	ray.m_type = KdCollider::TypeBump;
 
 	std::list<KdCollider::CollisionResult> rayHits;
 
-	if (!m_refs.collision.expired()) return;
+	if (!Refs().collision.expired()) return;
 
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, m_refs.collisionObjects);
+	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, Refs().collisionObjects);
 
-	for (auto& wk : m_refs.collisionObjects)
+	for (auto& wk : Refs().collisionObjects)
 	{
 		auto collisionObj = wk.lock();
 
 		if (!collisionObj) continue;
-		
+
 		collisionObj->Intersects(ray, &rayHits);
-		
+
 	}
 
 	bool blocked = false;
@@ -724,7 +726,7 @@ void Player::ApplyPushWithCollision(const Math::Vector3& _rawPush)
 	if (blocked)
 	{
 		const float hitDist = (hitPos - ray.m_pos).Length();
-		const float allow   = std::max(0.0f, hitDist - m_raycast.bumpSphereRadius - m_raycast.collisionMargin);
+		const float allow = std::max(0.0f, hitDist - Raycast().bumpSphereRadius - Raycast().collisionMargin);
 		if (allow > 0.0f)
 		{
 			m_position += dir * allow;
@@ -742,30 +744,30 @@ void Player::ApplyVerticalMove(float _deltaY)
 	if (std::abs(_deltaY) <= FLT_EPSILON) return;
 
 	Math::Vector3 start = m_position;
-	start.y = m_raycast.prevPosition.y;
+	start.y = Raycast().prevPosition.y;
 
 	// 両タイプ（地形/壁）を判定したいからラムダ式で共通化
 	auto sweep = [&](KdCollider::Type type, std::list<KdCollider::CollisionResult>& out)
 		{
 			KdCollider::RayInfo ray;
-			ray.m_pos   = start + Math::Vector3(0.0f, m_raycast.bumpSphereYOffset, 0.0f);
-			ray.m_dir   = (_deltaY < 0.0f) ? Math::Vector3(0.0f, -1.0f, 0.0f) : Math::Vector3(0.0f, 1.0f, 0.0f);
-			ray.m_range = std::abs(_deltaY) + m_raycast.bumpSphereRadius;
-			ray.m_type  = type;
+			ray.m_pos = start + Math::Vector3(0.0f, Raycast().bumpSphereYOffset, 0.0f);
+			ray.m_dir = (_deltaY < 0.0f) ? Math::Vector3(0.0f, -1.0f, 0.0f) : Math::Vector3(0.0f, 1.0f, 0.0f);
+			ray.m_range = std::abs(_deltaY) + Raycast().bumpSphereRadius;
+			ray.m_type = type;
 			m_pDebugWire->AddDebugLine(ray.m_pos, ray.m_dir, ray.m_range, kRedColor);
 
-			if (!m_refs.collision.expired()) return;
+			if (!Refs().collision.expired()) return;
 
-			SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, m_refs.collisionObjects);
+			SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, Refs().collisionObjects);
 
-			for (const auto& weakCol : m_refs.collisionObjects)
+			for (const auto& weakCol : Refs().collisionObjects)
 			{
 				auto col = weakCol.lock();
 
 				if (!col) continue;
 
 				col->Intersects(ray, &out);
-				
+
 			}
 		};
 
@@ -788,16 +790,16 @@ void Player::ApplyVerticalMove(float _deltaY)
 
 	if (blocked)
 	{
-		const float hitDist = (hitPos - (start + Math::Vector3(0.0f, m_raycast.bumpSphereYOffset, 0.0f))).Length();
-		const float allow = std::max(0.0f, hitDist - m_raycast.bumpSphereRadius - m_raycast.collisionMargin);
+		const float hitDist = (hitPos - (start + Math::Vector3(0.0f, Raycast().bumpSphereYOffset, 0.0f))).Length();
+		const float allow = std::max(0.0f, hitDist - Raycast().bumpSphereRadius - Raycast().collisionMargin);
 
 		const float dirSign = (_deltaY < 0.0f) ? -1.0f : 1.0f;
-		m_position.y = m_raycast.prevPosition.y + dirSign * allow;
+		m_position.y = Raycast().prevPosition.y + dirSign * allow;
 
-		m_physics.gravity = 0.0f; // 衝突したので重力速度をリセット
+		Physics().gravity = 0.0f; // 衝突したので重力速度をリセット
 	}
 	else
 	{
-		m_position.y = m_raycast.prevPosition.y + _deltaY;
+		m_position.y = Raycast().prevPosition.y + _deltaY;
 	}
 }

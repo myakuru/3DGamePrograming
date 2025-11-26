@@ -13,7 +13,7 @@
 #include "EnemyState/EnemyState_Death/EnemyState_Death.h"
 #include "../../../../Data/CharacterData/CharacterData.h"
 #include "Application/GameObject/Effect/EffekseerEffect/EnemyHitEffect/EnemyHitEffect.h"
-#include "Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemyConfig.h"
+#include "Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemyConfig/AetheriusEnemyConfig.h"
 
 const uint32_t AetheriusEnemy::TypeID = GenerateTypeID();
 
@@ -22,9 +22,9 @@ void AetheriusEnemy::Init()
 	EnemyBase::Init(); // CharacterBase::Init() は EnemyBase 内で呼ばれる
 
 	// 基本ステータス（暫定。Config 反映前の初期値）
-	m_characterData->SetCharacterData().hp = 500;
-	m_characterData->SetCharacterData().maxHp = 500;
-	m_characterData->SetCharacterData().attack = 10;
+	GetCharacterData()->SetCharacterData().hp = 500;
+	GetCharacterData()->SetCharacterData().maxHp = 500;
+	GetCharacterData()->SetCharacterData().attack = 10;
 
 	// 武器参照取得
 	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemySword, m_enemySwords);
@@ -78,15 +78,15 @@ void AetheriusEnemy::Update()
 		}
 	}
 
-	SceneManager::Instance().GetObjectWeakPtr(m_hitEffect);
+	SearchHitEffect();
 
-	// 被弾処理（旧 m_isHit → CombatState.flags.isHit）
+	// 被弾処理
 	if (GetHitCheck())
 	{
 		SetHitCheck(false);
 
 		// ヒットエフェクト
-		if (auto hitEffect = m_hitEffect.lock())
+		if (auto hitEffect = GetHitEffect().lock())
 		{
 			if (auto me = std::static_pointer_cast<AetheriusEnemy>(GetMyAdls()))
 			{
@@ -95,8 +95,8 @@ void AetheriusEnemy::Update()
 		}
 
 		// 演出開始（ラジアルブラー/ヒットストップ）
-		m_visual.enableRadialBlur = true;
-		m_visual.blurTime = 0.0f;
+		SetEnableRadialBlur(true);
+		ResetBlurTime();
 
 		// 無敵中なら累積ヒットリセットのみ
 		if (GetInvincible())
@@ -112,21 +112,21 @@ void AetheriusEnemy::Update()
 	}
 
 	// ラジアルブラー制御
-	if (m_visual.enableRadialBlur)
+	if (GetEnableRadialBlur())
 	{
-		m_visual.blurTime += Application::Instance().GetUnscaledDeltaTime();
+		AddBlurTime(Application::Instance().GetUnscaledDeltaTime());
 
 		// ヒットストップ
-		if (m_visual.blurTime <= 0.1f)  m_physics.hitStop = 0.0f;
-		else                            m_physics.hitStop = 1.0f;
+		if (GetBlurTime() <= 0.1f)  Physics().hitStop = 0.0f;
+		else                        Physics().hitStop = 1.0f;
 
-		if (m_visual.blurTime <= 0.3f)
+		if (GetBlurTime() <= 0.3f)
 		{
 			KdShaderManager::Instance().m_postProcessShader.SetRadialBlur(0.1f, 2.0f, { 0.5f,0.55f });
 			KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(true);
 
 			// 微妙な位置揺らぎ
-			if (static_cast<int>(std::floor(m_visual.blurTime)) % 10 == 0)
+			if (static_cast<int>(std::floor(GetBlurTime())) % 10 == 0)
 			{
 				Math::Vector3 jitter = {
 					KdRandom::GetFloat(-0.1f, 0.1f),
@@ -138,8 +138,8 @@ void AetheriusEnemy::Update()
 		}
 		else
 		{
-			m_visual.enableRadialBlur = false;
-			m_visual.blurTime = 0.0f;
+			SetEnableRadialBlur(false);
+			ResetBlurTime();
 			m_mWorld.Translation(m_position);
 			KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(false);
 		}
@@ -204,13 +204,13 @@ void AetheriusEnemy::Damage(int _damage)
 
 	m_lastDamageReceived = _damage;
 
-	m_characterData->SetCharacterData().hp -= _damage;
-	if (m_characterData->GetCharacterData().hp < 0)
+	GetCharacterData()->SetCharacterData().hp -= _damage;
+	if (GetCharacterData()->GetCharacterData().hp < 0)
 	{
-		m_characterData->SetCharacterData().hp = 0;
+		GetCharacterData()->SetCharacterData().hp = 0;
 	}
 
-	if (m_characterData->GetCharacterData().hp == 0)
+	if (GetCharacterData()->GetCharacterData().hp == 0)
 	{
 		// 死亡
 		m_expired = true;
@@ -225,7 +225,5 @@ void AetheriusEnemy::Damage(int _damage)
 
 void AetheriusEnemy::SetDissolve(float v)
 {
-	if (v < 0.0f) v = 0.0f;
-	else if (v > 1.0f) v = 1.0f;
-	m_rendering.dissolvePower = v;
+	Rendering().dissolvePower = std::clamp(v, 0.0f, 1.0f);
 }

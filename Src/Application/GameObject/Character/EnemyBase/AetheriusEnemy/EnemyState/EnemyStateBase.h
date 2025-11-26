@@ -11,10 +11,16 @@ class EnemyStateBase : public StateBase
 		float attackRadius = 3.0f;
 		float attackDistance = 1.0f;
 		int   attackCount = 1;
-		float attackInterval = 0.1f;    // 旧 m_attackTime
+		float attackInterval = 0.1f;
 		float attackStartTime = 0.0f;
 		float attackEndTime = 0.4f;
 
+		// 当たり判定スタート時間
+		float attackActiveStartTime = 0.35f;
+		// 当たり判定エンド時間
+		float attackActiveEndTime = 1.0f;
+
+		float distanceThreshold = 10.0f;		// プレイヤーからの距離で状態遷移する際の距離閾値
 
 		float dashSpeed = 0.7f;				// ダッシュ移動速度
 		float blendTime = 0.25f;			// ブレンドエフェクト表示時間

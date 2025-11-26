@@ -5,18 +5,19 @@
 #include "Application/Data/CharacterData/CharacterData.h"
 #include "MyFramework/Manager/JsonManager/JsonManager.h"
 #include "Application/GameObject/Collition/Collition.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EnemyHitEffect/EnemyHitEffect.h"
 
 void EnemyBase::Init()
 {
 	CharacterBase::Init();
 
-	m_movement.rotateSpeed = 10.0f;
+	Movement().rotateSpeed = 10.0f;
 
-	m_animator->SetAnimation(m_modelWork->GetData()->GetAnimation("Idle"));
+	GetAnimator()->SetAnimation(m_modelWork->GetData()->GetAnimation("Idle"));
 
 	m_pCollider = std::make_unique<KdCollider>();
-	m_pCollider->RegisterCollisionShape("EnemySphere", m_sphere, KdCollider::TypeDamage);
-	m_pCollider->RegisterCollisionShape("PlayerSphere", m_sphere, KdCollider::TypeEnemyHit);
+	m_pCollider->RegisterCollisionShape("EnemySphere", GetBoundingSphere(), KdCollider::TypeDamage);
+	m_pCollider->RegisterCollisionShape("PlayerSphere", GetBoundingSphere(), KdCollider::TypeEnemyHit);
 
 	m_action.isAttack = false;
 	m_visual.enableRadialBlur = false;
@@ -30,9 +31,9 @@ void EnemyBase::DrawLit()
 {
 	// ディゾルブ適用
 	KdShaderManager::Instance().m_StandardShader.SetDissolve(
-		/* 外部進行度(旧 m_dissever が別所にあるなら適宜差し替え) */ m_rendering.dissolvePower,
-		&m_rendering.dissolvePower,
-		&m_rendering.dissolveColor);
+		Rendering().dissolvePower,
+		&Rendering().dissolvePower,
+		&Rendering().dissolveColor);
 	SelectDraw3dModel::DrawLit();
 }
 
@@ -95,35 +96,29 @@ void EnemyBase::UpdateAttackCollision(float _radius, float _distance,
 	if (!m_charge.active) return;
 
 	// 攻撃ウィンドウ経過
-	auto wnd = AttackWindow();
-	wnd.elapsed += deltaTime;
-
-	// 有効開始前
-	if (wnd.elapsed < wnd.begin) return;
-
-	// Just回避成立後はこの攻撃終了
-	if (m_avoid.justSuccess)
 	{
-		m_charge.active = false;
-		m_avoid.justSuccess = false; // 次回へ備える
-		return;
-	}
+		auto wnd = AttackWindow();
+		wnd.elapsed += deltaTime;
 
-	// ウィンドウ終了超過
-	if (wnd.elapsed > wnd.end)
-	{
-		m_charge.active = false;
-		return;
+		// 有効開始前
+		if (wnd.elapsed < wnd.begin) return;
+
+		// ウィンドウ終了超過
+		if (wnd.elapsed > wnd.end)
+		{
+			m_charge.active = false;
+			return;
+		}
 	}
 
 	// 対象探索（ブロードフェーズ余白）
 	constexpr float kBroadPhaseMargin = 0.5f;
 	const float searchRadius = attackSphere.m_sphere.Radius + kBroadPhaseMargin;
 	(void)searchRadius; // 必要なら距離利用で絞り込み
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::PlayerLike, m_refs.playerObjects);
+	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::PlayerLike, Refs().playerObjects);
 
 	// Just回避チェック
-	for (const auto& wPlayer : m_refs.playerObjects)
+	for (const auto& wPlayer : Refs().playerObjects)
 	{
 		if (auto player = wPlayer.lock())
 		{
@@ -154,14 +149,14 @@ void EnemyBase::UpdateAttackCollision(float _radius, float _distance,
 	m_charge.timer += deltaTime;
 	if (m_charge.count < m_charge.targetTotal && m_charge.timer >= m_charge.interval)
 	{
-		for (const auto& wPlayer : m_refs.playerObjects)
+		for (const auto& wPlayer : Refs().playerObjects)
 		{
 			if (auto player = wPlayer.lock())
 			{
 				std::list<KdCollider::CollisionResult> results;
 				if (player->Intersects(attackSphere, &results) && !results.empty())
 				{
-					player->TakeDamage(m_characterData->GetCharacterData().attack);
+					player->TakeDamage(GetCharacterData()->GetCharacterData().attack);
 					player->SetHitCheck(true);
 				}
 			}
@@ -190,10 +185,10 @@ void EnemyBase::PostUpdate()
 
 	std::list<KdCollider::CollisionResult> retSpherelist;
 
-	if (m_refs.collision.expired()) return;
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, m_refs.collisionObjects);
+	if (Refs().collision.expired()) return;
+	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, Refs().collisionObjects);
 
-	for (auto& wCol : m_refs.collisionObjects)
+	for (auto& wCol : Refs().collisionObjects)
 	{
 		if (auto col = wCol.lock())
 		{
@@ -229,10 +224,10 @@ void EnemyBase::ImGuiInspector()
 	CharacterBase::ImGuiInspector();
 
 	ImGui::Text(U8("移動 / 物理"));
-	ImGui::DragFloat(U8("回転速度"), &m_movement.rotateSpeed, 0.1f);
-	ImGui::DragFloat(U8("移動速度"), &m_movement.moveSpeed, 0.1f);
-	ImGui::DragFloat(U8("重力速度"), &m_physics.gravitySpeed, 0.01f);
-	ImGui::DragFloat(U8("再生速度 (fixedFrameRate)"), &m_physics.fixedFrameRate, 0.01f);
+	ImGui::DragFloat(U8("回転速度"), &Movement().rotateSpeed, 0.1f);
+	ImGui::DragFloat(U8("移動速度"), &Movement().moveSpeed, 0.1f);
+	ImGui::DragFloat(U8("重力速度"), &Physics().gravitySpeed, 0.01f);
+	ImGui::DragFloat(U8("再生速度 (fixedFrameRate)"), &Physics().fixedFrameRate, 0.01f);
 
 	ImGui::Separator();
 	ImGui::Text(U8("攻撃ウィンドウ"));
@@ -262,30 +257,30 @@ void EnemyBase::ImGuiInspector()
 	ImGui::DragFloat(U8("ブラー時間"), &m_visual.blurTime, 0.01f);
 
 	ImGui::Separator();
-	ImGui::ColorEdit3(U8("ディゾルブカラー"), &m_rendering.dissolveColor.x);
-	ImGui::DragFloat(U8("ディゾルブ進行度"), &m_rendering.dissolvePower, 0.01f, 0.0f, 1.0f);
+	ImGui::ColorEdit3(U8("ディゾルブカラー"), &Rendering().dissolveColor.x);
+	ImGui::DragFloat(U8("ディゾルブ進行度"), &Rendering().dissolvePower, 0.01f, 0.0f, 1.0f);
 }
 
 void EnemyBase::JsonInput(const nlohmann::json& _json)
 {
 	CharacterBase::JsonInput(_json);
-	if (_json.contains("GravitySpeed"))     m_physics.gravitySpeed = _json["GravitySpeed"].get<float>();
-	if (_json.contains("fixedFps"))         m_physics.fixedFrameRate = _json["fixedFps"].get<float>();
-	if (_json.contains("moveSpeed"))        m_movement.moveSpeed = _json["moveSpeed"].get<float>();
-	if (_json.contains("rotationspeed"))    m_movement.rotateSpeed = _json["rotationspeed"].get<float>();
-	if (_json.contains("dissolveColor"))    m_rendering.dissolveColor = JSON_MANAGER.JsonToVector(_json["dissolveColor"]);
-	if (_json.contains("dissolvePower"))    m_rendering.dissolvePower = _json["dissolvePower"].get<float>();
+	if (_json.contains("GravitySpeed"))     Physics().gravitySpeed = _json["GravitySpeed"].get<float>();
+	if (_json.contains("fixedFps"))         Physics().fixedFrameRate = _json["fixedFps"].get<float>();
+	if (_json.contains("moveSpeed"))        Movement().moveSpeed = _json["moveSpeed"].get<float>();
+	if (_json.contains("rotationspeed"))    Movement().rotateSpeed = _json["rotationspeed"].get<float>();
+	if (_json.contains("dissolveColor"))    Rendering().dissolveColor = JSON_MANAGER.JsonToVector(_json["dissolveColor"]);
+	if (_json.contains("dissolvePower"))    Rendering().dissolvePower = _json["dissolvePower"].get<float>();
 }
 
 void EnemyBase::JsonSave(nlohmann::json& _json) const
 {
 	CharacterBase::JsonSave(_json);
-	_json["GravitySpeed"] = m_physics.gravitySpeed;
-	_json["fixedFps"] = m_physics.fixedFrameRate;
-	_json["moveSpeed"] = m_movement.moveSpeed;
-	_json["rotationspeed"] = m_movement.rotateSpeed;
-	_json["dissolveColor"] = JSON_MANAGER.VectorToJson(m_rendering.dissolveColor);
-	_json["dissolvePower"] = m_rendering.dissolvePower;
+	_json["GravitySpeed"] = Physics().gravitySpeed;
+	_json["fixedFps"] = Physics().fixedFrameRate;
+	_json["moveSpeed"] = Movement().moveSpeed;
+	_json["rotationspeed"] = Movement().rotateSpeed;
+	_json["dissolveColor"] = JSON_MANAGER.VectorToJson(Rendering().dissolveColor);
+	_json["dissolvePower"] = Rendering().dissolvePower;
 }
 
 void EnemyBase::UpdateQuaternion(Math::Vector3& _moveVector)
@@ -295,5 +290,10 @@ void EnemyBase::UpdateQuaternion(Math::Vector3& _moveVector)
 
 	_moveVector.Normalize();
 	Math::Quaternion targetRotation = Math::Quaternion::LookRotation(_moveVector, Math::Vector3::Up);
-	m_rotation = Math::Quaternion::Slerp(m_rotation, targetRotation, deltaTime * m_physics.fixedFrameRate);
+	m_rotation = Math::Quaternion::Slerp(m_rotation, targetRotation, deltaTime * Physics().fixedFrameRate);
+}
+
+void EnemyBase::SearchHitEffect()
+{
+	SceneManager::Instance().GetObjectWeakPtr(m_hitEffect);
 }

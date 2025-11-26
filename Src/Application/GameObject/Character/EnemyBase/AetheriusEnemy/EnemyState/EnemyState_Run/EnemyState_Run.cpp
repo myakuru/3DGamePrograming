@@ -30,7 +30,7 @@ void EnemyState_Run::StateUpdate()
 	// 距離計算
 	m_distance = (m_playerPos - m_enemyPos).Length();
 
-	if (m_distance >= 6.0f)
+	if (m_distance >= m_stateParameter.distanceThreshold)
 	{
 		// Idleステートに移行
 		auto spIdleState = std::make_shared<EnemyState_Idle>();
@@ -68,11 +68,13 @@ void EnemyState_Run::ApplyFromConfig(const EnemyStateBase& other)
 	assert(typeid(other) == typeid(EnemyState_Run));
 	const auto& p = static_cast<const EnemyState_Run&>(other);
 	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
+	m_stateParameter.distanceThreshold = p.m_stateParameter.distanceThreshold;
 }
 
 void EnemyState_Run::ExposeParametersImGui()
 {
 	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
+	ImGui::DragFloat(U8("距離閾値"), &m_stateParameter.distanceThreshold);
 }
 
 void EnemyState_Run::LoadParametersJson(const nlohmann::json& js)
@@ -82,10 +84,8 @@ void EnemyState_Run::LoadParametersJson(const nlohmann::json& js)
 	if (stateNode.contains("AetheriusEnemy"))
 	{
 		const auto& enemyNode = stateNode["AetheriusEnemy"];
-		if (enemyNode.contains("animationSpeed"))
-		{
-			m_stateParameter.animationSpeed = enemyNode["animationSpeed"].get<float>();
-		}
+		if (enemyNode.contains("animationSpeed")) m_stateParameter.animationSpeed = enemyNode["animationSpeed"].get<float>();
+		if (enemyNode.contains("distanceThreshold")) m_stateParameter.distanceThreshold = enemyNode["distanceThreshold"].get<float>();
 	}
 }
 
@@ -94,4 +94,5 @@ void EnemyState_Run::SaveParametersJson(nlohmann::json& js) const
 	if (!js.contains("EnemyState_Run")) js["EnemyState_Run"] = nlohmann::json::object();
 	auto& stateNode = js["EnemyState_Run"];
 	stateNode["AetheriusEnemy"]["animationSpeed"] = m_stateParameter.animationSpeed;
+	stateNode["AetheriusEnemy"]["distanceThreshold"] = m_stateParameter.distanceThreshold;
 }

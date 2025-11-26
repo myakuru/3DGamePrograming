@@ -290,7 +290,7 @@
     <ClInclude Include="Src\Application\GameObject\Character\AfterImage\AfterImage.h" />
     <ClInclude Include="Src\Application\GameObject\Character\CharacterBase.h" />
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemy.h" />
-    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemyConfig.h" />
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemyConfig\AetheriusEnemyConfig.h" />
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyStateBase.h" />
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack1\EnemyState_Attack1.h" />
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack2\EnemyState_Attack2.h" />
@@ -355,6 +355,8 @@
     <ClInclude Include="Src\Application\GameObject\Collition\Collition.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\BillBoardEffect\FieldEffect\FieldEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.h" />
+    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_AttackEffect\AetheriusEnemy_AttackEffect.h" />
+    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect\AetheriusEnemy_Attack_1Effect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AttacEffect1\AttacEffect1.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AvoidAttackSlashEffect\AvoidAttackSlashEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\BossAttack_1stEffect\BossAttack_1stEffect.h" />
@@ -496,7 +498,7 @@
     <ClCompile Include="Src\Application\GameObject\Character\AfterImage\AfterImage.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\CharacterBase.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemy.cpp" />
-    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemyConfig.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemyConfig\AetheriusEnemyConfig.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyStateBase.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack1\EnemyState_Attack1.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack2\EnemyState_Attack2.cpp" />
@@ -561,6 +563,8 @@
     <ClCompile Include="Src\Application\GameObject\Collition\Collition.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\BillBoardEffect\FieldEffect\FieldEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_AttackEffect\AetheriusEnemy_AttackEffect.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect\AetheriusEnemy_Attack_1Effect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AttacEffect1\AttacEffect1.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AvoidAttackSlashEffect\AvoidAttackSlashEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\BossAttack_1stEffect\BossAttack_1stEffect.cpp" />

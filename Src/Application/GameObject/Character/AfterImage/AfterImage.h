@@ -61,4 +61,6 @@ public:
 		m_afterImageColor = _color;
 	}
 
+	float m_time = 0.0f;
+
 };

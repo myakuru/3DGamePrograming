@@ -15,7 +15,6 @@ public:
 	BossEnemy() { m_typeID = TypeID; AddTag(ObjTag::EnemyLike); }
 	~BossEnemy() override = default;
 
-	// 行動種別
 	enum class ActionType { None, Idle, Run, AttackL, AttackR, Water, WaterFall, Dodge };
 
 	void Init() override;
@@ -29,12 +28,12 @@ public:
 
 	int  GetDamage() const { return m_lastDamageReceived; }
 
-	const CharacterData& GetStatus() const { return *m_characterData; }
+	const CharacterData& GetStatus() const { return *GetCharacterData(); }
 
-	// 累積ヒット回数
-	int  GetHitCount() const { return m_totalHitCount; }
-	void IncrementHitCount() { ++m_totalHitCount; }
-	void ResetHitCount() { m_totalHitCount = 0; }
+	// 累積ヒット回数（Baseの公開関数経由）
+	int  GetHitCount() const { return GetTotalHitCount(); }
+	void IncrementHitCount() { IncrementTotalHitCount(); }
+	void ResetHitCount() { ResetTotalHitCount(); }
 
 	// 行動コンテキスト
 	void SetLastAction(ActionType t) { m_lastAction = t; }
@@ -61,7 +60,7 @@ public:
 
 	// ディゾルブ
 	void  SetDissolve(float v);
-	float GetDissolve() const { return m_rendering.dissolvePower; }
+	float GetDissolve() const { return Rendering().dissolvePower; }
 
 private:
 	void ImGuiInspector() override;
@@ -73,15 +72,11 @@ private:
 	std::shared_ptr<BossEnemyConfig> m_bossEnemyConfig;
 	std::shared_ptr<BossEnemyAI>     m_bossEnemyAI;
 
-	// 行動コンテキスト
 	ActionType m_lastAction = ActionType::None;
 	float      m_meleeCooldown = 0.0f;
 	float      m_waterCooldown = 0.0f;
 	float      m_waterFallCooldown = 0.0f;
 
-	// 死亡済み
 	bool m_expired = false;
-
-	// 直近受けたダメージ
 	int  m_lastDamageReceived = 0;
 };

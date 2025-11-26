@@ -20,7 +20,7 @@ void EnemyState_Walk_Left::StateUpdate()
 
 	m_time += deltaTime;
 
-	// 距離が６以上離れたら追いかける
+	// 距離が離れたら追いかける
 	{
 		for (const auto& player : m_player)
 		{
@@ -34,7 +34,7 @@ void EnemyState_Walk_Left::StateUpdate()
 
 		m_distance = (m_playerPos - m_enemyPos).Length();
 
-		if (m_distance >= 6.0f)
+		if (m_distance >= m_stateParameter.distanceThreshold)
 		{
 			auto state = std::make_shared<EnemyState_Run>();
 			m_enemy->ChangeState(state);
@@ -72,16 +72,18 @@ void EnemyState_Walk_Left::ApplyFromConfig(const EnemyStateBase& other)
 {
 	assert(typeid(other) == typeid(EnemyState_Walk_Left));
 	const auto& p = static_cast<const EnemyState_Walk_Left&>(other);
-	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
-	m_stateParameter.changeStateTime = p.m_stateParameter.changeStateTime;
-	m_stateParameter.dashSpeed = p.m_stateParameter.dashSpeed;
+	m_stateParameter.animationSpeed			= p.m_stateParameter.animationSpeed;
+	m_stateParameter.changeStateTime		= p.m_stateParameter.changeStateTime;
+	m_stateParameter.dashSpeed				= p.m_stateParameter.dashSpeed;
+	m_stateParameter.distanceThreshold		= p.m_stateParameter.distanceThreshold;
 }
 
 void EnemyState_Walk_Left::ExposeParametersImGui()
 {
-	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
-	ImGui::DragFloat(U8("状態遷移までの時間"), &m_stateParameter.changeStateTime);
-	ImGui::DragFloat(U8("横移動速度"), &m_stateParameter.dashSpeed);
+	ImGui::DragFloat(U8("アニメーション速度"),		&m_stateParameter.animationSpeed);
+	ImGui::DragFloat(U8("状態遷移までの時間"),		&m_stateParameter.changeStateTime);
+	ImGui::DragFloat(U8("横移動速度"),			&m_stateParameter.dashSpeed);
+	ImGui::DragFloat(U8("距離閾値"),				&m_stateParameter.distanceThreshold);
 }
 
 void EnemyState_Walk_Left::LoadParametersJson(const nlohmann::json& js)
@@ -91,12 +93,10 @@ void EnemyState_Walk_Left::LoadParametersJson(const nlohmann::json& js)
 	if (stateNode.contains("AetheriusEnemy"))
 	{
 		const auto& enemyNode = stateNode["AetheriusEnemy"];
-		if (enemyNode.contains("animationSpeed"))
-		{
-			m_stateParameter.animationSpeed = enemyNode["animationSpeed"].get<float>();
-			m_stateParameter.changeStateTime = enemyNode["changeStateTime"].get<float>();
-			m_stateParameter.dashSpeed = enemyNode["dashSpeed"].get<float>();
-		}
+		if (enemyNode.contains("animationSpeed"))		m_stateParameter.animationSpeed = enemyNode["animationSpeed"].get<float>();
+		if (enemyNode.contains("changeStateTime"))		m_stateParameter.changeStateTime = enemyNode["changeStateTime"].get<float>();
+		if (enemyNode.contains("dashSpeed"))			m_stateParameter.dashSpeed = enemyNode["dashSpeed"].get<float>();
+		if (enemyNode.contains("distanceThreshold"))	m_stateParameter.distanceThreshold = enemyNode["distanceThreshold"].get<float>();
 	}
 }
 
@@ -104,7 +104,8 @@ void EnemyState_Walk_Left::SaveParametersJson(nlohmann::json& js) const
 {
 	if (!js.contains("EnemyState_Walk_Left")) js["EnemyState_Walk_Left"] = nlohmann::json::object();
 	auto& stateNode = js["EnemyState_Walk_Left"];
-	stateNode["AetheriusEnemy"]["animationSpeed"] = m_stateParameter.animationSpeed;
-	stateNode["AetheriusEnemy"]["changeStateTime"] = m_stateParameter.changeStateTime;
-	stateNode["AetheriusEnemy"]["dashSpeed"] = m_stateParameter.dashSpeed;
+	stateNode["AetheriusEnemy"]["animationSpeed"]		= m_stateParameter.animationSpeed;
+	stateNode["AetheriusEnemy"]["changeStateTime"]		= m_stateParameter.changeStateTime;
+	stateNode["AetheriusEnemy"]["dashSpeed"]			= m_stateParameter.dashSpeed;
+	stateNode["AetheriusEnemy"]["distanceThreshold"]	= m_stateParameter.distanceThreshold;
 }

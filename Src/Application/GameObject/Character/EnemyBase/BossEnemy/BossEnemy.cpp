@@ -24,10 +24,10 @@ void BossEnemy::Init()
 	m_modelWork->SetModelData("Asset/Models/Enemy/BossEnemy/BossEnemy.gltf");
 	SetDrawFlag("DrawLit", true);
 
-	m_movement.rotateSpeed = 10.0f;
-	m_movement.moveSpeed = 0.1f;
+	Movement().rotateSpeed = 10.0f;
+	Movement().moveSpeed = 0.1f;
 
-	m_animator->SetAnimation(m_modelWork->GetData()->GetAnimation("Idle"));
+	GetAnimatorShared()->SetAnimation(m_modelWork->GetData()->GetAnimation("Idle"));
 
 	m_position = { -8.0f, 101.0f, 18.0f };
 
@@ -37,9 +37,9 @@ void BossEnemy::Init()
 	StateInit();
 
 	// ステータス初期値（暫定）
-	m_characterData->SetCharacterData().hp = 500;
-	m_characterData->SetCharacterData().maxHp = 500;
-	m_characterData->SetCharacterData().attack = 10;
+	GetCharacterData()->SetCharacterData().hp = 500;
+	GetCharacterData()->SetCharacterData().maxHp = 500;
+	GetCharacterData()->SetCharacterData().attack = 10;
 
 	// Config 読み込み
 	m_bossEnemyConfig = std::make_shared<BossEnemyConfig>();
@@ -61,11 +61,6 @@ void BossEnemy::Init()
 
 void BossEnemy::Update()
 {
-	// 球の中心と半径（デバッグ表示）
-	m_sphere.Center = m_position + Math::Vector3(0.0f, 0.7f, 0.0f);
-	m_sphere.Radius = 0.2f;
-	m_pDebugWire->AddDebugSphere(m_sphere.Center, m_sphere.Radius, kBlueColor);
-
 	float unscaledDt = Application::Instance().GetUnscaledDeltaTime();
 	float dt = Application::Instance().GetDeltaTime();
 
@@ -75,10 +70,10 @@ void BossEnemy::Update()
 	// 死亡後のディゾルブ進行
 	if (m_expired)
 	{
-		if (m_rendering.dissolvePower < 1.0f)
+		if (Rendering().dissolvePower < 1.0f)
 		{
-			m_rendering.dissolvePower += 2.0f * unscaledDt;
-			if (m_rendering.dissolvePower > 1.0f) m_rendering.dissolvePower = 1.0f;
+			Rendering().dissolvePower += 2.0f * unscaledDt;
+			if (Rendering().dissolvePower > 1.0f) Rendering().dissolvePower = 1.0f;
 		}
 	}
 
@@ -87,13 +82,15 @@ void BossEnemy::Update()
 
 	EnemyBase::Update(); // アニメ・移動等
 
+	SearchHitEffect();
+
 	// 被弾処理（旧 m_isHit）
 	if (GetHitCheck())
 	{
 		SetHitCheck(false);
 
 		// エフェクト
-		if (auto hitEffect = m_hitEffect.lock())
+		if (auto hitEffect = GetHitEffect().lock())
 		{
 			if (auto me = std::static_pointer_cast<BossEnemy>(GetMyAdls()))
 			{
@@ -103,7 +100,7 @@ void BossEnemy::Update()
 
 		// ブラー開始
 		SetEnableRadialBlur(true);
-		m_visual.blurTime = 0.0f;
+		ResetBlurTime();
 
 		// 無敵なら累積だけリセット
 		if (GetInvincible())
@@ -121,18 +118,18 @@ void BossEnemy::Update()
 	// ブラー制御
 	if (GetEnableRadialBlur())
 	{
-		m_visual.blurTime += unscaledDt;
+		AddBlurTime(unscaledDt);
 
 		// ヒットストップ
-		if (m_visual.blurTime <= 0.1f) m_physics.hitStop = 0.0f;
-		else                           m_physics.hitStop = 1.0f;
+		if (GetBlurTime() <= 0.1f) Physics().hitStop = 0.0f;
+		else                       Physics().hitStop = 1.0f;
 
-		if (m_visual.blurTime <= 0.3f)
+		if (GetBlurTime() <= 0.3f)
 		{
 			KdShaderManager::Instance().m_postProcessShader.SetRadialBlur(0.1f, 2.0f, { 0.5f,0.55f });
 			KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(true);
 
-			if (static_cast<int>(std::floor(m_visual.blurTime)) % 10 == 0)
+			if (static_cast<int>(std::floor(GetBlurTime())) % 10 == 0)
 			{
 				Math::Vector3 jitter{
 					KdRandom::GetFloat(-0.1f, 0.1f),
@@ -145,14 +142,14 @@ void BossEnemy::Update()
 		else
 		{
 			SetEnableRadialBlur(false);
-			m_visual.blurTime = 0.0f;
+			ResetBlurTime();
 			m_mWorld.Translation(m_position);
 			KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(false);
 		}
 	}
 
 	// HP 半分以下で回避ステートへ（1回だけ）
-	if (m_characterData->GetCharacterData().hp <= (m_characterData->GetCharacterData().maxHp / 2)
+	if (GetCharacterData()->GetCharacterData().hp <= (GetCharacterData()->GetCharacterData().maxHp / 2)
 		&& m_lastAction != ActionType::Dodge)
 	{
 		auto dodgeState = std::make_shared<BossEnemyState_Dodge>();
@@ -182,13 +179,13 @@ void BossEnemy::Damage(int _damage)
 	if (m_expired) return;
 
 	m_lastDamageReceived = _damage;
-	m_characterData->SetCharacterData().hp -= _damage;
-	if (m_characterData->GetCharacterData().hp < 0)
+	GetCharacterData()->SetCharacterData().hp -= _damage;
+	if (GetCharacterData()->GetCharacterData().hp < 0)
 	{
-		m_characterData->SetCharacterData().hp = 0;
+		GetCharacterData()->SetCharacterData().hp = 0;
 	}
 
-	if (m_characterData->GetCharacterData().hp == 0)
+	if (GetCharacterData()->GetCharacterData().hp == 0)
 	{
 		m_expired = true;
 		SetInvincible(true);
@@ -221,12 +218,12 @@ void BossEnemy::JsonInput(const nlohmann::json& _json)
 	EnemyBase::JsonInput(_json);
 	if (m_bossEnemyConfig) m_bossEnemyConfig->JsonInput(_json);
 
-	if (_json.contains("Boss_LastAction"))       m_lastAction = static_cast<ActionType>(_json["Boss_LastAction"].get<int>());
-	if (_json.contains("Boss_MeleeCooldown"))    m_meleeCooldown = _json["Boss_MeleeCooldown"].get<float>();
-	if (_json.contains("Boss_WaterCooldown"))    m_waterCooldown = _json["Boss_WaterCooldown"].get<float>();
-	if (_json.contains("Boss_WaterFallCooldown"))m_waterFallCooldown = _json["Boss_WaterFallCooldown"].get<float>();
-	if (_json.contains("Boss_Expired"))          m_expired = _json["Boss_Expired"].get<bool>();
-	if (_json.contains("Boss_LastDamage"))       m_lastDamageReceived = _json["Boss_LastDamage"].get<int>();
+	if (_json.contains("Boss_LastAction"))        m_lastAction = static_cast<ActionType>(_json["Boss_LastAction"].get<int>());
+	if (_json.contains("Boss_MeleeCooldown"))     m_meleeCooldown = _json["Boss_MeleeCooldown"].get<float>();
+	if (_json.contains("Boss_WaterCooldown"))     m_waterCooldown = _json["Boss_WaterCooldown"].get<float>();
+	if (_json.contains("Boss_WaterFallCooldown")) m_waterFallCooldown = _json["Boss_WaterFallCooldown"].get<float>();
+	if (_json.contains("Boss_Expired"))           m_expired = _json["Boss_Expired"].get<bool>();
+	if (_json.contains("Boss_LastDamage"))        m_lastDamageReceived = _json["Boss_LastDamage"].get<int>();
 }
 
 void BossEnemy::JsonSave(nlohmann::json& _json) const
@@ -247,5 +244,5 @@ void BossEnemy::SetDissolve(float v)
 {
 	if (v < 0.0f) v = 0.0f;
 	else if (v > 1.0f) v = 1.0f;
-	m_rendering.dissolvePower = v;
+	Rendering().dissolvePower = v;
 }

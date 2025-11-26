@@ -50,7 +50,6 @@ public:
 	void AddCameraObject(const std::shared_ptr<KdGameObject>& _obj)
 	{
 		m_CameraObjList.emplace_back(_obj);
-		// 必要に応じてインデックスするならここで IndexObject(_obj);
 	}
 	// カメラオブジェクトリストを取得
 	std::list<std::shared_ptr<KdGameObject>>& GetCameraObjList()
@@ -178,14 +177,17 @@ protected:
 	std::unordered_map<uint32_t, std::vector<std::weak_ptr<KdGameObject>>> m_tagBuckets;
 
 
-	// 既存: 追加時にバケットへ登録
+	// 追加時にバケットへ登録
 	inline void IndexObject(const std::shared_ptr<KdGameObject>& obj)
 	{
 		if (!obj) return;
-		// 型バケット
+		// ウィークポインタを格納する。
 		m_typeBuckets[obj->GetTypeID()].emplace_back(obj);
 		// タグバケット（セットされた全ビットを展開）
 		uint32_t mask = obj->GetTagMask();
+
+		// １つずつビット取り出して、on offチェック
+		// 登録したらそのビットは消す
 		while (mask)
 		{
 			uint32_t bit = mask & (~mask + 1); // 最下位セットビット
@@ -194,7 +196,7 @@ protected:
 		}
 	}
 
-	// 既存: PreUpdateでのコンパクション
+	// PreUpdateでタグ消す
 	inline void CompactTypeBuckets()
 	{
 		auto comp = [](auto& vec)
@@ -204,6 +206,6 @@ protected:
 					vec.end());
 			};
 		for (auto& kv : m_typeBuckets) comp(kv.second);
-		for (auto& kv : m_tagBuckets)  comp(kv.second); // 追加: タグ側も整理
+		for (auto& kv : m_tagBuckets)  comp(kv.second); // タグ側も整理
 	}
 };

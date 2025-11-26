@@ -511,9 +511,6 @@
     <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AvoidAttack">
       <UniqueIdentifier>{81d92776-12ab-4dd6-bb5c-5377408da1be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Scene\BaseScene\ConstructionSiteStage">
-      <UniqueIdentifier>{51cbabc9-3839-42ea-9a72-3aec80705ad9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\MyFramework\Manager\ImGuiManager">
       <UniqueIdentifier>{879c7b19-c6b0-4933-a569-763119b37800}</UniqueIdentifier>
     </Filter>
@@ -522,6 +519,21 @@
     </Filter>
     <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyConfig">
       <UniqueIdentifier>{a017f3c4-be5a-48c5-a279-c73cb621b7b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Scene\ConstructionSiteStage">
+      <UniqueIdentifier>{51cbabc9-3839-42ea-9a72-3aec80705ad9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect">
+      <UniqueIdentifier>{4105897b-325e-4788-b929-1f20409e7b90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_AttackEffect">
+      <UniqueIdentifier>{15e01353-b4c1-456d-a453-49698ef534a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemyConfig">
+      <UniqueIdentifier>{85baa2b9-68e9-46d1-86dd-5e3babea3152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect">
+      <UniqueIdentifier>{21427dc2-ca2a-4b8e-bc1c-81b2d7163f48}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1033,7 +1045,7 @@
       <Filter>Src\MyFramework\Manager\ImGuiManager</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Scene\ConstructionSiteStage\ConstructionSiteStage.h">
-      <Filter>Src\Application\Scene\BaseScene\ConstructionSiteStage</Filter>
+      <Filter>Src\Application\Scene\ConstructionSiteStage</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\EnemyBase.h">
       <Filter>Src\Application\GameObject\Character\EnemyBase</Filter>
@@ -1149,14 +1161,20 @@
     <ClInclude Include="Src\MyFramework\RegisterObject\PlayerStateParameterFactory.h">
       <Filter>Src\MyFramework\RegisterObject</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemyConfig.h">
-      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death\EnemyState_Death.h">
       <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyConfig\BossEnemyConfig.h">
       <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_AttackEffect\AetheriusEnemy_AttackEffect.h">
+      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_AttackEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemyConfig\AetheriusEnemyConfig.h">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemyConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect\AetheriusEnemy_Attack_1Effect.h">
+      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1614,7 +1632,7 @@
       <Filter>Src\MyFramework\Manager\ImGuiManager</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Scene\ConstructionSiteStage\ConstructionSiteStage.cpp">
-      <Filter>Src\Application\Scene\BaseScene\ConstructionSiteStage</Filter>
+      <Filter>Src\Application\Scene\ConstructionSiteStage</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\EnemyBase.cpp">
       <Filter>Src\Application\GameObject\Character\EnemyBase</Filter>
@@ -1730,14 +1748,20 @@
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerConfig.cpp">
       <Filter>Src\Application\GameObject\Character\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemyConfig.cpp">
-      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death\EnemyState_Death.cpp">
       <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyConfig\BossEnemyConfig.cpp">
       <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyConfig</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_AttackEffect\AetheriusEnemy_AttackEffect.cpp">
+      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_AttackEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemyConfig\AetheriusEnemyConfig.cpp">
+      <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemyConfig</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect\AetheriusEnemy_Attack_1Effect.cpp">
+      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

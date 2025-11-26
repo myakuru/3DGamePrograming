@@ -10,7 +10,6 @@ class AetheriusEnemyConfig;
 class AetheriusEnemy : public EnemyBase
 {
 public:
-	// クラスごとに一意なTypeID
 	static const uint32_t TypeID;
 	AetheriusEnemy() { m_typeID = TypeID; AddTag(ObjTag::EnemyLike); }
 	~AetheriusEnemy() override = default;
@@ -26,16 +25,16 @@ public:
 
 	int GetDamage() const { return m_lastDamageReceived; }
 
-	const CharacterData& GetEnemyStatus() const { return *m_characterData; }
+	const CharacterData& GetEnemyStatus() const { return *GetCharacterData(); }
 
-	// 累積ヒット回数（旧インターフェース維持）
-	int  GetHitCount() const { return m_totalHitCount; }
-	void IncrementHitCount() { ++m_totalHitCount; }
-	void ResetHitCount() { m_totalHitCount = 0; }
+	// 累積ヒット回数（Baseの公開関数経由）
+	int  GetHitCount() const { return GetTotalHitCount(); }
+	void IncrementHitCount() { IncrementTotalHitCount(); }
+	void ResetHitCount() { ResetTotalHitCount(); }
 
 	// ディゾルブ
 	void  SetDissolve(float v);
-	float GetDissolve() const { return m_rendering.dissolvePower; }
+	float GetDissolve() const { return Rendering().dissolvePower; }
 
 private:
 	void StateInit();
@@ -44,13 +43,11 @@ private:
 	void JsonInput(const nlohmann::json& _json) override;
 	void JsonSave(nlohmann::json& _json) const override;
 
-	std::shared_ptr<AetheriusEnemyConfig> m_config;
+	std::shared_ptr<AetheriusEnemyConfig> m_config;			// ステート構成情報
 
-	std::vector<std::weak_ptr<EnemySword>>  m_enemySwords;
-	std::vector<std::weak_ptr<EnemyShield>> m_enemyShields;
+	std::vector<std::weak_ptr<EnemySword>>  m_enemySwords;	// 武器参照
+	std::vector<std::weak_ptr<EnemyShield>> m_enemyShields;	// 武器参照
 
-	// 死亡フラグ
 	bool m_expired = false;
-	// 直近受けたダメージ
 	int  m_lastDamageReceived = 0;
 };

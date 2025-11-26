@@ -155,10 +155,7 @@ void PlayerState_Attack::LoadParametersJson(const nlohmann::json& js)
 {
 	if (!js.contains("PlayerState_Attack")) return;
 	const auto& stateNode = js["PlayerState_Attack"];
-	if (stateNode.contains("Player"))
-	{
-		m_stateParameter.LoadJson(stateNode["Player"]);
-	}
+	if (stateNode.contains("Player")) m_stateParameter.LoadJson(stateNode["Player"]);
 }
 
 void PlayerState_Attack::SaveParametersJson(nlohmann::json& js) const

@@ -3,8 +3,10 @@
 #include"../EnemyState_Run/EnemyState_Run.h"
 
 #include"Application/GameObject/Character/Player/Player.h"
-
 #include"Application/main.h"
+#include"Application/Scene/SceneManager.h"
+
+#include "Application/GameObject/Effect/EffekseerEffect/AetheriusEnemyEffect/AetheriusEnemy_Attack_1Effect/AetheriusEnemy_Attack_1Effect.h"
 
 void EnemyState_Attack1::StateStart()
 {
@@ -17,6 +19,14 @@ void EnemyState_Attack1::StateStart()
 
 	// 当たり判定リセット
 	m_enemy->ResetAttackCollision();
+
+
+	SceneManager::Instance().GetObjectWeakPtr(m_attackEffect);
+
+	if (auto effect = m_attackEffect.lock())
+	{
+		effect->PlayForEnemy(std::static_pointer_cast<AetheriusEnemy>(m_enemy->GetMyAdls()));
+	}
 }
 
 void EnemyState_Attack1::StateUpdate()
@@ -38,7 +48,7 @@ void EnemyState_Attack1::StateUpdate()
 	m_animeTime = m_enemy->GetAnimator()->GetPlayProgress();
 
 	// アニメーション時間の35％から100％の間、攻撃判定有効
-	if (m_animeTime >= 0.35f && m_animeTime <= 1.0f)
+	if (m_animeTime >= m_stateParameter.attackActiveStartTime && m_animeTime <= m_stateParameter.attackActiveEndTime)
 	{
 		m_enemy->UpdateAttackCollision
 		(
@@ -65,7 +75,7 @@ void EnemyState_Attack1::StateUpdate()
 
 		m_distance = (m_playerPos - m_enemyPos).Length();
 
-		if (m_distance >= 6.0f)
+		if (m_distance >= m_stateParameter.distanceThreshold)
 		{
 			auto state = std::make_shared<EnemyState_Run>();
 			m_enemy->ChangeState(state);
@@ -102,6 +112,9 @@ void EnemyState_Attack1::ApplyFromConfig(const EnemyStateBase& other)
 	m_stateParameter.blendTime = p.m_stateParameter.blendTime;
 	m_stateParameter.dashSpeed = p.m_stateParameter.dashSpeed;
 	m_stateParameter.dashSpeedTime = p.m_stateParameter.dashSpeedTime;
+	m_stateParameter.attackActiveStartTime = p.m_stateParameter.attackActiveStartTime;
+	m_stateParameter.attackActiveEndTime = p.m_stateParameter.attackActiveEndTime;
+	m_stateParameter.distanceThreshold = p.m_stateParameter.distanceThreshold;
 
 	// 当たり判定設定
 	m_stateParameter.attackRadius = p.m_stateParameter.attackRadius;
@@ -117,6 +130,9 @@ void EnemyState_Attack1::ExposeParametersImGui()
 	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
 	ImGui::DragFloat(U8("ダッシュ移動速度"), &m_stateParameter.dashSpeed, 0.01f, 0.0f, 10.0f);
 	ImGui::DragFloat(U8("ダッシュ移動速度時間"), &m_stateParameter.dashSpeedTime, 0.01f, 0.0f, 5.0f);
+	ImGui::DragFloat(U8("当たり判定スタート時間"), &m_stateParameter.attackActiveStartTime, 0.01f, 0.0f, 10.0f);
+	ImGui::DragFloat(U8("当たり判定エンド時間"), &m_stateParameter.attackActiveEndTime, 0.01f, 0.0f, 10.0f);
+	ImGui::DragFloat(U8("距離閾値"), &m_stateParameter.distanceThreshold, 0.1f, 0.0f, 100.0f);
 
 	const float kLabelWidth = 160.0f;
 	const float kItemWidth = 180.0f;
@@ -171,6 +187,9 @@ void EnemyState_Attack1::LoadParametersJson(const nlohmann::json& js)
 		if (enemyNode.contains("blendTime")) m_stateParameter.blendTime = enemyNode["blendTime"].get<float>();
 		if (enemyNode.contains("dashSpeed")) m_stateParameter.dashSpeed = enemyNode["dashSpeed"].get<float>();
 		if (enemyNode.contains("dashSpeedTime")) m_stateParameter.dashSpeedTime = enemyNode["dashSpeedTime"].get<float>();
+		if (enemyNode.contains("attackActiveStartTime")) m_stateParameter.attackActiveStartTime = enemyNode["attackActiveStartTime"].get<float>();
+		if (enemyNode.contains("attackActiveEndTime")) m_stateParameter.attackActiveEndTime = enemyNode["attackActiveEndTime"].get<float>();
+		if (enemyNode.contains("distanceThreshold")) m_stateParameter.distanceThreshold = enemyNode["distanceThreshold"].get<float>();
 
 		// 当たり判定設定
 		if (enemyNode.contains("attackRadius")) m_stateParameter.attackRadius = enemyNode["attackRadius"].get<float>();
@@ -190,6 +209,9 @@ void EnemyState_Attack1::SaveParametersJson(nlohmann::json& js) const
 	stateNode["AetheriusEnemy"]["blendTime"] = m_stateParameter.blendTime;
 	stateNode["AetheriusEnemy"]["dashSpeed"] = m_stateParameter.dashSpeed;
 	stateNode["AetheriusEnemy"]["dashSpeedTime"] = m_stateParameter.dashSpeedTime;
+	stateNode["AetheriusEnemy"]["attackActiveStartTime"] = m_stateParameter.attackActiveStartTime;
+	stateNode["AetheriusEnemy"]["attackActiveEndTime"] = m_stateParameter.attackActiveEndTime;
+	stateNode["AetheriusEnemy"]["distanceThreshold"] = m_stateParameter.distanceThreshold;
 
 	// 当たり判定設定
 	stateNode["AetheriusEnemy"]["attackRadius"] = m_stateParameter.attackRadius;

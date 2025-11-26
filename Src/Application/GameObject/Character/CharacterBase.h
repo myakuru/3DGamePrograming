@@ -71,7 +71,7 @@ public:
 	AttackWindowRef AttackWindow() { return { m_combat.attackWindow.elapsed, m_combat.attackWindow.begin, m_combat.attackWindow.end }; }
 	AttackWindowCRef AttackWindow() const { return { m_combat.attackWindow.elapsed, m_combat.attackWindow.begin, m_combat.attackWindow.end }; }
 
-protected:
+private:
 	// ====== 責務ごとに束ねた内部状態 ======
 	struct TransformState
 	{
@@ -141,7 +141,10 @@ protected:
 		AttackWindow attackWindow{};
 	};
 
-protected:
+	// アニメーション
+	std::shared_ptr<KdAnimator>		m_animator = std::make_shared<KdAnimator>();
+	DirectX::BoundingSphere			m_sphere{};
+	std::shared_ptr<CharacterData>	m_characterData;
 
 	TransformState	m_transform{};		// 行列関係
 	MovementState	m_movement{};		// 移動関係
@@ -151,8 +154,33 @@ protected:
 	RefsState		m_refs{};			// 参照関係
 	CombatState		m_combat{};			// 戦闘関係
 
-	// アニメーション
-	std::shared_ptr<KdAnimator>		m_animator = std::make_shared<KdAnimator>();
-	DirectX::BoundingSphere			m_sphere{};
-	std::shared_ptr<CharacterData>	m_characterData;
+protected:
+
+	// ===== アクセサ（派生向け） =====
+	TransformState& Transform() { return m_transform; }
+	const TransformState& Transform() const { return m_transform; }
+
+	MovementState& Movement() { return m_movement; }
+	const MovementState& Movement() const { return m_movement; }
+
+	PhysicsState& Physics() { return m_physics; }
+	const PhysicsState& Physics() const { return m_physics; }
+
+	RaycastState& Raycast() { return m_raycast; }
+	const RaycastState& Raycast() const { return m_raycast; }
+
+	RenderingState& Rendering() { return m_rendering; }
+	const RenderingState& Rendering() const { return m_rendering; }
+
+	RefsState& Refs() { return m_refs; }
+	const RefsState& Refs() const { return m_refs; }
+
+	CombatState& Combat() { return m_combat; }
+	const CombatState& Combat() const { return m_combat; }
+
+	// ===== アクセサ =====
+	DirectX::BoundingSphere GetBoundingSphere() const { return m_sphere; }
+	std::shared_ptr<KdAnimator> GetAnimatorShared() { return m_animator; }
+	std::shared_ptr<CharacterData> GetCharacterData() const { return m_characterData; }
+
 };

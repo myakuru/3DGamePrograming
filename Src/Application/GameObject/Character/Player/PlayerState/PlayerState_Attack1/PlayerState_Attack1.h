@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include"../PlayerState.h"
 class Rotation;
+
 class PlayerState_Attack1 : public PlayerStateBase
 {
 public:

@@ -66,14 +66,11 @@ void AfterImage::DrawAfterImages()
 
 		KdShaderManager::Instance().m_StandardShader.SetRimLight(5.0f, { 0.2f, 1.0f, 1.0f });
 
-		Math::Matrix scale = Math::Matrix::CreateScale({ 1.009f,1.009f,1.009f });
+		m_time += Application::Instance().GetDeltaTime();
 
-		static float t = 0.0f;
-		t += 0.1f;
+		KdShaderManager::Instance().m_StandardShader.SetUVOffset({ m_time, -m_time });
 
-		KdShaderManager::Instance().m_StandardShader.SetUVOffset({ t, -t * 0.1f });
-
-		Math::Matrix ownerWorld = scale * frameData.ownerWorld;
+		Math::Matrix ownerWorld =  frameData.ownerWorld;
 
 		stdShader.DrawModel(*m_afterImageFrame.m_afterImageWork, ownerWorld, m_afterImageColor);
 

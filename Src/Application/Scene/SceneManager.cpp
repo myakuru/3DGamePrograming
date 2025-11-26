@@ -81,6 +81,8 @@
 #include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 #include"Application/GameObject/Effect/EffekseerEffect/EnemyHitEffect/EnemyHitEffect.h"
+#include"Application/GameObject/Effect/EffekseerEffect/AetheriusEnemyEffect/AetheriusEnemy_AttackEffect/AetheriusEnemy_AttackEffect.h"
+#include"Application/GameObject/Effect/EffekseerEffect/AetheriusEnemyEffect/AetheriusEnemy_Attack_1Effect/AetheriusEnemy_Attack_1Effect.h"
 
 void SceneManager::Init()
 {
@@ -169,6 +171,8 @@ void SceneManager::Register() const
 	RegisterObject::GetInstance().Register<ChargeAttackEffect_end>();
 	RegisterObject::GetInstance().Register<SpecialAttackSmoke>();
 	RegisterObject::GetInstance().Register<EnemyHitEffect>();
+	RegisterObject::GetInstance().Register<AetheriusEnemy_AttackEffect>();
+	RegisterObject::GetInstance().Register<AetheriusEnemy_Attack_1Effect>();
 
 	// Fieldのエフェクト系
 	RegisterObject::GetInstance().Register<FieldEffect>();

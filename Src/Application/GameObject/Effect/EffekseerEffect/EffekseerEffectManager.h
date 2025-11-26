@@ -1,13 +1,17 @@
 ﻿#pragma once
-#include "EffekseerEffectBase.h"
-class EffekseerEffectManager : public EffekseerEffectBase
+
+class AttacEffect1;
+
+class EffekseerEffectManager
 {
 public:
 	EffekseerEffectManager() = default;
-	~EffekseerEffectManager() override = default;
+	~EffekseerEffectManager() = default;
 
 private:
 
-	std::list<std::shared_ptr<EffekseerEffectBase>> m_effectObjectList;
+	void Init();
+
+	std::shared_ptr<AttacEffect1> m_attacEffect1;
 
 };

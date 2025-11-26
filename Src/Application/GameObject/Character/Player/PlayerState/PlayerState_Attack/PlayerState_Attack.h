@@ -13,7 +13,7 @@ public:
 	{
 		assert(typeid(other) == typeid(PlayerState_Attack));
 		const auto& p = static_cast<const PlayerState_Attack&>(other);
-		m_stateParameter = p.m_stateParameter;  // 構造体一括コピー
+		m_stateParameter = p.m_stateParameter; // 構造体一括コピー
 	}
 
 private:
@@ -27,4 +27,5 @@ private:
 
 	std::weak_ptr<TrailEffect> m_trailEffect;
 	std::weak_ptr<SwordFlash>  m_slashEffect;
+
 };

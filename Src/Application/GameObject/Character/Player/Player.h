@@ -12,8 +12,6 @@ class PlayerStateBase;
 
 class Player : public CharacterBase
 {
-
-
 	// ====== 状態グループ ======
 
 	struct AvoidState
@@ -108,16 +106,16 @@ public:
 	const std::list<std::weak_ptr<KdGameObject>>& GetEnemyLike() const { return m_enemyLike; }
 
 	// ステータス系
-	const CharacterData& GetStatus() const { return *m_characterData; }
-	CharacterData& SetStatus() { return *m_characterData; }
+	const CharacterData& GetStatus() const { return *GetCharacterData(); }
+	CharacterData& SetStatus() { return *GetCharacterData(); }
 
 	// 残像
 	std::shared_ptr<AfterImage> GetAfterImage() { return m_visual.afterImage; }
 
 	// プロパティ（移動）
-	const Math::Vector3& GetMoveDirection() const { return m_movement.movement; }
-	Math::Vector3        GetLastMoveDirection() const { return m_movement.lastDir; }
-	void                 SetMoveDirection(const Math::Vector3& _moveDirection) { m_movement.movement = _moveDirection; }
+	const Math::Vector3& GetMoveDirection() const { return Movement().movement; }
+	Math::Vector3        GetLastMoveDirection() const { return Movement().lastDir; }
+	void                 SetMoveDirection(const Math::Vector3& _moveDirection) { Movement().movement = _moveDirection; }
 
 	// プロパティ（回避）
 	void  SetAvoidFlg(bool _flg) { m_avoid.active = _flg; }

@@ -29,10 +29,10 @@ public:
 
 	// エフェクト再生
 
-protected:
-
 	void Init() override;
 	void Update() override;
+
+protected:
 
 	// 表示はベースシーンで行ってるので、ここでは何もしない
 
