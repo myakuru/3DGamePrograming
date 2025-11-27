@@ -55,12 +55,10 @@
 #include"../GameObject/Weapon/EnemySword/EnemySword.h"
 #include"../GameObject/Weapon/EnemyShield/EnemyShield.h"
 #include"../GameObject/Effect/EffekseerEffect/EnemyShineBlue/EnemyShineBlue.h"
-#include"../GameObject/Field/Field.h"
 #include"../GameObject/Effect/EffekseerEffect/SpecialAttack1/SpecialAttack1.h"
 #include"../GameObject/Effect/EffekseerEffect/SpeedAttackEffect/SpeedAttackEffect.h"
 #include"../GameObject/HUD/EnemyHp/EnemyHp.h"
 #include"../GameObject/Effect/BillBoardEffect/MapGard/MapGard.h"
-#include"../GameObject/Field/UpDownField/UpDownField.h"
 #include"../GameObject/Effect/EffekseerEffect/JustAvoidAttackEffect/JustAvoidAttackEffect.h"
 #include"../GameObject/Effect/EffekseerEffect/JustAvoidAttackEffect1/JustAvoidAttackEffect1.h"
 #include"../GameObject/Effect/EffekseerEffect/BossAttack_1stEffect/BossAttack_1stEffect.h"
@@ -127,8 +125,6 @@ void SceneManager::Register() const
 
 	// Map系
 	RegisterObject::GetInstance().Register<Map>();
-	RegisterObject::GetInstance().Register<Field>();
-	RegisterObject::GetInstance().Register<UpDownField>();
 
 	// キャラクター系
 	RegisterObject::GetInstance().Register<Player>();

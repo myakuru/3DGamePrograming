@@ -20,35 +20,39 @@ PlayerStateBase::~PlayerStateBase() = default;
 
 void PlayerStateBase::StateStart()
 {
-	if (!m_nearestEnemy)
+	// まずフォーカスが生きていればそれを採用
+	if (auto f = m_focusTarget.lock())
 	{
+		m_nearestEnemy = f;
+		m_nearestEnemyPos = f->GetPos();
+	}
+	else
+	{
+		// 近い敵を検索（毎回リセットして選ぶ）
 		std::list<std::weak_ptr<KdGameObject>> candidates;
-		// 近い敵ものを列挙
-		SceneManager::Instance().GetObjectWeakPtrListByTagInSphere
-		(
-			ObjTag::EnemyLike, m_player->GetPos(), candidates
-		);
+		SceneManager::Instance().GetObjectWeakPtrListByTagInSphere(
+			ObjTag::EnemyLike, m_player->GetPos(), candidates, m_searchEnemyRadius);
 
-		// 最も近い敵を探索
+		float minSq = std::numeric_limits<float>::max();
+		std::shared_ptr<KdGameObject> nearest;
+		Math::Vector3 nearestPos = Math::Vector3::Zero;
+
 		for (const auto& w : candidates)
 		{
-			auto sp = w.lock();
-			if (!sp) { continue; }
-
-			const Math::Vector3 epos = sp->GetPos();
-			const float distSq = (epos - m_player->GetPos()).LengthSquared();
-			if (distSq < m_minDistSq)
+			auto enemy = w.lock();
+			if (!enemy) continue;
+			const float distance = (enemy->GetPos() - m_player->GetPos()).LengthSquared();
+			if (distance < minSq)
 			{
-				m_minDistSq = distSq;
-				m_nearestEnemyPos = epos;
-				m_nearestEnemy = sp;
-			}
-			else
-			{
-				m_nearestEnemy = nullptr;
-				m_nearestEnemyPos = Math::Vector3::Zero;
+				minSq = distance;
+				nearestPos = enemy->GetPos();
+				nearest = enemy;
 			}
 		}
+
+		m_minDistSq = minSq;
+		m_nearestEnemy = nearest;
+		m_nearestEnemyPos = nearestPos;
 
 		// 新規フォーカス確定
 		if (m_nearestEnemy)
@@ -58,16 +62,15 @@ void PlayerStateBase::StateStart()
 		}
 	}
 
-	// 攻撃方向を決定（敵がいればその方向、いなければ最後の移動方向）
+	// 攻撃方向決定（以降は StateUpdate で追従更新あり）
 	if (m_nearestEnemy)
 	{
 		m_attackDirection = m_nearestEnemyPos - m_player->GetPos();
 		m_attackDirection.y = 0.0f;
-
 		if (m_attackDirection != Math::Vector3::Zero)
 		{
 			m_attackDirection.Normalize();
-			m_player->UpdateQuaternionDirect(m_attackDirection); // カメラ回転なし
+			m_player->UpdateQuaternionDirect(m_attackDirection);
 		}
 	}
 	else
@@ -79,13 +82,10 @@ void PlayerStateBase::StateStart()
 		}
 	}
 
-	// 刀の初期フラグ
+	// 刀初期化など（既存）
 	for (const auto& katanaWeak : m_player->GetKatanas())
 	{
-		if (auto katana = katanaWeak.lock())
-		{
-			katana->SetNowAttackState(false);
-		}
+		if (auto katana = katanaWeak.lock()) katana->SetNowAttackState(false);
 	}
 
 	m_lButtonKeyInput = false;
@@ -96,6 +96,32 @@ void PlayerStateBase::StateStart()
 void PlayerStateBase::StateUpdate()
 {
 	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
+
+	// ヒットが発生していれば、その敵をフォーカスに設定してタイマーを全回復
+	if (auto lastHit = m_player->GetLastHitEnemy().lock())
+	{
+		m_focusTarget = lastHit;
+		m_focusRemainSec = m_focusDurationSec;
+
+		// 現在のターゲット/攻撃方向も更新
+		m_nearestEnemy = lastHit;
+		m_nearestEnemyPos = lastHit->GetPos();
+
+		// 使用後は一旦クリア（次回ヒットで再設定）
+		m_player->ClearLastHitEnemy();
+	}
+
+	// フォーカス中は攻撃方向をターゲットへ追従
+	if (auto f = m_focusTarget.lock())
+	{
+		Math::Vector3 dir = f->GetPos() - m_player->GetPos();
+		dir.y = 0.0f;
+		if (dir.LengthSquared() > 1e-6f)
+		{
+			dir.Normalize();
+			m_attackDirection = dir;
+		}
+	}
 
 	// フォーカスタイマー更新と自動解除
 	if (m_focusRemainSec > 0.0f)
@@ -110,9 +136,7 @@ void PlayerStateBase::StateUpdate()
 		{
 			if (auto f = m_focusTarget.lock())
 			{
-				// 失効条件
-				if (f->IsExpired()
-					|| (f->GetTypeID() == BossEnemy::TypeID && !SceneManager::Instance().IsBossAppear()))
+				if (f->IsExpired())
 				{
 					m_focusRemainSec = 0.0f;
 					m_focusTarget.reset();

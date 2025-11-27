@@ -160,10 +160,10 @@
   "PlayerState_ChargeAttackMax": {
     "Player": {
       "AnimationSpeed": 60.0,
-      "AttackCount": 1,
+      "AttackCount": 7,
       "AttackDistance": 1.0,
-      "AttackEndTime": 0.4000000059604645,
-      "AttackRadius": 1.0,
+      "AttackEndTime": 3.0,
+      "AttackRadius": 5.079999923706055,
       "AttackStartTime": 0.0,
       "AttackTime": 0.10000000149011612,
       "BleedTime": 0.25,
@@ -176,17 +176,26 @@
       "MoveSpeedX": 0.0,
       "MoveSpeedY": 0.0,
       "MoveSpeedZ": 0.0
-    }
+    },
+    "SearchEnemyRadius": 50.0,
+    "afterImageColor": {
+      "w": 1.9607843160629272,
+      "x": 0.0,
+      "y": 2.0,
+      "z": 2.0
+    },
+    "afterImageInterval": 0.10000000149011612,
+    "afterImageMax": 8
   },
   "PlayerState_ChargeAttackMax1": {
     "Player": {
       "AnimationSpeed": 60.0,
-      "AttackCount": 1,
-      "AttackDistance": 1.0,
-      "AttackEndTime": 0.4000000059604645,
-      "AttackRadius": 1.0,
+      "AttackCount": 8,
+      "AttackDistance": 1.159999966621399,
+      "AttackEndTime": 3.0,
+      "AttackRadius": 5.119999885559082,
       "AttackStartTime": 0.0,
-      "AttackTime": 0.10000000149011612,
+      "AttackTime": 0.2160000056028366,
       "BleedTime": 0.25,
       "CameraShakeTime": 0.30000001192092896,
       "CameraShakeX": 0.20000000298023224,
@@ -202,10 +211,10 @@
   "PlayerState_ChargeAttackMax2": {
     "Player": {
       "AnimationSpeed": 60.0,
-      "AttackCount": 1,
+      "AttackCount": 3,
       "AttackDistance": 1.0,
       "AttackEndTime": 0.4000000059604645,
-      "AttackRadius": 1.0,
+      "AttackRadius": 5.199999809265137,
       "AttackStartTime": 0.0,
       "AttackTime": 0.10000000149011612,
       "BleedTime": 0.25,
@@ -223,12 +232,12 @@
   "PlayerState_ChargeAttackMax3": {
     "Player": {
       "AnimationSpeed": 60.0,
-      "AttackCount": 1,
+      "AttackCount": 7,
       "AttackDistance": 1.0,
-      "AttackEndTime": 0.4000000059604645,
-      "AttackRadius": 1.0,
+      "AttackEndTime": 3.0,
+      "AttackRadius": 5.0,
       "AttackStartTime": 0.0,
-      "AttackTime": 0.10000000149011612,
+      "AttackTime": 0.2680000066757202,
       "BleedTime": 0.25,
       "CameraShakeTime": 0.30000001192092896,
       "CameraShakeX": 0.20000000298023224,
@@ -339,7 +348,7 @@
       "attackDistance": 1.0,
       "attackEndTime": 0.4000000059604645,
       "attackInterval": 0.10000000149011612,
-      "attackRadius": 1.0,
+      "attackRadius": 6.0,
       "attackStartTime": 0.0,
       "blendTime": 0.25,
       "cameraCutInOffset": {
@@ -358,17 +367,18 @@
         "x": 0.0,
         "y": 0.0,
         "z": 0.0
-      }
+      },
+      "searchEnemyRadius": 50.0
     }
   },
   "PlayerState_JustAvoidAttack_end": {
     "Player": {
       "animationSpeed": 60.0,
-      "attackCount": 1,
+      "attackCount": 8,
       "attackDistance": 1.0,
-      "attackEndTime": 0.4000000059604645,
-      "attackInterval": 0.10000000149011612,
-      "attackRadius": 1.0,
+      "attackEndTime": 3.0,
+      "attackInterval": 0.3009999990463257,
+      "attackRadius": 6.0,
       "attackStartTime": 0.0,
       "blendTime": 0.25
     }

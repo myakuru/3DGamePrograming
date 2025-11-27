@@ -2,7 +2,7 @@
 #include"../../../../../main.h"
 #include"../PlayerState_ChargeAttackMax1/PlayerState_ChargeAttackMax1.h"
 #include"../../../../Camera/PlayerCamera/PlayerCamera.h"
-#include"Application\GameObject\Character\AfterImage\AfterImage.h"
+#include"Application/GameObject/Character/AfterImage/AfterImage.h"
 
 void PlayerState_ChargeAttackMax::StateStart()
 {
@@ -38,7 +38,6 @@ void PlayerState_ChargeAttackMax::StateUpdate()
 		m_player->ChangeState(state);
 		return;
 	}
-	PlayerStateBase::StateUpdate();
 
 	UpdateKatanaPos();
 
@@ -140,24 +139,44 @@ void PlayerState_ChargeAttackMax::ApplyFromConfig(const PlayerStateBase& other)
 	assert(typeid(other) == typeid(PlayerState_ChargeAttackMax));
 	const auto& p = static_cast<const PlayerState_ChargeAttackMax&>(other);
 	m_stateParameter = p.m_stateParameter;  // 構造体一括コピー
+
+	m_searchEnemyRadius = p.m_searchEnemyRadius;
+
+	// 残像設定
+	m_stateParameter.afterImageMax = p.m_stateParameter.afterImageMax;
+	m_stateParameter.afterImageInterval = p.m_stateParameter.afterImageInterval;
+	m_stateParameter.afterImageColor = p.m_stateParameter.afterImageColor;
 }
 
 void PlayerState_ChargeAttackMax::ExposeParametersImGui()
 {
+	ImGui::DragFloat(U8("索敵範囲"), &m_searchEnemyRadius);
+	ImGui::Separator();
 	m_stateParameter.ExposeImGui();
+	// 残像設定
+	ImGui::DragInt(U8("残像最大数"), &m_stateParameter.afterImageMax, 1.0f, 1, 20);
+	ImGui::DragFloat(U8("残像生成間隔"), &m_stateParameter.afterImageInterval, 0.01f, 0.01f, 1.0f);
+	ImGui::ColorEdit4(U8("残像色"), &m_stateParameter.afterImageColor.x);
 }
 
 void PlayerState_ChargeAttackMax::LoadParametersJson(const nlohmann::json& js)
 {
 	if (!js.contains("PlayerState_ChargeAttackMax")) return;
 	const auto& stateNode = js["PlayerState_ChargeAttackMax"];
-	if (stateNode.contains("Player"))
-	{
-		m_stateParameter.LoadJson(stateNode["Player"]);
-	}
+	if (stateNode.contains("Player")) m_stateParameter.LoadJson(stateNode["Player"]);
+	if (stateNode.contains("SearchEnemyRadius")) m_searchEnemyRadius = stateNode["SearchEnemyRadius"].get<float>();
+	// 残像設定
+	if (stateNode.contains("afterImageMax")) m_stateParameter.afterImageMax = stateNode["afterImageMax"].get<int>();
+	if (stateNode.contains("afterImageInterval")) m_stateParameter.afterImageInterval = stateNode["afterImageInterval"].get<float>();
+	if (stateNode.contains("afterImageColor")) m_stateParameter.afterImageColor = JSON_MANAGER.JsonToVector4(stateNode["afterImageColor"]);
 }
 
 void PlayerState_ChargeAttackMax::SaveParametersJson(nlohmann::json& js) const
 {
 	m_stateParameter.SaveJson(js["PlayerState_ChargeAttackMax"]);
+	js["PlayerState_ChargeAttackMax"]["SearchEnemyRadius"] = m_searchEnemyRadius;
+	// 残像設定
+	js["PlayerState_ChargeAttackMax"]["afterImageMax"] = m_stateParameter.afterImageMax;
+	js["PlayerState_ChargeAttackMax"]["afterImageInterval"] = m_stateParameter.afterImageInterval;
+	js["PlayerState_ChargeAttackMax"]["afterImageColor"] = JSON_MANAGER.Vector4ToJson(m_stateParameter.afterImageColor);
 }

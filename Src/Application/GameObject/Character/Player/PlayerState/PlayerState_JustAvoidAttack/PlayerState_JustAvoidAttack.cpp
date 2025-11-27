@@ -61,7 +61,6 @@ void PlayerState_JustAvoidAttack::StateStart()
 
 void PlayerState_JustAvoidAttack::StateUpdate()
 {
-
 	// 被ヒット判定無効化
 	m_player->SetHitCheck(false);
 
@@ -71,7 +70,6 @@ void PlayerState_JustAvoidAttack::StateUpdate()
 		m_player->ChangeState(state);
 		return;
 	}
-	PlayerStateBase::StateUpdate();
 
 	// 当たり判定有効時間: 1.2秒
 	m_player->UpdateAttackCollision(
@@ -191,6 +189,7 @@ void PlayerState_JustAvoidAttack::ApplyFromConfig(const PlayerStateBase& other)
 	const auto& p = static_cast<const PlayerState_JustAvoidAttack&>(other);
 	m_stateParameter.blendTime = p.m_stateParameter.blendTime;
 	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
+	m_searchEnemyRadius = p.m_searchEnemyRadius;
 
 	// 当たり判定設定
 	m_stateParameter.attackRadius = p.m_stateParameter.attackRadius;
@@ -211,6 +210,9 @@ void PlayerState_JustAvoidAttack::ExposeParametersImGui()
 {
 	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
 	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
+
+	// 索敵範囲の設定
+	ImGui::DragFloat(U8("索敵範囲の設定"), &m_searchEnemyRadius);
 
 	// 残像設定
 	ImGui::DragInt(U8("残像最大数"), &m_stateParameter.afterImageMax, 1.0f, 1, 20);
@@ -269,6 +271,7 @@ void PlayerState_JustAvoidAttack::LoadParametersJson(const nlohmann::json& js)
 		const auto& playerNode = stateNode["Player"];
 		if (playerNode.contains("blendTime")) m_stateParameter.blendTime = playerNode["blendTime"].get<float>();
 		if (playerNode.contains("animationSpeed")) m_stateParameter.animationSpeed = playerNode["animationSpeed"].get<float>();
+		if (playerNode.contains("searchEnemyRadius")) m_searchEnemyRadius = playerNode["searchEnemyRadius"].get<float>();
 
 		// 当たり判定設定
 		if (playerNode.contains("attackRadius")) m_stateParameter.attackRadius = playerNode["attackRadius"].get<float>();
@@ -293,6 +296,7 @@ void PlayerState_JustAvoidAttack::SaveParametersJson(nlohmann::json& js) const
 
 	stateNode["Player"]["blendTime"] = m_stateParameter.blendTime;
 	stateNode["Player"]["animationSpeed"] = m_stateParameter.animationSpeed;
+	stateNode["Player"]["searchEnemyRadius"] = m_searchEnemyRadius;
 
 	// 当たり判定設定
 	stateNode["Player"]["attackRadius"] = m_stateParameter.attackRadius;

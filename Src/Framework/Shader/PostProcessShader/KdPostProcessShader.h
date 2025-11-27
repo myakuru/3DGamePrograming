@@ -158,8 +158,8 @@ private:
 
 	struct cbRadialBlur
 	{
-		float BlurStrength;
-		float SampleCount;
+		float BlurStrength = 0.0f;
+		float SampleCount = 0.0f;
 		Math::Vector2 UVOffset;
 	};
 	KdConstantBuffer<cbRadialBlur> m_cb0_RadialBlurInfo;

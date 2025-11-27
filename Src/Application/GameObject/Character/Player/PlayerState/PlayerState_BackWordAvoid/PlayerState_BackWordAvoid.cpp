@@ -55,6 +55,8 @@ void PlayerState_BackWordAvoid::StateStart()
 void PlayerState_BackWordAvoid::StateUpdate()
 {
 
+	PlayerStateBase::StateUpdate();
+
 	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
 	m_time += deltaTime;
 
@@ -154,8 +156,6 @@ void PlayerState_BackWordAvoid::StateUpdate()
 		m_player->ChangeState(idleState);
 		return;
 	}
-
-	PlayerStateBase::StateUpdate();
 
 	// 刀は鞘の中にある状態
 	UpdateUnsheathed();

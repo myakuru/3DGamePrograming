@@ -78,8 +78,14 @@ void PlayerState_JustAvoidAttack_end::StateUpdate()
 		m_player->UpdateQuaternionDirect(moveDir);
 	}
 
+	// 索敵範囲もとに戻す
+	m_searchEnemyRadius = DefaultSearchEnemyRadius;
+
 	// 目標到達 → 停止して向きのみ合わせる
 	m_player->SetIsMoving(Math::Vector3::Zero);
+
+	// 最後に Base 側の StateUpdate を呼び出すことで、フォーカス/方向の追従が反映されます。
+	PlayerStateBase::StateUpdate();
 
 }
 

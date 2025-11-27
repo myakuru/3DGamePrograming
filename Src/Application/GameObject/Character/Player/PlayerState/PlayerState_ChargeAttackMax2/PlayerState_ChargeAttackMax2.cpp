@@ -9,6 +9,9 @@ void PlayerState_ChargeAttackMax2::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("Eskill");
 	m_player->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
+
+	m_searchEnemyRadius = 100.0f;
+
 	PlayerStateBase::StateStart();
 
 	// 敵との当たり判定を無効化
@@ -34,7 +37,6 @@ void PlayerState_ChargeAttackMax2::StateUpdate()
 		m_player->ChangeState(state);
 		return;
 	}
-	PlayerStateBase::StateUpdate();
 
 	// 攻撃の当たり判定更新
 	m_player->UpdateAttackCollision(

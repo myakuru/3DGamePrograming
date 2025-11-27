@@ -229,9 +229,6 @@
     <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue">
       <UniqueIdentifier>{89f9fe6b-67cd-46b5-b7d6-1f2d37a6cd7a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\GameObject\Field">
-      <UniqueIdentifier>{48e67031-5f77-4eda-ad03-d092f050c6a7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttack1">
       <UniqueIdentifier>{117c2922-7c99-4482-984e-5301cf713807}</UniqueIdentifier>
     </Filter>
@@ -252,9 +249,6 @@
     </Filter>
     <Filter Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard">
       <UniqueIdentifier>{c193f2f4-8991-47cb-9655-cc875a1151a3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Field\UpDownField">
-      <UniqueIdentifier>{1f938a68-93d8-4518-a447-598533479b02}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\JustAvoidAttackEffect">
       <UniqueIdentifier>{d945845a-86f5-4dc8-b614-88b2de401a64}</UniqueIdentifier>
@@ -936,9 +930,6 @@
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue\EnemyShineBlue.h">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Field\Field.h">
-      <Filter>Src\Application\GameObject\Field</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttack1\PlayerState_SpecialAttack1.h">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_SpecialAttack1</Filter>
     </ClInclude>
@@ -962,9 +953,6 @@
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.h">
       <Filter>Src\Application\GameObject\Effect\BillBoardEffect\MapGard</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Field\UpDownField\UpDownField.h">
-      <Filter>Src\Application\GameObject\Field\UpDownField</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_JustAvoidAttack\PlayerState_JustAvoidAttack.h">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_JustAvoidAttack</Filter>
@@ -1529,9 +1517,6 @@
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue\EnemyShineBlue.cpp">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Field\Field.cpp">
-      <Filter>Src\Application\GameObject\Field</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttack1\PlayerState_SpecialAttack1.cpp">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_SpecialAttack1</Filter>
     </ClCompile>
@@ -1555,9 +1540,6 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.cpp">
       <Filter>Src\Application\GameObject\Effect\BillBoardEffect\MapGard</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Field\UpDownField\UpDownField.cpp">
-      <Filter>Src\Application\GameObject\Field\UpDownField</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_JustAvoidAttack\PlayerState_JustAvoidAttack.cpp">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_JustAvoidAttack</Filter>

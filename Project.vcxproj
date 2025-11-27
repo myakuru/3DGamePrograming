@@ -385,8 +385,6 @@
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttack\SpecialAttack.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\SpeedAttackEffect\SpeedAttackEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\SwordFlash\SwordFlash.h" />
-    <ClInclude Include="Src\Application\GameObject\Field\Field.h" />
-    <ClInclude Include="Src\Application\GameObject\Field\UpDownField\UpDownField.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\AlpfaMoving\AlpfaMoving.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\BlackBanner\BlackBanner.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\BossEnemyBlackBarUI\BossEnemyBlackBarUI.h" />
@@ -593,8 +591,6 @@
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttack\SpecialAttack.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\SpeedAttackEffect\SpeedAttackEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\SwordFlash\SwordFlash.cpp" />
-    <ClCompile Include="Src\Application\GameObject\Field\Field.cpp" />
-    <ClCompile Include="Src\Application\GameObject\Field\UpDownField\UpDownField.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\AlpfaMoving\AlpfaMoving.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\BlackBanner\BlackBanner.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\BossEnemyBlackBarUI\BossEnemyBlackBarUI.cpp" />

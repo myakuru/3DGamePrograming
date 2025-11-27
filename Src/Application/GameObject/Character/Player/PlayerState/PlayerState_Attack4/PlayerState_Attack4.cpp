@@ -51,18 +51,11 @@ void PlayerState_Attack4::StateUpdate()
 		m_animeTime = m_player->GetAnimator()->GetPlayProgress();
 	}
 
-	PlayerStateBase::StateUpdate();
-
 	float deltaTime = Application::Instance().GetDeltaTime();
 
-	if (!m_nearestEnemy)
+	if (m_attackDirection != Math::Vector3::Zero)
 	{
-		// カメラ方向に向かって攻撃するようにする。
-		m_attackDirection = m_player->GetLastMoveDirection();
-		if (m_attackDirection != Math::Vector3::Zero)
-		{
-			m_player->UpdateQuaternion(m_attackDirection);
-		}
+		m_player->UpdateQuaternionDirect(m_attackDirection);
 	}
 
 	// 0.5秒間当たり判定有効
@@ -128,6 +121,10 @@ void PlayerState_Attack4::StateUpdate()
 			if (UpdateSheathKatanaInput()) return;
 		}
 	}
+
+	// 最後に Base 側の StateUpdate を呼び出すことで、フォーカス/方向の追従が反映されます。
+	PlayerStateBase::StateUpdate();
+
 }
 
 void PlayerState_Attack4::StateEnd()

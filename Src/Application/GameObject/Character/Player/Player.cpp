@@ -54,7 +54,7 @@ void Player::Init()
 
 	// 残像初期化
 	m_visual.afterImage = std::make_shared<AfterImage>();
-	if (auto* src = GetModelWork())
+	if (const auto* src = GetModelWork())
 	{
 		m_visual.afterImage->SetAfterImageFrame().m_afterImageWork = std::make_unique<KdModelWork>(src->GetData());
 	}
@@ -70,7 +70,7 @@ void Player::Init()
 	// 初期ステータス（暫定）
 	GetCharacterData()->SetCharacterData().hp = 1000;
 	GetCharacterData()->SetCharacterData().maxHp = 1000;
-	GetCharacterData()->SetCharacterData().attack = 10;
+	GetCharacterData()->SetCharacterData().attack = 0;
 
 	m_visual.rimLightOn = false;
 
@@ -422,6 +422,10 @@ void Player::UpdateAttackCollision(float _radius         , float         _distan
 					b->Damage(GetCharacterData()->GetCharacterData().attack);
 					b->SetHitCheck(true);
 				}
+
+				// ここで最後にヒットした敵を記録
+				SetLastHitEnemy(obj);
+
 				hitAny = true;
 			}
 		}
@@ -700,37 +704,31 @@ void Player::ApplyVerticalMove(float _deltaY)
 	Math::Vector3 start = m_position;
 	start.y = Raycast().prevPosition.y;
 
-	// 両タイプ（地形/壁）を判定したいからラムダ式で共通化
-	auto sweep = [&](KdCollider::Type type, std::list<KdCollider::CollisionResult>& out)
-		{
-			KdCollider::RayInfo ray;
-
-			ray.m_pos = start + Math::Vector3(0.0f, Raycast().bumpSphereYOffset, 0.0f);
-			ray.m_dir = (_deltaY < 0.0f) ? Math::Vector3(0.0f, -1.0f, 0.0f) : Math::Vector3(0.0f, 1.0f, 0.0f);
-			ray.m_range = std::abs(_deltaY) + Raycast().bumpSphereRadius;
-			ray.m_type = type;
-
-			m_pDebugWire->AddDebugLine(ray.m_pos, ray.m_dir, ray.m_range, kRedColor);
-
-			if (!Refs().collision.expired()) return;
-
-			SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, Refs().collisionObjects);
-
-			for (const auto& weakCol : Refs().collisionObjects)
-			{
-				auto col = weakCol.lock();
-
-				if (!col) continue;
-
-				col->Intersects(ray, &out);
-
-			}
-		};
 
 	std::list<KdCollider::CollisionResult> rayHits;
 
-	sweep(KdCollider::TypeGround , rayHits);
-	sweep(KdCollider::TypeBump   , rayHits);
+	KdCollider::RayInfo ray;
+
+	ray.m_pos = start + Math::Vector3(0.0f, Raycast().bumpSphereYOffset, 0.0f);
+	ray.m_dir = (_deltaY < 0.0f) ? Math::Vector3(0.0f, -1.0f, 0.0f) : Math::Vector3(0.0f, 1.0f, 0.0f);
+	ray.m_range = std::abs(_deltaY) + Raycast().bumpSphereRadius;
+	ray.m_type = KdCollider::TypeBump;
+
+	m_pDebugWire->AddDebugLine(ray.m_pos, ray.m_dir, ray.m_range, kRedColor);
+
+	if (!Refs().collision.expired()) return;
+
+	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, Refs().collisionObjects);
+
+	for (const auto& weakCol : Refs().collisionObjects)
+	{
+		auto col = weakCol.lock();
+
+		if (!col) continue;
+
+		col->Intersects(ray, &rayHits);
+
+	}
 
 	bool blocked = false;
 	float bestOverlap = 0.0f;

@@ -120,9 +120,13 @@ protected:
 	std::shared_ptr<KdSoundInstance> m_runSound = nullptr;
 
 	std::weak_ptr<KdGameObject> m_focusTarget;
-	float m_focusRemainSec = 0.0f;
-	const float m_focusDurationSec = 0.5f;
-	const float m_focusMaxDistSq = 50.0f * 50.0f;
+	float m_focusRemainSec = 0.0f;	//	フォーカスタイマー
+	const float m_focusDurationSec = 10.0f; // フォーカス継続時間(調整用)
+	
+	const float DefaultSearchEnemyRadius = 5.0f;
+
+	// 索敵範囲
+	float m_searchEnemyRadius = DefaultSearchEnemyRadius;
 
 	std::shared_ptr<KdGameObject>	m_nearestEnemy;
 	Math::Vector3					m_nearestEnemyPos = Math::Vector3::Zero;

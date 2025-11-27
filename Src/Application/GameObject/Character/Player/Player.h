@@ -150,8 +150,13 @@ public:
 	void TakeDamage(int _damage) const;
 
 	// カタナ取得
-	std::vector <std::weak_ptr<Katana>> GetKatanas() { return m_katana; }
-	std::vector <std::weak_ptr<WeaponKatanaScabbard>> GetKatanaSheaths() { return m_sheaths; }
+	std::vector <std::weak_ptr<Katana>> GetKatanas() const { return m_katana; }
+	std::vector <std::weak_ptr<WeaponKatanaScabbard>> GetKatanaSheaths() const { return m_sheaths; }
+
+	// 最後にヒットさせた敵の記録/取得/クリア
+	void SetLastHitEnemy(const std::shared_ptr<KdGameObject>& e) { m_lastHitEnemy = e; }
+	std::weak_ptr<KdGameObject> GetLastHitEnemy() const { return m_lastHitEnemy; }
+	void ClearLastHitEnemy() { m_lastHitEnemy.reset(); }
 
 private:
 
@@ -175,6 +180,7 @@ private:
 
 	// 参照
 	std::list<std::weak_ptr<KdGameObject>> m_enemyLike;
+	std::weak_ptr<KdGameObject> m_lastHitEnemy;
 
 	// 装備
 	std::vector <std::weak_ptr<Katana>> m_katana;

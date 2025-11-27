@@ -48,8 +48,6 @@ void PlayerState_ChargeAttackMax3::StateUpdate()
 	// 刀は鞘の中にある状態
 	UpdateUnsheathed();
 
-	PlayerStateBase::StateUpdate();
-
 	// 攻撃中の移動方向で回転を更新
 	if (m_player->GetMovement() != Math::Vector3::Zero)
 	{
@@ -60,6 +58,9 @@ void PlayerState_ChargeAttackMax3::StateUpdate()
 	}
 
 	m_player->SetIsMoving(Math::Vector3::Zero);
+
+	// 最後に Base 側の StateUpdate を呼び出すことで、フォーカス/方向の追従が反映されます。
+	PlayerStateBase::StateUpdate();
 }
 
 void PlayerState_ChargeAttackMax3::StateEnd()
@@ -80,6 +81,9 @@ void PlayerState_ChargeAttackMax3::StateEnd()
 		effect->SetPlayEffect(false);
 		effect->StopEffect();
 	}
+
+	// 索敵範囲もとに戻す
+	m_searchEnemyRadius = DefaultSearchEnemyRadius;
 
 	// ガードブレイク状態解除
 	m_player->SetGuardBreak(false);
