@@ -142,9 +142,8 @@ void KdGameObject::JsonInput(const nlohmann::json& _json)
 
 void KdGameObject::JsonSave(nlohmann::json& _json) const
 {
-	std::string className = typeid(*this).name(); // クラス名の所得(this)にすると基底クラスの名前が取得されるので自分自身のポインタを使用
-
-	_json["Name"] = className;
+	_json["Class"] = typeid(*this).name();
+	_json["Name"] = m_className;
 	_json["path"] = m_path;
 	_json["pos"] = JSON_MANAGER.VectorToJson(m_position);
 	_json["scale"] = JSON_MANAGER.VectorToJson(m_scale);
@@ -188,7 +187,8 @@ void KdGameObject::ImGuiInspector()
 
 	static std::string currentName = "Transform";
 
-	// ImGuiのコンボボックスを作成
+	ImGui::InputText("name", m_className.data(), ImGuiInputTextFlags_EnterReturnsTrue);
+	SetClassName(m_className);
 	
 	ImGui::DragFloat3(U8("位置"), &m_position.x,0.1f);
 	ImGui::DragFloat3(U8("拡大、縮小"), &m_scale.x,0.01f);

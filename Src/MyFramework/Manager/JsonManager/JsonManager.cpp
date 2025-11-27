@@ -11,8 +11,13 @@ void JsonManager::JsonToObj() const
 
 	for (auto& it : json)
 	{
-		// ゲームオブジェクトに追加
-		AddJsonObject(it["Name"], it);
+		// Class があればそれを使う。なければ Name を識別子として後方互換。
+		const std::string classKey =
+			(it.contains("Class") && it["Class"].is_string())
+			? it["Class"].get<std::string>()
+			: it["Name"].get<std::string>();
+
+		AddJsonObject(classKey, it);
 	}
 }
 
@@ -21,14 +26,20 @@ void JsonManager::AllSave() const
 	// jsonの配列の生成
 	nlohmann::json json = nlohmann::json::array();
 
-	for (auto& it : SceneManager::Instance().GetObjList())
+	for (const auto& it : SceneManager::Instance().GetObjList())
 	{
+		// 子(親を持つ)はルートに保存しない
+		if (it->GetParent().lock()) continue;
+
 		nlohmann::json jsonObj;
 		it->JsonSave(jsonObj);
 		json.push_back(jsonObj);
 	}
-	for (auto& camera : SceneManager::Instance().GetCurrentScene()->GetCameraObjList())
+
+	for (const auto& camera : SceneManager::Instance().GetCurrentScene()->GetCameraObjList())
 	{
+		if (camera->GetParent().lock()) continue;
+
 		nlohmann::json jsonObj;
 		camera->JsonSave(jsonObj);
 		json.push_back(jsonObj);
@@ -42,73 +53,60 @@ void JsonManager::AllSave() const
 
 std::shared_ptr<KdGameObject> JsonManager::AddJsonObject(const std::string& _className, const nlohmann::json& _json, bool _addToScene) const
 {
-
 	const auto& classMap = RegisterObject::GetInstance().GetClassNameToID();
 	auto it = classMap.find(_className);
-	if (it != classMap.end())
+	if (it == classMap.end()) return nullptr;
+
+	uint32_t classKey = it->second;
+	auto& regObj = RegisterObject::GetInstance().GetRegisterObject();
+	auto found = regObj.find(classKey);
+	if (found == regObj.end()) return nullptr;
+
+	std::shared_ptr<KdGameObject> obj = found->second();
+
+	if (!_json.is_null()) obj->JsonInput(_json);
+
+	// 子の処理
+	if (_json.contains("child") && _json["child"].is_array())
 	{
-		uint32_t classKey = it->second;
-		auto& regObj = RegisterObject::GetInstance().GetRegisterObject();
-		auto found = regObj.find(classKey);
-		if (found != regObj.end())
+		for (auto& childJson : _json["child"])
 		{
-			// バリューにインスタンスを生成するラムダ式入ってるからそれを呼び出す
-			std::shared_ptr<KdGameObject> obj = found->second();
-
-			// 各オブジェクトを,jsonファイルから読み込む
-			if (!_json.is_null()) obj->JsonInput(_json);
-
-			// 子オブジェクトを追加する場合は、親オブジェクトの子リストに追加する
-			if (_json.contains("child") && _json["child"].is_array())
+			if (!(childJson.contains("Class") || childJson.contains("Name")))
 			{
-				for (auto& childJson : _json["child"])
-				{
-					if (!childJson.contains("Name") || !childJson["Name"].is_string())
-					{
-						KdDebugGUI::Instance().AddLog(U8("子オブジェクトにNameがありません\n"));
-						continue;
-					}
-
-					const std::string childClassName = childJson["Name"];
-
-					// 子はルートに追加しない -> 第3引数 false
-					auto childObj = AddJsonObject(childClassName, childJson, false);
-					if (childObj)
-					{
-						obj->AddChild(childObj);
-					}
-					else
-					{
-						KdDebugGUI::Instance().AddLog(U8("子オブジェクトの生成に失敗: %s\n"),
-							childClassName.c_str());
-					}
-				}
+				KdDebugGUI::Instance().AddLog(U8("子オブジェクトにClass/Nameがありません\n"));
+				continue;
 			}
 
-			// もしカメラだったら、シーンに追加しない
-			if (_addToScene)
-			{
-				if (_className == "class FPSCamera")
-				{
-					SceneManager::Instance().GetCurrentScene()->AddCameraObject(obj);
+			const std::string childClassName =
+				(childJson.contains("Class") && childJson["Class"].is_string())
+				? childJson["Class"].get<std::string>()
+				: childJson["Name"].get<std::string>();
 
-					KdDebugGUI::Instance().AddLog(U8("FPSCameraを追加しました\n"));
-				}
-				else
-				{
-					SceneManager::Instance().AddObject(obj); // シーンに追加
-					KdDebugGUI::Instance().AddLog(U8("Jsonからオブジェクトを追加しました\n"));
-				}
-			}
+			const bool addChildToScene = childJson.value("addToScene", true);
 
-			// 初期化
-			obj->Init();
-
-			return obj;
+			auto childObj = AddJsonObject(childClassName, childJson, addChildToScene);
+			if (childObj) obj->AddChild(childObj);
+			else KdDebugGUI::Instance().AddLog(U8("子オブジェクト生成失敗: %s\n"), childClassName.c_str());
 		}
 	}
-	// 見つからなかった場合は,nullptrを返す
-	return nullptr;
+
+	// Listsへの追加
+	if (_addToScene)
+	{
+		if (_className == "class FPSCamera")
+		{
+			SceneManager::Instance().GetCurrentScene()->AddCameraObject(obj);
+			KdDebugGUI::Instance().AddLog(U8("FPSCameraを追加しました\n"));
+		}
+		else
+		{
+			SceneManager::Instance().AddObject(obj);
+			KdDebugGUI::Instance().AddLog(U8("Jsonからオブジェクトを追加しました\n"));
+		}
+	}
+
+	obj->Init();
+	return obj;
 }
 
 void JsonManager::JsonSerialize(const nlohmann::json& _json, const std::string& _path) const

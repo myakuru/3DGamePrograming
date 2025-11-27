@@ -353,7 +353,7 @@ void ImGuiManager::MakeTreeNode(const std::weak_ptr<KdGameObject>& parentObj)
 
 	ImGui::PushID(spParent.get());
 
-	const bool opened = ImGui::TreeNodeEx(spParent->GetNameClass().c_str());
+	const bool opened = ImGui::TreeNodeEx(spParent->GetNameClass().data());
 
 	// ヘッダクリックで選択（weakで保持）
 	if (ImGui::IsItemClicked())
@@ -367,7 +367,7 @@ void ImGuiManager::MakeTreeNode(const std::weak_ptr<KdGameObject>& parentObj)
 		auto raw = spParent.get();
 		std::uintptr_t id = reinterpret_cast<std::uintptr_t>(raw);
 		ImGui::SetDragDropPayload("Child", &id, sizeof(id));
-		ImGui::Text("%s", spParent->GetNameClass().c_str());
+		ImGui::Text("%s", spParent->GetNameClass().data());
 		ImGui::EndDragDropSource();
 	}
 
@@ -387,10 +387,16 @@ void ImGuiManager::MakeTreeNode(const std::weak_ptr<KdGameObject>& parentObj)
 		ImGui::EndDragDropTarget();
 	}
 
-	ImGui::SameLine(200);
+	ImGui::SameLine(250);
 	if (ImGui::SmallButton("Delete"))
 	{
 		spParent->SetExpired(true);
+
+		// 親の子リストから外す
+		if (auto spGrandParent = spParent->GetParent().lock())
+		{
+			spGrandParent->EraceChild(spParent);
+		}
 	}
 
 	// 子の描画

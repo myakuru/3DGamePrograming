@@ -152,6 +152,8 @@ public:
 	// クラス名を取得する関数
 	const std::string &GetNameClass() const { return m_className; }
 
+	void SetClassName(const std::string& name) { m_className = name; }
+
 	// 親子関係の作成
 	virtual void AddChild(const std::shared_ptr<KdGameObject>& a_child);
 
