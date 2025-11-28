@@ -20,9 +20,6 @@ public:
 	void ImGuiInspector()	override;
 	void JsonSave(nlohmann::json& _json) const override;
 	void JsonInput(const nlohmann::json& _json) override;
-	DirectX::BoundingFrustum CreateFrustum() const override;
-
-	void DebugDraw(DirectX::BoundingFrustum _frustum);
 
 	// 強さ、時間
 	void StartShake(Math::Vector2 _power, float time)
@@ -59,8 +56,6 @@ public:
 
 
 private:
-
-	void UpdateCameraRayCast(const Math::Vector3& _anchor);
 
 	void UpdateCameraRayCast();
 

@@ -86,7 +86,7 @@ std::shared_ptr<KdGameObject> JsonManager::AddJsonObject(const std::string& _cla
 
 			auto childObj = AddJsonObject(childClassName, childJson, addChildToScene);
 			if (childObj) obj->AddChild(childObj);
-			else KdDebugGUI::Instance().AddLog(U8("子オブジェクト生成失敗: %s\n"), childClassName.c_str());
+			else KdDebugGUI::Instance().AddLog(U8("子オブジェクト生成失敗: %s\n"), childClassName.data());
 		}
 	}
 

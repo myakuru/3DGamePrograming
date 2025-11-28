@@ -67,7 +67,7 @@ void PlayerCamera::PostUpdate()
 	m_fovShake = { m_fov,0.0f };
 	m_fovShakeTarget = Math::Vector2::Lerp(m_fovShakeTarget, m_fovShake, deltaTime);
 
-	// シェイク
+	// カメラシェイク処理
 	Math::Vector3 shakeOffset = Math::Vector3::Zero;
 	if (m_shakeTime > 0.0f)
 	{
@@ -103,8 +103,8 @@ void PlayerCamera::PostUpdate()
 		const Math::Vector3 correctedCamWorldPos = GetPos();
 
 		// 実効オフセットの更新方針：
-		//  - ヒット中: 実測に強制追従（綱引きを断つ）
-		//  - 非ヒット: 理想へ復帰（補間）
+		//  - ヒット中: 実測に強制追従
+		//  - 非ヒット: 理想へ復帰
 		const Math::Vector3 effectiveWorldOffset = correctedCamWorldPos - m_cameraPos;
 
 		Math::Matrix invRot = m_mRotation;
@@ -349,43 +349,6 @@ void PlayerCamera::JsonInput(const nlohmann::json& _json)
 	if (_json.contains("smooth")) m_dhistanceSmooth = _json["smooth"].get<float>();
 	if (_json.contains("rotationSmooth")) m_rotationSmooth = _json["rotationSmooth"].get<float>();
 	if (_json.contains("fov")) m_fov = _json["fov"].get<float>();
-}
-
-DirectX::BoundingFrustum PlayerCamera::CreateFrustum() const
-{
-	DirectX::BoundingFrustum frustum;
-	DirectX::BoundingFrustum::CreateFromMatrix(frustum, m_spCamera->GetProjMatrix());
-	// カメラのワールド行列で変換
-	frustum.Transform(frustum, m_spCamera->GetCameraMatrix());
-
-	return frustum;
-}
-
-void PlayerCamera::DebugDraw(DirectX::BoundingFrustum _frustum)
-{
-
-	// 8つのコーナー座標を取得
-	DirectX::XMFLOAT3 corners[8];
-	_frustum.GetCorners(corners);
-
-	// 視錐台の12本のエッジを線で描画
-	auto addLine = [this, &corners](int i0, int i1) {
-		m_pDebugWire->AddDebugLine(
-			Math::Vector3(corners[i0].x, corners[i0].y, corners[i0].z),
-			Math::Vector3(corners[i1].x, corners[i1].y, corners[i1].z),
-			Math::Color(1, 1, 0, 1) // 黄色など任意の色
-		);
-		};
-
-	// エッジのインデックス（Near面:0-3, Far面:4-7）
-	const int edgeIndices[12][2] = {
-		{0,1},{1,2},{2,3},{3,0}, // Near
-		{4,5},{5,6},{6,7},{7,4}, // Far
-		{0,4},{1,5},{2,6},{3,7}  // Side
-	};
-	for (const auto& edge : edgeIndices) {
-		addLine(edge[0], edge[1]);
-	}
 }
 
 void PlayerCamera::ChangeState(std::shared_ptr<PlayerCameraState> _state)

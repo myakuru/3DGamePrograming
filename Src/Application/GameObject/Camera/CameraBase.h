@@ -85,15 +85,27 @@ public:
 	bool  m_showFlg = false; // カーソルの表示状態
 	bool m_enabled = false;
 
+	void UpdateRotateByMouse();
+	void UpdateMoveKey();
+
+	Math::Quaternion GetPrevRotation() const { return m_prevRotation; }
+	void SetPrevRotation(const Math::Quaternion& rot) { m_prevRotation = rot; }
+
+	Math::Matrix GetRotaionMatrix() const { return m_mRotation; }
+	void SetRotaionMatrix(const Math::Matrix& mat) { m_mRotation = mat; }
+
+	Math::Quaternion GetTargetRotation() const { return m_targetRotation; }
+	void SetTargetRotation(const Math::Quaternion& rot) { m_targetRotation = rot; }
+
+	std::shared_ptr<KdCamera> GetSpCamera() const { return m_spCamera; }
+	void SetSpCamera(const std::shared_ptr<KdCamera>& camera) { m_spCamera = camera; }
+
 protected:
 
 	float moveSpeed = 50.0f; // 移動速度
 	bool m_freeCameraFlg = false;
 
 	Math::Quaternion m_rotation = Math::Quaternion::Identity; // 回転用クォータニオン
-
-	void UpdateRotateByMouse();
-	void UpdateMoveKey();
 
 	std::shared_ptr<KdCamera>					m_spCamera		= nullptr;
 	std::weak_ptr<Player>						m_Player;
