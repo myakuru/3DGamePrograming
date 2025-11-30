@@ -1,5 +1,7 @@
 ﻿#pragma once
-#include"../PlayerCameraState.h"
+#include"../PlayerCameraState.h"]
+
+class Player;
 class PlayerCameraState_LookPlayer : public PlayerCameraState
 {
 public:

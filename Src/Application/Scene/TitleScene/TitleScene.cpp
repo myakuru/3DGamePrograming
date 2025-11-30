@@ -6,12 +6,9 @@
 
 void TitleScene::Event()
 {
-	if (GetAsyncKeyState(VK_RETURN) & 0x8000)
+	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
 	{
-		SceneManager::Instance().SetNextScene
-		(
-			SceneManager::SceneType::ConstructionSiteStage
-		);
+		SceneManager::Instance().SetNextScene(SceneManager::SceneType::ConstructionSiteStage);
 	}
 
 	KdShaderManager::Instance().m_postProcessShader.SetBrightThreshold(m_brightThreshold);

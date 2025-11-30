@@ -10,7 +10,6 @@ void TitleCamera::Init()
 	CameraBase::Init();
 	m_mLocalPos = Math::Matrix::CreateTranslation(0, 2.f, -2.0f);
 	GetCursorPos(&m_FixMousePos);
-
 	m_time = 0.0f;
 }
 
@@ -18,11 +17,9 @@ void TitleCamera::PostUpdate()
 {
 	if (!SceneManager::Instance().m_sceneCamera)
 	{
-
 		// カメラの回転
-		UpdateRotateByMouse();
-		m_mRotation = GetRotationMatrix();
-		UpdateMoveKey();
+		//UpdateRotateByMouse();
+		//UpdateMoveKey();
 
 		float deltaTime = Application::Instance().GetDeltaTime();
 		//	カメラを行ったり来たりラープさせる
@@ -35,7 +32,7 @@ void TitleCamera::PostUpdate()
 
 		m_position = Math::Vector3::Lerp(m_startPos, m_endPos, u);
 
-		m_mWorld = m_mLocalPos * m_mRotation;
+		m_mWorld = m_mLocalPos * GetRotationMatrix();
 		m_mWorld.Translation(m_position);
 		m_spCamera->SetCameraMatrix(m_mWorld);
 	}

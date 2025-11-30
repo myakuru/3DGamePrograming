@@ -14,8 +14,7 @@ void TitleRemoveUI::Update()
 	if (!GetCursorPos(&pt)) return;
 
 	// このアプリのメインウィンドウハンドルを取得
-	// main.h などで管理しているウィンドウハンドルがあればそれを使う
-	HWND hWnd = Application::Instance().GetWindowHandle(); // フレームワークにHWND取得APIがある前提
+	HWND hWnd = Application::Instance().GetWindowHandle();
 	if (!hWnd) return;
 
 	ScreenToClient(hWnd, &pt);
@@ -24,29 +23,32 @@ void TitleRemoveUI::Update()
 	KdDirect3D::Instance().CopyViewportInfo(vp);
 
 	//マウス座標補正
-	pt.x = static_cast<long>(vp.width) / 2;
-	pt.y = static_cast<long>(vp.height) / 2;
+	pt.x -= static_cast<long>(vp.width / 2.0f);
+	pt.y -= static_cast<long>(vp.height / 2.0f);
 	pt.y *= -1;
 
-	// マウスがヒット矩形に入ったら当たり
-	if (pt.x >= static_cast<long>(m_position.x - 100.0f) && pt.x <= static_cast<long>(m_position.x + 100.0f) &&
-		pt.y >= static_cast<long>(m_position.y - 50.0f) && pt.y <= static_cast<long>(m_position.y + 50.0f))
+	// マウスがテクスチャの矩形範囲にはいったらHit
+	if (pt.x >= static_cast<long>(m_position.x - ((static_cast<float>(m_texture->GetWidth()) * m_finalScaleMat.GetScale().x) / 2.0f)) &&
+		pt.x <= static_cast<long>(m_position.x + ((static_cast<float>(m_texture->GetWidth()) * m_finalScaleMat.GetScale().x) / 2.0f)) &&
+		pt.y >= static_cast<long>(m_position.y - ((static_cast<float>(m_texture->GetHeight()) * m_finalScaleMat.GetScale().y) / 2.0f)) &&
+		pt.y <= static_cast<long>(m_position.y + ((static_cast<float>(m_texture->GetHeight()) * m_finalScaleMat.GetScale().y) / 2.0f)))
 	{
 		m_hit = true;
+
+		if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
+		{
+			SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title);
+		}
 	}
 	else
 	{
 		m_hit = false;
 	}
 
-
-	KdDebugGUI::Instance().AddLog("Hit Status: %s\n", m_hit ? "Hit" : "Miss");
-
 	// ヒット時に色を黄色へ、非ヒット時は元に戻す（ここでは白）
 	if (m_hit)
 	{
 		m_color = Math::Color(1.0f, 1.0f, 0.0f, 1.0f); // Yellow
-		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title);
 	}
 	else
 	{

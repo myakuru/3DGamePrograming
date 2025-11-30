@@ -21,9 +21,9 @@ void TPSCamera::PostUpdate()
 	if (!SceneManager::Instance().m_sceneCamera)
 	{
 		// カメラの回転
-		UpdateRotateByMouse();
+		//UpdateRotateByMouse();
 		m_mRotation = GetRotationMatrix();
-		UpdateMoveKey();
+		//UpdateMoveKey();
 
 		UpdateResultCamera();
 	}

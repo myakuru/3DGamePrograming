@@ -393,7 +393,6 @@
     <ClInclude Include="Src\Application\GameObject\HUD\EnemyHp\EnemyHp.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\HpBar\HpBar.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\HUDBase.h" />
-    <ClInclude Include="Src\Application\GameObject\HUD\HUDManager.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\InvestigationComplete\InvestigationComplete.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\NormalUI\NormalUI.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\NowHp\NowHp.h" />
@@ -599,7 +598,6 @@
     <ClCompile Include="Src\Application\GameObject\HUD\EnemyHp\EnemyHp.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\HpBar\HpBar.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\HUDBase.cpp" />
-    <ClCompile Include="Src\Application\GameObject\HUD\HUDManager.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\InvestigationComplete\InvestigationComplete.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\NormalUI\NormalUI.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\NowHp\NowHp.cpp" />

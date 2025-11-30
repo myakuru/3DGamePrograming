@@ -34,6 +34,8 @@ public:
 		return mKeyPressDuration[key];
 	}
 
+	bool IsAppWindowActive() const;
+
 private:
 	KeyboardManager() = default;
 

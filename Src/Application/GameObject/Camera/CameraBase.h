@@ -13,8 +13,6 @@ public:
 	void JsonSave(nlohmann::json& _json) const override;
 	void JsonInput(const nlohmann::json& _json) override;
 
-	virtual DirectX::BoundingFrustum CreateFrustum() const;
-
 	//void SetTarget(const std::shared_ptr<KdGameObject>& target);
 
 	// 「絶対変更しません！見るだけ！」な書き方
@@ -58,8 +56,6 @@ public:
 
 	void SwitchShowCursor(bool show)
 	{
-		// 現在のステートと同じなら処理しない
-		if (m_showFlg == show) return;
 
 		// カーソルの表示非表示切り替え (念の為確実に切り替えができるようにしておく)
 		int cnt = 0;
@@ -77,12 +73,8 @@ public:
 				cnt = ShowCursor(false);
 			} while (cnt >= 0);
 		}
-
-		// フラグ保存
-		m_showFlg = show;
 	}
 
-	bool  m_showFlg = false; // カーソルの表示状態
 	bool m_enabled = false;
 
 	void UpdateRotateByMouse();

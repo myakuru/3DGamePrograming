@@ -4,6 +4,9 @@
 
 void KeyboardManager::Update(float deltaTime)
 {
+	// アプリウィンドウが非アクティブなら入力無視
+	if (!IsAppWindowActive()) return;
+
 	// ゲームシーンにマウスが入っていない場合は入力を無視
 	if (!IMGUI_MANAGER.GetGameSceneInMouse()) return;
 
@@ -26,4 +29,19 @@ void KeyboardManager::Update(float deltaTime)
 			mKeyPressDuration[i] = 0.0f;
 		}
 	}
+}
+
+bool KeyboardManager::IsAppWindowActive() const
+{
+	HWND hwnd = Application::Instance().GetWindowHandle();
+	if (!hwnd) return false;
+
+	// 最前面ウィンドウと一致するか
+	if (const HWND& fg = GetForegroundWindow();
+		fg != hwnd) return false;
+
+	// 最小化されていたら無視
+	if (IsIconic(hwnd)) return false;
+
+	return true;
 }

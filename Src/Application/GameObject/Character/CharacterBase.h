@@ -115,19 +115,19 @@ private:
 
 	struct RefsState
 	{
-		std::weak_ptr<PlayerCamera>					playerCamera;
-		std::weak_ptr<KdGameObject>					collision;
-		std::list<std::shared_ptr<KdGameObject>>	effectList;
-		std::vector<std::weak_ptr<Collision>>		collisionObjects;
-		std::vector<std::weak_ptr<Player>>			playerObjects;
+		std::weak_ptr<PlayerCamera>					playerCamera;		// プレイヤーカメラ
+		std::weak_ptr<KdGameObject>					collision;			// 当たり判定オブジェクト
+		std::list<std::shared_ptr<KdGameObject>>	effectList;			// エフェクトオブジェクトリスト
+		std::vector<std::weak_ptr<Collision>>		collisionObjects;	// 当たり判定オブジェクトリスト
+		std::vector<std::weak_ptr<Player>>			playerObjects;		// プレイヤーオブジェクトリスト
 	};
 
 	struct CombatState
 	{
 		struct Flags
 		{
-			bool isHit		= false;
-			bool invincible	= false;
+			bool isHit		= false;	// 被弾判定
+			bool invincible = false;	// 無敵判定
 		};
 
 		struct AttackWindow
@@ -142,9 +142,9 @@ private:
 	};
 
 	// アニメーション
-	std::shared_ptr<KdAnimator>		m_animator = std::make_shared<KdAnimator>();
-	DirectX::BoundingSphere			m_sphere{};
-	std::shared_ptr<CharacterData>	m_characterData;
+	std::shared_ptr<KdAnimator>		m_animator = std::make_shared<KdAnimator>();	// アニメーター
+	DirectX::BoundingSphere			m_sphere{};										// バウンディングスフィア
+	std::shared_ptr<CharacterData>	m_characterData;								// キャラクターデータ
 
 	TransformState	m_transform{};		// 行列関係
 	MovementState	m_movement{};		// 移動関係

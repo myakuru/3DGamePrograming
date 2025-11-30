@@ -8,7 +8,6 @@ public:
 	AlpfaMoving(){ m_typeID = TypeID; }
 	~AlpfaMoving() override = default;
 
-	void Init() override;
 	void Update() override;
 	void DrawSprite() override;
 

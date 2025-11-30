@@ -3,11 +3,6 @@
 #include"../../../Scene/SceneManager.h"
 const uint32_t AlpfaMoving::TypeID = KdGameObject::GenerateTypeID();
 
-void AlpfaMoving::Init()
-{
-	SelectDraw2DTexture::Init();
-}
-
 void AlpfaMoving::Update()
 {
 	float deltaTime = Application::Instance().GetDeltaTime();

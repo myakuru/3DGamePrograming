@@ -7,11 +7,22 @@ void CameraBase::Init()
 	{
 		m_spCamera = std::make_shared<KdCamera>();
 	}
+
+	m_enabled = true;
 }
 
 void CameraBase::PreDraw()
 {
 	if (!m_spCamera) { return; }
+
+	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON)) m_enabled = true;
+
+	if (!KeyboardManager::GetInstance().IsAppWindowActive())
+	{
+		m_enabled = false;
+		SwitchShowCursor(true);
+	}
+
 	m_spCamera->SetToShader();
 }
 
@@ -65,28 +76,12 @@ void CameraBase::UpdateMoveKey()
 	m_position += move;
 }
 
-DirectX::BoundingFrustum CameraBase::CreateFrustum() const
-{
-	DirectX::BoundingFrustum frustum;
-	DirectX::BoundingFrustum::CreateFromMatrix(frustum, m_spCamera->GetProjMatrix());
-
-	frustum.Origin = m_mWorld.Translation();
-
-	// 視錐台の回転をクォータニオンで設定
-	frustum.Orientation = Math::Quaternion::CreateFromYawPitchRoll(
-		DirectX::XMConvertToRadians(m_degree.y),
-		DirectX::XMConvertToRadians(m_degree.x),
-		DirectX::XMConvertToRadians(m_degree.z));
-
-	return frustum;
-}
-
 void CameraBase::UpdateRotateByMouse()
 {
 	static bool prevTab = false; // 前フレームのTABキー状態
 
 	// TABキーの現在の状態
-	bool nowTab = (GetAsyncKeyState(VK_TAB) & 0x8000);
+	bool nowTab = (KeyboardManager::GetInstance().IsKeyJustPressed(VK_TAB));
 
 	// TABキーが押された瞬間だけトグル
 	if (nowTab && !prevTab)
