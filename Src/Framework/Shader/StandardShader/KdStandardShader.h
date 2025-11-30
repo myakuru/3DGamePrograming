@@ -8,9 +8,9 @@
 namespace Cascade
 {
 	constexpr int Num = 3;	// カスケード数
-	constexpr float MaxClip = 300.0f; // CSMのFarクリップ距離
+	constexpr float MaxClip = 400.0f; // CSMのFarクリップ距離
 	constexpr float MinClip = 1.0f; // CSMのNearクリップ距離
-	constexpr float SplitLambda = 0.7f; // 分割の偏り具合(0～1)
+	constexpr float SplitLambda = 1.0f; // 分割の偏り具合(0～1)
 	constexpr int MaxExp = 12; // シャドウマップの解像度
 }
 

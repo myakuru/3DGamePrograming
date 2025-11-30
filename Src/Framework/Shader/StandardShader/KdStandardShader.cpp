@@ -120,18 +120,17 @@ void KdStandardShader::BeginGenerateDepthMapFromLight()
 		KdShaderManager::Instance().SetPSConstantBuffer(0, m_cb0_Obj.GetAddress());
 	}
 
-	m_cascadeShadowMapRTPack[0].ClearTexture(kRedColor);
-	m_cascadeShadowMapRTChanger.ChangeRenderTarget(m_cascadeShadowMapRTPack[0]);
+	for (int i = 0; i < Cascade::Num; ++i)
+	{
+		m_cascadeShadowMapRTPack[i].ClearTexture(kRedColor);
+	}
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 // 影を生み出すオブジェクトの描画終了
-// ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
-// レンダーターゲットを元に戻す
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 void KdStandardShader::EndGenerateDepthMapFromLight()
 {
-	m_cascadeShadowMapRTChanger.UndoRenderTarget();
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -347,7 +346,7 @@ void KdStandardShader::DrawMesh(const KdMesh* mesh, const Math::Matrix& mWorld,
 	mesh->SetToDevice();
 
 	// GenDepthFromLightシェーダーの場合は、カスケードシャドウマップ用に複数回描画を行う
-	if (pNowPS == m_PS_GenDepthFromLight)
+	if (isShadowPass)
 	{
 		// 後面カリングなしにする
 		KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullNone);
@@ -363,30 +362,32 @@ void KdStandardShader::DrawMesh(const KdMesh* mesh, const Math::Matrix& mWorld,
 		{
 			// 対象のカスケードシャドウマップに描画が必要ない場合はスキップ
 			if ((m_cascadeCount & (1 << i)) == 0) continue;
-			// レンダーターゲットの変更
-			m_cascadeShadowMapRTChanger.UndoRenderTarget();
-			m_cascadeShadowMapRTChanger.ChangeRenderTarget(m_cascadeShadowMapRTPack[i]);
 
+			// ローカルチェンジャーを使って切替（チェンジャーは Change->Undo のペアで使う）
+			KdRenderTargetChanger rtChanger;
+			if (!rtChanger.ChangeRenderTarget(m_cascadeShadowMapRTPack[i]))
+			{
+				continue;
+			}
+
+			// ビューポートや深度バッファも RTPack に入っているなら ChangeRenderTarget がセットするはず
 			// 3Dワールド行列転送
 			m_cb1_Mesh.Work().mW = mWorld;
 			m_cb1_Mesh.Work().CascadeCount = i;
 			m_cb1_Mesh.Write();
 
-			// 全サブセット
+			// 全サブセット描画...
 			for (UINT subi = 0; subi < mesh->GetSubsets().size(); subi++)
 			{
-				// 面が１枚も無い場合はスキップ
-				if (mesh->GetSubsets()[subi].FaceCount == 0)continue;
-
-				// マテリアルデータの転送
+				if (mesh->GetSubsets()[subi].FaceCount == 0) continue;
 				const KdMaterial& material = materials[mesh->GetSubsets()[subi].MaterialNo];
 				WriteMaterial(material, colRate, emissive);
-
-				//-----------------------
-				// サブセット描画
-				//-----------------------
 				mesh->DrawSubset(subi);
 			}
+
+			// 元に戻す
+			rtChanger.UndoRenderTarget();
+
 		}
 
 		KdShaderManager::Instance().UndoRasterizerState();
@@ -891,129 +892,98 @@ void KdStandardShader::GetProjectctionDecompose(float& _OutFov, float& _outAspec
 
 void KdStandardShader::CascadeShadowMapChangea(const DirectX::BoundingBox& _BBox)
 {
-	// 1.カメラ情報からFOV、アスペクト比、ニア・ファークリップ距離を取得
+	// 1. カメラ情報から FOV/アスペクト/near/far を取得
 	float fov, aspect, nearClip, farClip;
-
 	Math::Matrix mProj;
-
-	// 各種パラメータを取得
 	GetProjectctionDecompose(fov, aspect, nearClip, farClip, mProj);
 
-	// カメラ情報から各種パラメータを取得
+	// カメラフラスタム作成（CSM 用に near/far を制限済みの mProj を使う）
 	DirectX::BoundingFrustum camFrustum;
 	DirectX::BoundingFrustum::CreateFromMatrix(camFrustum, mProj);
 
-	// フラスタムの原点と向きの設定
+	// カメラ位置と向き設定
 	Math::Vector3 CamSize;
 	Math::Quaternion CamDir;
 	Math::Vector3 CameraPos;
-
-	// Decomposeからカメラの位置と向きを取得
-	{
-		KdShaderManager::Instance().GetCameraCB().mView.Invert().Decompose(CamSize, CamDir, CameraPos);
-	}
-
-	// フラスタムの原点と向きを設定
+	KdShaderManager::Instance().GetCameraCB().mView.Invert().Decompose(CamSize, CamDir, CameraPos);
 	camFrustum.Origin = CameraPos;
 	camFrustum.Orientation = CamDir;
 
-	// 作成下フラスタムからニア・ファークリップ距離を取得
-	nearClip = Cascade::MinClip;
-	farClip = Cascade::MaxClip;
+	// 分割位置計算（near/far は GetProjectctionDecompose で既に制限済み）
+	float useNear = std::max(nearClip, Cascade::MinClip);
+	float useFar = std::min(farClip, Cascade::MaxClip);
 
-	// カスケードシャドウマップの各カスケードに対応するビュー・プロジェクション行列を計算
-	float cascadeSplits[Cascade::Num + 1];	// カスケードの分割位置
-
+	float cascadeSplits[Cascade::Num + 1];
 	for (int i = 0; i <= Cascade::Num; ++i)
 	{
-		// ニアクリップからファークリップまでの距離を均等に分割
 		float t = static_cast<float>(i) / static_cast<float>(Cascade::Num);
-		float log = nearClip * std::pow(farClip / nearClip, t);
-		float uniform = nearClip + (farClip - nearClip) * t;
-
+		float log = useNear * std::pow(useFar / useNear, t);
+		float uniform = useNear + (useFar - useNear) * t;
 		cascadeSplits[i] = std::lerp(uniform, log, Cascade::SplitLambda);
 	}
 
-	// カスケードのインデックス初期化
+	// 初期化
 	m_cascadeCount = 0;
 
-	// フラスタムをカスケード用に複製
-	DirectX::BoundingFrustum cascadeFrustum;
+	// 光方向・上方向
+	Math::Vector3 lightDir = KdShaderManager::Instance().GetLightCB().DirLight_Dir;
+	Math::Vector3 upVec = (lightDir == Math::Vector3::Up) ? Math::Vector3::Right : Math::Vector3::Up;
 
-	// フラスタムをカスケードして、描画範囲を決定
+	// 各カスケードごとにフラスタム作って判定
 	for (int cascadeIdx = 0; cascadeIdx < Cascade::Num; ++cascadeIdx)
 	{
-		nearClip = cascadeSplits[cascadeIdx];
-		farClip = cascadeSplits[cascadeIdx + 1] * 1.1f;
+		float cNear = cascadeSplits[cascadeIdx];
+		float cFar = cascadeSplits[cascadeIdx + 1] * 1.1f; // 少し余裕
 
-		DirectX::BoundingFrustum::CreateFromMatrix(cascadeFrustum, DirectX::XMMatrixPerspectiveFovLH(
-			DirectX::XMConvertToRadians(fov),
-			aspect,
-			nearClip,
-			farClip));
-
-		// フラスタムの原点と向きの設定
+		// カスケードフラスタム作成
+		DirectX::BoundingFrustum cascadeFrustum;
+		DirectX::BoundingFrustum::CreateFromMatrix(cascadeFrustum,
+			DirectX::XMMatrixPerspectiveFovLH(DirectX::XMConvertToRadians(fov), aspect, cNear, cFar));
 		cascadeFrustum.Origin = CameraPos;
 		cascadeFrustum.Orientation = CamDir;
-	}
 
-	Math::Matrix _LightView;
-	Math::Vector3 _Center; // フラスタムの中心点
-	{
-		Math::Vector3 _LightDir = KdShaderManager::Instance().GetLightCB().DirLight_Dir;
-		Math::Vector3 _UpVec = (_LightDir == Math::Vector3::Up) ? Math::Vector3::Right : Math::Vector3::Up;
-		DirectX::XMFLOAT3 _FrustumCorners[8];
-		cascadeFrustum.GetCorners(_FrustumCorners);
-		// ライト空間で AABB を作成
-		DirectX::BoundingBox _CascadeBox;
-		DirectX::BoundingBox::CreateFromPoints(_CascadeBox, 8, _FrustumCorners, sizeof(DirectX::XMFLOAT3));
-		_Center = _CascadeBox.Center;
-		Math::Vector3 lightPos = _Center - _LightDir * _CascadeBox.Extents.z * 2.0f;
-		// ライトビュー行列を作成
-		_LightView = DirectX::XMMatrixLookAtLH(lightPos, _Center, _UpVec);
-	}
-	// フラスタムを囲うBoxを作成
-	DirectX::BoundingBox _CascadeBox;
-	_CascadeBox.Center = _Center; // ライト空間のBoxの中心を代入
-	_CascadeBox.Extents = { (cascadeFrustum.Far - cascadeFrustum.Near), (cascadeFrustum.Far - cascadeFrustum.Near), (cascadeFrustum.Far - cascadeFrustum.Near) };
+		// ワールド空間でフラスタムの 8 コーナー取得
+		DirectX::XMFLOAT3 frustCornersWS[8];
+		cascadeFrustum.GetCorners(frustCornersWS);
 
-	// 生成したBoxから角を取得
-	DirectX::XMFLOAT3 _BoxCorners[8];
-	_CascadeBox.GetCorners(_BoxCorners);
+		// フラスタムを囲むワールドAABB
+		DirectX::BoundingBox frustAABB_World;
+		DirectX::BoundingBox::CreateFromPoints(frustAABB_World, 8, frustCornersWS, sizeof(DirectX::XMFLOAT3));
 
-	// 取得した角をライト空間に変換
-	Math::Vector3 _FrustumCornersLS[8];
-	for (int c = 0; c < 8; ++c)
-	{
-		Math::Vector3 cornerWS = _BoxCorners[c];
-		Math::Vector3 cornerLS = DirectX::XMVector3TransformCoord(cornerWS, _LightView);
-		XMStoreFloat3(&_FrustumCornersLS[c], cornerLS);
-	}
+		// ライトビュー行列（フラスタム中心をターゲット）
+		Math::Vector3 center = frustAABB_World.Center;
+		Math::Vector3 lightPos = center - lightDir * frustAABB_World.Extents.z * 2.0f;
+		Math::Matrix lightView = DirectX::XMMatrixLookAtLH(lightPos, center, upVec);
 
-	// ライト空間で AABB を作成
-	DirectX::BoundingBox _CascadeBoxLS;
-	DirectX::BoundingBox::CreateFromPoints(_CascadeBoxLS, 8, _FrustumCornersLS, sizeof(DirectX::XMFLOAT3));
-
-	// メッシュのバウンディングボックスをライト空間に変換
-	// フラスタムから角を取得
-	_BBox.GetCorners(_BoxCorners);
-	// 取得した角をライト空間に変換
-	Math::Vector3 BoxCornersLS[8];
-	for (int c = 0; c < 8; ++c) {
-		Math::Vector3 cornerWS = _BoxCorners[c];
-		Math::Vector3 cornerLS = DirectX::XMVector3TransformCoord(cornerWS, _LightView); XMStoreFloat3(&BoxCornersLS[c], cornerLS);
-		// ライト空間で AABB を作成
-		DirectX::BoundingBox _BoxLS;
-		DirectX::BoundingBox::CreateFromPoints(_BoxLS, 8, BoxCornersLS, sizeof(DirectX::XMFLOAT3));
-		// 設定したフラスタムとメッシュのバウンディングボックスと当たり判定
-		bool isHit = false;
-		isHit = _CascadeBoxLS.Intersects(_BoxLS);
-		//重なっていたらインデックスを追加
-		if (isHit)
+		// フラスタムのコーナーをライト空間へ変換してライト空間AABBを作成
+		DirectX::XMFLOAT3 frustCornersLS[8];
+		for (int c = 0; c < 8; ++c)
 		{
-			m_cascadeCount |= (1u << m_cascadeCount);
+			DirectX::XMVECTOR v = DirectX::XMLoadFloat3(&frustCornersWS[c]);
+			DirectX::XMVECTOR t = DirectX::XMVector3TransformCoord(v, lightView);
+			DirectX::XMStoreFloat3(&frustCornersLS[c], t);
 		}
+		DirectX::BoundingBox frustAABB_LS;
+		DirectX::BoundingBox::CreateFromPoints(frustAABB_LS, 8, frustCornersLS, sizeof(DirectX::XMFLOAT3));
 
+		// メッシュの AABB をワールド→ライト空間に変換して作成
+		DirectX::XMFLOAT3 meshCornersWS[8];
+		_BBox.GetCorners(meshCornersWS);
+		DirectX::XMFLOAT3 meshCornersLS[8];
+		for (int c = 0; c < 8; ++c)
+		{
+			DirectX::XMVECTOR v = DirectX::XMLoadFloat3(&meshCornersWS[c]);
+			DirectX::XMVECTOR t = DirectX::XMVector3TransformCoord(v, lightView);
+			DirectX::XMStoreFloat3(&meshCornersLS[c], t);
+		}
+		DirectX::BoundingBox meshAABB_LS;
+		DirectX::BoundingBox::CreateFromPoints(meshAABB_LS, 8, meshCornersLS, sizeof(DirectX::XMFLOAT3));
+
+		// 判定：ライト空間の AABB 同士が重なれば該当カスケードに描画が必要
+		if (frustAABB_LS.Intersects(meshAABB_LS))
+		{
+			m_cascadeCount |= (1u << cascadeIdx); // シフト量に使う
+		}
 	}
 }
 

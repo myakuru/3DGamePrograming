@@ -460,7 +460,6 @@
     <ClInclude Include="Src\MyFramework\Manager\JsonManager\JsonManager.h" />
     <ClInclude Include="Src\MyFramework\Manager\KeyboardManager\KeyboardManager.h" />
     <ClInclude Include="Src\MyFramework\Manager\XInputManager\XInputManager.h" />
-    <ClInclude Include="Src\MyFramework\RegisterObject\PlayerStateParameterFactory.h" />
     <ClInclude Include="Src\MyFramework\RegisterObject\RegisterObject.h" />
     <ClInclude Include="Src\MyFramework\State\StateBase\StateBase.h" />
     <ClInclude Include="Src\MyFramework\State\StateManager\StateManager.h" />
