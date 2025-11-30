@@ -3,7 +3,6 @@
 #include "PlayerCameraState_WinnerCamera.h"
 #include "Application/main.h"
 #include "Application/GameObject/Camera/PlayerCamera/PlayerCameraState/PlayerCameraState_LookPlayer/PlayerCameraState_LookPlayer.h"
-#include "Framework/Shader/KdShaderManager.h"
 
 void PlayerCameraState_WinnerCamera::StateStart()
 {
@@ -33,7 +32,7 @@ void PlayerCameraState_WinnerCamera::StateUpdate()
 	// 演出経過時間
 	win.time += deltaTime;
 
-	// ノイズ点滅（オリジナル同等）
+	// ノイズ点滅
 	{
 		float timeNow = Time::Instance().GetElapsedTime();
 		int sec = static_cast<int>(timeNow);
@@ -117,9 +116,6 @@ void PlayerCameraState_WinnerCamera::StateUpdate()
 			win.time = 0.0f;
 			Application::Instance().SetFpsScale(1.0f);
 			SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
-
-			// 必要なら通常追従へ遷移
-			cam->ChangeState(std::make_shared<PlayerCameraState_LookPlayer>());
 		}
 	}
 }

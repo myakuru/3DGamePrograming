@@ -1,5 +1,6 @@
 ﻿#pragma once
 class StateBase;
+
 class StateManager
 {
 public:

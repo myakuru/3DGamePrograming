@@ -34,26 +34,23 @@ void PlayerState_SpecialAttackCutIn::StateUpdate()
 		m_animeTime = m_player->GetAnimator()->GetPlayProgress();
 	}
 
-	Math::Vector3 moveDir = m_player->GetMovement();
-
-	// 攻撃中の移動方向で回転を更新
-	if (m_player->GetMovement() != Math::Vector3::Zero)
+	Math::Vector3 toEnemyDir = m_nearestEnemyPos - m_player->GetPos();
+	
+	if (toEnemyDir != Math::Vector3::Zero)
 	{
-		moveDir.y = 0.0f;
-		moveDir.Normalize();
-		m_player->UpdateQuaternionDirect(moveDir);
+		toEnemyDir.y = 0.0f;
+		toEnemyDir.Normalize();
+		m_player->UpdateQuaternionDirect(toEnemyDir);
 	}
-
 
 	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
 		// キャラ前方からヨー角(deg)を計算してカメラ回転に反映
 
-		moveDir.Normalize();
-		const float yawRad = std::atan2(-moveDir.x, -moveDir.z);
+		toEnemyDir.Normalize();
+		const float yawRad = std::atan2(-toEnemyDir.x, -toEnemyDir.z);
 		const float yawDeg = DirectX::XMConvertToDegrees(yawRad);
 		camera->SetTargetRotation({ 0.0f, yawDeg , 0.0f });
-
 	}
 
 	if (m_animeTime >= 0.5f)

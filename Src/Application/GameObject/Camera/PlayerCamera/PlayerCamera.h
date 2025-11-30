@@ -170,4 +170,6 @@ private:
 
 	// プレイヤー参照（必要であれば別状態に統合可）
 	std::shared_ptr<Player> m_spTarget = nullptr;
+
+	bool m_oneceFlag = false;
 };

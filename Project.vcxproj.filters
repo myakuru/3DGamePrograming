@@ -524,7 +524,7 @@
       <UniqueIdentifier>{7ee7aac8-f4d5-4d75-8dbd-7532ec2bbc87}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer">
-      <UniqueIdentifier>{f5c8e847-676d-4294-948c-3420b4e7bcd9}</UniqueIdentifier>
+      <UniqueIdentifier>{1b3b4a17-f3f4-4db1-b09e-8e9957a3570e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1149,7 +1149,7 @@
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect\AetheriusEnemy_Attack_1Effect.h">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect</Filter>
     </ClInclude>
-    <ClInclude Include="..\_3DGame\Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer\PlayerCameraState_LookPlayer.h">
+    <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer\PlayerCameraState_LookPlayer.h">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1724,7 +1724,7 @@
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect\AetheriusEnemy_Attack_1Effect.cpp">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect</Filter>
     </ClCompile>
-    <ClCompile Include="..\_3DGame\Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer\PlayerCameraState_LookPlayer.cpp">
+    <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer\PlayerCameraState_LookPlayer.cpp">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer</Filter>
     </ClCompile>
   </ItemGroup>

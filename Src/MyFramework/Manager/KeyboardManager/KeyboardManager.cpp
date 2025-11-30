@@ -1,6 +1,7 @@
 ﻿#include "KeyboardManager.h"
 #include "Application/main.h"
 #include "MyFramework/Manager/ImGuiManager/ImGuiManager.h"
+#include "Application/Scene/SceneManager.h"
 
 void KeyboardManager::Update(float deltaTime)
 {
@@ -9,6 +10,8 @@ void KeyboardManager::Update(float deltaTime)
 
 	// ゲームシーンにマウスが入っていない場合は入力を無視
 	if (!IMGUI_MANAGER.GetGameSceneInMouse()) return;
+
+	if (SceneManager::Instance().IsIntroCamera()) return;
 
 	for (int i = 0; i < 256; ++i)
 	{

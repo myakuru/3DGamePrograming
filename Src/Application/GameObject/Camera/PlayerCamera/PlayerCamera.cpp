@@ -53,6 +53,8 @@ void PlayerCamera::Init()
 	intro.inited = false;
 	intro.introTimer = 0.0f;
 	shake.shakeTime = 0.0f;
+
+	m_oneceFlag = false;
 }
 
 void PlayerCamera::PostUpdate()
@@ -75,6 +77,15 @@ void PlayerCamera::PostUpdate()
 
 	// ステート更新（各ステートがlook/fov/m_degree等を更新する）
 	m_stateManager.Update();
+
+	if (SceneManager::Instance().m_gameClear && !m_oneceFlag)
+	{
+		m_oneceFlag = true;
+
+		auto winnerState = std::make_shared<PlayerCameraState_WinnerCamera>();
+		ChangeState(winnerState);
+		return;
+	}
 
 	// 以降は共通の行列更新・補間・衝突補正（既存処理を維持）
 	auto& look = LookState();

@@ -44,6 +44,7 @@ void TitleScene::Init()
 	KdShaderManager::Instance().m_postProcessShader.SetEnableNoise(false);
 	KdShaderManager::Instance().m_postProcessShader.SetEnableGray(false);
 
+	sceneManager.SetBossAppear(false);
 	sceneManager.SetIntroCamera(false);
 	sceneManager.SetDrawGrayScale(false);
 	sceneManager.SetResultFlag   (false);	// 結果フラグを初期化
