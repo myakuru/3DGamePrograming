@@ -26,7 +26,7 @@ void TitleScene::Init()
 {
 	auto& sceneManager = SceneManager::Instance();
 
-	// イントロBGM（非ループ）: SetGameSound を使う
+	// イントロBGM（非ループ）
 	{
 		auto intro = KdAudioManager::Instance().Play(
 			"Asset/Sound/FieldBGM/ToDo_game_bgm.wav",
@@ -39,6 +39,10 @@ void TitleScene::Init()
 			intro->SetVolume(1.0f);
 		}
 	}
+
+	KdShaderManager::Instance().m_postProcessShader.SetEnableStrongBlur(false);
+	KdShaderManager::Instance().m_postProcessShader.SetEnableNoise(false);
+	KdShaderManager::Instance().m_postProcessShader.SetEnableGray(false);
 
 	sceneManager.SetIntroCamera(false);
 	sceneManager.SetDrawGrayScale(false);

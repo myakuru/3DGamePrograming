@@ -277,13 +277,13 @@
     <ClInclude Include="..\Library\tinygltf\stb_image.h" />
     <ClInclude Include="..\Library\tinygltf\stb_image_write.h" />
     <ClInclude Include="..\Library\tinygltf\tiny_gltf.h" />
+    <ClInclude Include="..\_3DGame\Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer\PlayerCameraState_LookPlayer.h" />
     <ClInclude Include="Src\Application\Data\CharacterData\CharacterData.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\CameraBase.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\FPSCamera\FPSCamera.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCamera.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_IntroCamera\PlayerCameraState_IntroCamera.h" />
-    <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer\PlayerCameraState_LookPlayer.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera\PlayerCameraState_WinnerCamera.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\TitleCamera\TitleCamera.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\TPSCamera\TPSCamera.h" />
@@ -353,7 +353,6 @@
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttackCutIn\PlayerState_SpecialAttackCutIn.h" />
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttack\PlayerState_SpecialAttack.h" />
     <ClInclude Include="Src\Application\GameObject\Collition\Collition.h" />
-    <ClInclude Include="Src\Application\GameObject\Effect\BillBoardEffect\FieldEffect\FieldEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_AttackEffect\AetheriusEnemy_AttackEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect\AetheriusEnemy_Attack_1Effect.h" />
@@ -481,13 +480,13 @@
     <ClCompile Include="..\Library\imgui\imgui_stdlib.cpp" />
     <ClCompile Include="..\Library\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\Library\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="..\_3DGame\Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer\PlayerCameraState_LookPlayer.cpp" />
     <ClCompile Include="Src\Application\Data\CharacterData\CharacterData.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\CameraBase.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\FPSCamera\FPSCamera.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCamera.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_IntroCamera\PlayerCameraState_IntroCamera.cpp" />
-    <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer\PlayerCameraState_LookPlayer.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera\PlayerCameraState_WinnerCamera.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\TitleCamera\TitleCamera.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\TPSCamera\TPSCamera.cpp" />
@@ -557,7 +556,6 @@
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttackCutIn\PlayerState_SpecialAttackCutIn.cpp" />
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttack\PlayerState_SpecialAttack.cpp" />
     <ClCompile Include="Src\Application\GameObject\Collition\Collition.cpp" />
-    <ClCompile Include="Src\Application\GameObject\Effect\BillBoardEffect\FieldEffect\FieldEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_AttackEffect\AetheriusEnemy_AttackEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect\AetheriusEnemy_Attack_1Effect.cpp" />

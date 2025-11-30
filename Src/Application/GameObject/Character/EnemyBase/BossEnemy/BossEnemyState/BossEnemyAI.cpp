@@ -17,7 +17,7 @@
 float BossEnemyAI::GetDistanceToPlayer(BossEnemy* boss)
 {
 	if (!boss) return m_settings.noTargetDistance;
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::PlayerLike, boss->GetPlayerList());
+	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::PlayerLike, boss->GetPlayerList());
 
 	for (const auto& weakPlayer : boss->GetPlayerList())
 	{
@@ -36,15 +36,6 @@ std::shared_ptr<BossEnemyStateBase> BossEnemyAI::DecideNext(BossEnemy* boss)
 	if (!boss) return FallbackIdle();
 
 	const float dist = GetDistanceToPlayer(boss);
-
-	// ジャスト回避カウンター
-	if (boss->GetJustAvoidSuccess() && boss->GetWaterCooldown() <= 0.0f)
-	{
-		boss->SetJustAvoidSuccess(false);
-		boss->SetWaterCooldown(m_settings.justAvoidWaterCooldown);
-		boss->SetLastAction(BossEnemy::ActionType::Water);
-		return std::make_shared<BossEnemyState_WaterAttack>();
-	}
 
 	// 遠距離: 追尾
 	if (dist > m_settings.chaseRange)

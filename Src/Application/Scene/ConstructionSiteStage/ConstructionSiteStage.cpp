@@ -63,23 +63,7 @@ void ConstructionSiteStage::Event()
 		KdShaderManager::Instance().WorkAmbientController().SetheightFog({ m_highFogColor }, m_highFogHeight, m_lowFogHeight, m_highFogDistance);
 	}
 
-	if (KeyboardManager::GetInstance().IsKeyPressed('P'))
-	{
-		KdShaderManager::Instance().m_postProcessShader.SetEnableNoise(true);	// ノイズON
-		KdShaderManager::Instance().m_postProcessShader.SetNoiseStrength(0.07f);
-	}
-	else
-	{
-		KdShaderManager::Instance().m_postProcessShader.SetEnableNoise(false);	// ノイズOFF
-	}
-
-	SceneManager::Instance().GetObjectWeakPtr(m_player);
-
-	auto spPlayer = m_player.lock();
-
-	if (!spPlayer) return;
-
-	if (spPlayer->GetPos().x >= 4.0f && !m_isCountDown)
+	if (!m_isCountDown && !SceneManager::Instance().IsIntroCamera())
 	{
 		m_isCountDown = true; // カウントダウン開始
 
@@ -92,14 +76,13 @@ void ConstructionSiteStage::Event()
 
 	Time::Instance().Update();
 
-	if (KeyboardManager::GetInstance().IsKeyPressed('C'))
+	if (Time::Instance().IsCountdownFinished())
 	{
-		KdShaderManager::Instance().m_postProcessShader.SetEnableStrongBlur(true);
+		SceneManager::Instance().SetResultFlag(true);	// 結果フラグを立てる
+		Time::Instance().Reset();						// タイマーリセット
+		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
 	}
-	else
-	{
-		KdShaderManager::Instance().m_postProcessShader.SetEnableStrongBlur(false);
-	}
+
 }
 
 void ConstructionSiteStage::Init()
@@ -108,7 +91,7 @@ void ConstructionSiteStage::Init()
 
 	m_isCountDown = false;	// カウントダウンフラグを初期化
 
-	m_countDownTimer = 200.0f; // カウントダウンタイマーを200秒に設定
+	m_countDownTimer = m_countDownTimeMax; // カウントダウンタイマーを200秒に設定
 
 	SceneManager::Instance().SetIntroCamera(true); // カメラのイントロを開始
 
@@ -153,8 +136,8 @@ void ConstructionSiteStage::SearchEnemy()
 	bool enemyExists = false;
 	bool bossExists = false;
 
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyLike, m_aetheriusEnemies);
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyLike, m_bossEnemies);
+	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::EnemyLike, m_aetheriusEnemies);
+	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::EnemyLike, m_bossEnemies);
 
 	for (const auto& we : m_aetheriusEnemies)
 	{
@@ -207,6 +190,21 @@ void ConstructionSiteStage::SearchEnemy()
 void ConstructionSiteStage::DrawImGui()
 {
 	BaseScene::DrawImGui();
+
+	ImGui::Begin("Time");
+	{
+		ImGui::Text(U8("ゲームの制限時間"));
+		ImGui::Text("Time: %.2f", m_countDownTimeMax);
+		ImGui::DragFloat("CountdownTime", &m_countDownTimeMax, 1.0f, 0.0f, 1000.0f);
+
+		if (ImGui::Button("SetTimer"))
+		{
+			m_countDownTimer = m_countDownTimeMax;
+		}
+
+	}
+	ImGui::End();
+
 	ImGui::Begin("BossEnemySpawn");
 	{
 		ImGui::Text("BossEnemySpawn");
@@ -227,4 +225,16 @@ void ConstructionSiteStage::DrawImGui()
 		KdShaderManager::Instance().m_postProcessShader.SetEnableRadialBlur(m_radialBlurEnable);
 	}
 	ImGui::End();
+}
+
+void ConstructionSiteStage::JsonInput(const nlohmann::json& _json)
+{
+	BaseScene::JsonInput(_json);
+	if (_json.contains("m_countDownTimer")) m_countDownTimeMax = _json["m_countDownTimer"];
+}
+
+void ConstructionSiteStage::JsonSave(nlohmann::json& _json) const
+{
+	BaseScene::JsonSave(_json);
+	_json["m_countDownTimer"] = m_countDownTimeMax;
 }

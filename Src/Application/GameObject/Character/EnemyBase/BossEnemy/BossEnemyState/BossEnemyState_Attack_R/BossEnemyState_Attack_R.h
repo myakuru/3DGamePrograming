@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include"../BossEnemyState.h"
 class EnemyShineBlue;
+class BossAttack_1stEffect;
+
 class BossEnemyState_Attack_R : public BossEnemyStateBase
 {
 public:
@@ -19,5 +21,7 @@ private:
 	void SaveParametersJson(nlohmann::json& js) const override;
 
 	std::list<std::weak_ptr<EnemyShineBlue>> m_shineEffectBlues;
+
+	std::weak_ptr<BossAttack_1stEffect> m_attackEffect;
 
 };

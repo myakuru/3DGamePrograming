@@ -291,7 +291,7 @@
       "afterImageMax": 5,
       "animationSpeed": 100.0,
       "blendTime": 0.25,
-      "dashSpeed": 1.0,
+      "dashSpeed": 1.5,
       "m_cameraBossTargetOffset": {
         "x": 0.0,
         "y": 1.0,
@@ -315,8 +315,7 @@
       "afterImageInterval": 5.0,
       "afterImageMax": 10,
       "animationSpeed": 100.0,
-      "blendTime": 0.25,
-      "moveSpeed": 2.0
+      "blendTime": 0.25
     }
   },
   "PlayerState_Hit": {

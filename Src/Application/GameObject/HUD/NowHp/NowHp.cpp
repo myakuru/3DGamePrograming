@@ -10,7 +10,7 @@ void NowHp::Init()
 	m_displayTime = 0;
 	m_texture = KdAssets::Instance().m_textures.GetData("Asset/Textures/Time/Hp.png");
 
-	SceneManager::Instance().GetObjectWeakPtrListByTag< Player >(ObjTag::PlayerLike, m_playerList);
+	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::PlayerLike, m_playerList);
 }
 
 void NowHp::Update()

@@ -166,9 +166,6 @@
     <Filter Include="Src\Application\GameObject\Effect\BillBoardEffect">
       <UniqueIdentifier>{c1007d80-d993-4632-962f-eb6f41d9a883}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\BillBoardEffect\FieldEffect">
-      <UniqueIdentifier>{fda7d371-7714-4be0-89c5-ae906bf411a3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\Weapon\WeaponKatanaScabbard">
       <UniqueIdentifier>{28aeaa5b-8dd3-4316-8eda-58de5e5912e0}</UniqueIdentifier>
     </Filter>
@@ -243,9 +240,6 @@
     </Filter>
     <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera">
       <UniqueIdentifier>{609fee1a-cbc6-4ba5-9249-e6bf4adfe9e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer">
-      <UniqueIdentifier>{3058bc22-3a5a-44bc-8b4a-179627fd214d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard">
       <UniqueIdentifier>{c193f2f4-8991-47cb-9655-cc875a1151a3}</UniqueIdentifier>
@@ -528,6 +522,9 @@
     </Filter>
     <Filter Include="Src\MyFramework\Manager\RegisterObject">
       <UniqueIdentifier>{7ee7aac8-f4d5-4d75-8dbd-7532ec2bbc87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer">
+      <UniqueIdentifier>{f5c8e847-676d-4294-948c-3420b4e7bcd9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -828,9 +825,6 @@
     <ClInclude Include="Src\Application\GameObject\HUD\EnemyHp\EnemyHp.h">
       <Filter>Src\Application\GameObject\HUD\EnemyHp</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\BillBoardEffect\FieldEffect\FieldEffect.h">
-      <Filter>Src\Application\GameObject\Effect\BillBoardEffect\FieldEffect</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Weapon\WeaponKatanaScabbard\WeaponKatanaScabbard.h">
       <Filter>Src\Application\GameObject\Weapon\WeaponKatanaScabbard</Filter>
     </ClInclude>
@@ -944,9 +938,6 @@
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera\PlayerCameraState_WinnerCamera.h">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer\PlayerCameraState_LookPlayer.h">
-      <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.h">
       <Filter>Src\Application\GameObject\Effect\BillBoardEffect\MapGard</Filter>
@@ -1157,6 +1148,9 @@
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect\AetheriusEnemy_Attack_1Effect.h">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_3DGame\Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer\PlayerCameraState_LookPlayer.h">
+      <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1409,9 +1403,6 @@
     <ClCompile Include="Src\Application\GameObject\HUD\EnemyHp\EnemyHp.cpp">
       <Filter>Src\Application\GameObject\HUD\EnemyHp</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\BillBoardEffect\FieldEffect\FieldEffect.cpp">
-      <Filter>Src\Application\GameObject\Effect\BillBoardEffect\FieldEffect</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState.cpp">
       <Filter>Src\Application\GameObject\Character\Player\State</Filter>
     </ClCompile>
@@ -1525,9 +1516,6 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera\PlayerCameraState_WinnerCamera.cpp">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer\PlayerCameraState_LookPlayer.cpp">
-      <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.cpp">
       <Filter>Src\Application\GameObject\Effect\BillBoardEffect\MapGard</Filter>
@@ -1735,6 +1723,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect\AetheriusEnemy_Attack_1Effect.cpp">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_3DGame\Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer\PlayerCameraState_LookPlayer.cpp">
+      <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

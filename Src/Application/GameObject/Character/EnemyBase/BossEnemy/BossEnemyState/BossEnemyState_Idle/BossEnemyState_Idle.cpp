@@ -28,6 +28,7 @@ void BossEnemyState_Idle::StateUpdate()
 	// 待機後はAIに委譲
 	auto next = m_bossEnemy->GetBossEnemyAI()->DecideNext(m_bossEnemy);
 	m_bossEnemy->ChangeState(next);
+	return;
 }
 
 void BossEnemyState_Idle::StateEnd()

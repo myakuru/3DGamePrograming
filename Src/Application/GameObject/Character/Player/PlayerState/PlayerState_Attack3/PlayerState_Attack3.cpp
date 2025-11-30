@@ -67,6 +67,8 @@ void PlayerState_Attack3::StateStart()
 
 void PlayerState_Attack3::StateUpdate()
 {
+	UpdateKatanaPos();
+
 	// アニメーション時間のデバッグ表示
 	{
 		m_animeTime = m_player->GetAnimator()->GetPlayProgress();
@@ -109,8 +111,6 @@ void PlayerState_Attack3::StateUpdate()
 	{
 		m_lButtonKeyInput = true;
 	}
-
-	UpdateKatanaPos();
 
 	if (m_time < m_stateParameter.dashSpeedTime)
 	{

@@ -165,6 +165,9 @@ void PlayerStateBase::StateEnd()
 // 刀の位置を右手に追従するように更新
 void PlayerStateBase::UpdateKatanaPos()
 {
+	// 右手持ち設定
+	m_player->SetRightHanded(true);
+
 	// 右手のワークノードを取得
 	auto rightHandNode = m_player->GetModelWork()->FindWorkNode("Katana");
 	// 左手のワークノードを取得
@@ -195,6 +198,8 @@ void PlayerStateBase::UpdateKatanaPos()
 // 刀と鞘の位置が左手に追従するように更新
 void PlayerStateBase::UpdateUnsheathed()
 {
+	m_player->SetRightHanded(false);
+
 	// 左手のワークノードを取得
 	auto leftHandNode = m_player->GetModelWork()->FindWorkNode("Sheath");
 
@@ -224,7 +229,7 @@ bool PlayerStateBase::UpdateSpecialAttackInput()
 {
 	if (KeyboardManager::GetInstance().IsKeyJustPressed('Q'))
 	{
-		if (m_player->GetStatus().GetPlayerStatus().specialPoint == m_player->GetStatus().GetPlayerStatus().specialPointMax)
+		//if (m_player->GetStatus().GetPlayerStatus().specialPoint == m_player->GetStatus().GetPlayerStatus().specialPointMax)
 		{
 			m_player->SetStatus().SetPlayerStatus().specialPoint = 0;
 			auto specialAttackState = std::make_shared<PlayerState_SpecialAttackCutIn>();

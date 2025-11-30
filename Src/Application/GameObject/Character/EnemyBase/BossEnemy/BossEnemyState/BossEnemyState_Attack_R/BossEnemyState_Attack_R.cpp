@@ -3,7 +3,9 @@
 #include"../BossEnemyState_Run/BossEnemyState_Run.h"
 #include"../BossEnemyState_Idle/BossEnemyState_Idle.h"
 #include"../BossEnemyAI.h"
-#include"Application\main.h"
+#include"Application/main.h"
+#include "Application/Scene/SceneManager.h"
+#include"Application/GameObject/Effect/EffekseerEffect/BossAttack_1stEffect/BossAttack_1stEffect.h"
 
 void BossEnemyState_Attack_R::StateStart()
 {
@@ -19,6 +21,8 @@ void BossEnemyState_Attack_R::StateStart()
 	// 近接CDと直前行動をセット
 	m_bossEnemy->SetMeleeCooldown(1.0f);
 	m_bossEnemy->SetLastAction(BossEnemy::ActionType::AttackR);
+
+	SceneManager::Instance().GetObjectWeakPtr(m_attackEffect);
 }
 
 void BossEnemyState_Attack_R::StateUpdate()
@@ -47,6 +51,14 @@ void BossEnemyState_Attack_R::StateUpdate()
 		);
 	}
 
+	if (m_animeTime >= m_stateParameter.attackActiveStartTime)
+	{
+		if (const auto& effect = m_attackEffect.lock())
+		{
+			effect->SetPlayEffect(true);
+		}
+	}
+
 	// Rが終わったら必ずIdleで1秒休む
 	if (m_bossEnemy->GetAnimator()->IsAnimationEnd())
 	{
@@ -68,6 +80,12 @@ void BossEnemyState_Attack_R::StateUpdate()
 void BossEnemyState_Attack_R::StateEnd()
 {
 	m_bossEnemy->SetInvincible(false);
+
+	if (const auto& effect = m_attackEffect.lock())
+	{
+		effect->SetPlayEffect(false);
+		effect->StopEffect();
+	}
 }
 
 void BossEnemyState_Attack_R::ApplyFromConfig(const BossEnemyStateBase& other)

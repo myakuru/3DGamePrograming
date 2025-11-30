@@ -37,9 +37,9 @@
     "moveSpeed": 0.14000000059604645,
     "path": "Asset\\Models\\Player\\Sapphy\\Sapphy.gltf",
     "pos": {
-      "x": 5.12567138671875,
+      "x": 4.075972557067871,
       "y": 100.99998474121094,
-      "z": -4.32742166519165
+      "z": -3.1044931411743164
     },
     "rotateSpeed": 30.0,
     "scale": {
@@ -87,7 +87,7 @@
   },
   {
     "Class": "class Katana",
-    "Name": "class Katana",
+    "Name": "Katana\u0000atana",
     "color": {
       "w": 1.0,
       "x": 1.0,
@@ -114,9 +114,9 @@
       "z": 118.30000305175781
     },
     "katanaHandOffset": {
-      "x": -0.029999999329447746,
-      "y": -0.009999999776482582,
-      "z": -0.47999998927116394
+      "x": 0.009999999776482582,
+      "y": -0.10999999940395355,
+      "z": -0.10000000149011612
     },
     "katanaOffset": {
       "x": 0.0,
@@ -155,14 +155,19 @@
     },
     "type": 32,
     "weaponDeg": {
-      "x": -1.0,
-      "y": 1.100000023841858,
-      "z": -72.0
+      "x": 1.399999976158142,
+      "y": 192.60000610351563,
+      "z": 245.8000030517578
     }
   },
   {
     "Class": "class PlayerCamera",
     "Name": "class PlayerCamera",
+    "cameraPos": {
+      "x": 4.075972557067871,
+      "y": 100.99998474121094,
+      "z": -3.1044931411743164
+    },
     "color": {
       "w": 1.0,
       "x": 1.0,
@@ -170,15 +175,27 @@
       "z": 1.0
     },
     "deg": {
-      "x": 12.00000286102295,
-      "y": 324.1999816894531,
+      "x": 6.75,
+      "y": 318.9500427246094,
       "z": 0.0
     },
     "fov": 70.0,
-    "m_cameraPos": {
-      "x": 5.12567138671875,
-      "y": 100.99998474121094,
-      "z": -4.32742166519165
+    "intro": {
+      "afterEndFollowZ": -2.5,
+      "endFollow": {
+        "x": 0.0,
+        "y": 1.0,
+        "z": -1.5
+      },
+      "endYawDeg": 320.0,
+      "holdSeconds": 1.0,
+      "startFollow": {
+        "x": 0.0,
+        "y": 1.0,
+        "z": -0.5
+      },
+      "startYawDeg": 145.0,
+      "yawSpeedDegPerSec": 60.0
     },
     "moveSpeed": 50.0,
     "path": "Asset/Models/Sky/Sky.gltf",
@@ -187,17 +204,17 @@
       "y": 0.0,
       "z": 0.0
     },
-    "rotationSmooth": 8.0,
+    "rotationSmooth": 15.0,
     "scale": {
       "x": 1.0,
       "y": 1.0,
       "z": 1.0
     },
-    "smooth": 8.0,
+    "smooth": 15.0,
     "targetLookAt": {
       "x": 0.0,
       "y": 1.0,
-      "z": -2.499999761581421
+      "z": -2.5
     },
     "type": 32
   },
@@ -310,10 +327,10 @@
     "Class": "class EnemySword",
     "Name": "class EnemySword",
     "color": {
-      "w": 1.0,
-      "x": 3.9215686321258545,
-      "y": 3.9215686321258545,
-      "z": 3.9215686321258545
+      "w": 1.9607843160629272,
+      "x": 1.9607843160629272,
+      "y": 1.9607843160629272,
+      "z": 1.9607843160629272
     },
     "deg": {
       "x": 0.0,
@@ -366,10 +383,10 @@
     "Class": "class EnemyShield",
     "Name": "class EnemyShield",
     "color": {
-      "w": 1.0,
-      "x": 3.9215686321258545,
-      "y": 3.9215686321258545,
-      "z": 3.9215686321258545
+      "w": 1.9607843160629272,
+      "x": 1.9607843160629272,
+      "y": 1.9607843160629272,
+      "z": 1.9607843160629272
     },
     "deg": {
       "x": 0.0,
@@ -4284,9 +4301,9 @@
         "Name": "class Scoring",
         "color": {
           "w": 1.0,
-          "x": 0.1899999976158142,
-          "y": 0.6200000047683716,
-          "z": 1.0
+          "x": 1.0,
+          "y": 0.4300000071525574,
+          "z": 0.03999999910593033
         },
         "deg": {
           "x": 0.0,
@@ -4720,41 +4737,6 @@
           "z": 1.0
         },
         "type": 9
-      },
-      {
-        "Class": "class FieldEffect",
-        "Name": "class FieldEffect",
-        "color": {
-          "w": 1.0,
-          "x": 0.9705877304077148,
-          "y": 0.0,
-          "z": 1.0
-        },
-        "deg": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "drawFlags": {
-          "DrawBright": false,
-          "DrawGradation": false,
-          "DrawLit": true,
-          "DrawToon": false,
-          "DrawUnLit": false,
-          "GenerateDepthMapFromLight": false
-        },
-        "path": "Asset\\Textures\\Effect\\star.png",
-        "pos": {
-          "x": 26.5,
-          "y": 22.600000381469727,
-          "z": 0.0
-        },
-        "scale": {
-          "x": 0.10000000149011612,
-          "y": 0.10000000149011612,
-          "z": 1.0
-        },
-        "type": 7
       },
       {
         "Class": "class AttacEffect1",
@@ -5664,6 +5646,118 @@
     "type": 32
   },
   {
+    "Class": "class EnemyShield",
+    "Name": "class EnemyShield",
+    "color": {
+      "w": 1.9607843160629272,
+      "x": 1.9607843160629272,
+      "y": 1.9607843160629272,
+      "z": 1.9607843160629272
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": true,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "handWeaponDeg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "katanaHandOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "katanaOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "path": "Asset\\Models\\Weapon\\Shield\\Shield.gltf",
+    "pos": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32,
+    "weaponDeg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "Class": "class EnemySword",
+    "Name": "class EnemySword",
+    "color": {
+      "w": 1.9607843160629272,
+      "x": 1.9607843160629272,
+      "y": 1.9607843160629272,
+      "z": 1.9607843160629272
+    },
+    "deg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "drawFlags": {
+      "DrawBright": false,
+      "DrawGradation": false,
+      "DrawGrayScale": false,
+      "DrawLit": true,
+      "DrawToon": false,
+      "DrawUnLit": false,
+      "GenerateDepthMapFromLight": false
+    },
+    "handWeaponDeg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "katanaHandOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "katanaOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "path": "Asset\\Models\\Weapon\\EnemySword\\EnemySowrd.gltf",
+    "pos": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "type": 32,
+    "weaponDeg": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
     "Class": "class FPSCamera",
     "Name": "class FPSCamera",
     "color": {
@@ -5673,16 +5767,16 @@
       "z": 1.0
     },
     "deg": {
-      "x": 10.799997329711914,
-      "y": 300.7295837402344,
+      "x": 25.800037384033203,
+      "y": 315.8805236816406,
       "z": 0.0
     },
-    "moveSpeed": 16.0,
+    "moveSpeed": 1.0,
     "path": "Asset/Models/Sky/Sky.gltf",
     "pos": {
-      "x": 0.7855750918388367,
-      "y": 102.28948211669922,
-      "z": -4.173332214355469
+      "x": 4.687318325042725,
+      "y": 101.93903350830078,
+      "z": -4.061468124389648
     },
     "scale": {
       "x": 1.0,

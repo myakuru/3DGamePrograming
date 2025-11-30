@@ -6,6 +6,7 @@
     "z": 1.0
   },
   "m_brightThreshold": 0.4699999988079071,
+  "m_countDownTimer": 200.0,
   "m_dirLightHeight": 30.0,
   "m_directionalLightColor": {
     "x": 2.3529412746429443,

@@ -19,6 +19,8 @@
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_Attack/PlayerState_Attack.h"
 #include "Application/GameObject/Character/Player/PlayerConfig.h"
 
+#include"Application/GameObject/Utility/Time.h"
+
 const uint32_t Player::TypeID = KdGameObject::GenerateTypeID();
 
 Player::Player()
@@ -70,7 +72,7 @@ void Player::Init()
 	// 初期ステータス（暫定）
 	GetCharacterData()->SetCharacterData().hp = 1000;
 	GetCharacterData()->SetCharacterData().maxHp = 1000;
-	GetCharacterData()->SetCharacterData().attack = 0;
+	GetCharacterData()->SetCharacterData().attack = 15;
 
 	m_visual.rimLightOn = false;
 
@@ -98,8 +100,8 @@ void Player::PreUpdate()
 	// 残像のUpdate
 	m_visual.afterImage->CaptureAfterImage(m_modelWork.get(), m_mWorld);
 
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::PlayerKatana, m_katana);
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::PlayerScabbard, m_sheaths);
+	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::PlayerKatana, m_katana);
+	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::PlayerScabbard, m_sheaths);
 
 	// カタナの取得
 	for (const auto& katanaWeak : m_katana)
@@ -210,7 +212,7 @@ void Player::CollisionUpdate()
 	// 球に当たったオブジェクト情報を格納するリスト
 	std::list<KdCollider::CollisionResult> retSpherelist;
 
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, Refs().collisionObjects);
+	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::Collision, Refs().collisionObjects);
 
 	for (const auto& collision : Refs().collisionObjects)
 	{
@@ -444,7 +446,7 @@ void Player::UpdateAttackCollision(float _radius         , float         _distan
 			}
 
 
-			// SpecialPoint 飽和加算（絶対上限付き）
+			// SpecialPoint（絶対上限付き）
 			GetCharacterData()->SetPlayerStatus().specialPoint =
 				std::min(GetCharacterData()->GetPlayerStatus().specialPoint + (_attackCount * 20), GetCharacterData()->GetPlayerStatus().specialPointMax);
 		}
@@ -571,7 +573,12 @@ void Player::UpdateMoveDirectionFromInput()
 void Player::TakeDamage(int _damage)const
 {
 	GetCharacterData()->SetCharacterData().hp -= _damage;
-	if (GetCharacterData()->GetCharacterData().hp < 0) GetCharacterData()->SetCharacterData().hp = 0;
+	if (GetCharacterData()->GetCharacterData().hp < 0)
+	{
+		GetCharacterData()->SetCharacterData().hp = 0;
+		Time::Instance().SetCountdownTimeLeft(0.0f);
+		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
+	}
 }
 
 void Player::ApplyHorizontalMove(const Math::Vector3& _inputMove, float _deltaTime)
@@ -596,7 +603,7 @@ void Player::ApplyHorizontalMove(const Math::Vector3& _inputMove, float _deltaTi
 
 	if (!Refs().collision.expired()) return;
 
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, Refs().collisionObjects);
+	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::Collision, Refs().collisionObjects);
 
 	for (const auto& weakCol : Refs().collisionObjects)
 	{
@@ -636,67 +643,6 @@ void Player::ApplyHorizontalMove(const Math::Vector3& _inputMove, float _deltaTi
 	}
 }
 
-void Player::ApplyPushWithCollision(const Math::Vector3& _rawPush)
-{
-	if (_rawPush.LengthSquared() <= 1e-8f) return;
-
-	Math::Vector3 push = _rawPush;
-	push.y = 0.0f;
-	const float len = push.Length();
-	if (len <= 1e-6f) return;
-	const Math::Vector3 dir = push / len;
-
-	KdCollider::RayInfo ray = {};
-	ray.m_pos               = m_position + Math::Vector3(0.0f, Raycast().bumpSphereYOffset, 0.0f);
-	ray.m_dir               = dir;
-	ray.m_range             = len + Raycast().bumpSphereRadius;
-	ray.m_type              = KdCollider::TypeBump;
-
-	std::list<KdCollider::CollisionResult> rayHits;
-
-	if (!Refs().collision.expired()) return;
-
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, Refs().collisionObjects);
-
-	for (const auto& wk : Refs().collisionObjects)
-	{
-		auto collisionObj = wk.lock();
-
-		if (!collisionObj) continue;
-
-		collisionObj->Intersects(ray, &rayHits);
-
-	}
-
-	bool blocked = false;
-	float bestOverlap = 0.0f;
-	Math::Vector3 hitPos = Math::Vector3::Zero;
-	for (const auto& h : rayHits)
-	{
-		if (bestOverlap < h.m_overlapDistance)
-		{
-			bestOverlap = h.m_overlapDistance;
-			hitPos = h.m_hitPos;
-			blocked = true;
-		}
-	}
-
-	if (blocked)
-	{
-		const float hitDist = (hitPos - ray.m_pos).Length();
-		const float allow = std::max(0.0f, hitDist - Raycast().bumpSphereRadius - Raycast().collisionMargin);
-		if (allow > 0.0f)
-		{
-			m_position += dir * allow;
-		}
-		// 衝突点を超える押し出しは捨てる
-	}
-	else
-	{
-		m_position += push;
-	}
-}
-
 void Player::ApplyVerticalMove(float _deltaY)
 {
 	if (std::abs(_deltaY) <= FLT_EPSILON) return;
@@ -718,7 +664,7 @@ void Player::ApplyVerticalMove(float _deltaY)
 
 	if (!Refs().collision.expired()) return;
 
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, Refs().collisionObjects);
+	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::Collision, Refs().collisionObjects);
 
 	for (const auto& weakCol : Refs().collisionObjects)
 	{

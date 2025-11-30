@@ -5,7 +5,7 @@
 void EnemyStateBase::StateStart()
 {
 
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::PlayerLike, m_player);
+	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::PlayerLike, m_player);
 
 	// プレイヤーの位置を取得
 	for (const auto& player : m_player)

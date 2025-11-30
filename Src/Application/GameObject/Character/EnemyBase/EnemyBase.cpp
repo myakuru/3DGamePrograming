@@ -115,7 +115,7 @@ void EnemyBase::UpdateAttackCollision(float _radius, float _distance,
 	constexpr float kBroadPhaseMargin = 0.5f;
 	const float searchRadius = attackSphere.m_sphere.Radius + kBroadPhaseMargin;
 	(void)searchRadius; // 必要なら距離利用で絞り込み
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::PlayerLike, Refs().playerObjects);
+	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::PlayerLike, Refs().playerObjects);
 
 	// Just回避チェック
 	for (const auto& wPlayer : Refs().playerObjects)
@@ -185,10 +185,9 @@ void EnemyBase::PostUpdate()
 
 	std::list<KdCollider::CollisionResult> retSpherelist;
 
-	if (Refs().collision.expired()) return;
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, Refs().collisionObjects);
+	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::Collision, Refs().collisionObjects);
 
-	for (auto& wCol : Refs().collisionObjects)
+	for (const auto& wCol : Refs().collisionObjects)
 	{
 		if (auto col = wCol.lock())
 		{
@@ -200,7 +199,7 @@ void EnemyBase::PostUpdate()
 	bool hit = false;
 	Math::Vector3 hitDir;
 
-	for (auto& ret : retSpherelist)
+	for (const auto& ret : retSpherelist)
 	{
 		if (maxOverLap < ret.m_overlapDistance)
 		{
@@ -212,10 +211,12 @@ void EnemyBase::PostUpdate()
 
 	if (hit)
 	{
-		hitDir.Normalize();
 		hitDir.y = 0.0f;
-		hitDir.Normalize();
-		m_position += hitDir * maxOverLap;
+		if (hitDir.LengthSquared() > 0) hitDir.Normalize();
+
+		// 両者が等しく離れる想定 → プレイヤー側は半分だけ動く
+		const Math::Vector3 push = hitDir * (maxOverLap * 0.5f);
+		ApplyPushWithCollision(push); // 壁を貫通しないようスイープして移動
 	}
 }
 

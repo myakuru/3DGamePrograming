@@ -73,7 +73,7 @@ protected:
 	// VisualState（時間更新のみ許可）
 	float GetBlurTime() const { return m_visual.blurTime; }
 	void  AddBlurTime(float dt) { m_visual.blurTime += dt; }
-	void  ResetBlurTime() { m_visual.blurTime = 0.f; }
+	void  ResetBlurTime() { m_visual.blurTime = 1.0f; }
 
 	// 既存の仮想関数
 	void Init() override;

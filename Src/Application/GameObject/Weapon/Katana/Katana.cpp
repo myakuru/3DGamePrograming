@@ -4,6 +4,8 @@
 #include"../../../../MyFramework/Manager/JsonManager/JsonManager.h"
 #include"../../../../MyFramework/Manager/ImGuiManager/ImGuiManager.h"
 
+#include "Application/GameObject/Character/Player/Player.h"
+
 // TypeIDの定義と初期化
 const uint32_t Katana::TypeID = KdGameObject::GenerateTypeID();
 
@@ -14,33 +16,15 @@ void Katana::Init()
 	m_trailPolygon->ClearPoints();
 	m_trailPolygon->SetMaterial(m_trailTex);
 	//m_showTrail = false;
+
+	SceneManager::Instance().GetObjectWeakPtr(m_wpPlayer);
 }
 
 void Katana::Update()
 {
-	if (!m_isAttackState)
-	{
-		// 攻撃していない間は軌跡を常にクリア
-		m_trailPolygon->ClearPoints();
-		UpdateHand();
-		return;
-	}
-
-	// 攻撃中は軌跡を追加
-	m_swordData.m_weaponRotationMatrix = m_swordData.m_weaponBonesMatrix.CreateFromYawPitchRoll(
-		DirectX::XMConvertToRadians(m_swordData.m_weaponDeg.y),
-		DirectX::XMConvertToRadians(m_swordData.m_weaponDeg.x),
-		DirectX::XMConvertToRadians(m_swordData.m_weaponDeg.z)
-	);
-
-	m_swordData.m_weaponScaleMatrix = Math::Matrix::CreateScale(m_swordData.m_scale);
-
-	m_swordData.m_weaponBonesMatrix.Translation(m_swordHandData.m_weaponBonesMatrix.Translation());
-	Math::Matrix transOffset = Math::Matrix::CreateTranslation(m_katanaHandOffset);
-	m_swordData.m_weaponMatrix = transOffset * m_swordData.m_weaponScaleMatrix * m_swordData.m_weaponRotationMatrix * m_swordHandData.m_weaponBonesMatrix * m_swordHandData.m_playerWorldMatrix;
+	UpdateHand();
 
 	UpdateTrailPolygon();
-
 }
 
 void Katana::UpdateTrailPolygon()
@@ -121,23 +105,45 @@ void Katana::DrawBright()
 	// 軌跡ポリゴンの描画
 	if (m_showTrail)
 	{
+		KdShaderManager::Instance().m_StandardShader.DrawPolygon(*m_trailPolygon);
 	}
 }
 
 void Katana::UpdateHand()
 {
-	m_swordHandData.m_weaponRotationMatrix = Math::Matrix::CreateFromYawPitchRoll
-	(
-		DirectX::XMConvertToRadians(m_swordHandData.m_weaponDeg.y),
-		DirectX::XMConvertToRadians(m_swordHandData.m_weaponDeg.x),
-		DirectX::XMConvertToRadians(m_swordHandData.m_weaponDeg.z)
-	);
+	auto player = m_wpPlayer.lock();
+	if (!player) return;
 
-	m_swordData.m_weaponScaleMatrix = Math::Matrix::CreateScale(m_swordData.m_scale);
+	if (!player->IsRightHanded())
+	{
+		m_swordHandData.m_weaponRotationMatrix = Math::Matrix::CreateFromYawPitchRoll
+		(
+			DirectX::XMConvertToRadians(m_swordHandData.m_weaponDeg.y),
+			DirectX::XMConvertToRadians(m_swordHandData.m_weaponDeg.x),
+			DirectX::XMConvertToRadians(m_swordHandData.m_weaponDeg.z)
+		);
 
-	m_swordHandData.m_weaponBonesMatrix.Translation(m_swordHandData.m_weaponBonesMatrix.Translation());
-	Math::Matrix transOffset = Math::Matrix::CreateTranslation(m_katanaOffset);
-	m_swordData.m_weaponMatrix = transOffset * m_swordData.m_weaponScaleMatrix * m_swordHandData.m_weaponRotationMatrix *m_swordHandData.m_weaponBonesMatrix * m_swordData.m_playerWorldMatrix;
+		m_swordData.m_weaponScaleMatrix = Math::Matrix::CreateScale(m_swordData.m_scale);
+
+		m_swordHandData.m_weaponBonesMatrix.Translation(m_swordHandData.m_weaponBonesMatrix.Translation());
+		Math::Matrix transOffset = Math::Matrix::CreateTranslation(m_katanaOffset);
+		m_swordData.m_weaponMatrix = transOffset * m_swordData.m_weaponScaleMatrix * m_swordHandData.m_weaponRotationMatrix * m_swordHandData.m_weaponBonesMatrix * m_swordData.m_playerWorldMatrix;
+	}
+	else
+	{
+		m_swordData.m_weaponRotationMatrix = Math::Matrix::CreateFromYawPitchRoll
+		(
+			DirectX::XMConvertToRadians(m_swordData.m_weaponDeg.y),
+			DirectX::XMConvertToRadians(m_swordData.m_weaponDeg.x),
+			DirectX::XMConvertToRadians(m_swordData.m_weaponDeg.z)
+		);
+
+		m_swordData.m_weaponScaleMatrix = Math::Matrix::CreateScale(m_swordData.m_scale);
+
+		m_swordHandData.m_weaponBonesMatrix.Translation(m_swordHandData.m_weaponBonesMatrix.Translation());
+		Math::Matrix transOffset = Math::Matrix::CreateTranslation(m_katanaHandOffset);
+		m_swordData.m_weaponMatrix = transOffset * m_swordData.m_weaponScaleMatrix * m_swordData.m_weaponRotationMatrix * m_swordHandData.m_weaponBonesMatrix * m_swordData.m_playerWorldMatrix;
+	}
 
 }
 
@@ -192,19 +198,20 @@ void Katana::ImGuiInspector()
 		ImGui::DragFloat3("trailScale", &m_trailScale.x, 0.1f);
 	}
 
-	m_swordData.m_weaponRotationMatrix = m_swordData.m_weaponBonesMatrix.CreateFromYawPitchRoll
-	(
-		DirectX::XMConvertToRadians(m_swordData.m_weaponDeg.y),
-		DirectX::XMConvertToRadians(m_swordData.m_weaponDeg.x),
-		DirectX::XMConvertToRadians(m_swordData.m_weaponDeg.z)
-	);
+	{
+		m_swordData.m_weaponRotationMatrix = Math::Matrix::CreateFromYawPitchRoll
+		(
+			DirectX::XMConvertToRadians(m_swordData.m_weaponDeg.y),
+			DirectX::XMConvertToRadians(m_swordData.m_weaponDeg.x),
+			DirectX::XMConvertToRadians(m_swordData.m_weaponDeg.z)
+		);
 
-	m_swordData.m_weaponScaleMatrix = Math::Matrix::CreateScale(m_swordData.m_scale);
+		m_swordData.m_weaponScaleMatrix = Math::Matrix::CreateScale(m_swordData.m_scale);
 
-	m_swordData.m_weaponBonesMatrix.Translation(m_swordData.m_weaponBonesMatrix.Translation());
-	Math::Matrix transOffset = Math::Matrix::CreateTranslation(m_katanaHandOffset);
-	m_swordData.m_weaponMatrix = transOffset * m_swordData.m_weaponScaleMatrix * m_swordData.m_weaponRotationMatrix * m_swordData.m_weaponBonesMatrix * m_swordData.m_playerWorldMatrix;
-
+		m_swordHandData.m_weaponBonesMatrix.Translation(m_swordHandData.m_weaponBonesMatrix.Translation());
+		Math::Matrix transOffset = Math::Matrix::CreateTranslation(m_katanaHandOffset);
+		m_swordData.m_weaponMatrix = transOffset * m_swordData.m_weaponScaleMatrix * m_swordData.m_weaponRotationMatrix * m_swordHandData.m_weaponBonesMatrix * m_swordData.m_playerWorldMatrix;
+	}
 }
 
 void Katana::JsonSave(nlohmann::json& _json) const

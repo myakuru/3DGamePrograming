@@ -22,15 +22,6 @@ void PlayerState_SpecialAttackCutIn::StateStart()
 		camera->SetDistanceSmooth(m_cameraStartDistanceSmooth);
 	}
 
-	// 攻撃時はtrueにする
-	for (const auto& katanaWeak : m_player->GetKatanas())
-	{
-		if (auto katana = katanaWeak.lock())
-		{
-			katana->SetNowAttackState(true);
-		}
-	}
-
 	// 無敵状態にする
 	m_player->SetInvincible(true);
 
@@ -57,16 +48,15 @@ void PlayerState_SpecialAttackCutIn::StateUpdate()
 	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
 		// キャラ前方からヨー角(deg)を計算してカメラ回転に反映
-		if (moveDir != Math::Vector3::Zero)
-		{
-			moveDir.Normalize();
-			const float yawRad = std::atan2(-moveDir.x, -moveDir.z);
-			const float yawDeg = DirectX::XMConvertToDegrees(yawRad);
-			camera->SetTargetRotation({ m_cameraCutInRotation.x, yawDeg , m_cameraCutInRotation.z });
-		}
+
+		moveDir.Normalize();
+		const float yawRad = std::atan2(-moveDir.x, -moveDir.z);
+		const float yawDeg = DirectX::XMConvertToDegrees(yawRad);
+		camera->SetTargetRotation({ 0.0f, yawDeg , 0.0f });
+
 	}
 
-	if (m_animeTime >= m_cutInCameraTime)
+	if (m_animeTime >= 0.5f)
 	{
 		if (auto camera = m_player->GetPlayerCamera().lock())
 		{
@@ -93,9 +83,6 @@ void PlayerState_SpecialAttackCutIn::StateEnd()
 	// カメラの位置を変更
 	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
-		/*camera->SetTargetLookAt({ 0.f,1.f,-4.0f });
-		camera->SetTargetRotation({ 0.0f,90.0f,0.0f });*/
-
 		camera->SetRotationSmooth(m_cameraRotationSmooth);
 		camera->SetDistanceSmooth(m_cameraDistanceSmooth);
 	}

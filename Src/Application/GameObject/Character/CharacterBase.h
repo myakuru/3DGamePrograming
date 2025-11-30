@@ -35,6 +35,9 @@ public:
 	const Math::Vector3& GetMovement() const;
 	const bool GetIsMoving() const { return m_movement.isMoving; }
 
+	// コリジョン抜けしないように押し出しを適用する関数
+	void ApplyPushWithCollision(const Math::Vector3& _rawPush);
+
 	Math::Matrix& GetRotationMatrix();
 	void SetRotation(const Math::Quaternion& _rotation);
 	Math::Quaternion& GetRotationQuaternion();

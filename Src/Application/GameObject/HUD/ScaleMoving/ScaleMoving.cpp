@@ -10,7 +10,7 @@ const uint32_t ScaleMoving::TypeID = KdGameObject::GenerateTypeID();
 void ScaleMoving::Update()
 {
 	float timeLeft = Time::Instance().GetCountdownTimeLeft();
-	const float maxTime = 120.0f; // タイマーの最大値
+	const float maxTime = SceneManager::Instance().GetTime();
 
 	// 0.0f ~ 1.0f にクランプ
 	m_time = std::clamp(timeLeft / maxTime, 0.0f, 1.0f);
@@ -20,10 +20,8 @@ void ScaleMoving::Update()
 	const int   visibleWidth = static_cast<int>(std::round(visibleWidthF));
 
 	// 右端を基準にソース矩形を左からカットする
-	// m_fullWidth はテクスチャ(バー)の最大幅と一致している前提
 	m_rect.x = static_cast<int>(m_fullWidth) - visibleWidth; // 左へスライド
 	m_rect.width = visibleWidth;
-	// m_rect.y, m_rect.height は固定（丸みを保つために高さは不変）
 
 	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
 

@@ -96,6 +96,15 @@ public:
 		}
 	}
 
+	// タグ経由の取得：（全件）
+	void GetObjectWeakPtrListByTagFromBuckets(ObjTag tag, std::list<std::weak_ptr<KdGameObject>>& outPtrList)
+	{
+		outPtrList.clear();
+		auto it = m_tagBuckets.find(ToMask(tag));
+		if (it == m_tagBuckets.end()) return;
+		for (auto& w : it->second) if (!w.expired()) outPtrList.emplace_back(w);
+	}
+
 	// タグ経由の取得（球範囲）
 	void GetObjectWeakPtrListByTagInSphereFromBuckets(ObjTag tag, const Math::Vector3& center, float radius,
 		std::list<std::weak_ptr<KdGameObject>>& outPtrList)
@@ -178,7 +187,7 @@ protected:
 
 
 	// 追加時にバケットへ登録
-	inline void IndexObject(const std::shared_ptr<KdGameObject>& obj)
+	void IndexObject(const std::shared_ptr<KdGameObject>& obj)
 	{
 		if (!obj) return;
 		// ウィークポインタを格納する。
@@ -197,7 +206,7 @@ protected:
 	}
 
 	// PreUpdateでタグ消す
-	inline void CompactTypeBuckets()
+	void CompactTypeBuckets()
 	{
 		auto comp = [](auto& vec)
 			{

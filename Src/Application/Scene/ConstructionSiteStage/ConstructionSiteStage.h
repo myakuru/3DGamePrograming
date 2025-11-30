@@ -12,6 +12,9 @@ public:
 
 	std::string GetSceneName() const override { return "ConstructionSite"; }
 
+	void JsonInput([[maybe_unused]] const nlohmann::json& _json) override;
+	void JsonSave([[maybe_unused]] nlohmann::json& _json) const override;
+
 private:
 	void Event() override;
 	void Init()  override;
@@ -23,7 +26,8 @@ private:
 
 	bool m_isCountDown = false; // カウントダウン中かどうか
 
-	float m_countDownTimer = 0.0f; // カウントダウンタイマー
+	float m_countDownTimer = 0.0f;		// カウントダウンタイマー
+	float m_countDownTimeMax = 200.0f;	// カウントダウン時間最大値
 
 	std::weak_ptr<Player> m_player;
 	std::vector<std::weak_ptr<AetheriusEnemy>> m_aetheriusEnemies;

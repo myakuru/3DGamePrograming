@@ -42,7 +42,7 @@ void PlayerState_Hit::StateUpdate()
 
 	PlayerStateBase::StateUpdate();
 
-	UpdateKatanaPos();
+	UpdateUnsheathed();
 
 	//0.9
 	if (m_animeTime >= m_stateParameter.changeStateTime)

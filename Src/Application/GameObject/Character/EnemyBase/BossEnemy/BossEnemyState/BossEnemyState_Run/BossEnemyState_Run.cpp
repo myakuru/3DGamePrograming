@@ -32,16 +32,6 @@ void BossEnemyState_Run::StateUpdate()
 	// 距離計算
 	m_distance = (m_playerPos - m_enemyPos).Length();
 
-	// 10m未満になったらAIに委譲
-	if (m_distance < m_targetDistance)
-	{
-		auto next = m_bossEnemy->GetBossEnemyAI()->DecideNext(m_bossEnemy);
-
-		// 自分と同じ Run への再遷移は行わない（毎フレームアニメを張り直すのを防ぐ）
-		m_bossEnemy->ChangeState(next);
-		return;
-	}
-
 	// 追いかける（状態維持時のみ適用）
 	Math::Vector3 dir = m_playerPos - m_enemyPos;
 	dir.y = 0.0f;
@@ -57,6 +47,22 @@ void BossEnemyState_Run::StateUpdate()
 	}
 
 	m_bossEnemy->SetIsMoving(dir);
+
+	// 10m未満になったらAIに委譲
+	if (m_distance < m_targetDistance)
+	{
+		auto next = m_bossEnemy->GetBossEnemyAI()->DecideNext(m_bossEnemy);
+
+		// 自分と同じ Run への再遷移は行わない（毎フレームアニメを張り直すのを防ぐ）
+		if (typeid(*next) == typeid(BossEnemyState_Run))
+		{
+			// 既に Run 状態のまま継続
+			return;
+		}
+
+		m_bossEnemy->ChangeState(next);
+		return;
+	}
 }
 
 void BossEnemyState_Run::StateEnd()

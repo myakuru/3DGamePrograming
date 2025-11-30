@@ -25,7 +25,7 @@ void EnemyHp::Update()
 	if (auto camera = m_camera.lock(); camera)
 	{
 		// このフレームで参照可能な敵を列挙
-		SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyLike, m_enemies);
+		SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::EnemyLike, m_enemies);
 
 		// ビューポート取得（中心原点の±半分で画面内判定）
 		Math::Viewport vp;

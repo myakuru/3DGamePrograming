@@ -11,9 +11,9 @@ void NumBer::Init()
 	m_isIncreasing = false;
 	m_texture = KdAssets::Instance().m_textures.GetData("Asset/Textures/Time/Hp.png");
 
-	m_displayTime = 10000;
+	m_displayTime = 0;
 
-	SceneManager::Instance().GetObjectWeakPtrListByTag< Player >(ObjTag::PlayerLike, m_playerList);
+	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::PlayerLike, m_playerList);
 
 }
 

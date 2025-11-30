@@ -28,15 +28,6 @@ void PlayerState_Attack::StateStart()
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
 
-	// 攻撃時はtrueにする
-	for (const auto& katanaWeak : m_player->GetKatanas())
-	{
-		if (auto katana = katanaWeak.lock())
-		{
-			katana->SetNowAttackState(true);
-		}
-	}
-
 	// エフェクト取得
 	SceneManager::Instance().GetObjectWeakPtr(m_slashEffect);
 	// アニメーション速度設定
@@ -47,6 +38,8 @@ void PlayerState_Attack::StateStart()
 
 void PlayerState_Attack::StateUpdate()
 {
+	UpdateKatanaPos();
+
 	// アニメーション時間の取得
 	m_animeTime = m_player->GetAnimator()->GetPlayProgress();
 
@@ -116,8 +109,6 @@ void PlayerState_Attack::StateUpdate()
 
 	// 最後に Base 側の StateUpdate を呼び出すことで、フォーカス/方向の追従が反映されます。
 	PlayerStateBase::StateUpdate();
-
-	UpdateKatanaPos();
 }
 
 void PlayerState_Attack::StateEnd()

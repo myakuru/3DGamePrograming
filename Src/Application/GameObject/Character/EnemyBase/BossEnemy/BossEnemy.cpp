@@ -84,7 +84,7 @@ void BossEnemy::Update()
 
 	SearchHitEffect();
 
-	// 被弾処理（旧 m_isHit）
+	// 被弾処理
 	if (GetHitCheck())
 	{
 		SetHitCheck(false);
@@ -98,9 +98,12 @@ void BossEnemy::Update()
 			}
 		}
 
-		// ブラー開始
-		SetEnableRadialBlur(true);
-		ResetBlurTime();
+		// ブラー開始（既に有効ならリセットしない）
+		if (!GetEnableRadialBlur())
+		{
+			SetEnableRadialBlur(true);
+			ResetBlurTime();
+		}
 
 		// 無敵なら累積だけリセット
 		if (GetInvincible())
@@ -149,13 +152,13 @@ void BossEnemy::Update()
 	}
 
 	// HP 半分以下で回避ステートへ（1回だけ）
-	if (GetCharacterData()->GetCharacterData().hp <= (GetCharacterData()->GetCharacterData().maxHp / 2)
+	/*if (GetCharacterData()->GetCharacterData().hp <= (GetCharacterData()->GetCharacterData().maxHp / 2)
 		&& m_lastAction != ActionType::Dodge)
 	{
 		auto dodgeState = std::make_shared<BossEnemyState_Dodge>();
 		ChangeState(dodgeState);
 		return;
-	}
+	}*/
 }
 
 void BossEnemy::StateInit()
@@ -167,6 +170,10 @@ void BossEnemy::StateInit()
 void BossEnemy::ChangeState(std::shared_ptr<BossEnemyStateBase> _state)
 {
 	_state->SetBossEnemy(this);
+
+	Physics().hitStop = 1.0f;
+	ResetBlurTime();
+
 	if (m_bossEnemyConfig)
 	{
 		m_bossEnemyConfig->ApplyPrototypeParametersTo(*_state);

@@ -93,6 +93,12 @@ public:
 		return m_countdownTimeLeft;
 	}
 
+	// カウントダウンのセッター
+	void SetCountdownTimeLeft(float timeLeft)
+	{
+		m_countdownTimeLeft = timeLeft;
+	}
+
 	// カウントダウンが終了したか
 	bool IsCountdownFinished() const
 	{

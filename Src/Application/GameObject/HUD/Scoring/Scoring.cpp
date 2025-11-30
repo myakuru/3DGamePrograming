@@ -21,27 +21,31 @@ void Scoring::Update()
 
 	m_displayTime = static_cast<int>(timeLeft);
 
-	if (m_displayTime >= 60)
+	float totalTime = SceneManager::Instance().GetTime(); // 開始時の合計時間
+	float ratio = 0.0f;
+	if (totalTime > 0.0f) ratio = timeLeft / totalTime;
+
+	if (ratio >= 0.75f)
 	{
-		SceneManager::Instance().SetScore(0); //S
+		SceneManager::Instance().SetScore(0); // S
 		m_srcRect = { 0,0,50,50 };
 		m_color = { 1.0f, 0.43f, 0.04f, 1.0f };
 	}
-	else if (m_displayTime >= 30)
+	else if (ratio >= 0.50f)
 	{
-		SceneManager::Instance().SetScore(1); //A
+		SceneManager::Instance().SetScore(1); // A
 		m_srcRect = { 50,0,50,50 };
 		m_color = { 0.71f, 0.24f, 1.0f, 1.0f };
 	}
-	else if(m_displayTime >= 10)
+	else if (ratio >= 0.25f)
 	{
-		SceneManager::Instance().SetScore(2); //B
+		SceneManager::Instance().SetScore(2); // B
 		m_srcRect = { 100,0,50,50 };
 		m_color = { 0.19f, 0.62f, 1.0f, 1.0f };
 	}
 	else
 	{
-		SceneManager::Instance().SetScore(3); //X
+		SceneManager::Instance().SetScore(3); // X
 	}
 
 	if (SceneManager::Instance().IsBossAppear())

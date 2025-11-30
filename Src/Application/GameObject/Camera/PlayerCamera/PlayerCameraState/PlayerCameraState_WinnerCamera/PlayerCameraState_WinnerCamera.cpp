@@ -16,7 +16,7 @@ void PlayerCameraState_WinnerCamera::StateStart()
 	// スローモーション（演出停止）
 	Application::Instance().SetFpsScale(0.0f);
 
-	// 初期ポストプロセス設定（UpdateWinnerCamera準拠）
+	// 初期ポストプロセス設定
 	KdShaderManager::Instance().m_postProcessShader.SetEnableStrongBlur(false);
 	KdShaderManager::Instance().m_postProcessShader.SetEnableNoise(false);
 	KdShaderManager::Instance().m_postProcessShader.SetEnableGray(false);

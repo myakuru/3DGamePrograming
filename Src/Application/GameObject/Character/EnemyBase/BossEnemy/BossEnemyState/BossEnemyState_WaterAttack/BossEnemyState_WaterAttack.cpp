@@ -20,6 +20,8 @@ void BossEnemyState_WaterAttack::StateStart()
 	m_bossEnemy->SetLastAction(BossEnemy::ActionType::Water);
 
 	SceneManager::Instance().GetObjectWeakPtr(m_waterAttackEffect);
+
+	KdAudioManager::Instance().Play("Asset/Sound/BossEnemy/WaterAttack.WAV", false)->SetVolume(1.0f);
 }
 
 void BossEnemyState_WaterAttack::StateUpdate()

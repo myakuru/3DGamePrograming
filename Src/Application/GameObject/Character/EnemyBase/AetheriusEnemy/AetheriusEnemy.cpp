@@ -26,10 +26,6 @@ void AetheriusEnemy::Init()
 	GetCharacterData()->SetCharacterData().maxHp = 500;
 	GetCharacterData()->SetCharacterData().attack = 10;
 
-	// 武器参照取得
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemySword, m_enemySwords);
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyShield, m_enemyShields);
-
 	// Config
 	m_config = std::make_shared<AetheriusEnemyConfig>();
 	if (m_config)
@@ -50,33 +46,75 @@ void AetheriusEnemy::Update()
 {
 	EnemyBase::Update(); // アニメーション・移動など
 
-	// 剣
-	for (const auto& w : m_enemySwords)
+	// --- 武器の割当（近傍検索） ---
 	{
-		if (auto weapon = w.lock())
+		std::list<std::weak_ptr<KdGameObject>> nearby;
+
+		// 剣：未割当なら近傍で未所有の剣を探して割り当てる
+		if (m_wpSword.expired())
 		{
-			weapon->SetOwnerEnemy(std::static_pointer_cast<AetheriusEnemy>(shared_from_this()));
-			if (auto rightHandNode = m_modelWork->FindWorkNode("weapon_r"))
+			SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemySword, nearby); // 半径は調整
+			for (const auto& w : nearby)
 			{
-				weapon->SetEnemyRightHandMatrix(rightHandNode->m_worldTransform);
-				weapon->SetEnemyMatrix(m_mWorld);
+				if (auto sp = w.lock())
+				{
+					if (sp->GetTypeID() == EnemySword::TypeID)
+					{
+						auto sword = std::static_pointer_cast<EnemySword>(sp);
+						if (sword->GetOwnerEnemy().expired())
+						{
+							sword->SetOwnerEnemy(std::static_pointer_cast<AetheriusEnemy>(shared_from_this()));
+							m_wpSword = sword;
+							break;
+						}
+					}
+				}
 			}
+			nearby.clear();
+		}
+
+		// 盾：未割当なら近傍で未所有の盾を探して割り当てる
+		if (m_wpShield.expired())
+		{
+			SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyShield, nearby);
+			for (const auto& w : nearby)
+			{
+				if (auto sp = w.lock())
+				{
+					if (sp->GetTypeID() == EnemyShield::TypeID)
+					{
+						auto shield = std::static_pointer_cast<EnemyShield>(sp);
+						if (shield->GetOwnerEnemy().expired())
+						{
+							shield->SetOwnerEnemy(std::static_pointer_cast<AetheriusEnemy>(shared_from_this()));
+							m_wpShield = shield;
+							break;
+						}
+					}
+				}
+			}
+			nearby.clear();
 		}
 	}
 
-	// 盾
-	for (const auto& w : m_enemyShields)
+	// --- 自分が所有する武器だけ行列更新 ---
+	if (auto sword = m_wpSword.lock())
 	{
-		if (auto weapon = w.lock())
+		if (auto rightHandNode = m_modelWork ? m_modelWork->FindWorkNode("weapon_r") : nullptr)
 		{
-			weapon->SetOwnerEnemy(std::static_pointer_cast<AetheriusEnemy>(shared_from_this()));
-			if (auto leftHandNode = m_modelWork->FindWorkNode("weapon_l"))
-			{
-				weapon->SetEnemyLeftHandMatrix(leftHandNode->m_worldTransform);
-				weapon->SetEnemyMatrix(m_mWorld);
-			}
+			sword->SetEnemyRightHandMatrix(rightHandNode->m_worldTransform);
+			sword->SetEnemyMatrix(m_mWorld);
 		}
 	}
+	if (auto shield = m_wpShield.lock())
+	{
+		if (auto leftHandNode = m_modelWork ? m_modelWork->FindWorkNode("weapon_l") : nullptr)
+		{
+			shield->SetEnemyLeftHandMatrix(leftHandNode->m_worldTransform);
+			shield->SetEnemyMatrix(m_mWorld);
+		}
+	}
+
 
 	SearchHitEffect();
 

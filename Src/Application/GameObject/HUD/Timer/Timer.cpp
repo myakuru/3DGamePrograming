@@ -16,7 +16,6 @@ void Timer::Init()
 	SelectDraw2DTexture::Init();
 
 	m_srcRect = { 0, 0, 128, 256 }; // 1
-	//m_srcRect = { 128, 0, 128, 256 }; // 2
 	m_texture = KdAssets::Instance().m_textures.GetData("Asset/Textures/Time/Digit01.png");
 	m_resultTexture = KdAssets::Instance().m_textures.GetData("Asset/Textures/Time/ResultTime.png");
 	m_notDraw = false; // 描画しないフラグを初期化

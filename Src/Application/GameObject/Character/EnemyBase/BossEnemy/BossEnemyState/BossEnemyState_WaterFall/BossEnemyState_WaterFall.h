@@ -20,4 +20,6 @@ private:
 
 	std::weak_ptr<BossWaterFallAttack> m_waterFallAttack;
 
+	bool m_oneSound = false;
+
 };

@@ -19,7 +19,7 @@ private:
 
 	bool m_afterImagePlayed = false; // 残像エフェクトが再生されたかどうか
 
-	Math::Vector3 m_startCameraOffset = { 0.0f, 1.0f, -4.5f };
+	Math::Vector3 m_startCameraOffset = { 0.0f, 1.0f, -2.5f };
 	Math::Vector3 m_startBossCameraOffset = { 0.0f,1.0f,-7.5f };
 	Math::Vector3 m_justAvoidCameraOffset = { 0.0f,0.7f,-1.2f };
 

@@ -21,6 +21,8 @@ void BossEnemyState_WaterFall::StateStart()
 	m_bossEnemy->SetLastAction(BossEnemy::ActionType::WaterFall);
 
 	SceneManager::Instance().GetObjectWeakPtr(m_waterFallAttack);
+
+	m_oneSound = false;
 }
 
 void BossEnemyState_WaterFall::StateUpdate()
@@ -42,6 +44,12 @@ void BossEnemyState_WaterFall::StateUpdate()
 			m_stateParameter.attackStartTime,
 			m_stateParameter.attackEndTime
 		);
+
+		if (!m_oneSound)
+		{
+			KdAudioManager::Instance().Play("Asset/Sound/BossEnemy/WaterFall.WAV", false)->SetVolume(1.0f);
+			m_oneSound = true;
+		}
 
 		if (auto effect = m_waterFallAttack.lock())
 		{

@@ -39,11 +39,11 @@ void PlayerState_FowardAvoid::StateStart()
 	{
 		if (auto bossEnemy = m_bossEnemy.lock())
 		{
-			camera->SetTargetLookAt(m_startCameraOffset);
+			camera->SetTargetLookAt(m_startBossCameraOffset);
 		}
 		else
 		{
-			camera->SetTargetLookAt(m_startBossCameraOffset);
+			camera->SetTargetLookAt(m_startCameraOffset);
 		}
 	}
 

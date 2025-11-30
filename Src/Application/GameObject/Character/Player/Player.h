@@ -146,6 +146,10 @@ public:
 	void SetGuardBreak(bool _v) { m_action.guardBreak = _v; }
 	bool GetGuardBreak() const { return m_action.guardBreak; }
 
+	// 右手に刀を持っているか
+	bool IsRightHanded() const { return m_isRightHanded; }
+	void SetRightHanded(bool _isRight) { m_isRightHanded = _isRight; }
+
 	// ダメージ処理
 	void TakeDamage(int _damage) const;
 
@@ -162,7 +166,6 @@ private:
 
 	// 内部移動処理
 	void ApplyHorizontalMove   (const Math::Vector3& _inputMove, float _deltaTime);
-	void ApplyPushWithCollision(const Math::Vector3& _rawPush);
 	void ApplyVerticalMove     (float                _deltaY);
 
 	// ====== データ ======
@@ -174,9 +177,9 @@ private:
 
 	float		m_attackBossEnemyRadius = 2.0f;		// ボスに対する当たり判定半径
 	float		m_unScaledeltaTime = 0.0f;			// デフォルトのdeltaTime保存
+	bool 		m_isRightHanded = false;				// 右手に刀を持っているか
 
 	std::shared_ptr<PlayerConfig>  m_playerConfig;	// プレイヤーの設定
-
 
 	// 参照
 	std::list<std::weak_ptr<KdGameObject>> m_enemyLike;

@@ -79,8 +79,15 @@ public:
 	}
 
 	// タグで全取得
+	void GetObjectWeakPtrListByTag(ObjTag tag, std::list<std::weak_ptr<KdGameObject>>& outPtrList)
+	{
+		if (!m_currentScene) { outPtrList.clear(); return; }
+		m_currentScene->GetObjectWeakPtrListByTagFromBuckets(tag, outPtrList);
+	}
+
+	// タグで全取得(ダウンキャストなし)
 	template <class T>
-	void GetObjectWeakPtrListByTag(ObjTag tag, std::vector<std::weak_ptr<T>>& outPtrList)
+	void GetObjectWeakPtrByTag(ObjTag tag, std::vector<std::weak_ptr<T>>& outPtrList)
 	{
 		outPtrList.clear();
 		if (!m_currentScene) return;

@@ -48,6 +48,9 @@ private:
 	std::vector<std::weak_ptr<EnemySword>>  m_enemySwords;	// 武器参照
 	std::vector<std::weak_ptr<EnemyShield>> m_enemyShields;	// 武器参照
 
+	std::weak_ptr<EnemySword>  m_wpSword;
+	std::weak_ptr<EnemyShield> m_wpShield;
+
 	bool m_expired = false;
 	int  m_lastDamageReceived = 0;
 };

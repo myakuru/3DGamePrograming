@@ -136,7 +136,7 @@ void CharacterBase::PostUpdate()
 
 	if (m_refs.collision.expired()) return;
 
-	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::Collision, m_refs.collisionObjects);
+	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::Collision, m_refs.collisionObjects);
 
 	for (auto& collision : m_refs.collisionObjects)
 	{
@@ -281,4 +281,65 @@ Math::Quaternion& CharacterBase::GetRotationQuaternion()
 void CharacterBase::SetPosition(const Math::Vector3& _position)
 {
 	m_position = _position;
+}
+
+void  CharacterBase::ApplyPushWithCollision(const Math::Vector3& _rawPush)
+{
+	if (_rawPush.LengthSquared() <= 1e-8f) return;
+
+	Math::Vector3 push = _rawPush;
+	push.y = 0.0f;
+	const float len = push.Length();
+	if (len <= 1e-6f) return;
+	const Math::Vector3 dir = push / len;
+
+	KdCollider::RayInfo ray = {};
+	ray.m_pos = m_position + Math::Vector3(0.0f, Raycast().bumpSphereYOffset, 0.0f);
+	ray.m_dir = dir;
+	ray.m_range = len + Raycast().bumpSphereRadius;
+	ray.m_type = KdCollider::TypeBump;
+
+	std::list<KdCollider::CollisionResult> rayHits;
+
+	if (!Refs().collision.expired()) return;
+
+	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::Collision, Refs().collisionObjects);
+
+	for (const auto& wk : Refs().collisionObjects)
+	{
+		auto collisionObj = wk.lock();
+
+		if (!collisionObj) continue;
+
+		collisionObj->Intersects(ray, &rayHits);
+
+	}
+
+	bool blocked = false;
+	float bestOverlap = 0.0f;
+	Math::Vector3 hitPos = Math::Vector3::Zero;
+	for (const auto& h : rayHits)
+	{
+		if (bestOverlap < h.m_overlapDistance)
+		{
+			bestOverlap = h.m_overlapDistance;
+			hitPos = h.m_hitPos;
+			blocked = true;
+		}
+	}
+
+	if (blocked)
+	{
+		const float hitDist = (hitPos - ray.m_pos).Length();
+		const float allow = std::max(0.0f, hitDist - Raycast().bumpSphereRadius - Raycast().collisionMargin);
+		if (allow > 0.0f)
+		{
+			m_position += dir * allow;
+		}
+		// 衝突点を超える押し出しは捨てる
+	}
+	else
+	{
+		m_position += push;
+	}
 }

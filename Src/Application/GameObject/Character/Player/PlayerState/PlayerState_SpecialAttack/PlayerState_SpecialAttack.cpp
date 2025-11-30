@@ -96,7 +96,7 @@ void PlayerState_SpecialAttack::StateUpdate()
 			moveDir.Normalize();
 			m_yawRad = std::atan2(moveDir.x, moveDir.z);
 			m_yawDeg = DirectX::XMConvertToDegrees(m_yawRad);
-			camera->SetTargetRotation({ 10.0f, m_yawDeg , 0.0f });
+			camera->SetTargetRotation({ 0.0f, m_yawDeg , 0.0f });
 		}
 	}
 
@@ -105,7 +105,7 @@ void PlayerState_SpecialAttack::StateUpdate()
 		if (auto camera = m_player->GetPlayerCamera().lock())
 		{
 			camera->SetTargetLookAt({ 0.0f,1.0f,-4.0f });
-			camera->SetTargetRotation({ -10.0f, m_yawDeg , 0.0f });
+			camera->SetTargetRotation({ 0.0f, m_yawDeg , 0.0f });
 		}
 	}
 

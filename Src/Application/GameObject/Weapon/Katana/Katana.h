@@ -1,6 +1,9 @@
 ﻿#pragma once
 #include"../WeaponBase.h"
 class WeaponKatanaScabbard;
+
+class Player;
+
 class Katana : public WeaponBase
 {
 public:
@@ -51,5 +54,7 @@ private:
 	Math::Vector3 m_trailScale = { 1.0f,1.0f,1.0f }; // 軌跡の拡大縮小
 
 	bool m_showTrail = false;
+
+	std::weak_ptr<Player> m_wpPlayer;
 
 };

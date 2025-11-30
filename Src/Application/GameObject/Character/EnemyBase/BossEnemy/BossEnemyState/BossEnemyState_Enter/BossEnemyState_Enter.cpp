@@ -12,6 +12,11 @@ void BossEnemyState_Enter::StateStart()
 	m_bossEnemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	m_effectPlayed = false;
+
+	if (SceneManager::Instance().GetCurrentScene()->GetSceneName() != "Title")
+	{
+		KdAudioManager::Instance().Play("Asset/Sound/BossEnemy/WaterEnter.WAV", false)->SetVolume(1.0f);
+	}
 }
 
 void BossEnemyState_Enter::StateUpdate()

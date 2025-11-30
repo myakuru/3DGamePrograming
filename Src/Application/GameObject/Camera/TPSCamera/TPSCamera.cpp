@@ -14,6 +14,8 @@ void TPSCamera::Init()
 
 	// 起動時にカーソルを動かさない。現在位置を保持
 	GetCursorPos(&m_FixMousePos);
+
+	SwitchShowCursor(true);
 }
 
 void TPSCamera::PostUpdate()

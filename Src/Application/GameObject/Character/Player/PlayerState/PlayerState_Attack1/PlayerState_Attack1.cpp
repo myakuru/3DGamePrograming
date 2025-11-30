@@ -50,6 +50,8 @@ void PlayerState_Attack1::StateStart()
 
 void PlayerState_Attack1::StateUpdate()
 {
+	UpdateKatanaPos();
+
 	// アニメーション時間の取得
 	m_animeTime = m_player->GetAnimator()->GetPlayProgress();
 
@@ -124,8 +126,6 @@ void PlayerState_Attack1::StateUpdate()
 
 	// 最後に Base 側の StateUpdate を呼び出すことで、フォーカス/方向の追従が反映されます。
 	PlayerStateBase::StateUpdate();
-
-	UpdateKatanaPos();
 }
 
 void PlayerState_Attack1::StateEnd()

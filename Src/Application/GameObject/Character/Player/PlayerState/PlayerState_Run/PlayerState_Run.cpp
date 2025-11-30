@@ -66,7 +66,7 @@ void PlayerState_Run::StateEnd()
 	PlayerStateBase::StateEnd();
 	if (m_runSound)
 	{
-		m_runSound->Stop();     // 公開APIで停止
+		m_runSound->Stop();
 		m_runSound.reset();
 	}
 }

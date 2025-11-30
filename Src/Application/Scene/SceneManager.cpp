@@ -37,7 +37,6 @@
 #include"../GameObject/HUD/BlackBanner/BlackBanner.h"
 #include"../GameObject/ResultScore/ResultScore.h"
 #include"../GameObject/Collition/Collition.h"
-#include"../GameObject/Effect/BillBoardEffect/FieldEffect/FieldEffect.h"
 #include"../GameObject/Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
 #include"../GameObject/Effect/EffekseerEffect/EffectPlay/EffectPlay.h"
 #include"../GameObject//Effect/EffekseerEffect/AttacEffect1/AttacEffect1.h"
@@ -171,7 +170,6 @@ void SceneManager::Register() const
 	RegisterObject::GetInstance().Register<AetheriusEnemy_Attack_1Effect>();
 
 	// Fieldのエフェクト系
-	RegisterObject::GetInstance().Register<FieldEffect>();
 	RegisterObject::GetInstance().Register<MapGard>();
 }
 
