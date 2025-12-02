@@ -5,7 +5,9 @@
 #include"../../Utility/Time.h"
 #include"PlayerCameraState/PlayerCameraState.h"
 #include "Application/GameObject/Camera/PlayerCamera/PlayerCameraState/PlayerCameraState_IntroCamera/PlayerCameraState_IntroCamera.h"
-#include "Application/GameObject/Camera/PlayerCamera/PlayerCameraState/PlayerCameraState_WinnerCamera/PlayerCameraState_WinnerCamera.h"
+#include "Application/GameObject/Camera/PlayerCamera/PlayerCameraState/PlayerCameraState_WinnerCamera_1st/PlayerCameraState_WinnerCamera_1st.h"
+
+#include "Application/GameObject/Camera/PlayerCamera/PlayerCameraConfig/PlayerCameraConfig.h"
 
 const uint32_t PlayerCamera::TypeID = KdGameObject::GenerateTypeID();
 
@@ -48,6 +50,15 @@ void PlayerCamera::Init()
 
 	m_degree = { 0.0f, 140.0f, 0.0f };
 
+	m_playerCameraConfig = std::make_shared<PlayerCameraConfig>();
+
+	if (m_playerCameraConfig)
+	{
+		m_playerCameraConfig->CreateStates();
+		const nlohmann::json cfg = JSON_MANAGER.JsonDeserialize("Json/PlayerCameraConfig/PlayerCameraConfig");
+		if (!cfg.is_null()) m_playerCameraConfig->JsonInput(cfg);
+	}
+
 	// IntroState 初期化
 	intro.startYaw = 0.0f;
 	intro.inited = false;
@@ -82,7 +93,7 @@ void PlayerCamera::PostUpdate()
 	{
 		m_oneceFlag = true;
 
-		auto winnerState = std::make_shared<PlayerCameraState_WinnerCamera>();
+		auto winnerState = std::make_shared<PlayerCameraState_WinnerCamera_1st>();
 		ChangeState(winnerState);
 		return;
 	}
@@ -332,7 +343,7 @@ void PlayerCamera::ImGuiInspector()
 	{
 		SceneManager::Instance().m_gameClear = true;
 		// Winner 演出ステートへ
-		ChangeState(std::make_shared<PlayerCameraState_WinnerCamera>());
+		ChangeState(std::make_shared<PlayerCameraState_WinnerCamera_1st>());
 	}
 
 	// イントロ設定 GUI
@@ -351,12 +362,17 @@ void PlayerCamera::ImGuiInspector()
 		ImGui::Text(U8("現在Yaw: %.2f"), m_degree.y);
 	}
 
+	m_playerCameraConfig->InGuiInspector();
+
 	m_spCamera->SetProjectionMatrix(fov.fov);
 }
 
 void PlayerCamera::JsonSave(nlohmann::json& _json) const
 {
 	CameraBase::JsonSave(_json);
+
+	m_playerCameraConfig->JsonSave();
+
 	const auto& look = LookState();
 	const auto& fov = FovState();
 
@@ -410,6 +426,7 @@ void PlayerCamera::JsonInput(const nlohmann::json& _json)
 void PlayerCamera::ChangeState(std::shared_ptr<PlayerCameraState> _state)
 {
 	_state->SetPlayerCamera(this);
+	if (m_playerCameraConfig) m_playerCameraConfig->ApplyPrototypeParametersTo(*_state);
 	m_stateManager.ChangeState(_state);
 }
 

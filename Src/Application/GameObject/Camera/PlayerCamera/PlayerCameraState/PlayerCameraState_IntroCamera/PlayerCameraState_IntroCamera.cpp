@@ -7,7 +7,19 @@
 void PlayerCameraState_IntroCamera::StateStart() 
 {
 	m_started = false;
-	// イントロ開始フラグを明示的にONにしておく
+	m_timer = 0.0f;
+
+	// 状態データ参照
+	auto& look = m_playerCamera->LookState();
+	auto& intro = m_playerCamera->IntroState();
+	const auto& cfg = m_playerCamera->IntroConfigRef();
+
+	// プレイヤーの斜め前あたりからスタート
+	m_playerCamera->SetPlayerRotation({ m_playerCamera->GetPlayerRotation().x, cfg.startYawDeg, m_playerCamera->GetPlayerRotation().z });
+	intro.startYaw = m_playerCamera->GetPlayerRotation().y;
+	intro.introTimer = 0.0f;
+	look.followRate = cfg.startFollow;
+	intro.inited = true;
 	SceneManager::Instance().SetIntroCamera(true);
 }
 
@@ -16,39 +28,29 @@ void PlayerCameraState_IntroCamera::StateUpdate()
 	auto* cam = m_playerCamera; if (!cam) return;
 	float deltaTime = Application::Instance().GetDeltaTime();
 
+	// 状態データ参照
 	auto& look = cam->LookState();
 	auto& intro = cam->IntroState();
 	const auto& cfg = cam->IntroConfigRef();
 
-	// 初回初期化
-	if (!intro.inited)
+	// 回転進行
+	cam->SetPlayerRotation({ cam->GetPlayerRotation().x,
+		cam->GetPlayerRotation().y + cfg.yawSpeedDegPerSec * deltaTime,
+		cam->GetPlayerRotation().z });
+
+	// 徐々に近づける
+	m_timer += deltaTime;
+	look.followRate = Math::Vector3::SmoothStep(cfg.startFollow, cfg.endFollow, m_timer);
+
+	// 回転終了判定
+	if (cam->GetPlayerRotation().y >= cfg.endYawDeg)
 	{
-		cam->SetTargetRotation({ cam->GetTargetRotation().x, cfg.startYawDeg, cam->GetTargetRotation().z });
-		intro.startYaw = cam->GetTargetRotation().y;
-		intro.introTimer = 0.0f;
-		look.followRate = cfg.startFollow;
-		intro.inited = true;
-		SceneManager::Instance().SetIntroCamera(true);
-	}
-
-	// 回転進行（マウス入力で乱されない前提）
-	cam->SetTargetRotation({ cam->GetTargetRotation().x,
-		cam->GetTargetRotation().y + cfg.yawSpeedDegPerSec * deltaTime,
-		cam->GetTargetRotation().z });
-
-	float denom = std::max(1e-4f, cfg.endYawDeg - intro.startYaw);
-	float t = std::clamp((cam->GetTargetRotation().y - intro.startYaw) / denom, 0.0f, 1.0f);
-
-	look.followRate = Math::Vector3::SmoothStep(cfg.startFollow, cfg.endFollow, t);
-
-	if (cam->GetTargetRotation().y >= cfg.endYawDeg)
-	{
-		cam->SetTargetRotation({ cam->GetTargetRotation().x, cfg.endYawDeg, cam->GetTargetRotation().z });
+		cam->SetPlayerRotation({ cam->GetPlayerRotation().x, cfg.endYawDeg, cam->GetPlayerRotation().z });
 		look.followRate = cfg.endFollow;
 
 		intro.introTimer += deltaTime;
 
-		// 終了待機後の余韻ズームアウトを補間
+		// 回転が終わったら後ろに下がって、1秒してから通常カメラへ移行
 		if (intro.introTimer >= cfg.holdSeconds)
 		{
 			const float afterT = std::clamp((intro.introTimer - cfg.holdSeconds) / 0.8f, 0.0f, 1.0f);
@@ -57,8 +59,10 @@ void PlayerCameraState_IntroCamera::StateUpdate()
 
 			if (afterT >= 1.0f)
 			{
+				// 1秒経過したら通常カメラへ移行
 				intro.inited = false;
 				intro.introTimer = 0.0f;
+				m_timer = 0.0f;
 				SceneManager::Instance().SetIntroCamera(false);
 				cam->ChangeState(std::make_shared<PlayerCameraState_LookPlayer>());
 			}

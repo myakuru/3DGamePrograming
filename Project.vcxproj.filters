@@ -238,9 +238,6 @@
     <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState">
       <UniqueIdentifier>{ca3b673f-c4d0-40dd-ad9d-b3be9d5c3117}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera">
-      <UniqueIdentifier>{609fee1a-cbc6-4ba5-9249-e6bf4adfe9e3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard">
       <UniqueIdentifier>{c193f2f4-8991-47cb-9655-cc875a1151a3}</UniqueIdentifier>
     </Filter>
@@ -525,6 +522,21 @@
     </Filter>
     <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer">
       <UniqueIdentifier>{1b3b4a17-f3f4-4db1-b09e-8e9957a3570e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_1st">
+      <UniqueIdentifier>{e2724926-af9c-420b-ac27-518064347451}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_2nd">
+      <UniqueIdentifier>{c91ba7b2-2131-4d58-ade7-7454f01bd809}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_3rd">
+      <UniqueIdentifier>{e9e79833-5c85-4be1-936d-1bed88a9fddb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_Final">
+      <UniqueIdentifier>{7da256c1-1eec-4630-851f-9b1cf46878c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraConfig">
+      <UniqueIdentifier>{86143279-e4ef-4013-bf73-f38ff372fe85}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -936,9 +948,6 @@
     <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState.h">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera\PlayerCameraState_WinnerCamera.h">
-      <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.h">
       <Filter>Src\Application\GameObject\Effect\BillBoardEffect\MapGard</Filter>
     </ClInclude>
@@ -1151,6 +1160,21 @@
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer\PlayerCameraState_LookPlayer.h">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_1st\PlayerCameraState_WinnerCamera_1st.h">
+      <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_1st</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_2nd\PlayerCameraState_WinnerCamera_2nd.h">
+      <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_2nd</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_3rd\PlayerCameraState_WinnerCamera_3rd.h">
+      <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_3rd</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_Final\PlayerCameraState_WinnerCamera_Final.h">
+      <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_Final</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraConfig\PlayerCameraConfig.h">
+      <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraConfig</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1514,9 +1538,6 @@
     <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState.cpp">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera\PlayerCameraState_WinnerCamera.cpp">
-      <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.cpp">
       <Filter>Src\Application\GameObject\Effect\BillBoardEffect\MapGard</Filter>
     </ClCompile>
@@ -1726,6 +1747,21 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer\PlayerCameraState_LookPlayer.cpp">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_1st\PlayerCameraState_WinnerCamera_1st.cpp">
+      <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_1st</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_2nd\PlayerCameraState_WinnerCamera_2nd.cpp">
+      <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_2nd</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_3rd\PlayerCameraState_WinnerCamera_3rd.cpp">
+      <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_3rd</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_Final\PlayerCameraState_WinnerCamera_Final.cpp">
+      <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_Final</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraConfig\PlayerCameraConfig.cpp">
+      <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraConfig</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

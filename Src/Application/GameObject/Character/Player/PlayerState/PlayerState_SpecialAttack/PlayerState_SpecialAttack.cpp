@@ -93,7 +93,7 @@ void PlayerState_SpecialAttack::StateUpdate()
 		toEnemyDir.Normalize();
 		const float yawRad = std::atan2(toEnemyDir.x, toEnemyDir.z);
 		const float yawDeg = DirectX::XMConvertToDegrees(yawRad);
-		camera->SetTargetRotation({ 0.0f, yawDeg , 0.0f });
+		camera->SetPlayerRotation({ 0.0f, yawDeg , 0.0f });
 	}
 
 	if (m_animeTime >= 0.55f)

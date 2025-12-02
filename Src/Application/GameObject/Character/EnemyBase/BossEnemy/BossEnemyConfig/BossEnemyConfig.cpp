@@ -68,7 +68,7 @@ void BossEnemyConfig::CreateStates()
 
 	// ===== チャージ系 =====
 	m_states.emplace_back(std::make_unique<BossEnemyState_ChargeStart>());     m_stateNames.emplace_back("ChargeStart");
-	m_states.emplace_back(std::make_unique<BossEnemyState_ChrgeLoop>());       m_stateNames.emplace_back("ChrgeLoop");   // 綴りはフォルダ/クラス名に合わせています
+	m_states.emplace_back(std::make_unique<BossEnemyState_ChrgeLoop>());       m_stateNames.emplace_back("ChrgeLoop");
 	m_states.emplace_back(std::make_unique<BossEnemyState_ChargeEnd>());       m_stateNames.emplace_back("ChargeEnd");
 
 	// ===== 行動 / 回避 / 登場 =====

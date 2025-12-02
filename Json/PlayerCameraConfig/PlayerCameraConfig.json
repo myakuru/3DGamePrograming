@@ -1,0 +1,102 @@
+{
+  "PlayerCameraState_WinnerCamera_1st": {
+    "cameraRotation": {
+      "x": -20.0,
+      "y": 263.0,
+      "z": 1.0
+    },
+    "enableNoiseRandom": {
+      "x": 0.0,
+      "y": 4.0
+    },
+    "endFollow": {
+      "x": 0.0,
+      "y": 0.699999988079071,
+      "z": -0.800000011920929
+    },
+    "noiseStrength": {
+      "x": 0.009999999776482582,
+      "y": 0.20000000298023224
+    },
+    "startFollow": {
+      "x": 0.0,
+      "y": 0.699999988079071,
+      "z": -1.0
+    }
+  },
+  "PlayerCameraState_WinnerCamera_2nd": {
+    "cameraRotation": {
+      "x": 1.5,
+      "y": 227.0,
+      "z": 0.0
+    },
+    "enableNoiseRandom": {
+      "x": 0.0,
+      "y": 4.0
+    },
+    "endFollow": {
+      "x": 3.4,
+      "y": 1.0,
+      "z": -4.3
+    },
+    "noiseStrength": {
+      "x": 0.01,
+      "y": 0.2
+    },
+    "startFollow": {
+      "x": 3.4,
+      "y": 1.0,
+      "z": -4.3
+    }
+  },
+  "PlayerCameraState_WinnerCamera_3rd": {
+    "cameraRotation": {
+      "x": 10.0,
+      "y": 320.0,
+      "z": 0.0
+    },
+    "enableNoiseRandom": {
+      "x": 0.0,
+      "y": 4.0
+    },
+    "endFollow": {
+      "x": 0.6,
+      "y": 1.0,
+      "z": -1.5
+    },
+    "noiseStrength": {
+      "x": 0.01,
+      "y": 0.2
+    },
+    "startFollow": {
+      "x": 0.6,
+      "y": 1.0,
+      "z": -1.6
+    }
+  },
+  "PlayerCameraState_WinnerCamera_Final": {
+    "cameraRotation": {
+      "x": 0.0,
+      "y": 90.0,
+      "z": 0.0
+    },
+    "enableNoiseRandom": {
+      "x": 0.0,
+      "y": 4.0
+    },
+    "endFollow": {
+      "x": 0.0,
+      "y": 0.7,
+      "z": 0.0
+    },
+    "noiseStrength": {
+      "x": 0.01,
+      "y": 0.2
+    },
+    "startFollow": {
+      "x": 0.0,
+      "y": 0.7,
+      "z": -5.0
+    }
+  }
+}

@@ -89,6 +89,8 @@ void ConstructionSiteStage::Init()
 {
 	//KdShaderManager::Instance().m_postProcessShader.SetEnableGray(false);
 
+	Time::Instance().SetCountdownFinished(false);	// カウントダウン終了フラグを初期化
+
 	m_isCountDown = false;	// カウントダウンフラグを初期化
 
 	m_countDownTimer = m_countDownTimeMax; // カウントダウンタイマーを200秒に設定

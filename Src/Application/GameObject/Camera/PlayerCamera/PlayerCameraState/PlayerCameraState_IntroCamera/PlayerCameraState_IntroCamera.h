@@ -13,4 +13,6 @@ private:
 	void StateEnd() override;
 
 	bool m_started = false;
+
+	float m_timer = 0.0f;
 };

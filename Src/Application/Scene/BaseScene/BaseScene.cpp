@@ -31,7 +31,7 @@ void BaseScene::PreUpdate()
 
 	// ↑の後には有効なオブジェクトだけのリストになっている
 
-	for (auto& obj : m_objList)
+	for(const auto& obj : m_objList)
 	{
 		obj->PreUpdate();
 	}

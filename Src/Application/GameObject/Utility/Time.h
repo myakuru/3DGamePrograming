@@ -105,6 +105,11 @@ public:
 		return m_countdownFinished;
 	}
 
+	void SetCountdownFinished(bool finished)
+	{
+		m_countdownFinished = finished;
+	}
+
 private:
 	// コンストラクタ
 	Time() : m_startTime(std::chrono::steady_clock::now()), m_elapsedTime(0.0f), m_isResetDone(false),

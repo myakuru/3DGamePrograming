@@ -175,8 +175,8 @@
       "z": 1.0
     },
     "deg": {
-      "x": 6.75,
-      "y": 318.9500427246094,
+      "x": 5.960464477539063e-07,
+      "y": 323.7501525878906,
       "z": 0.0
     },
     "fov": 70.0,
@@ -501,11 +501,11 @@
       "z": 0.0
     },
     "dissolveColor": {
-      "x": 0.0,
+      "x": 1.0,
       "y": 0.0,
       "z": 0.0
     },
-    "dissolvePower": 0.9200000166893005,
+    "dissolvePower": 1.0,
     "drawFlags": {
       "DrawBright": false,
       "DrawGradation": false,

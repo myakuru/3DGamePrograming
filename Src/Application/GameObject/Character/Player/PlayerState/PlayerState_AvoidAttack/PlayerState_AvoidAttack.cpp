@@ -71,7 +71,7 @@ void PlayerState_AvoidAttack::StateUpdate()
 
 		float yaw = std::atan2f(targetDir.x, targetDir.z);
 		float yawDeg = DirectX::XMConvertToDegrees(yaw);
-		camera->SetTargetRotation({ 0.0f, yawDeg, 0.0f });
+		camera->SetPlayerRotation({ 0.0f, yawDeg, 0.0f });
 	}
 
 	if (m_time < m_stateParameter.dashSpeedTime)

@@ -3,6 +3,7 @@
 
 class Player;
 class PlayerCameraState;
+class PlayerCameraConfig;
 
 class PlayerCamera : public CameraBase
 {
@@ -39,12 +40,12 @@ public:
 	}
 
 	// 回転設定
-	void SetTargetRotation(const Math::Vector3& rot)
+	void SetPlayerRotation(const Math::Vector3& rot)
 	{
 		m_degree = rot;
 	}
 
-	const Math::Vector3& GetTargetRotation() const 
+	const Math::Vector3& GetPlayerRotation() const 
 	{
 		return m_degree;
 	}
@@ -71,18 +72,17 @@ public:
 
 	struct IntroStateData
 	{
-		Math::Vector3 introCamPos = Math::Vector3::Zero;
-		float         introTimer = 0.0f;
-		Math::Vector3 startFollow = { 0.0f, 3.0f, -10.0f };
-		Math::Vector3 endFollow = { 0.0f, 1.0f, -1.7f };
-		bool          inited = false;
-		float         startYaw = 0.0f;
+		Math::Vector3 introCamPos = Math::Vector3::Zero;	// イントロカメラ位置
+		float         introTimer = 0.0f;					// イントロ経過時間
+		Math::Vector3 startFollow = { 0.0f, 3.0f, -10.0f };	// 開始時の追従オフセット
+		Math::Vector3 endFollow = { 0.0f, 1.0f, -1.7f };	// 終了時の追従オフセット
+		bool          inited = false;						// 初期化済みフラグ
+		float         startYaw = 0.0f;						// イントロ開始時Yaw
 	};
 
 	struct WinnerStateData
 	{
-		float         time = 0.0f;
-		// 共有で使うカメラ位置参照は LookState の cameraPos を利用する前提
+		float         time = 0.0f;	// ウィナー状態経過時間
 	};
 
 	struct CollisionStateData
@@ -119,20 +119,13 @@ public:
 	// イントロカメラ設定
 	struct IntroConfig
 	{
-		// イントロ回転開始Yaw（初期化時に設定される目標値）
-		float startYawDeg = 145.0f;
-		// イントロ回転終了Yaw
-		float endYawDeg = 320.0f;
-		// イントロ開始時の追従オフセット
-		Math::Vector3 startFollow = { 0.0f, 1.0f, -0.5f };
-		// イントロ終了時の追従オフセット
-		Math::Vector3 endFollow = { 0.0f, 1.0f, -1.5f };
-		// イントロ終了後の余韻でズームアウトするZ
-		float afterEndFollowZ = -2.5f;
-		// イントロ終了地点での待機秒数
-		float holdSeconds = 1.0f;
-		// イントロ回転速度（deg/sec）
-		float yawSpeedDegPerSec = 60.0f;
+		float startYawDeg = 145.0f;							// イントロ回転開始Yaw（初期化時に設定される目標値）
+		float endYawDeg = 320.0f;							// イントロ回転終了Yaw
+		Math::Vector3 startFollow = { 0.0f, 1.0f, -0.5f };	// イントロ開始時の追従オフセット
+		Math::Vector3 endFollow = { 0.0f, 1.0f, -1.5f };	// イントロ終了時の追従オフセット
+		float afterEndFollowZ = -2.5f;						// イントロ終了後の余韻でズームアウトするZ
+		float holdSeconds = 1.0f;							// イントロ終了地点での待機秒数
+		float yawSpeedDegPerSec = 60.0f;					// イントロ回転速度（deg/sec）
 	};
 
 	//========================
@@ -168,8 +161,12 @@ private:
 	ShakeStateData         m_shakeState;
 	IntroConfig m_introConfig;
 
-	// プレイヤー参照（必要であれば別状態に統合可）
+	// プレイヤー参照
 	std::shared_ptr<Player> m_spTarget = nullptr;
 
+	// ステートコンフィグ
+	std::shared_ptr<PlayerCameraConfig> m_playerCameraConfig = nullptr;
+
+	// 一度だけ処理フラグ
 	bool m_oneceFlag = false;
 };
