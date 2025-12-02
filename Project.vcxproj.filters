@@ -538,6 +538,12 @@
     <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraConfig">
       <UniqueIdentifier>{86143279-e4ef-4013-bf73-f38ff372fe85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_2Effect">
+      <UniqueIdentifier>{0da2d6d2-37f9-4f5f-a8df-c69c7c9b5e6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_3Effect">
+      <UniqueIdentifier>{aafd32c2-2f77-4689-b2a8-bd445670b9ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -1140,9 +1146,6 @@
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevelMax\PlayerState_ChargeLevelMax.h">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelMax</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectManager.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death\EnemyState_Death.h">
       <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death</Filter>
     </ClInclude>
@@ -1175,6 +1178,12 @@
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraConfig\PlayerCameraConfig.h">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_2Effect\AetheriusEnemy_Attack_2Effect.h">
+      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_2Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_3Effect\AetheriusEnemy_Attack_3Effect.h">
+      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_3Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1724,9 +1733,6 @@
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevelMax\PlayerState_ChargeLevelMax.cpp">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelMax</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectManager.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerConfig.cpp">
       <Filter>Src\Application\GameObject\Character\Player</Filter>
     </ClCompile>
@@ -1762,6 +1768,12 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraConfig\PlayerCameraConfig.cpp">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraConfig</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_2Effect\AetheriusEnemy_Attack_2Effect.cpp">
+      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_2Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_3Effect\AetheriusEnemy_Attack_3Effect.cpp">
+      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_3Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

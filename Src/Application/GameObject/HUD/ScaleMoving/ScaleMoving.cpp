@@ -10,7 +10,7 @@ const uint32_t ScaleMoving::TypeID = KdGameObject::GenerateTypeID();
 void ScaleMoving::Update()
 {
 	float timeLeft = Time::Instance().GetCountdownTimeLeft();
-	const float maxTime = SceneManager::Instance().GetTime();
+	const float maxTime = Time::Instance().GetCountdownDuration();
 
 	// 0.0f ~ 1.0f にクランプ
 	m_time = std::clamp(timeLeft / maxTime, 0.0f, 1.0f);

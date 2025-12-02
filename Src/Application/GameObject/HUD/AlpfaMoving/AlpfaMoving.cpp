@@ -18,7 +18,9 @@ void AlpfaMoving::Update()
 	m_color = { 1.0f, 1.0f, 1.0f, m_alpha }; // 白色
 	m_min = 0.2f;
 	m_max = 1.0f;
-	m_alpha = m_min + (m_max - m_min) * 0.5f * (sinf(m_time * 2.0f) + 1.0f);
+	m_alpha = (sinf(m_time));
+
+	m_alpha = std::clamp(m_alpha, m_min, m_max);
 
 	m_mWorld = Math::Matrix::CreateScale(m_scale);
 	m_mWorld.Translation(m_position);

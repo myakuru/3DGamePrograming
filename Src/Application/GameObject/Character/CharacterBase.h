@@ -22,18 +22,13 @@ public:
 	void Init      () override;
 	void Update    () override;
 	void PostUpdate() override;
-	bool ModelLoad (std::string _path) override;
-
-	// ===== デバッグ/永続化 =====
-	void ImGuiInspector() override;
-	void JsonInput     (const nlohmann::json& _json) override;
-	void JsonSave      (nlohmann::json&       _json) const override;
+	bool ModelLoad (const std::string& _path) override;
 
 	// ===== 移動・回転 =====
 	// 移動ベクトルを設定
 	void SetIsMoving(Math::Vector3 _move);
 	const Math::Vector3& GetMovement() const;
-	const bool GetIsMoving() const { return m_movement.isMoving; }
+	bool GetIsMoving() const { return m_movement.isMoving; }
 
 	// コリジョン抜けしないように押し出しを適用する関数
 	void ApplyPushWithCollision(const Math::Vector3& _rawPush);
@@ -55,9 +50,6 @@ public:
 
 	// ===== カメラ =====
 	std::weak_ptr<PlayerCamera> GetPlayerCamera() const;
-
-	// ===== ステート管理 =====
-	StateManager m_stateManager;
 
 	// ===== アクセサ（戦闘系の共通化） =====
 	// 被弾/無敵
@@ -149,6 +141,9 @@ private:
 	DirectX::BoundingSphere			m_sphere{};										// バウンディングスフィア
 	std::shared_ptr<CharacterData>	m_characterData;								// キャラクターデータ
 
+	// ===== ステート管理 =====
+	StateManager m_stateManager;
+
 	TransformState	m_transform{};		// 行列関係
 	MovementState	m_movement{};		// 移動関係
 	PhysicsState	m_physics{};		// 物理関係
@@ -185,5 +180,8 @@ protected:
 	DirectX::BoundingSphere GetBoundingSphere() const { return m_sphere; }
 	std::shared_ptr<KdAnimator> GetAnimatorShared() { return m_animator; }
 	std::shared_ptr<CharacterData> GetCharacterData() const { return m_characterData; }
+
+	// ===== ステート管理 =====
+	StateManager& GetStateManager() { return m_stateManager; }
 
 };

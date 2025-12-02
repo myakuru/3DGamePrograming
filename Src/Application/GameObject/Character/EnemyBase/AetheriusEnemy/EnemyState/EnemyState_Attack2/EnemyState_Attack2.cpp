@@ -3,6 +3,8 @@
 #include"../EnemyState_Run/EnemyState_Run.h"
 
 #include"Application/GameObject/Character/Player/Player.h"
+#include "Application/Scene/SceneManager.h"
+#include "Application/GameObject/Effect/EffekseerEffect/AetheriusEnemyEffect/AetheriusEnemy_Attack_2Effect/AetheriusEnemy_Attack_2Effect.h"
 
 void EnemyState_Attack2::StateStart()
 {
@@ -13,6 +15,8 @@ void EnemyState_Attack2::StateStart()
 
 	// 当たり判定リセット
 	m_enemy->ResetAttackCollision();
+
+	SceneManager::Instance().GetObjectWeakPtr(m_attack2Effect);
 }
 
 void EnemyState_Attack2::StateUpdate()
@@ -32,6 +36,11 @@ void EnemyState_Attack2::StateUpdate()
 	// アニメーション時間の35％から100％の間、攻撃判定有効
 	if (m_animeTime >= m_stateParameter.attackActiveStartTime && m_animeTime <= m_stateParameter.attackActiveEndTime)
 	{
+		if (auto effect = m_attack2Effect.lock())
+		{
+			effect->PlayForEnemy(std::static_pointer_cast<AetheriusEnemy>(m_enemy->GetMyAdls()));
+		}
+
 		m_enemy->UpdateAttackCollision
 		(
 			m_stateParameter.attackRadius,

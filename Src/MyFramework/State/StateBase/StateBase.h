@@ -1,9 +1,9 @@
 ﻿#pragma once
-class StateBase : public KdGameObject
+class StateBase
 {
 public:
 	StateBase() = default;
-	~StateBase() override = default;
+	virtual ~StateBase() = default;
 
 	// ステートが開始されたときに呼び出される
 	virtual void StateStart() = 0;
@@ -16,8 +16,7 @@ public:
 
 	// パラメータ編集
 	virtual void ExposeParametersImGui() {}
-	// JSON 読み込み (呼ばれないなら空)
-	virtual void LoadParametersJson(const nlohmann::json& _json) {}
-	// 保存 (必要なら)
-	virtual void SaveParametersJson(nlohmann::json& _json) const {}
+	// JSON 読み込み　/ 書き出し
+	virtual void JsonInput(const nlohmann::json& _json) { (void)_json; }
+	virtual void JsonSave(nlohmann::json& _json) const { (void)_json; }
 };

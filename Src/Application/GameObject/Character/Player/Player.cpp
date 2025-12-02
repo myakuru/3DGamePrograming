@@ -141,8 +141,6 @@ void Player::PostUpdate()
 
 	// 敵の取得（近傍のみ）
 	{
-		constexpr float kBroadPhaseMargin = 1.0f;
-		const float     searchRadius = enemyHit.m_sphere.Radius + kBroadPhaseMargin;
 		SceneManager::Instance().GetObjectWeakPtrListByTagInSphere(ObjTag::EnemyLike, enemyHit.m_sphere.Center, m_enemyLike);
 	}
 
@@ -288,7 +286,7 @@ void Player::Update()
 		return;
 	}
 
-	m_stateManager.Update();
+	GetStateManager().Update();
 
 	// スキル・スペシャル使用可能判定
 	{
@@ -399,8 +397,6 @@ void Player::UpdateAttackCollision(float _radius         , float         _distan
 		// 近傍のみ（ブロードフェーズ）
 		std::list<std::weak_ptr<KdGameObject>> nearEnemies;
 		{
-			constexpr float kBroadPhaseMargin = 0.5f;
-			const float searchRadius = attackSphere.m_sphere.Radius + kBroadPhaseMargin;
 			SceneManager::Instance().GetObjectWeakPtrListByTagInSphere(ObjTag::EnemyLike, attackSphere.m_sphere.Center, nearEnemies);
 		}
 
@@ -536,7 +532,7 @@ void Player::ChangeState(std::shared_ptr<PlayerStateBase> _state)
 	{
 		m_playerConfig->ApplyPrototypeParametersTo(*_state);
 	}
-	m_stateManager.ChangeState(_state);
+	GetStateManager().ChangeState(_state);
 }
 
 void Player::UpdateMoveDirectionFromInput()

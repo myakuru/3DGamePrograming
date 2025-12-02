@@ -45,7 +45,7 @@ protected:
 	void JsonSave(nlohmann::json& _json) const override;
 	void JsonInput(const nlohmann::json& _json) override;
 
-	bool ModelLoad(std::string _path) override;
+	bool ModelLoad(const std::string& _path) override;
 
 	bool m_once = false;	// エフェクトを１回だけ再生する
 	bool m_load = false; // エフェクトがロードされたか
@@ -57,6 +57,7 @@ protected:
 	bool m_isEffectPlaying = false;
 
 	float m_distance = 0.0f;
+	float m_sideDistance = 0.0f;
 	float m_effectSpeed = 0.0f;
 
 	Math::Color m_effectColor = Math::Color{ 1,1,1,1 };

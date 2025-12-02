@@ -120,9 +120,8 @@ public:
 
 private:
     // コンストラクタをプライベートにしてシングルトンにする
-	XInputManager() : mState(), mResult(ERROR_DEVICE_NOT_CONNECTED), mDeadZone(0.2f) {}
+	XInputManager() : mState(), mResult(ERROR_DEVICE_NOT_CONNECTED) {}
 
-    XINPUT_STATE mState;
-    DWORD mResult;
-    const float mDeadZone; // デッドゾーンの閾値
+	XINPUT_STATE mState;	// XInputの状態
+	DWORD mResult;			// XInputGetStateの戻り値
 };

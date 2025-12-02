@@ -1,10 +1,10 @@
-﻿#include "AetheriusEnemy_Attack_1Effect.h"
+﻿#include "AetheriusEnemy_Attack_2Effect.h"
 #include "Application/Scene/SceneManager.h"
 #include "Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
 
-const uint32_t AetheriusEnemy_Attack_1Effect::TypeID = KdGameObject::GenerateTypeID();
+const uint32_t AetheriusEnemy_Attack_2Effect::TypeID = KdGameObject::GenerateTypeID();
 
-void AetheriusEnemy_Attack_1Effect::Update()
+void AetheriusEnemy_Attack_2Effect::Update()
 {
 	// エフェクサの更新
 	KdEffekseerManager::GetInstance().Update();
@@ -20,7 +20,7 @@ void AetheriusEnemy_Attack_1Effect::Update()
 	EffectUpdate();
 }
 
-void AetheriusEnemy_Attack_1Effect::EffectUpdate()
+void AetheriusEnemy_Attack_2Effect::EffectUpdate()
 {
 	m_isEffectPlaying = false;
 
@@ -41,7 +41,7 @@ void AetheriusEnemy_Attack_1Effect::EffectUpdate()
 	}
 }
 
-void AetheriusEnemy_Attack_1Effect::PlayForEnemy(const std::shared_ptr<AetheriusEnemy>& enemy)
+void AetheriusEnemy_Attack_2Effect::PlayForEnemy(const std::shared_ptr<AetheriusEnemy>& enemy)
 {
 	if (!enemy) return;
 	// エネミーの前方ベクトル

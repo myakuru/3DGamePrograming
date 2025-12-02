@@ -111,10 +111,7 @@ void EnemyBase::UpdateAttackCollision(float _radius, float _distance,
 		}
 	}
 
-	// 対象探索（ブロードフェーズ余白）
-	constexpr float kBroadPhaseMargin = 0.5f;
-	const float searchRadius = attackSphere.m_sphere.Radius + kBroadPhaseMargin;
-	(void)searchRadius; // 必要なら距離利用で絞り込み
+	// 対象探索
 	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::PlayerLike, Refs().playerObjects);
 
 	// Just回避チェック

@@ -27,7 +27,7 @@ public:
 		return m_spCamera;
 	}
 
-	const Math::Matrix GetRotationMatrix()const
+	Math::Matrix GetRotationMatrix()const
 	{
 		return Math::Matrix::CreateFromYawPitchRoll(
 		       DirectX::XMConvertToRadians(m_degree.y),
@@ -35,7 +35,7 @@ public:
 		       DirectX::XMConvertToRadians(m_degree.z));
 	}
 
-	const Math::Quaternion GetRotationQuaternion() const
+	Math::Quaternion GetRotationQuaternion() const
 	{
 		return Math::Quaternion::CreateFromYawPitchRoll(
 			   DirectX::XMConvertToRadians(m_degree.y),
@@ -43,7 +43,7 @@ public:
 			   DirectX::XMConvertToRadians(m_degree.z));
 	}
 
-	const Math::Matrix GetRotationYMatrix() const
+	Math::Matrix GetRotationYMatrix() const
 	{
 		return Math::Matrix::CreateRotationY(
 			   DirectX::XMConvertToRadians(m_degree.y));
@@ -54,7 +54,7 @@ public:
 		m_wpHitObjectList.push_back(object);
 	}
 
-	void SwitchShowCursor(bool show)
+	void SwitchShowCursor(bool show) const
 	{
 
 		// カーソルの表示非表示切り替え (念の為確実に切り替えができるようにしておく)

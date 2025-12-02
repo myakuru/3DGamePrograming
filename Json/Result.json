@@ -1,5 +1,6 @@
 [
   {
+    "Class": "class SkySphere",
     "Name": "class SkySphere",
     "color": {
       "w": 1.0,
@@ -35,6 +36,7 @@
     "type": 32
   },
   {
+    "Class": "class TPSCamera",
     "Name": "class TPSCamera",
     "color": {
       "w": 1.0,
@@ -50,7 +52,7 @@
     "moveSpeed": 50.0,
     "path": "Asset/Models/Sky/Sky.gltf",
     "pos": {
-      "x": 63.75458526611328,
+      "x": 113.12142181396484,
       "y": 95.81145477294922,
       "z": 99.78569030761719
     },
@@ -62,6 +64,7 @@
     "type": 32
   },
   {
+    "Class": "class BlackBanner",
     "Name": "class BlackBanner",
     "color": {
       "w": 1.0,
@@ -89,6 +92,7 @@
     "type": 7
   },
   {
+    "Class": "class Timer",
     "DawnPos": {
       "x": 0.0,
       "y": 0.0,
@@ -116,13 +120,38 @@
     },
     "scale": {
       "x": 0.3499999940395355,
-      "y": -0.17307499051094055,
+      "y": 0.0,
       "z": 1.0
     },
     "type": 32
   },
   {
+    "A_color": {
+      "w": 1.0,
+      "x": 0.7099999785423279,
+      "y": 0.23999999463558197,
+      "z": 1.0
+    },
+    "B_color": {
+      "w": 1.0,
+      "x": 0.1899999976158142,
+      "y": 0.6200000047683716,
+      "z": 1.0
+    },
+    "Class": "class ResultScore",
     "Name": "class ResultScore",
+    "S_color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 0.4300000071525574,
+      "z": 0.03999999910593033
+    },
+    "X_color": {
+      "w": 1.0,
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
     "color": {
       "w": 1.0,
       "x": 1.0,
@@ -143,12 +172,6 @@
       "DrawUnLit": false,
       "GenerateDepthMapFromLight": false
     },
-    "gradientColor": {
-      "w": 1.0,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
     "path": "Asset/Models/Sky/Sky.gltf",
     "pos": {
       "x": 0.0,
@@ -163,6 +186,7 @@
     "type": 32
   },
   {
+    "Class": "class InvestigationComplete",
     "Name": "class InvestigationComplete",
     "color": {
       "w": 1.0,
@@ -190,6 +214,7 @@
     "type": 32
   },
   {
+    "Class": "class ChallengeResults",
     "Name": "class ChallengeResults",
     "color": {
       "w": 1.0,
@@ -217,6 +242,7 @@
     "type": 32
   },
   {
+    "Class": "class TitleRemoveUI",
     "Name": "class TitleRemoveUI",
     "color": {
       "w": 1.0,
@@ -244,33 +270,7 @@
     "type": 32
   },
   {
-    "Name": "class FPSCamera",
-    "color": {
-      "w": 1.0,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "deg": {
-      "x": 2.5499978065490723,
-      "y": 267.00030517578125,
-      "z": 0.0
-    },
-    "moveSpeed": 50.0,
-    "path": "Asset/Models/Sky/Sky.gltf",
-    "pos": {
-      "x": 31.516984939575195,
-      "y": 97.28610229492188,
-      "z": 97.41568756103516
-    },
-    "scale": {
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "type": 32
-  },
-  {
+    "Class": "class Map",
     "Name": "class Map",
     "color": {
       "w": 1.0,
@@ -306,6 +306,7 @@
     "type": 32
   },
   {
+    "Class": "class Map",
     "Name": "class Map",
     "color": {
       "w": 1.0,
@@ -341,6 +342,7 @@
     "type": 32
   },
   {
+    "Class": "class Map",
     "Name": "class Map",
     "color": {
       "w": 1.0,
@@ -376,6 +378,7 @@
     "type": 32
   },
   {
+    "Class": "class Map",
     "Name": "class Map",
     "color": {
       "w": 1.0,
@@ -411,6 +414,7 @@
     "type": 32
   },
   {
+    "Class": "class Map",
     "Name": "class Map",
     "color": {
       "w": 1.0,
@@ -442,6 +446,34 @@
       "x": 2.0,
       "y": 2.0,
       "z": 2.0
+    },
+    "type": 32
+  },
+  {
+    "Class": "class FPSCamera",
+    "Name": "class FPSCamera",
+    "color": {
+      "w": 1.0,
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "deg": {
+      "x": 2.5499978065490723,
+      "y": 267.00030517578125,
+      "z": 0.0
+    },
+    "moveSpeed": 50.0,
+    "path": "Asset/Models/Sky/Sky.gltf",
+    "pos": {
+      "x": 31.516984939575195,
+      "y": 97.28610229492188,
+      "z": 97.41568756103516
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
     },
     "type": 32
   }

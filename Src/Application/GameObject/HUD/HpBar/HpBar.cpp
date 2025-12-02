@@ -12,7 +12,7 @@ void HpBar::Init()
 
 	// 初期は満タン表示
 	m_hpRate = 1.0f;
-	m_rect.width = static_cast<float>(1500.0f * m_hpRate);
+	m_rect.width = static_cast<long>(1500.0f * m_hpRate);
 
 	SceneManager::Instance().GetObjectWeakPtr(m_player);
 }
@@ -48,9 +48,7 @@ void HpBar::DrawSprite()
 }
 
 void HpBar::Update()
-{
-	// 目標のHP割合を算出（0～1にクランプ）
-	
+{	
 	if (auto playerStatus = m_player.lock(); playerStatus)
 	{
 
@@ -64,7 +62,7 @@ void HpBar::Update()
 		m_hpRate += targetHpRate - m_hpRate;
 
 		// 表示幅を更新
-		m_rect.width = static_cast<float>(1500.0f * m_hpRate);
+		m_rect.width = static_cast<long>(1500.0f * m_hpRate);
 
 		// 行列更新
 		m_mWorld = Math::Matrix::CreateScale(m_scale);

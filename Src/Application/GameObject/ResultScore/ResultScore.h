@@ -5,10 +5,9 @@ class ResultScore :public SelectDraw3dModel
 {
 public:
 	static const uint32_t TypeID;
+
 	ResultScore() { m_typeID = TypeID; };
 	~ResultScore() override = default;
-
-	uint32_t GetTypeID() const override { return m_typeID; }
 
 private:
 
@@ -23,18 +22,20 @@ private:
 
 	std::weak_ptr<TPSCamera> m_camera; // カメラへの参照
 
-	float m_selfRotateY = 0.0f;
+	float m_distance = 0.0f;	// カメラからの距離
+	float m_time = 0.0f;		// 時間計測用
+	const float m_showTime = 5.0f; // 表示開始時間
 
-	float m_distance = 0.0f; // カメラからの距離
-
-	Math::Color m_gradientColor = { 1.0f,1.0f,0.0f,1.0f }; // グラデーションの色
-	Math::Matrix cameraRot = Math::Matrix::Identity; // カメラの回転行列
-
-	float m_time = 0.0f; // 時間計測用
+	const float m_startDistance = 20.0f; // 開始時の距離
 
 	void ImGuiInspector() override;
 	void JsonSave(nlohmann::json& _json) const override;
 	void JsonInput(const nlohmann::json& _json) override;
+
+	Math::Vector4 m_S_color = Math::Vector4::Zero;
+	Math::Vector4 m_A_color = Math::Vector4::Zero;
+	Math::Vector4 m_B_color = Math::Vector4::Zero;
+	Math::Vector4 m_X_color = Math::Vector4::Zero;
 
 
 };

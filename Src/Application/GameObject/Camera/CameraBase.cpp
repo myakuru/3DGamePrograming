@@ -15,9 +15,8 @@ void CameraBase::PreDraw()
 {
 	if (!m_spCamera) { return; }
 
-	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON)) m_enabled = true;
-
-	if (!KeyboardManager::GetInstance().IsAppWindowActive())
+	// アプリが非アクティブまたはImGui表示中はマウスを占領しない
+	if (!KeyboardManager::GetInstance().IsAppWindowActive() || KdDebugGUI::Instance().ShowImGUiFlg())
 	{
 		m_enabled = false;
 		SwitchShowCursor(true);

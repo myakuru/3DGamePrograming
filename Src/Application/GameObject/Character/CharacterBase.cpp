@@ -228,7 +228,7 @@ void CharacterBase::PostUpdate()
 	}
 }
 
-bool CharacterBase::ModelLoad(std::string _path)
+bool CharacterBase::ModelLoad(const std::string& _path)
 {
 	if (m_modelWork)
 	{
@@ -236,21 +236,6 @@ bool CharacterBase::ModelLoad(std::string _path)
 		return true;
 	}
 	return false;
-}
-
-void CharacterBase::ImGuiInspector()
-{
-	SelectDraw3dModel::ImGuiInspector();
-}
-
-void CharacterBase::JsonInput(const nlohmann::json& _json)
-{
-	SelectDraw3dModel::JsonInput(_json);
-}
-
-void CharacterBase::JsonSave(nlohmann::json& _json) const
-{
-	SelectDraw3dModel::JsonSave(_json);
 }
 
 void CharacterBase::SetIsMoving(Math::Vector3 _move)

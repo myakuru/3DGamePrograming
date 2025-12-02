@@ -1,10 +1,10 @@
-﻿#include "AetheriusEnemy_Attack_1Effect.h"
+﻿#include "AetheriusEnemy_Attack_3Effect.h"
 #include "Application/Scene/SceneManager.h"
 #include "Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
 
-const uint32_t AetheriusEnemy_Attack_1Effect::TypeID = KdGameObject::GenerateTypeID();
+const uint32_t AetheriusEnemy_Attack_3Effect::TypeID = KdGameObject::GenerateTypeID();
 
-void AetheriusEnemy_Attack_1Effect::Update()
+void AetheriusEnemy_Attack_3Effect::Update()
 {
 	// エフェクサの更新
 	KdEffekseerManager::GetInstance().Update();
@@ -20,7 +20,7 @@ void AetheriusEnemy_Attack_1Effect::Update()
 	EffectUpdate();
 }
 
-void AetheriusEnemy_Attack_1Effect::EffectUpdate()
+void AetheriusEnemy_Attack_3Effect::EffectUpdate()
 {
 	m_isEffectPlaying = false;
 
@@ -41,7 +41,7 @@ void AetheriusEnemy_Attack_1Effect::EffectUpdate()
 	}
 }
 
-void AetheriusEnemy_Attack_1Effect::PlayForEnemy(const std::shared_ptr<AetheriusEnemy>& enemy)
+void AetheriusEnemy_Attack_3Effect::PlayForEnemy(const std::shared_ptr<AetheriusEnemy>& enemy)
 {
 	if (!enemy) return;
 	// エネミーの前方ベクトル
@@ -64,6 +64,7 @@ void AetheriusEnemy_Attack_1Effect::PlayForEnemy(const std::shared_ptr<Aetherius
 		DirectX::XMConvertToRadians(m_degree.z))
 		* Math::Matrix::CreateFromQuaternion(enemy->GetRotationQuaternion());
 	mWorld.Translation(m_position + enemy->GetPos() + (forward * m_distance) + (right * m_sideDistance));
+
 	// 毎回スポーン
 	if (auto sp = KdEffekseerManager::GetInstance().Play(m_path, mWorld, m_effectSpeed, false, m_effectColor).lock())
 	{

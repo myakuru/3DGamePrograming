@@ -67,7 +67,6 @@ void TestScene::Event()
 		if (m_isCountDown)
 		{
 			Time::Instance().StartCountdown(m_countDownTimer);
-			SceneManager::Instance().SetTime(m_countDownTimer);
 		}
 	}
 

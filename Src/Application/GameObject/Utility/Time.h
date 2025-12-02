@@ -99,6 +99,12 @@ public:
 		m_countdownTimeLeft = timeLeft;
 	}
 
+	// カウントダウンの最大値
+	float GetCountdownDuration() const
+	{
+		return m_countdownDuration;
+	}
+
 	// カウントダウンが終了したか
 	bool IsCountdownFinished() const
 	{
@@ -139,7 +145,7 @@ private:
 	// カウントダウン用
 	bool  m_countdownActive;
 	bool  m_countdownFinished;
-	float m_countdownDuration;
+	float m_countdownDuration;		// カウントダウンの総時間
 	float m_countdownBegin;
 	float m_countdownTimeLeft;
 };

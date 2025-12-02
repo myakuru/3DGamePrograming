@@ -360,6 +360,8 @@
     <ClInclude Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_AttackEffect\AetheriusEnemy_AttackEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect\AetheriusEnemy_Attack_1Effect.h" />
+    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_2Effect\AetheriusEnemy_Attack_2Effect.h" />
+    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_3Effect\AetheriusEnemy_Attack_3Effect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AttacEffect1\AttacEffect1.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AvoidAttackSlashEffect\AvoidAttackSlashEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\BossAttack_1stEffect\BossAttack_1stEffect.h" />
@@ -371,7 +373,6 @@
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\CloudEffect\CloudEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffectPlay\EffectPlay.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectBase.h" />
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectManager.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect\EnemyHitEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue\EnemyShineBlue.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\ESkillEffect\ESkillEffect.h" />
@@ -567,6 +568,8 @@
     <ClCompile Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_AttackEffect\AetheriusEnemy_AttackEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect\AetheriusEnemy_Attack_1Effect.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_2Effect\AetheriusEnemy_Attack_2Effect.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_3Effect\AetheriusEnemy_Attack_3Effect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AttacEffect1\AttacEffect1.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AvoidAttackSlashEffect\AvoidAttackSlashEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\BossAttack_1stEffect\BossAttack_1stEffect.cpp" />
@@ -578,7 +581,6 @@
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\CloudEffect\CloudEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffectPlay\EffectPlay.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectBase.cpp" />
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectManager.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect\EnemyHitEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue\EnemyShineBlue.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\ESkillEffect\ESkillEffect.cpp" />

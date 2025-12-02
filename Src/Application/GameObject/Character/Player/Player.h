@@ -127,11 +127,10 @@ public:
 	const Math::Vector2& GetCameraShakePower() const { return m_cameraShake.power; }
 	float                GetCameraShakeTime()  const { return m_cameraShake.time; }
 
-	// プロパティ（被ヒット/無敵/各種フラグ）: CharacterBase へ移譲
-
 	bool GetJustAvoidSuccess() const { return m_avoid.justSuccess; }
 	void SetJustAvoidSuccess(bool _flg) { m_avoid.justSuccess = _flg; }
 
+	// プロパティ (Just回避成功)
 	void SetJustAvoidAttackSuccess(bool _flg) { m_avoid.justAvoidAttack = _flg; }
 
 	bool GetUseSkill() const { return m_action.useSkill; }
@@ -188,6 +187,4 @@ private:
 	// 装備
 	std::vector <std::weak_ptr<Katana>> m_katana;
 	std::vector <std::weak_ptr<WeaponKatanaScabbard>> m_sheaths;
-
-	Math::Vector3 tmp = Math::Vector3(10.0f, 9.0f, 1.0f);
 };

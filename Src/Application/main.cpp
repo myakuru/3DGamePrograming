@@ -188,7 +188,7 @@ bool Application::Init(int w, int h)
 	if (bFullScreen) {
 		HRESULT hr;
 
-		hr = KdDirect3D::Instance().SetFullscreenState(TRUE, 0);
+		hr = KdDirect3D::Instance().SetFullscreenState(TRUE, nullptr);
 		if (FAILED(hr))
 		{
 			MessageBoxA(m_window.GetWndHandle(), "フルスクリーン設定失敗", "Direct3D初期化失敗", MB_OK | MB_ICONSTOP);
@@ -250,6 +250,11 @@ void Application::Execute()
 	// ループ
 	while (1)
 	{
+		if (!KeyboardManager::GetInstance().IsAppWindowActive())
+		{
+			Sleep(16); // アプリが非アクティブならCPU負荷軽減のため少し休む
+		}
+
 		// 処理開始時間Get
 		m_fpsController.UpdateStartTime();
 

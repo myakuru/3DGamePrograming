@@ -1,9 +1,11 @@
 ﻿#include "ResultScore.h"
-#include"../../../MyFramework/Manager/JsonManager/JsonManager.h"
-#include"../../main.h"
-#include"../../Scene/SceneManager.h"
-#include"../Camera/TPSCamera/TPSCamera.h"
-#include"../Utility/Time.h"
+#include"MyFramework/Manager/JsonManager/JsonManager.h"
+#include"Application/main.h"
+#include"Application/Scene/SceneManager.h"
+#include"Application/GameObject/Camera/TPSCamera/TPSCamera.h"
+#include"Application/GameObject/Utility/Time.h"
+
+
 const uint32_t ResultScore::TypeID = KdGameObject::GenerateTypeID();
 
 void ResultScore::Init()
@@ -14,9 +16,7 @@ void ResultScore::Init()
 	m_model_B = KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Score/B.gltf");
 	m_model_X = KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Score/X.gltf");
 
-	KdShaderManager::Instance().m_StandardShader.SetGradientColor(m_gradientColor);
-
-	m_distance = 20.0f;
+	m_distance = m_startDistance;
 }
 
 void ResultScore::Update()
@@ -61,7 +61,6 @@ void ResultScore::Update()
 		DirectX::XMConvertToRadians(m_degree.z)
 	);
 
-	// m_position をカメラローカルのオフセットとして使用する場合はカメラ回転を適用
 	Math::Matrix camRotM = Math::Matrix::CreateFromQuaternion(_spCamera->GetRotationQuaternion());
 	Math::Vector3 localOffset = Math::Vector3::TransformNormal(m_position, camRotM);
 
@@ -71,30 +70,27 @@ void ResultScore::Update()
 
 void ResultScore::DrawUnLit()
 {
-	if (m_time <= 5.0f) return;
+	// 最初の5秒間は表示しない
+	if (m_time <= m_showTime) return;
 
 	if (SceneManager::Instance().GetScore() == 0)
 	{
-		m_color = { 1.0f, 0.43f, 0.04f, 1.0f };
-		m_gradientColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+		m_color = m_S_color;
 		KdShaderManager::Instance().m_StandardShader.DrawModel(*m_model_S, m_mWorld, m_color);
 	}
 	else if (SceneManager::Instance().GetScore() == 1)
 	{
-		m_color = { 0.71f, 0.24f, 1.0f, 1.0f };
-		m_gradientColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+		m_color = m_A_color;
 		KdShaderManager::Instance().m_StandardShader.DrawModel(*m_model_A, m_mWorld, m_color);
 	}
 	else if (SceneManager::Instance().GetScore() == 2)
 	{
-		m_color = { 0.19f, 0.62f, 1.0f, 1.0f };
-		m_gradientColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+		m_color = m_B_color;
 		KdShaderManager::Instance().m_StandardShader.DrawModel(*m_model_B, m_mWorld, m_color);
 	}
 	else if (SceneManager::Instance().GetScore() == 3)
 	{
-		m_color = { 0.0f, 0.0f, 0.0f, 1.0f };
-		m_gradientColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+		m_color = m_X_color;
 		KdShaderManager::Instance().m_StandardShader.DrawModel(*m_model_X, m_mWorld, m_color);
 	}
 	else
@@ -106,24 +102,30 @@ void ResultScore::DrawUnLit()
 void ResultScore::ImGuiInspector()
 {
 	SelectDraw3dModel::ImGuiInspector();
-	ImGui::ColorEdit3(U8("グラデーションのカラー"), &m_gradientColor.x);
-	KdShaderManager::Instance().m_StandardShader.SetGradientColor(m_gradientColor);
 
 	ImGui::DragFloat(U8("カメラからの距離"), &m_distance);
+
+	ImGui::ColorEdit4(U8("Sの色"), &m_S_color.x);
+	ImGui::ColorEdit4(U8("Aの色"), &m_A_color.x);
+	ImGui::ColorEdit4(U8("Bの色"), &m_B_color.x);
+	ImGui::ColorEdit4(U8("Xの色"), &m_X_color.x);
 }
 
 void ResultScore::JsonSave(nlohmann::json& _json) const
 {
 	SelectDraw3dModel::JsonSave(_json);
-	_json["gradientColor"] = JSON_MANAGER.Vector4ToJson(m_gradientColor);
+
+	_json["S_color"] = JSON_MANAGER.Vector4ToJson(m_S_color);
+	_json["A_color"] = JSON_MANAGER.Vector4ToJson(m_A_color);
+	_json["B_color"] = JSON_MANAGER.Vector4ToJson(m_B_color);
+	_json["X_color"] = JSON_MANAGER.Vector4ToJson(m_X_color);
 }
 
 void ResultScore::JsonInput(const nlohmann::json& _json)
 {
 	SelectDraw3dModel::JsonInput(_json);
-	if (_json.contains("gradientColor"))
-	{
-		m_gradientColor = JSON_MANAGER.JsonToVector4(_json["gradientColor"]);
-		KdShaderManager::Instance().m_StandardShader.SetGradientColor(m_gradientColor);
-	}
+	if (_json.contains("S_color")) m_S_color = JSON_MANAGER.JsonToVector4(_json["S_color"]);
+	if (_json.contains("A_color")) m_A_color = JSON_MANAGER.JsonToVector4(_json["A_color"]);
+	if (_json.contains("B_color")) m_B_color = JSON_MANAGER.JsonToVector4(_json["B_color"]);
+	if (_json.contains("X_color")) m_X_color = JSON_MANAGER.JsonToVector4(_json["X_color"]);
 }

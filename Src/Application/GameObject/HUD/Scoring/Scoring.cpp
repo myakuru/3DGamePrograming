@@ -21,7 +21,7 @@ void Scoring::Update()
 
 	m_displayTime = static_cast<int>(timeLeft);
 
-	float totalTime = SceneManager::Instance().GetTime(); // 開始時の合計時間
+	float totalTime = Time::Instance().GetCountdownDuration(); // 開始時の最大時間
 	float ratio = 0.0f;
 	if (totalTime > 0.0f) ratio = timeLeft / totalTime;
 

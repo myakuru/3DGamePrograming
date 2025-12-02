@@ -53,7 +53,7 @@ void AetheriusEnemy::Update()
 		// 剣：未割当なら近傍で未所有の剣を探して割り当てる
 		if (m_wpSword.expired())
 		{
-			SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemySword, nearby); // 半径は調整
+			SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemySword, nearby);
 			for (const auto& w : nearby)
 			{
 				if (auto sp = w.lock())
@@ -233,7 +233,7 @@ void AetheriusEnemy::ChangeState(std::shared_ptr<EnemyStateBase> _state)
 	{
 		m_config->ApplyPrototypeParametersTo(*_state);
 	}
-	m_stateManager.ChangeState(_state);
+	GetStateManager().ChangeState(_state);
 }
 
 void AetheriusEnemy::Damage(int _damage)

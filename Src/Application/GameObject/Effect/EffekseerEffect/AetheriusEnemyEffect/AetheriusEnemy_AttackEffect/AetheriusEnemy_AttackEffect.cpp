@@ -48,7 +48,14 @@ void AetheriusEnemy_AttackEffect::PlayForEnemy(const std::shared_ptr<AetheriusEn
 	Math::Vector3 forward = Math::Vector3::TransformNormal(
 		Math::Vector3::Forward,
 		Math::Matrix::CreateFromQuaternion(enemy->GetRotationQuaternion()));
+
+	Math::Vector3 right = Math::Vector3::TransformNormal(
+		Math::Vector3::Right,
+		Math::Matrix::CreateFromQuaternion(enemy->GetRotationQuaternion()));
+
 	forward.Normalize();
+	right.Normalize();
+
 	// ワールド行列
 	Math::Matrix mWorld = Math::Matrix::CreateScale(m_scale);
 	mWorld *= Math::Matrix::CreateFromYawPitchRoll(
@@ -56,7 +63,7 @@ void AetheriusEnemy_AttackEffect::PlayForEnemy(const std::shared_ptr<AetheriusEn
 		DirectX::XMConvertToRadians(m_degree.x),
 		DirectX::XMConvertToRadians(m_degree.z))
 		* Math::Matrix::CreateFromQuaternion(enemy->GetRotationQuaternion());
-	mWorld.Translation(m_position + enemy->GetPos() + forward * m_distance);
+	mWorld.Translation(m_position + enemy->GetPos() + (forward * m_distance) + (right * m_sideDistance));
 	// 毎回スポーン
 	if (auto sp = KdEffekseerManager::GetInstance().Play(m_path, mWorld, m_effectSpeed, false, m_effectColor).lock())
 	{

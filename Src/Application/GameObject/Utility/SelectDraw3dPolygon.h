@@ -81,14 +81,14 @@ public:
 
 private:
 
-	bool ModelLoad(std::string _path) override
+	bool ModelLoad(const std::string& _path) override
 	{
 		// .~ 以降の拡張子を識別するために部分文字列を取得
 		std::string ext = _path.substr(_path.find_last_of('.') + 1);
 
 		if (ext == "png" || ext == "PNG")
 		{
-			_path = m_path;
+			m_path = _path;
 			// テクスチャ読み込み
 			m_polygon->SetMaterial(m_path);
 			return true;

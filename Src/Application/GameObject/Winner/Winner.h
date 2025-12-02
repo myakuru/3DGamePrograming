@@ -11,7 +11,7 @@ public:
 
 	void Init() override;
 	void Update() override;
-	void DrawGradation() override;
+	void DrawLit() override;
 
 	void ImGuiInspector() override;
 	void JsonSave(nlohmann::json& _json) const override;
@@ -19,8 +19,6 @@ public:
 
 
 private:
-
-	Math::Color m_gradientColor = { 1.0f,1.0f,0.0f,1.0f }; // グラデーションの色
 
 	std::weak_ptr<PlayerCamera> m_camera; // カメラへの参照
 

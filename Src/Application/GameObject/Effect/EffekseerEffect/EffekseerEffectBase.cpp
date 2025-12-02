@@ -94,8 +94,9 @@ void EffekseerEffectBase::ImGuiInspector()
 {
 	KdGameObject::ImGuiInspector();
 
-	ImGui::DragFloat(U8("エフェクトの出現位置"), &m_distance, 0.1f);
+	ImGui::DragFloat(U8("エフェクトの前方方向距離"), &m_distance, 0.1f);
 	ImGui::DragFloat(U8("エフェクトの再生速度"), &m_effectSpeed, 0.1f);
+	ImGui::DragFloat(U8("エフェクトの横方向距離"), &m_sideDistance, 0.1f);
 	
 	// エフェクト再生ボタン
 	if (ImGui::Button(U8("エフェクト再生")))
@@ -117,6 +118,7 @@ void EffekseerEffectBase::JsonSave(nlohmann::json& _json) const
 	_json["distance"] = m_distance;
 	_json["EffectSpeed"] = m_effectSpeed;
 	_json["effectColor"] = JSON_MANAGER.Vector4ToJson(m_effectColor);
+	_json["sideDistance"] = m_sideDistance;
 }
 
 void EffekseerEffectBase::JsonInput(const nlohmann::json& _json)
@@ -125,14 +127,13 @@ void EffekseerEffectBase::JsonInput(const nlohmann::json& _json)
 	if (_json.contains("distance")) m_distance = _json["distance"].get<float>();
 	if (_json.contains("EffectSpeed")) m_effectSpeed = _json["EffectSpeed"].get<float>();
 	if (_json.contains("effectColor")) m_effectColor = JSON_MANAGER.JsonToVector4(_json["effectColor"]);
+	if (_json.contains("sideDistance")) m_sideDistance = _json["sideDistance"].get<float>();
 }
 
-bool EffekseerEffectBase::ModelLoad(std::string _path)
+bool EffekseerEffectBase::ModelLoad(const std::string& _path)
 {
-	// .~ 以降の拡張子を識別するために部分文字列を取得
-	std::string ext = _path.substr(_path.find_last_of('.') + 1);
-
-	if (ext == "efkefc")
+	// 拡張子を取得
+	if (std::string name = _path.substr(_path.find_last_of('.') + 1); name == "efkefc")
 	{
 		m_path = _path;
 		return true;

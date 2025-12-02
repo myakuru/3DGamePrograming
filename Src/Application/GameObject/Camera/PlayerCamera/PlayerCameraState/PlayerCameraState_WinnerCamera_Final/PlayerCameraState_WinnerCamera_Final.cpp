@@ -56,7 +56,7 @@ void PlayerCameraState_WinnerCamera_Final::StateUpdate()
 	if (win.time > 0.0f)
 	{
 		cam->SetPlayerRotation(m_cameraRotation);
-		look.followRate = Math::Vector3::SmoothStep(m_startFollow, m_endFollow, win.time / 2);
+		look.followRate = Math::Vector3::SmoothStep(m_startFollow, m_endFollow, win.time);
 
 		KdShaderManager::Instance().m_postProcessShader.SetEnableGray(true);
 

@@ -165,7 +165,7 @@ void KdGameObject::JsonSave(nlohmann::json& _json) const
 	}
 }
 
-bool KdGameObject::ModelLoad(std::string _path)
+bool KdGameObject::ModelLoad(const std::string& _path)
 {
 	// モデル読み込み
 	m_model = KdAssets::Instance().m_modeldatas.GetData(_path);

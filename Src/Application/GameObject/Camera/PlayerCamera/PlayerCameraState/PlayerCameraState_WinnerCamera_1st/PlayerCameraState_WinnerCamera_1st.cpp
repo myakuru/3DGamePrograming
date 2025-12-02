@@ -53,6 +53,7 @@ void PlayerCameraState_WinnerCamera_1st::StateUpdate()
 		}
 	}
 
+	// 次の位置の計算
 	if (win.time >= 0.0f)
 	{
 		// カメラ回転固定

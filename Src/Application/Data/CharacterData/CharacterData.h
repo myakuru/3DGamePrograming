@@ -7,8 +7,8 @@ public:
 
 private:
 
-	void JsonInput(const nlohmann::json& _json);
-	void JsonSave(nlohmann::json& _json) const;
+	void JsonInput(const nlohmann::json& _json) { (void)_json; }
+	void JsonSave(nlohmann::json& _json) const { (void)_json; }
 
 	struct s_CharacterData
 	{

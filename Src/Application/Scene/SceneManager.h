@@ -159,16 +159,6 @@ public:
 		return m_drawGrayScale;
 	}
 
-	float GetTime() const
-	{
-		return m_time;
-	}
-
-	void SetTime(float _time)
-	{
-		m_time = _time;
-	}
-
 	void SetIntroCamera(bool _isIntro)
 	{
 		m_isIntro = _isIntro;
@@ -177,16 +167,6 @@ public:
 	bool IsIntroCamera() const
 	{
 		return m_isIntro;
-	}
-
-	bool IsEffectActive() const
-	{
-		return m_effectActive;
-	}
-
-	void SetEffectActive(bool _active)
-	{
-		m_effectActive = _active;
 	}
 
 	void SetCutInScene(bool _cutIn)
@@ -253,11 +233,7 @@ private:
 
 	bool m_drawGrayScale = false; // グレースケール描画フラグ
 
-	float m_time = 0.0f; // カウントダウンタイマー
-
 	bool m_isIntro = false;		// Introカメラかどうか
-
-	bool m_effectActive = true; // 最初のUpdateかどうか
 
 	bool m_CutInScene = false; // カットインシーンかどうか
 

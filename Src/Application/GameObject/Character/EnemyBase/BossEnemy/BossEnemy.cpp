@@ -178,7 +178,7 @@ void BossEnemy::ChangeState(std::shared_ptr<BossEnemyStateBase> _state)
 	{
 		m_bossEnemyConfig->ApplyPrototypeParametersTo(*_state);
 	}
-	m_stateManager.ChangeState(_state);
+	GetStateManager().ChangeState(_state);
 }
 
 void BossEnemy::Damage(int _damage)

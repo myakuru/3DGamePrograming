@@ -197,8 +197,6 @@ const bool KdEffekseerManager::IsPlaying(const int handle) const
 
 std::weak_ptr<KdEffekseerObject> KdEffekseerManager::Play(const PlayEfkInfo& info)
 {
-	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
-
 	// 渡された座標をEffekseerの座標に置き換え
 	Effekseer::Vector3D efkPos = GetEfkVec3D(info.Pos);
 
