@@ -68,9 +68,9 @@ void PlayerState_ChargeAttackMax3::StateEnd()
 	PlayerStateBase::StateEnd();
 	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
-		camera->SetTargetLookAt(Math::Vector3(0.0f, 1.0f, -3.5f));
-		camera->SetDistanceSmooth(8.f);
-		camera->SetRotationSmooth(8.f);
+		camera->SetTargetLookAt(m_cameraTargetOffset);
+		camera->SetDistanceSmooth(m_cameraDistanceSmooth);
+		camera->SetRotationSmooth(m_cameraRotationSmooth);
 	}
 
 	// 無敵状態解除
@@ -82,7 +82,7 @@ void PlayerState_ChargeAttackMax3::StateEnd()
 		effect->StopEffect();
 	}
 
-	// 索敵範囲もとに戻す
+	// 索敵範囲もとに戻す(Maxの方のImGUiで変更されているデフォルト５だが100になってる。)
 	m_searchEnemyRadius = DefaultSearchEnemyRadius;
 
 	// ガードブレイク状態解除

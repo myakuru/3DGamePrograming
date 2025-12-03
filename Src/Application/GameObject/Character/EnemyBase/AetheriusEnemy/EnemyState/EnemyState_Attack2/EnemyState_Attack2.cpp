@@ -36,9 +36,11 @@ void EnemyState_Attack2::StateUpdate()
 	// アニメーション時間の35％から100％の間、攻撃判定有効
 	if (m_animeTime >= m_stateParameter.attackActiveStartTime && m_animeTime <= m_stateParameter.attackActiveEndTime)
 	{
-		if (auto effect = m_attack2Effect.lock())
+		// エフェクト再生
+		if (auto effect = m_attack2Effect.lock(); !m_effectPlayed)
 		{
 			effect->PlayForEnemy(std::static_pointer_cast<AetheriusEnemy>(m_enemy->GetMyAdls()));
+			m_effectPlayed = true;
 		}
 
 		m_enemy->UpdateAttackCollision

@@ -15,8 +15,16 @@ void CameraBase::PreDraw()
 {
 	if (!m_spCamera) { return; }
 
+	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_LBUTTON))
+	{
+		if (KdDebugGUI::Instance().ShowImGUiFlg()) return;
+
+		m_enabled = true;
+		SwitchShowCursor(false);
+	}
+
 	// アプリが非アクティブまたはImGui表示中はマウスを占領しない
-	if (!KeyboardManager::GetInstance().IsAppWindowActive() || KdDebugGUI::Instance().ShowImGUiFlg())
+	if (!KeyboardManager::GetInstance().IsAppWindowActive())
 	{
 		m_enabled = false;
 		SwitchShowCursor(true);

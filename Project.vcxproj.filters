@@ -397,9 +397,6 @@
     <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState">
       <UniqueIdentifier>{fa75b82b-4688-4a6b-8dc5-9a6acd34d4be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack1">
-      <UniqueIdentifier>{b7cfa270-406b-4562-86ca-bb130a11a1b9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack2">
       <UniqueIdentifier>{faf2cffd-444e-4993-9f50-528f4dc52a12}</UniqueIdentifier>
     </Filter>
@@ -543,6 +540,9 @@
     </Filter>
     <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_3Effect">
       <UniqueIdentifier>{aafd32c2-2f77-4689-b2a8-bd445670b9ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack1">
+      <UniqueIdentifier>{b7cfa270-406b-4562-86ca-bb130a11a1b9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

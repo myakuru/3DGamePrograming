@@ -45,10 +45,10 @@ void KdDebugGUI::GuiInit()
 void KdDebugGUI::GuiProcess()
 {
 
-	if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_F2))
+	/*if (KeyboardManager::GetInstance().IsKeyJustPressed(VK_F2))
 	{
 		m_showImGui = !m_showImGui;
-	}
+	}*/
 
 	if (!m_showImGui) return;
 

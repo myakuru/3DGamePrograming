@@ -71,6 +71,7 @@ void PlayerState_ChargeAttackMax::StateUpdate()
 
 		const Math::Vector3 dashDir = (m_attackDirection != Math::Vector3::Zero) ? m_attackDirection : toEnemyDir;
 
+		// 目標地点を敵の少し先に設定
 		const Math::Vector3 desiredPoint = m_nearestEnemyPos + dashDir * m_overshootDist;
 
 		Math::Vector3 toDesired = desiredPoint - m_player->GetPos();

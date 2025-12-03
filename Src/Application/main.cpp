@@ -337,7 +337,7 @@ void Application::Execute()
 		// タイトルバーにFPS表示
 		std::string titleBar = "Chronos Zero: FPS:" + std::to_string(m_fpsController.m_nowfps);
 
-		SetWindowTextA(m_window.GetWndHandle(), titleBar.c_str());
+		SetWindowTextA(m_window.GetWndHandle(), titleBar.data());
 
 	}
 

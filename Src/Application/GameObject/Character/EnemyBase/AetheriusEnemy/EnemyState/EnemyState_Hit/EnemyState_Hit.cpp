@@ -49,7 +49,7 @@ void EnemyState_Hit::StateUpdate()
 void EnemyState_Hit::StateEnd()
 {
 	// 10回以上で無敵
-	if (m_enemy->GetHitCount() >= 10)
+	if (m_enemy->GetHitCount() >= 5)
 	{
 		m_enemy->SetInvincible(true);
 		m_enemy->ResetHitCount();

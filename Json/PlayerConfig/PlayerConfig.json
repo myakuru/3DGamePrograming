@@ -350,23 +350,6 @@
       "attackRadius": 6.0,
       "attackStartTime": 0.0,
       "blendTime": 0.25,
-      "cameraCutInOffset": {
-        "x": 0.0,
-        "y": 0.6000000238418579,
-        "z": -1.7000000476837158
-      },
-      "cameraCutInRotation": {
-        "x": 10.0,
-        "y": 90.0,
-        "z": 5.0
-      },
-      "cameraStartDistanceSmooth": 5.0,
-      "cameraStartRotationSmooth": 5.0,
-      "moveSpeed": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-      },
       "searchEnemyRadius": 50.0
     }
   },
@@ -419,6 +402,55 @@
       "MoveSpeedX": 0.0,
       "MoveSpeedY": 0.0,
       "MoveSpeedZ": 0.0
+    }
+  },
+  "PlayerState_SpecialAttack": {
+    "Player": {
+      "animationSpeed": 60.0,
+      "attackCount": 8,
+      "attackDistance": 1.0,
+      "attackEndTime": 3.0,
+      "attackInterval": 0.10000000149011612,
+      "attackRadius": 6.039999961853027,
+      "attackStartTime": 0.0,
+      "blendTime": 0.25,
+      "changeStateTime": 0.5,
+      "lastCameraPos": {
+        "x": 0.0,
+        "y": 1.0,
+        "z": -5.0
+      }
+    }
+  },
+  "PlayerState_SpecialAttack1": {
+    "Player": {
+      "animationSpeed": 20.0,
+      "attackCount": 8,
+      "attackDistance": 1.0,
+      "attackEndTime": 4.0,
+      "attackInterval": 0.10000000149011612,
+      "attackRadius": 6.099999904632568,
+      "attackStartTime": 0.0,
+      "blendTime": 0.25
+    }
+  },
+  "PlayerState_SpecialAttackCutIn": {
+    "Player": {
+      "SearchEnemyRadius": 50.0,
+      "animationSpeed": 60.0,
+      "blendTime": 0.25,
+      "cameraCutInOffset": {
+        "x": 0.0,
+        "y": 0.6000000238418579,
+        "z": -1.7000000476837158
+      },
+      "cameraCutInRotation": {
+        "x": 10.0,
+        "y": 90.0,
+        "z": 5.0
+      },
+      "cameraStartDistanceSmooth": 5.0,
+      "cameraStartRotationSmooth": 5.0
     }
   }
 }

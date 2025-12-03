@@ -35,13 +35,6 @@ void PlayerState_SpecialAttackCutIn::StateUpdate()
 	}
 
 	Math::Vector3 toEnemyDir = m_nearestEnemyPos - m_player->GetPos();
-	
-	if (toEnemyDir != Math::Vector3::Zero)
-	{
-		toEnemyDir.y = 0.0f;
-		toEnemyDir.Normalize();
-		m_player->UpdateQuaternionDirect(toEnemyDir);
-	}
 
 	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
@@ -93,34 +86,34 @@ void PlayerState_SpecialAttackCutIn::ApplyFromConfig(const PlayerStateBase& othe
 	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
 	m_cameraStartRotationSmooth = p.m_cameraStartRotationSmooth;
 	m_cameraStartDistanceSmooth = p.m_cameraStartDistanceSmooth;
-	m_stateParameter.moveSpeed = p.m_stateParameter.moveSpeed;
 	m_cameraCutInOffset = p.m_cameraCutInOffset;
 	m_cameraCutInRotation = p.m_cameraCutInRotation;
+	m_searchEnemyRadius = p.m_searchEnemyRadius;
 }
 
 void PlayerState_SpecialAttackCutIn::ExposeParametersImGui()
 {
+	ImGui::DragFloat(U8("索敵範囲"), &m_searchEnemyRadius);
 	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
 	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
 	ImGui::DragFloat(U8("カメラ回転スムーズ"), &m_cameraStartRotationSmooth);
 	ImGui::DragFloat(U8("カメラ距離スムーズ"), &m_cameraStartDistanceSmooth);
-	ImGui::DragFloat(U8("移動速度"), &m_stateParameter.moveSpeed.x);
 	ImGui::DragFloat3(U8("カメラカットイン時オフセット"), &m_cameraCutInOffset.x);
 	ImGui::DragFloat3(U8("カメラカットイン時回転"), &m_cameraCutInRotation.x);
 }
 
 void PlayerState_SpecialAttackCutIn::LoadParametersJson(const nlohmann::json& js)
 {
-	if (!js.contains("PlayerState_JustAvoidAttack")) return;
-	const auto& stateNode = js["PlayerState_JustAvoidAttack"];
+	if (!js.contains("PlayerState_SpecialAttackCutIn")) return;
+	const auto& stateNode = js["PlayerState_SpecialAttackCutIn"];
 	if (stateNode.contains("Player"))
 	{
 		const auto& playerNode = stateNode["Player"];
+		if (playerNode.contains("SearchEnemyRadius")) m_searchEnemyRadius = playerNode["SearchEnemyRadius"].get<float>();
 		if (playerNode.contains("blendTime")) m_stateParameter.blendTime = playerNode["blendTime"].get<float>();
 		if (playerNode.contains("animationSpeed")) m_stateParameter.animationSpeed = playerNode["animationSpeed"].get<float>();
 		if (playerNode.contains("cameraStartRotationSmooth")) m_cameraStartRotationSmooth = playerNode["cameraStartRotationSmooth"].get<float>();
 		if (playerNode.contains("cameraStartDistanceSmooth")) m_cameraStartDistanceSmooth = playerNode["cameraStartDistanceSmooth"].get<float>();
-		if (playerNode.contains("moveSpeed")) m_stateParameter.moveSpeed = JSON_MANAGER.JsonToVector(playerNode["moveSpeed"]);
 		if (playerNode.contains("cameraCutInOffset")) m_cameraCutInOffset = JSON_MANAGER.JsonToVector(playerNode["cameraCutInOffset"]);
 		if (playerNode.contains("cameraCutInRotation")) m_cameraCutInRotation = JSON_MANAGER.JsonToVector(playerNode["cameraCutInRotation"]);
 	}
@@ -128,14 +121,14 @@ void PlayerState_SpecialAttackCutIn::LoadParametersJson(const nlohmann::json& js
 
 void PlayerState_SpecialAttackCutIn::SaveParametersJson(nlohmann::json& js) const
 {
-	if (!js.contains("PlayerState_JustAvoidAttack")) js["PlayerState_JustAvoidAttack"] = nlohmann::json::object();
-	auto& stateNode = js["PlayerState_JustAvoidAttack"];
+	if (!js.contains("PlayerState_SpecialAttackCutIn")) js["PlayerState_SpecialAttackCutIn"] = nlohmann::json::object();
+	auto& stateNode = js["PlayerState_SpecialAttackCutIn"];
 
+	stateNode["Player"]["SearchEnemyRadius"] = m_searchEnemyRadius;
 	stateNode["Player"]["blendTime"] = m_stateParameter.blendTime;
 	stateNode["Player"]["animationSpeed"] = m_stateParameter.animationSpeed;
 	stateNode["Player"]["cameraStartRotationSmooth"] = m_cameraStartRotationSmooth;
 	stateNode["Player"]["cameraStartDistanceSmooth"] = m_cameraStartDistanceSmooth;
-	stateNode["Player"]["moveSpeed"] = JSON_MANAGER.VectorToJson(m_stateParameter.moveSpeed);
 	stateNode["Player"]["cameraCutInOffset"] = JSON_MANAGER.VectorToJson(m_cameraCutInOffset);
 	stateNode["Player"]["cameraCutInRotation"] = JSON_MANAGER.VectorToJson(m_cameraCutInRotation);
 }

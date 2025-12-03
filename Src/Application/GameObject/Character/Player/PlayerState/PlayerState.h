@@ -98,13 +98,12 @@ protected:
 
 	float m_time = 0.0f;
 
-	// マウス左Buttonが押されているか
-	bool m_lButtonKeyInput = false;
-	// マウス右Buttonが押されているか
-	bool m_rButtonKeyInput = false;
+	
+	bool m_lButtonKeyInput = false;	// マウス左Buttonが押されているか
+	bool m_rButtonKeyInput = false;	// マウス右Buttonが押されているか
 
-	float m_animeTime = 0.0f;
-	float m_maxAnimeTime = 0.0f;
+	float m_animeTime = 0.0f;		// アニメーション再生時間
+	float m_maxAnimeTime = 0.0f;	// アニメーション最大再生時間
 
 	std::weak_ptr<BossEnemy> m_bossEnemy;
 
@@ -119,11 +118,11 @@ protected:
 
 	std::shared_ptr<KdSoundInstance> m_runSound = nullptr;
 
-	std::weak_ptr<KdGameObject> m_focusTarget;
-	float m_focusRemainSec = 0.0f;	//	フォーカスタイマー
-	const float m_focusDurationSec = 10.0f; // フォーカス継続時間(調整用)
+	std::weak_ptr<KdGameObject> m_focusTarget;		//	フォーカスターゲット
+	float m_focusRemainSec = 0.0f;					//	フォーカスタイマー
+	const float m_focusDurationSec = 10.0f;			// フォーカス継続時間(調整用)
 	
-	const float DefaultSearchEnemyRadius = 5.0f;
+	const float DefaultSearchEnemyRadius = 5.0f;	// 既定値
 
 	// 索敵範囲
 	float m_searchEnemyRadius = DefaultSearchEnemyRadius;

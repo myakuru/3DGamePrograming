@@ -13,18 +13,16 @@ private:
 	void StateUpdate() override;
 	void StateEnd() override;
 
-	std::weak_ptr<SpecialAttack> m_specialAttackEffect;
-
-	float m_yawRad = 0.0f;
-
-	float m_yawDeg = 0.0f;
-
-	bool m_playSound = false;
-
-
 	void ApplyFromConfig(const PlayerStateBase& other) override;
 	void ExposeParametersImGui() override;
 	void LoadParametersJson(const nlohmann::json& js) override;
 	void SaveParametersJson(nlohmann::json& js) const override;
+
+
+	std::weak_ptr<SpecialAttack> m_specialAttackEffect;
+
+	bool m_playSound = false;	// 効果音再生フラグ
+
+	Math::Vector3 m_lastCameraPos = Math::Vector3::Zero;
 
 };

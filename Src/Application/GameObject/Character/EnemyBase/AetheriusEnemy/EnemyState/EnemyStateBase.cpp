@@ -31,12 +31,14 @@ void EnemyStateBase::StateStart()
 	{
 		m_attackDirection.Normalize();
 
+		// 敵の向きをプレイヤー方向に設定
 		const float yaw = atan2(-m_attackDirection.x, -m_attackDirection.z);
 		Math::Quaternion rot = Math::Quaternion::CreateFromAxisAngle(Math::Vector3::Up, yaw);
 		m_enemy->SetRotation(rot);
 	}
 
-	m_time = 0.0f;
-	m_hasHitPlayer = false;
-	m_animeTime = 0.0f;
+	m_time = 0.0f;				// ステート経過時間リセット
+	m_hasHitPlayer = false;		// プレイヤーにヒットしていない状態にリセット
+	m_animeTime = 0.0f;			// アニメーション再生時間リセット
+	m_effectPlayed = false;		// エフェクト再生フラグリセット
 }

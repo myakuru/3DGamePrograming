@@ -1,10 +1,10 @@
 ﻿#include "PlayerState_SpecialAttack1.h"
-#include"Application/GameObject/Character/Player/PlayerState/PlayerState_SheathKatana/PlayerState_SheathKatana.h"
-#include"../../../../../main.h"
-#include"../../../../Effect/EffekseerEffect/SpecialAttack1/SpecialAttack1.h"
-#include"../../../../Effect/EffekseerEffect/SpecialAttackSmoke/SpecialAttackSmoke.h"
-#include"../../../../../Scene/SceneManager.h"
-#include"../../../../Camera/PlayerCamera/PlayerCamera.h"
+#include "Application/GameObject/Character/Player/PlayerState/PlayerState_SheathKatana/PlayerState_SheathKatana.h"
+#include "Application/main.h"
+#include "Application/GameObject/Effect/EffekseerEffect/SpecialAttack1/SpecialAttack1.h"
+#include "Application/GameObject/Effect/EffekseerEffect/SpecialAttackSmoke/SpecialAttackSmoke.h"
+#include "Application/Scene/SceneManager.h"
+#include "Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
 
 
 void PlayerState_SpecialAttack1::StateStart()
@@ -66,27 +66,6 @@ void PlayerState_SpecialAttack1::StateUpdate()
 		);
 	}
 
-
-	Math::Vector3 toEnemyDir = m_nearestEnemyPos - m_player->GetPos();
-
-	if (toEnemyDir != Math::Vector3::Zero)
-	{
-		toEnemyDir.y = 0.0f;
-		toEnemyDir.Normalize();
-		m_player->UpdateQuaternionDirect(toEnemyDir);
-	}
-
-	if (auto camera = m_player->GetPlayerCamera().lock())
-	{
-		// キャラ前方からヨー角(deg)を計算してカメラ回転に反映
-
-		toEnemyDir.Normalize();
-		const float yawRad = std::atan2(toEnemyDir.x, toEnemyDir.z);
-		const float yawDeg = DirectX::XMConvertToDegrees(yawRad);
-		camera->SetPlayerRotation({ 0.0f, yawDeg , 0.0f });
-	}
-
-
 	m_player->SetIsMoving(m_attackDirection);
 
 	UpdateKatanaPos();
@@ -115,6 +94,14 @@ void PlayerState_SpecialAttack1::StateEnd()
 	{
 		effect->SetPlayEffect(false);
 	}
+
+	if (auto camera = m_player->GetPlayerCamera().lock())
+	{
+		camera->SetTargetLookAt(m_cameraTargetOffset);
+	}
+
+	// 索敵範囲もとに戻す(CutINの方のImGUiで変更されているデフォルト５だが100になってる。)
+	m_searchEnemyRadius = DefaultSearchEnemyRadius;
 
 	m_player->SetInvincible(false);
 }
@@ -185,8 +172,8 @@ void PlayerState_SpecialAttack1::ExposeParametersImGui()
 
 void PlayerState_SpecialAttack1::LoadParametersJson(const nlohmann::json& js)
 {
-	if (!js.contains("PlayerState_JustAvoidAttack")) return;
-	const auto& stateNode = js["PlayerState_JustAvoidAttack"];
+	if (!js.contains("PlayerState_SpecialAttack1")) return;
+	const auto& stateNode = js["PlayerState_SpecialAttack1"];
 	if (stateNode.contains("Player"))
 	{
 		const auto& playerNode = stateNode["Player"];
@@ -205,8 +192,8 @@ void PlayerState_SpecialAttack1::LoadParametersJson(const nlohmann::json& js)
 
 void PlayerState_SpecialAttack1::SaveParametersJson(nlohmann::json& js) const
 {
-	if (!js.contains("PlayerState_JustAvoidAttack")) js["PlayerState_JustAvoidAttack"] = nlohmann::json::object();
-	auto& stateNode = js["PlayerState_JustAvoidAttack"];
+	if (!js.contains("PlayerState_SpecialAttack1")) js["PlayerState_SpecialAttack1"] = nlohmann::json::object();
+	auto& stateNode = js["PlayerState_SpecialAttack1"];
 
 	stateNode["Player"]["blendTime"] = m_stateParameter.blendTime;
 	stateNode["Player"]["animationSpeed"] = m_stateParameter.animationSpeed;

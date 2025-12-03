@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "../Utility/SelectDraw3dModel.h"
+#include "Application/GameObject/Utility/SelectDraw3dModel.h"
 #include "MyFramework/State/StateManager/StateManager.h"
 
 // 前方宣言（依存の最小化）
@@ -88,7 +88,7 @@ private:
 		float gravity		 = 0.0f;	// 重力加速度
 		float gravitySpeed	 = 0.0f;	// 現在の重力速度
 		float fixedFrameRate = 0.0f;    // 60fps換算等
-		float hitStop = 1.0f;    // ヒットストップ時間
+		float hitStop = 1.0f;			// ヒットストップ時間
 	};
 
 	struct RaycastState

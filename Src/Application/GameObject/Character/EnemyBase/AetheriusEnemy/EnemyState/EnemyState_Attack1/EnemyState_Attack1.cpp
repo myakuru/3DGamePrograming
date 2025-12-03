@@ -22,11 +22,6 @@ void EnemyState_Attack1::StateStart()
 
 
 	SceneManager::Instance().GetObjectWeakPtr(m_attackEffect);
-
-	if (auto effect = m_attackEffect.lock())
-	{
-		effect->PlayForEnemy(std::static_pointer_cast<AetheriusEnemy>(m_enemy->GetMyAdls()));
-	}
 }
 
 void EnemyState_Attack1::StateUpdate()
@@ -50,6 +45,13 @@ void EnemyState_Attack1::StateUpdate()
 	// アニメーション時間の35％から100％の間、攻撃判定有効
 	if (m_animeTime >= m_stateParameter.attackActiveStartTime && m_animeTime <= m_stateParameter.attackActiveEndTime)
 	{
+		// エフェクト再生
+		if (auto effect = m_attackEffect.lock(); !m_effectPlayed)
+		{
+			effect->PlayForEnemy(std::static_pointer_cast<AetheriusEnemy>(m_enemy->GetMyAdls()));
+			m_effectPlayed = true;
+		}
+
 		m_enemy->UpdateAttackCollision
 		(
 			m_stateParameter.attackRadius,

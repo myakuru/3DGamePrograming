@@ -37,9 +37,9 @@
     "moveSpeed": 0.14000000059604645,
     "path": "Asset\\Models\\Player\\Sapphy\\Sapphy.gltf",
     "pos": {
-      "x": 3.1535141468048096,
+      "x": 2.7265236377716064,
       "y": 100.99998474121094,
-      "z": -1.834699273109436
+      "z": -0.3368002772331238
     },
     "rotateSpeed": 30.0,
     "scale": {
@@ -164,9 +164,9 @@
     "Class": "class PlayerCamera",
     "Name": "class PlayerCamera",
     "cameraPos": {
-      "x": 3.1535141468048096,
+      "x": 2.7265236377716064,
       "y": 100.99998474121094,
-      "z": -1.834699273109436
+      "z": -0.3368002772331238
     },
     "color": {
       "w": 1.0,
@@ -175,8 +175,8 @@
       "z": 1.0
     },
     "deg": {
-      "x": 6.450000286102295,
-      "y": 325.9999084472656,
+      "x": 16.350000381469727,
+      "y": 339.9501647949219,
       "z": 0.0
     },
     "fov": 70.0,
@@ -214,7 +214,7 @@
     "targetLookAt": {
       "x": 0.0,
       "y": 1.0,
-      "z": -2.5
+      "z": -2.500000238418579
     },
     "type": 32
   },
@@ -1689,764 +1689,6 @@
       {
         "Class": "class Collision",
         "Name": "class Collision",
-        "child": [
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": -90.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -25.299999237060547,
-              "y": 100.0,
-              "z": -2.5999999046325684
-            },
-            "scale": {
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": 0.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -32.29999923706055,
-              "y": 100.0,
-              "z": 7.400000095367432
-            },
-            "scale": {
-              "x": 0.699999988079071,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": -90.0,
-              "y": 0.0,
-              "z": 90.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": 7.900000095367432,
-              "y": 100.0,
-              "z": 17.0
-            },
-            "scale": {
-              "x": 2.869999885559082,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": 0.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -10.600000381469727,
-              "y": 100.0,
-              "z": -6.699999809265137
-            },
-            "scale": {
-              "x": 1.9299999475479126,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": -90.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -34.29999923706055,
-              "y": 100.0,
-              "z": 10.699999809265137
-            },
-            "scale": {
-              "x": 1.1799999475479126,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": -130.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -29.100000381469727,
-              "y": 100.0,
-              "z": 25.5
-            },
-            "scale": {
-              "x": 1.5800000429153442,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": -180.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -6.900000095367432,
-              "y": 100.0,
-              "z": 37.20000076293945
-            },
-            "scale": {
-              "x": 1.6100000143051147,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": -90.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -25.299999237060547,
-              "y": 100.0,
-              "z": -2.5999999046325684
-            },
-            "scale": {
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": 0.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -32.29999923706055,
-              "y": 100.0,
-              "z": 7.400000095367432
-            },
-            "scale": {
-              "x": 0.699999988079071,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": -90.0,
-              "y": 0.0,
-              "z": 90.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": 7.900000095367432,
-              "y": 100.0,
-              "z": 17.0
-            },
-            "scale": {
-              "x": 2.869999885559082,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": 0.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -10.600000381469727,
-              "y": 100.0,
-              "z": -6.699999809265137
-            },
-            "scale": {
-              "x": 1.9299999475479126,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": -90.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -34.29999923706055,
-              "y": 100.0,
-              "z": 10.699999809265137
-            },
-            "scale": {
-              "x": 1.1799999475479126,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": -130.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -29.100000381469727,
-              "y": 100.0,
-              "z": 25.5
-            },
-            "scale": {
-              "x": 1.5800000429153442,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": -180.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -6.900000095367432,
-              "y": 100.0,
-              "z": 37.20000076293945
-            },
-            "scale": {
-              "x": 1.6100000143051147,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": -90.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -25.299999237060547,
-              "y": 100.0,
-              "z": -2.5999999046325684
-            },
-            "scale": {
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": 0.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -32.29999923706055,
-              "y": 100.0,
-              "z": 7.400000095367432
-            },
-            "scale": {
-              "x": 0.699999988079071,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": -90.0,
-              "y": 0.0,
-              "z": 90.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": 7.900000095367432,
-              "y": 100.0,
-              "z": 17.0
-            },
-            "scale": {
-              "x": 2.869999885559082,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": 0.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -10.600000381469727,
-              "y": 100.0,
-              "z": -6.699999809265137
-            },
-            "scale": {
-              "x": 1.9299999475479126,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": -90.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -34.29999923706055,
-              "y": 100.0,
-              "z": 10.699999809265137
-            },
-            "scale": {
-              "x": 1.1799999475479126,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": -130.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -29.100000381469727,
-              "y": 100.0,
-              "z": 25.5
-            },
-            "scale": {
-              "x": 1.5800000429153442,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          },
-          {
-            "Class": "class Collision",
-            "Name": "class Collision",
-            "color": {
-              "w": 1.0,
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "deg": {
-              "x": 90.0,
-              "y": 0.0,
-              "z": -180.0
-            },
-            "drawFlags": {
-              "DrawBright": false,
-              "DrawGradation": false,
-              "DrawGrayScale": false,
-              "DrawLit": false,
-              "DrawToon": false,
-              "DrawUnLit": false,
-              "GenerateDepthMapFromLight": false
-            },
-            "path": "Asset\\Models\\Collition\\Collition.gltf",
-            "pos": {
-              "x": -6.900000095367432,
-              "y": 100.0,
-              "z": 37.20000076293945
-            },
-            "scale": {
-              "x": 1.6100000143051147,
-              "y": 1.0,
-              "z": 1.0
-            },
-            "type": 34
-          }
-        ],
         "color": {
           "w": 1.0,
           "x": 1.0,
@@ -2554,7 +1796,7 @@
       },
       {
         "Class": "class Collision",
-        "Name": "class Collision",
+        "Name": "a\u0000ass Collision",
         "color": {
           "w": 1.0,
           "x": 1.0,
@@ -2662,7 +1904,7 @@
       },
       {
         "Class": "class Collision",
-        "Name": "class Collision",
+        "Name": "CameraColliison",
         "color": {
           "w": 1.0,
           "x": 1.0,
@@ -2686,7 +1928,7 @@
         "path": "Asset\\Models\\Collition\\Collition.gltf",
         "pos": {
           "x": -10.699999809265137,
-          "y": 101.5999984741211,
+          "y": 101.30000305175781,
           "z": 14.600000381469727
         },
         "scale": {
@@ -5110,12 +4352,12 @@
         },
         "distance": 5.0,
         "effectColor": {
-          "w": 0.5882353186607361,
-          "x": 0.7843137383460999,
-          "y": 0.7843137383460999,
-          "z": 0.7843137383460999
+          "w": 1.0,
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
         },
-        "path": "Asset\\Data\\Effect\\Spellblade\\Last.efkefc",
+        "path": "Asset\\Data\\Effect\\EVFX_Slash\\VFX\\effects\\EVFX02_20_DazzlingBlade.efkefc",
         "pos": {
           "x": 0.0,
           "y": 2.0,
@@ -5126,7 +4368,7 @@
           "y": 1.0,
           "z": 1.0
         },
-        "sideDistance": 0.5,
+        "sideDistance": 0.0,
         "type": 32
       },
       {
@@ -5506,7 +4748,7 @@
         },
         "distance": 5.0,
         "effectColor": {
-          "w": 0.7843137383460999,
+          "w": 1.0,
           "x": 1.0,
           "y": 1.0,
           "z": 1.0
@@ -5522,7 +4764,7 @@
           "y": 0.23000000417232513,
           "z": 0.5199999809265137
         },
-        "sideDistance": 0.5,
+        "sideDistance": 0.0,
         "type": 32
       },
       {
@@ -5594,7 +4836,7 @@
           "y": 0.30000001192092896,
           "z": 0.30000001192092896
         },
-        "sideDistance": -0.5,
+        "sideDistance": -1.0,
         "type": 32
       },
       {
@@ -5616,8 +4858,8 @@
         "effectColor": {
           "w": 0.3921568691730499,
           "x": 1.0,
-          "y": 0.0,
-          "z": 0.0
+          "y": 0.5,
+          "z": 0.5
         },
         "path": "Asset\\Data\\Effect\\SampleEffect\\SwordFlash.efkefc",
         "pos": {
@@ -5651,9 +4893,9 @@
         "distance": 0.0,
         "effectColor": {
           "w": 0.3921568691730499,
-          "x": 0.9843137264251709,
-          "y": 0.0,
-          "z": 0.0
+          "x": 1.0,
+          "y": 0.5539215803146362,
+          "z": 0.5539215803146362
         },
         "path": "Asset\\Data\\Effect\\SampleEffect\\SwordFlash.efkefc",
         "pos": {
@@ -5666,7 +4908,7 @@
           "y": 0.30000001192092896,
           "z": 0.30000001192092896
         },
-        "sideDistance": -0.5,
+        "sideDistance": -1.0,
         "type": 32
       },
       {
@@ -5688,8 +4930,8 @@
         "effectColor": {
           "w": 0.3921568691730499,
           "x": 1.0,
-          "y": 0.0,
-          "z": 0.0
+          "y": 0.5539215803146362,
+          "z": 0.5539215803146362
         },
         "path": "Asset\\Data\\Effect\\EVFX_Slash\\VFX\\effects\\EnemyRotation.efkefc",
         "pos": {
@@ -5860,16 +5102,16 @@
       "z": 1.0
     },
     "deg": {
-      "x": 25.800037384033203,
-      "y": 315.8805236816406,
+      "x": -0.299986869096756,
+      "y": 353.2301330566406,
       "z": 0.0
     },
-    "moveSpeed": 1.0,
+    "moveSpeed": 10.0,
     "path": "Asset/Models/Sky/Sky.gltf",
     "pos": {
-      "x": 4.687318325042725,
-      "y": 101.93903350830078,
-      "z": -4.061468124389648
+      "x": 5.6236395835876465,
+      "y": 102.94412994384766,
+      "z": -7.803741931915283
     },
     "scale": {
       "x": 1.0,

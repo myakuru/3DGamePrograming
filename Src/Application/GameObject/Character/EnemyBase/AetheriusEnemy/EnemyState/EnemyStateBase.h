@@ -55,22 +55,19 @@ protected:
 	Math::Vector3 m_playerPos = Math::Vector3::Zero;
 	Math::Vector3 m_enemyPos = Math::Vector3::Zero;
 
-	AetheriusEnemy* m_enemy = nullptr;
+	AetheriusEnemy* m_enemy = nullptr;		// 所有者敵キャラ
+
 	float m_time = 0.0f;
+	float m_distance = 0.0f;	// プレイヤーとの距離
+	float m_animeTime = 0.0f;	// アニメーション再生時間
 
-	bool m_hasHitPlayer = false;
+	bool m_hasHitPlayer = false;	// プレイヤーにヒットしたかどうか
+	bool m_effectPlayed = false;	// ヒットエフェクト再生済みかどうか
 
-	// ヒット回数カウント
-	int m_hitCount = 0;
+	int m_hitCount = 0;			// ヒット回数カウント
 
-	// プレイヤーとの距離
-	float m_distance = 0.0f;
+	std::vector<std::weak_ptr<Player>> m_player;	// プレイヤー参照
 
-	// アニメーション再生時間
-	float m_animeTime = 0.0f;
-
-	std::vector<std::weak_ptr<Player>> m_player;
-
-	StateParameter m_stateParameter;
+	StateParameter m_stateParameter;	// ステートパラメータ
 
 };

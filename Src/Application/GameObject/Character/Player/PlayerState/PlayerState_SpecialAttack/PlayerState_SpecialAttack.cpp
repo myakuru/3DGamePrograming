@@ -1,11 +1,12 @@
 ﻿#include "PlayerState_SpecialAttack.h"
 
-#include"../../../../../main.h"
-#include"../PlayerState_SpecialAttack1/PlayerState_SpecialAttack1.h"
-#include"../../../../Camera/PlayerCamera/PlayerCamera.h"
-#include"../../../../Weapon/Katana/Katana.h"
-#include"../../../../../Scene/SceneManager.h"
-#include"../../../../Effect/EffekseerEffect/SpecialAttack/SpecialAttack.h"
+#include "Application/main.h"
+#include "Application/GameObject/Character/Player/PlayerState/PlayerState_SpecialAttack1/PlayerState_SpecialAttack1.h"
+#include "Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
+#include "Application/Scene/SceneManager.h"
+#include "Application/GameObject/Effect/EffekseerEffect/SpecialAttack/SpecialAttack.h"
+
+#include "MyFramework/Manager/JsonManager/JsonManager.h"
 
 void PlayerState_SpecialAttack::StateStart()
 {
@@ -16,27 +17,12 @@ void PlayerState_SpecialAttack::StateStart()
 
 	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
-	// 攻撃時はtrueにする
-	for (const auto& katanaWeak : m_player->GetKatanas())
-	{
-		if (auto katana = katanaWeak.lock())
-		{
-			katana->SetNowAttackState(true);
-		}
-	}
-
 	SceneManager::Instance().GetObjectWeakPtr(m_specialAttackEffect);
-
-	// アニメーション再生速度を変更
-	m_player->SetAnimeSpeed(60.0f);
-
-	if (auto camera = m_player->GetPlayerCamera().lock(); camera)
-	{
-		camera->SetTargetLookAt({ 0.0f,1.0f,-3.5f });
-	}
 
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
+
+	// サウンド再生フラグ初期化
 	m_playSound = false;
 }
 
@@ -50,6 +36,12 @@ void PlayerState_SpecialAttack::StateUpdate()
 
 	if (m_animeTime >= m_stateParameter.changeStateTime)
 	{
+		// カメラの位置をImGUiで変更する
+		if (auto camera = m_player->GetPlayerCamera().lock())
+		{
+			camera->SetTargetLookAt(m_lastCameraPos);
+		}
+
 		auto state = std::make_shared<PlayerState_SpecialAttack1>();
 		m_player->ChangeState(state);
 		return;
@@ -57,6 +49,12 @@ void PlayerState_SpecialAttack::StateUpdate()
 
 	if (m_animeTime >= 0.15f)
 	{
+
+		if (auto effect = m_specialAttackEffect.lock())
+		{
+			effect->SetPlayEffect(true);
+		}
+
 		// 当たり判定
 		m_player->UpdateAttackCollision
 		(
@@ -78,47 +76,19 @@ void PlayerState_SpecialAttack::StateUpdate()
 	}
 
 	Math::Vector3 toEnemyDir = m_nearestEnemyPos - m_player->GetPos();
-
-	if (toEnemyDir != Math::Vector3::Zero)
-	{
-		toEnemyDir.y = 0.0f;
-		toEnemyDir.Normalize();
-		m_player->UpdateQuaternionDirect(toEnemyDir);
-	}
-
+	
 	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
 		// キャラ前方からヨー角(deg)を計算してカメラ回転に反映
-
 		toEnemyDir.Normalize();
 		const float yawRad = std::atan2(toEnemyDir.x, toEnemyDir.z);
 		const float yawDeg = DirectX::XMConvertToDegrees(yawRad);
 		camera->SetPlayerRotation({ 0.0f, yawDeg , 0.0f });
 	}
 
-	if (m_animeTime >= 0.55f)
-	{
-		if (auto camera = m_player->GetPlayerCamera().lock())
-		{
-			camera->SetTargetLookAt({ 0.0f,1.0f,-4.0f });
-		}
-	}
-
 	m_player->SetIsMoving(m_attackDirection);
 
 	UpdateKatanaPos();
-
-	float deltaTime = Application::Instance().GetDeltaTime();
-
-	m_time += deltaTime;
-
-	if (m_time >= 1.0f)
-	{
-		if (auto effect = m_specialAttackEffect.lock())
-		{
-			effect->SetPlayEffect(true);
-		}
-	}
 	
 	// 移動を止める
 	m_player->SetIsMoving(Math::Vector3::Zero);
@@ -127,12 +97,6 @@ void PlayerState_SpecialAttack::StateUpdate()
 void PlayerState_SpecialAttack::StateEnd()
 {
 	PlayerStateBase::StateEnd();
-
-	if (auto camera = m_player->GetPlayerCamera().lock())
-	{
-		// カメラと、プレイヤーの距離を近づける（らーぷ）
-		camera->SetTargetLookAt({ 0.0f,1.0f,-3.5f });
-	}
 
 	if (auto effect = m_specialAttackEffect.lock())
 	{
@@ -154,6 +118,7 @@ void PlayerState_SpecialAttack::ApplyFromConfig(const PlayerStateBase& other)
 	m_stateParameter.attackInterval = p.m_stateParameter.attackInterval;
 	m_stateParameter.attackStartTime = p.m_stateParameter.attackStartTime;
 	m_stateParameter.attackEndTime = p.m_stateParameter.attackEndTime;
+	m_lastCameraPos = p.m_lastCameraPos;
 }
 
 void PlayerState_SpecialAttack::ExposeParametersImGui()
@@ -161,6 +126,7 @@ void PlayerState_SpecialAttack::ExposeParametersImGui()
 	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
 	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed, 1.0f, 1.0f, 120.0f);
 	ImGui::DragFloat(U8("状態遷移時間"), &m_stateParameter.changeStateTime, 0.01f, 0.0f, 10.0f);
+	ImGui::DragFloat3(U8("最後のカメラ位置"), &m_lastCameraPos.x);
 
 	const float kLabelWidth = 160.0f;
 	const float kItemWidth = 180.0f;
@@ -207,13 +173,15 @@ void PlayerState_SpecialAttack::ExposeParametersImGui()
 
 void PlayerState_SpecialAttack::LoadParametersJson(const nlohmann::json& js)
 {
-	if (!js.contains("PlayerState_JustAvoidAttack")) return;
-	const auto& stateNode = js["PlayerState_JustAvoidAttack"];
+	if (!js.contains("PlayerState_SpecialAttack")) return;
+	const auto& stateNode = js["PlayerState_SpecialAttack"];
 	if (stateNode.contains("Player"))
 	{
 		const auto& playerNode = stateNode["Player"];
 		if (playerNode.contains("blendTime")) m_stateParameter.blendTime = playerNode["blendTime"].get<float>();
 		if (playerNode.contains("animationSpeed")) m_stateParameter.animationSpeed = playerNode["animationSpeed"].get<float>();
+		if (playerNode.contains("lastCameraPos")) m_lastCameraPos = JSON_MANAGER.JsonToVector(playerNode["lastCameraPos"]);
+		if (playerNode.contains("changeStateTime")) m_stateParameter.changeStateTime = playerNode["changeStateTime"].get<float>();
 
 		// 当たり判定設定
 		if (playerNode.contains("attackRadius")) m_stateParameter.attackRadius = playerNode["attackRadius"].get<float>();
@@ -227,11 +195,13 @@ void PlayerState_SpecialAttack::LoadParametersJson(const nlohmann::json& js)
 
 void PlayerState_SpecialAttack::SaveParametersJson(nlohmann::json& js) const
 {
-	if (!js.contains("PlayerState_JustAvoidAttack")) js["PlayerState_JustAvoidAttack"] = nlohmann::json::object();
-	auto& stateNode = js["PlayerState_JustAvoidAttack"];
+	if (!js.contains("PlayerState_SpecialAttack")) js["PlayerState_SpecialAttack"] = nlohmann::json::object();
+	auto& stateNode = js["PlayerState_SpecialAttack"];
 
 	stateNode["Player"]["blendTime"] = m_stateParameter.blendTime;
 	stateNode["Player"]["animationSpeed"] = m_stateParameter.animationSpeed;
+	stateNode["Player"]["lastCameraPos"] = JSON_MANAGER.VectorToJson(m_lastCameraPos);
+	stateNode["Player"]["changeStateTime"] = m_stateParameter.changeStateTime;
 
 	// 当たり判定設定
 	stateNode["Player"]["attackRadius"] = m_stateParameter.attackRadius;
