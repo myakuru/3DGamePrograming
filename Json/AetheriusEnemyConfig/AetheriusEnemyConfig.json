@@ -28,7 +28,8 @@
       "blendTime": 0.25,
       "dashSpeed": 0.699999988079071,
       "dashSpeedTime": 0.20000000298023224,
-      "distanceThreshold": 10.0
+      "distanceThreshold": 10.0,
+      "fpsScale": 0.4000000059604645
     }
   },
   "EnemyState_Attack1": {

@@ -6,6 +6,8 @@
 #include"MyFramework/Manager/JsonManager/JsonManager.h"
 
 class BossEnemy;
+class EffectReference;
+
 class PlayerStateBase : public StateBase
 {
 	struct StateParameter
@@ -132,5 +134,8 @@ protected:
 	float							m_minDistSq = std::numeric_limits<float>::max();
 
 	StateParameter m_stateParameter;
+
+	// エフェクト参照
+	std::shared_ptr<EffectReference> m_effect;
 
 };

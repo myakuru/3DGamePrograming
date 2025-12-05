@@ -124,6 +124,7 @@
 // XInputのヘッダはXinput.hをインクルードする
 #include"MyFramework/Manager/KeyboardManager/KeyboardManager.h"
 #include"MyFramework/Manager/XInputManager/XInputManager.h"
+#include"MyFramework/Guid.h"
 
 #include <json.hpp>
 #include "Framework/KdFramework.h"

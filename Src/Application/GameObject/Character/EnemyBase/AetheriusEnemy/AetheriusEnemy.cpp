@@ -155,7 +155,7 @@ void AetheriusEnemy::Update()
 		AddBlurTime(Application::Instance().GetUnscaledDeltaTime());
 
 		// ヒットストップ
-		if (GetBlurTime() <= 0.1f)  Physics().hitStop = 0.0f;
+		if (GetBlurTime() <= 0.2f)  Physics().hitStop = 0.0f;
 		else                        Physics().hitStop = 1.0f;
 
 		if (GetBlurTime() <= 0.3f)
@@ -166,7 +166,8 @@ void AetheriusEnemy::Update()
 			// 微妙な位置揺らぎ
 			if (static_cast<int>(std::floor(GetBlurTime())) % 10 == 0)
 			{
-				Math::Vector3 jitter = {
+				Math::Vector3 jitter = 
+				{
 					KdRandom::GetFloat(-0.1f, 0.1f),
 					KdRandom::GetFloat(-0.1f, 0.1f),
 					KdRandom::GetFloat(-0.1f, 0.1f)

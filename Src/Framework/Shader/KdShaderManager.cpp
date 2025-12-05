@@ -495,8 +495,13 @@ void KdShaderManager::WriteCBShadowAreaCSM()
 
 	m_StandardShader.GetProjectctionDecompose(_FOV, _Aspect, _Near, _Far, _ProjMat);
 
-	// カメラ情報からフラスタムを計算
+	// CSMは常に指定レンジを使用（カメラが 0.01～2000 でも影は 1～300 に限定）
+	_Near = Cascade::MinClip;   // 1.0f
+	_Far = Cascade::MaxClip;   // 300.0f
+
+	// 以降のフラスタム作成にこのレンジを使用
 	DirectX::BoundingFrustum _FullFrustum;
+	_ProjMat = DirectX::XMMatrixPerspectiveFovLH(DirectX::XMConvertToRadians(_FOV), _Aspect, _Near, _Far);
 	DirectX::BoundingFrustum::CreateFromMatrix(_FullFrustum, _ProjMat);
 
 	// フラスタムの位置角度を設定するためにカメラのビュー行列をインバートして行列情報を取り込む
@@ -606,8 +611,12 @@ void KdShaderManager::WriteCBShadowAreaCSM()
 			float _TexelSizeY = (_CascadeBoxLS.Extents.y * 2.0f) / _ShadowMapResY;
 
 			// テクセルで直した中心位置にする
-			_CascadeBoxLS.Center.x = floor(_CascadeBoxLS.Center.x / _TexelSizeX) * _TexelSizeX;
-			_CascadeBoxLS.Center.y = floor(_CascadeBoxLS.Center.y / _TexelSizeY) * _TexelSizeY;
+			_CascadeBoxLS.Center.x = std::round(_CascadeBoxLS.Center.x / _TexelSizeX) * _TexelSizeX;
+			_CascadeBoxLS.Center.y = std::round(_CascadeBoxLS.Center.y / _TexelSizeY) * _TexelSizeY;
+
+			//　Z 方向もスナップ
+			const float _TexelSizeZ = (_CascadeBoxLS.Extents.z * 2.0f) / _ShadowMapResY;
+			_CascadeBoxLS.Center.z = std::round(_CascadeBoxLS.Center.z / _TexelSizeZ) * _TexelSizeZ;
 		}
 
 		// 6. この AABB をもとに正射影行列を作る

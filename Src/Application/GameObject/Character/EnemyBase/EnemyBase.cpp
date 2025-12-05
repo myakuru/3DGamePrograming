@@ -18,6 +18,8 @@ void EnemyBase::Init()
 	m_pCollider = std::make_unique<KdCollider>();
 	m_pCollider->RegisterCollisionShape("EnemySphere", GetBoundingSphere(), KdCollider::TypeDamage);
 	m_pCollider->RegisterCollisionShape("PlayerSphere", GetBoundingSphere(), KdCollider::TypeEnemyHit);
+	m_pCollider->RegisterCollisionShape("EnemyToEnemySphere", GetBoundingSphere(), KdCollider::TypeEnemyToEnemyHit);
+
 
 	m_action.isAttack = false;
 	m_visual.enableRadialBlur = false;
@@ -211,10 +213,12 @@ void EnemyBase::PostUpdate()
 		hitDir.y = 0.0f;
 		if (hitDir.LengthSquared() > 0) hitDir.Normalize();
 
-		// 両者が等しく離れる想定 → プレイヤー側は半分だけ動く
 		const Math::Vector3 push = hitDir * (maxOverLap * 0.5f);
 		ApplyPushWithCollision(push); // 壁を貫通しないようスイープして移動
 	}
+
+
+	EnemytoEnemyCollision();
 }
 
 void EnemyBase::ImGuiInspector()
@@ -294,4 +298,52 @@ void EnemyBase::UpdateQuaternion(Math::Vector3& _moveVector)
 void EnemyBase::SearchHitEffect()
 {
 	SceneManager::Instance().GetObjectWeakPtr(m_hitEffect);
+}
+
+void EnemyBase::EnemytoEnemyCollision()
+{
+	KdCollider::SphereInfo sphereInfo;
+	sphereInfo.m_sphere.Center = m_position + Math::Vector3(0.0f, 0.5f, 0.0f);
+	sphereInfo.m_sphere.Radius = 0.2f;
+	sphereInfo.m_type = KdCollider::TypeEnemyToEnemyHit;
+
+	m_pDebugWire->AddDebugSphere(sphereInfo.m_sphere.Center, sphereInfo.m_sphere.Radius);
+
+	std::list<KdCollider::CollisionResult> retSpherelist;
+
+	SceneManager::Instance().GetObjectWeakPtrListByTag(ObjTag::EnemyLike, Refs().enemyList);
+
+	for (const auto& eCol : Refs().enemyList)
+	{
+		if (auto col = eCol.lock())
+		{
+			// 自分自身を除外
+			if (col.get() == this) { continue; }
+
+			col->Intersects(sphereInfo, &retSpherelist);
+		}
+	}
+
+	float maxOverLap = 0.0f;
+	bool hit = false;
+	Math::Vector3 hitDir;
+
+	for (const auto& ret : retSpherelist)
+	{
+		if (maxOverLap < ret.m_overlapDistance)
+		{
+			maxOverLap = ret.m_overlapDistance;
+			hitDir = ret.m_hitDir;
+			hit = true;
+		}
+	}
+
+	if (hit)
+	{
+		hitDir.y = 0.0f;
+		if (hitDir.LengthSquared() > 0) hitDir.Normalize();
+
+		const Math::Vector3 push = hitDir * (maxOverLap * 0.5f);
+		m_position += push;
+	}
 }

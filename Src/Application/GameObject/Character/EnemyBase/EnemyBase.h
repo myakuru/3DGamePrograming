@@ -30,7 +30,7 @@ public:
 	void  SetAttack(bool f) { m_action.isAttack = f; }
 
 	bool  GetEnableRadialBlur() const { return m_visual.enableRadialBlur; }
-	void  SetEnableRadialBlur(bool f) { m_visual.enableRadialBlur = f; }
+	void  SetEnableRadialBlur(bool _f) { m_visual.enableRadialBlur = _f; }
 
 	int  GetTotalHitCount() const { return m_totalHitCount; }
 	void IncrementTotalHitCount() { ++m_totalHitCount; }
@@ -73,7 +73,7 @@ protected:
 	// VisualState（時間更新のみ許可）
 	float GetBlurTime() const { return m_visual.blurTime; }
 	void  AddBlurTime(float dt) { m_visual.blurTime += dt; }
-	void  ResetBlurTime() { m_visual.blurTime = 1.0f; }
+	void  ResetBlurTime() { m_visual.blurTime = 0.0f; }
 
 	// 既存の仮想関数
 	void Init() override;
@@ -85,6 +85,8 @@ protected:
 	void UpdateQuaternion(Math::Vector3& _moveVector) override;
 
 	void SearchHitEffect();
+
+	void EnemytoEnemyCollision();
 
 	std::weak_ptr<EnemyHitEffect> GetHitEffect() const { return m_hitEffect; }
 

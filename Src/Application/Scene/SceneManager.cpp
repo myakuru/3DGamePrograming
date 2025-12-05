@@ -82,6 +82,7 @@
 #include"Application/GameObject/Effect/EffekseerEffect/AetheriusEnemyEffect/AetheriusEnemy_Attack_1Effect/AetheriusEnemy_Attack_1Effect.h"
 #include"Application/GameObject/Effect/EffekseerEffect/AetheriusEnemyEffect/AetheriusEnemy_Attack_2Effect/AetheriusEnemy_Attack_2Effect.h"
 #include"Application/GameObject/Effect/EffekseerEffect/AetheriusEnemyEffect/AetheriusEnemy_Attack_3Effect/AetheriusEnemy_Attack_3Effect.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectManager.h"
 
 
 void SceneManager::Init()
@@ -173,6 +174,7 @@ void SceneManager::Register() const
 	RegisterObject::GetInstance().Register<AetheriusEnemy_Attack_1Effect>();
 	RegisterObject::GetInstance().Register<AetheriusEnemy_Attack_2Effect>();
 	RegisterObject::GetInstance().Register<AetheriusEnemy_Attack_3Effect>();
+	RegisterObject::GetInstance().Register<EffekseerEffectManager>();
 
 	// Fieldのエフェクト系
 	RegisterObject::GetInstance().Register<MapGard>();

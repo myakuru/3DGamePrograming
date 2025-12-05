@@ -11,6 +11,7 @@ enum class ObjTag : uint32_t
 	PlayerKatana = 1u << 5,
 	PlayerScabbard = 1u << 6,
 	PlayerCamera = 1u << 7,
+	Effect = 1u << 8,
 };
 
 inline uint32_t ToMask(ObjTag t) { return static_cast<uint32_t>(t); }
@@ -34,6 +35,8 @@ public:
 
 
 	uint32_t m_typeID = 0;
+
+	const Guid& GetGUID() const { return m_guid; }
 
 	// どのような描画を行うのかを設定するTypeID：Bitフラグで複数指定可能
 	enum class DrawTypeID
@@ -169,6 +172,8 @@ public:
 	virtual std::weak_ptr<KdGameObject>& GetParent() { return m_parentObjects; }
 	virtual std::list<std::shared_ptr<KdGameObject>>& GetChild() { return m_childObjects; }
 
+	virtual const std::string& GetName() const { return m_className; }
+
 protected:
 
 	void Release() {}
@@ -215,7 +220,7 @@ protected:
 	float m_dissever = 0.0f;			// ディゾルブ値
 
 	std::list<std::shared_ptr<KdGameObject>> m_childObjects;  // 子オブジェクトを格納するリスト
-	std::weak_ptr<KdGameObject> m_parentObjects; // 親オブジェクトを格納するリスト
+	std::weak_ptr<KdGameObject> m_parentObjects; // 親オブジェクトを格納する
 
 	// 位置
 	Math::Vector3 m_position = Math::Vector3::Zero;
@@ -231,5 +236,8 @@ protected:
 
 	// ゲームの音量を管理する変数
 	float m_gameVolume = 0.0f;
+
+
+	Guid m_guid = {};
 
 };

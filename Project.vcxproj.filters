@@ -514,9 +514,6 @@
     <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_1Effect">
       <UniqueIdentifier>{21427dc2-ca2a-4b8e-bc1c-81b2d7163f48}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\MyFramework\Manager\RegisterObject">
-      <UniqueIdentifier>{7ee7aac8-f4d5-4d75-8dbd-7532ec2bbc87}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_LookPlayer">
       <UniqueIdentifier>{1b3b4a17-f3f4-4db1-b09e-8e9957a3570e}</UniqueIdentifier>
     </Filter>
@@ -543,6 +540,12 @@
     </Filter>
     <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack1">
       <UniqueIdentifier>{b7cfa270-406b-4562-86ca-bb130a11a1b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\MyFramework\RegisterObject">
+      <UniqueIdentifier>{7ee7aac8-f4d5-4d75-8dbd-7532ec2bbc87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\PlayerEffect">
+      <UniqueIdentifier>{19b32fb6-9039-4f6c-bcc3-250879c3a34e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1030,7 +1033,7 @@
       <Filter>Src\MyFramework\Manager\JsonManager</Filter>
     </ClInclude>
     <ClInclude Include="Src\MyFramework\RegisterObject\RegisterObject.h">
-      <Filter>Src\MyFramework\Manager\RegisterObject</Filter>
+      <Filter>Src\MyFramework\RegisterObject</Filter>
     </ClInclude>
     <ClInclude Include="Src\MyFramework\Manager\ImGuiManager\ImGuiManager.h">
       <Filter>Src\MyFramework\Manager\ImGuiManager</Filter>
@@ -1184,6 +1187,18 @@
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_3Effect\AetheriusEnemy_Attack_3Effect.h">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_3Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\MyFramework\Guid.h">
+      <Filter>Src\MyFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Utility\EffectReference.h">
+      <Filter>Src\Application\GameObject\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectManager.h">
+      <Filter>Src\Application\GameObject\Effect\EffekseerEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\PlayerEffect\PlayerEffect.h">
+      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\PlayerEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1774,6 +1789,15 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_3Effect\AetheriusEnemy_Attack_3Effect.cpp">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AetheriusEnemyEffect\AetheriusEnemy_Attack_3Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Utility\EffectReference.cpp">
+      <Filter>Src\Application\GameObject\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectManager.cpp">
+      <Filter>Src\Application\GameObject\Effect\EffekseerEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\PlayerEffect\PlayerEffect.cpp">
+      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\PlayerEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

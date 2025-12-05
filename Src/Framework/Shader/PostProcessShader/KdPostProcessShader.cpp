@@ -124,7 +124,8 @@ bool KdPostProcessShader::Init()
 
 	int lightBloomWidth = halfW;
 	int lightBloomHeight = halfH;
-	for (int i = 0; i < kLightBloomNum; ++i) {
+	for (int i = 0; i < kLightBloomNum; ++i)
+	{
 		m_lightBloomRTPack[i].CreateRenderTarget(lightBloomWidth, lightBloomHeight);
 		//lightBloomWidth = std::max(1, lightBloomWidth / 2);
 		//lightBloomHeight = std::max(1, lightBloomHeight / 2);

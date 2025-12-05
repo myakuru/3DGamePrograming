@@ -1,6 +1,7 @@
 ﻿#pragma once
 class Player;
 class Enemy;
+class EffekseerEffectManager;
 class EffekseerEffectBase : public KdGameObject
 {
 public:
@@ -32,6 +33,11 @@ public:
 	void Init() override;
 	void Update() override;
 
+	const std::string& GetName() const override
+	{
+		return m_name;
+	}
+
 protected:
 
 	// 表示はベースシーンで行ってるので、ここでは何もしない
@@ -61,5 +67,9 @@ protected:
 	float m_effectSpeed = 0.0f;
 
 	Math::Color m_effectColor = Math::Color{ 1,1,1,1 };
+
+	std::weak_ptr<EffekseerEffectManager> m_effectManager;
+
+	std::string m_name;
 
 };

@@ -17,8 +17,6 @@ public:
 
 	void Init() override;
 	void PostUpdate() override;
-	void UpdateWinnerCamera();
-	void NewUpdateIntroCamera();
 	void ImGuiInspector() override;
 	void JsonSave(nlohmann::json& _json) const override;
 	void JsonInput(const nlohmann::json& _json) override;

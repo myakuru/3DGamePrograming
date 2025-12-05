@@ -4,6 +4,7 @@
 #include"../../../main.h"
 #include"../../../../MyFramework/Manager/ImGuiManager/ImGuiManager.h"
 #include"../../../../MyFramework/Manager/JsonManager/JsonManager.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectManager.h"
 
 void EffekseerEffectBase::Init()
 {
@@ -18,6 +19,18 @@ void EffekseerEffectBase::Init()
 	m_load = false;
 
 	m_isEffectPlaying = false;
+
+	SceneManager::Instance().GetObjectWeakPtr(m_effectManager);
+
+	if (auto manager = m_effectManager.lock())
+	{
+		manager->m_effectObjList.push_back(std::static_pointer_cast<EffekseerEffectBase>(shared_from_this()));
+	}
+
+	if (m_name.empty())
+	{
+		m_name = m_className;
+	}
 
 }
 
@@ -92,7 +105,28 @@ void EffekseerEffectBase::EffectUpdate()
 
 void EffekseerEffectBase::ImGuiInspector()
 {
-	KdGameObject::ImGuiInspector();
+	ImGui::Text(U8("トランスフォーム"));
+
+	ImGui::InputText("name", m_name.data(), ImGuiInputTextFlags_EnterReturnsTrue);
+
+	ImGui::DragFloat3(U8("位置"), &m_position.x, 0.1f);
+	ImGui::DragFloat3(U8("拡大、縮小"), &m_scale.x, 0.01f);
+	ImGui::DragFloat3(U8("回転"), &m_degree.x, 0.001f);
+
+
+	ImGui::ColorEdit4("color", &m_color.x);
+
+	SetCollider();
+
+	ImGuiSelectGltf();
+
+	m_mWorld = Math::Matrix::CreateScale(m_scale);
+	m_mWorld *= Math::Matrix::CreateFromYawPitchRoll(
+		DirectX::XMConvertToRadians(m_degree.y),
+		DirectX::XMConvertToRadians(m_degree.x),
+		DirectX::XMConvertToRadians(m_degree.z)
+	);
+	m_mWorld.Translation(m_position);
 
 	ImGui::DragFloat(U8("エフェクトの前方方向距離"), &m_distance, 0.1f);
 	ImGui::DragFloat(U8("エフェクトの再生速度"), &m_effectSpeed, 0.1f);
@@ -119,15 +153,19 @@ void EffekseerEffectBase::JsonSave(nlohmann::json& _json) const
 	_json["EffectSpeed"] = m_effectSpeed;
 	_json["effectColor"] = JSON_MANAGER.Vector4ToJson(m_effectColor);
 	_json["sideDistance"] = m_sideDistance;
+	_json["name"] = m_name;
 }
 
 void EffekseerEffectBase::JsonInput(const nlohmann::json& _json)
 {
 	KdGameObject::JsonInput(_json);
+
 	if (_json.contains("distance")) m_distance = _json["distance"].get<float>();
 	if (_json.contains("EffectSpeed")) m_effectSpeed = _json["EffectSpeed"].get<float>();
 	if (_json.contains("effectColor")) m_effectColor = JSON_MANAGER.JsonToVector4(_json["effectColor"]);
 	if (_json.contains("sideDistance")) m_sideDistance = _json["sideDistance"].get<float>();
+	if (_json.contains("name")) m_name = _json["name"].get<std::string>();
+
 }
 
 bool EffekseerEffectBase::ModelLoad(const std::string& _path)

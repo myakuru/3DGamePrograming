@@ -344,13 +344,13 @@ float4 main(VSOutput In) : SV_Target0
 		float D = DistributionGGX(NdotH, alpha);
 		float G = GeometrySmith(NdotV, NdotL, roughness);
 		float3 F = FresnelSchlick(saturate(dot(H, V)), F0);
-		float3 specBRDF = (D * G) * F / max(4.0 * NdotV * NdotL, 1e-4);
+		float3 specBRDF = (D * G) * F / max(4.0 * NdotV * NdotL, 1e-4); // Cook-Torrance（鏡面反射計算）
 
 		// エネルギー保存: kS=F, kD=(1-kS)*(1-metallic)
 		float3 kS = F;
 		float3 kD = (1.0 - kS) * (1.0 - metallic);
 
-		// Disney Diffuse
+		// Disney Diffuse（拡散反射計算）
 		float3 diffuseBRDF = DisneyDiffuse(baseColor.rgb, NdotV, NdotL, LdotH, roughness);
 
 		// 放射照度項 (ライト色) を掛け、NdotLで重み付け

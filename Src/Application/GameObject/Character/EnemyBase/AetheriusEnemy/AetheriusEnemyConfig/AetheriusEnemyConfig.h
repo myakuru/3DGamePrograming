@@ -8,6 +8,8 @@ public:
 	void JsonInput(const nlohmann::json& js);
 	void JsonSave() const;
 	void CreateStates();
+
+	// ImGuiで編集した変数を実行時反映させるための関数
 	void ApplyPrototypeParametersTo(EnemyStateBase& runtime);
 
 	//　現在選択されているステート名取得

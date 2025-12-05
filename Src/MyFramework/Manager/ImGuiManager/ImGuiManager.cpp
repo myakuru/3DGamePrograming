@@ -353,13 +353,7 @@ void ImGuiManager::MakeTreeNode(const std::weak_ptr<KdGameObject>& parentObj)
 
 	ImGui::PushID(spParent.get());
 
-	const bool opened = ImGui::TreeNodeEx(spParent->GetNameClass().data());
-
-	// ヘッダクリックで選択（weakで保持）
-	if (ImGui::IsItemClicked())
-	{
-		m_openObject = spParent;
-	}
+	const bool opened = ImGui::TreeNodeEx(spParent->GetName().data());
 
 	// ドラッグ元：生ポインタを渡す
 	if (ImGui::BeginDragDropSource())
@@ -385,6 +379,12 @@ void ImGuiManager::MakeTreeNode(const std::weak_ptr<KdGameObject>& parentObj)
 			}
 		}
 		ImGui::EndDragDropTarget();
+	}
+
+	// ヘッダクリックで選択（weakで保持）
+	if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+	{
+		m_openObject = spParent;
 	}
 
 	ImGui::SameLine(250);

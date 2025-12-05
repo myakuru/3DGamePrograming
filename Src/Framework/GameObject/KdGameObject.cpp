@@ -137,6 +137,7 @@ void KdGameObject::JsonInput(const nlohmann::json& _json)
 	if (_json.contains("deg")) m_degree = JSON_MANAGER.JsonToVector(_json["deg"]);
 	if (_json.contains("color")) m_color = JSON_MANAGER.JsonToVector4(_json["color"]);
 	if (_json.contains("type")) m_type = static_cast<KdCollider::Type>(_json["type"].get<int>());
+	if (_json.contains("Guid")) m_guid.FromString(_json["Guid"].get<std::string>());
 
 }
 
@@ -150,6 +151,8 @@ void KdGameObject::JsonSave(nlohmann::json& _json) const
 	_json["deg"] = JSON_MANAGER.VectorToJson(m_degree);
 	_json["color"] = JSON_MANAGER.Vector4ToJson(m_color);
 	_json["type"] = static_cast<int>(m_type);
+
+	_json["Guid"] = m_guid.ToString();
 
 	// 子オブジェクトの情報も保存
 	if (!m_childObjects.empty())
@@ -310,7 +313,7 @@ void KdGameObject::SortChild()
 
 bool KdGameObject::SearchChild(const std::shared_ptr<KdGameObject>& _temp)
 {
-	if (std::shared_ptr<KdGameObject> _parent = GetParent().lock(); _parent)
+	if (std::shared_ptr<KdGameObject> _parent = GetParent().lock())
 	{
 		if (_parent == _temp) return true;
 		else if (_parent->SearchChild(_temp)) return true;

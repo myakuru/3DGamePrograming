@@ -14,7 +14,12 @@
 
 #include"Application/Data/CharacterData/CharacterData.h"
 
-PlayerStateBase::PlayerStateBase() = default;
+#include "Application/GameObject/Utility/EffectReference.h"
+
+PlayerStateBase::PlayerStateBase()
+{
+	m_effect = std::make_shared<EffectReference>();
+}
 
 PlayerStateBase::~PlayerStateBase() = default;
 

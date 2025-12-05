@@ -124,6 +124,8 @@ void KdStandardShader::BeginGenerateDepthMapFromLight()
 	{
 		m_cascadeShadowMapRTPack[i].ClearTexture(kRedColor);
 	}
+
+	m_isShadowPass = true;
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -131,6 +133,7 @@ void KdStandardShader::BeginGenerateDepthMapFromLight()
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 void KdStandardShader::EndGenerateDepthMapFromLight()
 {
+	m_isShadowPass = false;
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -153,22 +156,11 @@ void KdStandardShader::BeginToon()
 		KdShaderManager::Instance().SetPSConstantBuffer(0, m_cb0_Obj.GetAddress());
 		KdShaderManager::Instance().SetPSConstantBuffer(2, m_cb2_Material.GetAddress());
 	}
-
-	// シャドウマップのテクスチャをセット
-	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(10, 1, m_depthMapFromLightRTPack.m_RTTexture->WorkSRViewAddress());
-
-	// 通常テクスチャ用サンプラーのセット
-	KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Anisotropic_Wrap, 0);
-
-	// 影ぼかし用の比較機能付きサンプラーのセット
-	KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Linear_Clamp_Cmp, 1);
 }
 
 // Toonシェーダーの描画終了
 void KdStandardShader::EndToon()
 {
-	ID3D11ShaderResourceView* pNullSRV = nullptr;
-	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(10, 1, &pNullSRV);
 }
 
 void KdStandardShader::BeginGradient()
@@ -192,21 +184,10 @@ void KdStandardShader::BeginGradient()
 		KdShaderManager::Instance().SetPSConstantBuffer(0, m_cb0_Obj.GetAddress());
 		KdShaderManager::Instance().SetPSConstantBuffer(2, m_cb2_Material.GetAddress());
 	}
-
-	// シャドウマップのテクスチャをセット
-	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(10, 1, m_depthMapFromLightRTPack.m_RTTexture->WorkSRViewAddress());
-
-	// 通常テクスチャ用サンプラーのセット
-	KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Anisotropic_Wrap, 0);
-
-	// 影ぼかし用の比較機能付きサンプラーのセット
-	KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Linear_Clamp_Cmp, 1);
 }
 
 void KdStandardShader::EndGradient()
 {
-	ID3D11ShaderResourceView* pNullSRV = nullptr;
-	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(10, 1, &pNullSRV);
 }
 
 void KdStandardShader::BeginGrayscale()
@@ -226,21 +207,10 @@ void KdStandardShader::BeginGrayscale()
 		KdShaderManager::Instance().SetPSConstantBuffer(0, m_cb0_Obj.GetAddress());
 		KdShaderManager::Instance().SetPSConstantBuffer(2, m_cb2_Material.GetAddress());
 	}
-
-	// シャドウマップのテクスチャをセット
-	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(10, 1, m_depthMapFromLightRTPack.m_RTTexture->WorkSRViewAddress());
-
-	// 通常テクスチャ用サンプラーのセット
-	KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Anisotropic_Wrap, 0);
-
-	// 影ぼかし用の比較機能付きサンプラーのセット
-	KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Linear_Clamp_Cmp, 1);
 }
 
 void KdStandardShader::EndGrayscale()
 {
-	ID3D11ShaderResourceView* pNullSRV = nullptr;
-	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(10, 1, &pNullSRV);
 }
 
 void KdStandardShader::BeginEffect()
@@ -280,20 +250,10 @@ void KdStandardShader::BeginRimLight()
 		KdShaderManager::Instance().SetPSConstantBuffer(2, m_cb2_Material.GetAddress());
 	}
 
-	// シャドウマップのテクスチャをセット
-	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(10, 1, m_depthMapFromLightRTPack.m_RTTexture->WorkSRViewAddress());
-
-	// 通常テクスチャ用サンプラーのセット
-	KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Anisotropic_Wrap, 0);
-
-	// 影ぼかし用の比較機能付きサンプラーのセット
-	KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Linear_Clamp_Cmp, 1);
 }
 
 void KdStandardShader::EndRimLight()
 {
-	ID3D11ShaderResourceView* pNullSRV = nullptr;
-	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(10, 1, &pNullSRV);
 }
 
 
@@ -312,14 +272,8 @@ void KdStandardShader::DrawMesh(const KdMesh* mesh, const Math::Matrix& mWorld,
 {
 	if (mesh == nullptr) { return; }
 
-	// 現在のPSが影生成用なら影パスとみなす
-	ID3D11PixelShader* pNowPS = nullptr;
-	KdDirect3D::Instance().WorkDevContext()->PSGetShader(&pNowPS, nullptr, nullptr);
-	const bool isShadowPass = (pNowPS == m_PS_GenDepthFromLight);
-	KdSafeRelease(pNowPS);
-
 	// 視錐台カリング：影パス中はスキップ
-	if (!isShadowPass)
+	if (!m_isShadowPass)
 	{
 		const KdShaderManager::cbCamera* cbCam = &KdShaderManager::Instance().GetCameraCB();
 		if (cbCam)
@@ -346,7 +300,7 @@ void KdStandardShader::DrawMesh(const KdMesh* mesh, const Math::Matrix& mWorld,
 	mesh->SetToDevice();
 
 	// GenDepthFromLightシェーダーの場合は、カスケードシャドウマップ用に複数回描画を行う
-	if (isShadowPass)
+	if (m_isShadowPass)
 	{
 		// 後面カリングなしにする
 		KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullNone);
@@ -817,17 +771,6 @@ bool KdStandardShader::Init()
 		m_cascadeShadowMapRTPack[i].ClearTexture(kRedColor);
 	}
 
-	std::shared_ptr<KdTexture> ds = std::make_shared<KdTexture>();
-	ds->CreateDepthStencil(static_cast<int>(std::pow(2.0f, 12.0f)), static_cast<int>(std::pow(2.0f, 12.0f)));
-	D3D11_VIEWPORT vp = {
-		0.0f, 0.0f,
-		static_cast<float>(ds->GetWidth()),
-		static_cast<float>(ds->GetHeight()),
-		0.0f, 1.0f };
-
-	m_depthMapFromLightRTPack.CreateRenderTarget(static_cast<int>(std::pow(2.0f, 10.0f)), static_cast<int>(std::pow(2.0f, 10.0f)), true, DXGI_FORMAT_R32_FLOAT);
-	m_depthMapFromLightRTPack.ClearTexture(kRedColor);
-
 	SetDissolveTexture(*KdAssets::Instance().m_textures.GetData("Asset/Textures/System/WhiteNoise.png"));
 
 	return true;
@@ -966,6 +909,10 @@ void KdStandardShader::CascadeShadowMapChangea(const DirectX::BoundingBox& _BBox
 		DirectX::BoundingBox frustAABB_LS;
 		DirectX::BoundingBox::CreateFromPoints(frustAABB_LS, 8, frustCornersLS, sizeof(DirectX::XMFLOAT3));
 
+		// 重要: ライト方向（LS の Z）に余白を追加して、視錐台外キャスターを許容
+		const float ShadowCasterMargin = 30.0f; // シーンに合わせて調整（最大影長/最大オブジェクトサイズなど）
+		frustAABB_LS.Extents.z += ShadowCasterMargin;
+
 		// メッシュの AABB をワールド→ライト空間に変換して作成
 		DirectX::XMFLOAT3 meshCornersWS[8];
 		_BBox.GetCorners(meshCornersWS);
@@ -978,6 +925,10 @@ void KdStandardShader::CascadeShadowMapChangea(const DirectX::BoundingBox& _BBox
 		}
 		DirectX::BoundingBox meshAABB_LS;
 		DirectX::BoundingBox::CreateFromPoints(meshAABB_LS, 8, meshCornersLS, sizeof(DirectX::XMFLOAT3));
+
+		const float XYMarginScale = 10.05f;
+		frustAABB_LS.Extents.x *= XYMarginScale;
+		frustAABB_LS.Extents.y *= XYMarginScale;
 
 		// 判定：ライト空間の AABB 同士が重なれば該当カスケードに描画が必要
 		if (frustAABB_LS.Intersects(meshAABB_LS))

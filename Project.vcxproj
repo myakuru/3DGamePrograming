@@ -373,12 +373,14 @@
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\CloudEffect\CloudEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffectPlay\EffectPlay.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectBase.h" />
+    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectManager.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect\EnemyHitEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue\EnemyShineBlue.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\ESkillEffect\ESkillEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\GroundFreezes\GroundFreezes.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\JustAvoidAttackEffect1\JustAvoidAttackEffect1.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\JustAvoidAttackEffect\JustAvoidAttackEffect.h" />
+    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\PlayerEffect\PlayerEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\Rotation\Rotation.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\ShineEffectBlue\ShineEffectBlue.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\ShineEffect\ShineEffect.h" />
@@ -412,6 +414,7 @@
     <ClInclude Include="Src\Application\GameObject\Map\Map.h" />
     <ClInclude Include="Src\Application\GameObject\ResultScore\ResultScore.h" />
     <ClInclude Include="Src\Application\GameObject\SkySphere\SkySphere.h" />
+    <ClInclude Include="Src\Application\GameObject\Utility\EffectReference.h" />
     <ClInclude Include="Src\Application\GameObject\Utility\SelectDraw2DTexture.h" />
     <ClInclude Include="Src\Application\GameObject\Utility\SelectDraw3dModel.h" />
     <ClInclude Include="Src\Application\GameObject\Utility\SelectDraw3dPolygon.h" />
@@ -460,6 +463,7 @@
     <ClInclude Include="Src\Framework\Utility\KdFPSController.h" />
     <ClInclude Include="Src\Framework\Utility\KdFrameTimer.h" />
     <ClInclude Include="Src\Framework\Utility\KdRandom.h" />
+    <ClInclude Include="Src\MyFramework\Guid.h" />
     <ClInclude Include="Src\MyFramework\Manager\ImGuiManager\ImGuiManager.h" />
     <ClInclude Include="Src\MyFramework\Manager\JsonManager\JsonManager.h" />
     <ClInclude Include="Src\MyFramework\Manager\KeyboardManager\KeyboardManager.h" />
@@ -581,12 +585,14 @@
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\CloudEffect\CloudEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffectPlay\EffectPlay.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectBase.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectManager.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect\EnemyHitEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue\EnemyShineBlue.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\ESkillEffect\ESkillEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\GroundFreezes\GroundFreezes.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\JustAvoidAttackEffect1\JustAvoidAttackEffect1.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\JustAvoidAttackEffect\JustAvoidAttackEffect.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\PlayerEffect\PlayerEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\Rotation\Rotation.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\ShineEffectBlue\ShineEffectBlue.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\ShineEffect\ShineEffect.cpp" />
@@ -620,6 +626,7 @@
     <ClCompile Include="Src\Application\GameObject\Map\Map.cpp" />
     <ClCompile Include="Src\Application\GameObject\ResultScore\ResultScore.cpp" />
     <ClCompile Include="Src\Application\GameObject\SkySphere\SkySphere.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Utility\EffectReference.cpp" />
     <ClCompile Include="Src\Application\GameObject\Weapon\EnemyShield\EnemyShield.cpp" />
     <ClCompile Include="Src\Application\GameObject\Weapon\EnemySword\EnemySword.cpp" />
     <ClCompile Include="Src\Application\GameObject\Weapon\Katana\Katana.cpp" />

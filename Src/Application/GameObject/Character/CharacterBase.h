@@ -66,6 +66,10 @@ public:
 	AttackWindowRef AttackWindow() { return { m_combat.attackWindow.elapsed, m_combat.attackWindow.begin, m_combat.attackWindow.end }; }
 	AttackWindowCRef AttackWindow() const { return { m_combat.attackWindow.elapsed, m_combat.attackWindow.begin, m_combat.attackWindow.end }; }
 
+	// HitStop
+	void SetHitStop(float _time) { m_physics.hitStop = _time; }
+	float GetHitStop() const { return m_physics.hitStop; }
+
 private:
 	// ====== 責務ごとに束ねた内部状態 ======
 	struct TransformState
@@ -113,6 +117,7 @@ private:
 		std::weak_ptr<PlayerCamera>					playerCamera;		// プレイヤーカメラ
 		std::weak_ptr<KdGameObject>					collision;			// 当たり判定オブジェクト
 		std::list<std::shared_ptr<KdGameObject>>	effectList;			// エフェクトオブジェクトリスト
+		std::list<std::weak_ptr<KdGameObject>>		enemyList;			// エーテリウスエネミーオブジェクトリスト
 		std::vector<std::weak_ptr<Collision>>		collisionObjects;	// 当たり判定オブジェクトリスト
 		std::vector<std::weak_ptr<Player>>			playerObjects;		// プレイヤーオブジェクトリスト
 	};

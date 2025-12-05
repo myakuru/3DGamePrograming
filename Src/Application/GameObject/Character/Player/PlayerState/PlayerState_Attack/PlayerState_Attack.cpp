@@ -16,6 +16,14 @@
 
 #include"Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
 
+#include "Application/GameObject/Utility/EffectReference.h"
+
+void PlayerState_Attack::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_Attack));
+	const auto& p = static_cast<const PlayerState_Attack&>(other); 
+	m_stateParameter = p.m_stateParameter; // 構造体一括コピー
+}
 
 void PlayerState_Attack::StateStart()
 {
@@ -28,8 +36,6 @@ void PlayerState_Attack::StateStart()
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
 
-	// エフェクト取得
-	SceneManager::Instance().GetObjectWeakPtr(m_slashEffect);
 	// アニメーション速度設定
 	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
@@ -89,7 +95,7 @@ void PlayerState_Attack::StateUpdate()
 	else
 	{
 		// エフェクト再生・移動停止
-		if (auto effect = m_slashEffect.lock())
+		if (auto effect = m_effect->GetEffectBase().lock())
 		{
 			effect->SetPlayEffect(true);
 		}
@@ -115,19 +121,23 @@ void PlayerState_Attack::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
-	if (auto swordEffect = m_slashEffect.lock())
+	if (auto effect = m_effect->GetEffectBase().lock())
 	{
-		swordEffect->SetPlayEffect(false);
+		effect->SetPlayEffect(false);
 	}
 }
 
 void PlayerState_Attack::ExposeParametersImGui()
 {
+	m_effect->ImGuiInspector("Slash Effect");
+
 	m_stateParameter.ExposeImGui();
 }
 
 void PlayerState_Attack::LoadParametersJson(const nlohmann::json& js)
 {
+	m_effect->JsonInput("SwordFlash", js);
+
 	if (!js.contains("PlayerState_Attack")) return;
 	const auto& stateNode = js["PlayerState_Attack"];
 	if (stateNode.contains("Player")) m_stateParameter.LoadJson(stateNode["Player"]);
@@ -135,6 +145,8 @@ void PlayerState_Attack::LoadParametersJson(const nlohmann::json& js)
 
 void PlayerState_Attack::SaveParametersJson(nlohmann::json& js) const
 {
+	m_effect->JsonSave("SwordFlash", js);
+
 	m_stateParameter.SaveJson(js["PlayerState_Attack"]);
 	js["PlayerState_Attack"]["m_dashSpeed"] = m_stateParameter.dashSpeed;
 }

@@ -10,8 +10,8 @@ namespace Cascade
 	constexpr int Num = 3;	// カスケード数
 	constexpr float MaxClip = 300.0f; // CSMのFarクリップ距離
 	constexpr float MinClip = 1.0f; // CSMのNearクリップ距離
-	constexpr float SplitLambda = 1.0f; // 分割の偏り具合(0～1)
-	constexpr int MaxExp = 11; // シャドウマップの解像度
+	constexpr float SplitLambda = 0.9f; // 分割の偏り具合(0～1)
+	constexpr int MaxExp = 12; // シャドウマップの解像度
 }
 
 class KdStandardShader
@@ -403,6 +403,8 @@ private:
 	bool m_enableGradient = false;
 	Math::Color m_gradientColor{1.0f,1.0f,1.0f,1.0f};
 	float m_fadeAmount = 1.0f;
+
+	bool m_isShadowPass = false;
 
 	float m_time = 0.0f;
 };

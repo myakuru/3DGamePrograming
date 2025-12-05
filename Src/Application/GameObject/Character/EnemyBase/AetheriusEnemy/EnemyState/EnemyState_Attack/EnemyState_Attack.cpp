@@ -24,10 +24,12 @@ void EnemyState_Attack::StateStart()
 		}
 	}
 
+	m_stopped = false;
+
 	SceneManager::Instance().GetObjectWeakPtr(m_attackEffect);
 
 	// 当たり判定リセット
-	m_enemy->ResetAttackCollision();
+	m_enemy->ResetAttackCollision();	
 }
 
 void EnemyState_Attack::StateUpdate()
@@ -39,6 +41,26 @@ void EnemyState_Attack::StateUpdate()
 	// アニメーション再生時間を取得
 	m_animeTime = m_enemy->GetAnimator()->GetPlayProgress();
 
+	if (m_animeTime >= 0.2)
+	{
+		m_stopped = true;
+	}
+
+	// 攻撃するタイミングでヒットストップをかける（攻撃前兆）
+	if (m_stopped)
+	{
+		m_hitStopTimer += deltaTime;
+
+		if (m_hitStopTimer <= m_animationStopTime)
+		{
+			m_enemy->SetHitStop(m_hitStopTime);
+		}
+		else
+		{
+			m_enemy->SetHitStop(m_KdefaultHitStopTime);
+		}
+	}
+
 	// アニメーション時間の35％から100％の間、攻撃判定有効
 	if (m_animeTime >= m_stateParameter.attackActiveStartTime && m_animeTime <= m_stateParameter.attackActiveEndTime)
 	{
@@ -49,6 +71,7 @@ void EnemyState_Attack::StateUpdate()
 			m_effectPlayed = true;
 		}
 
+		// 攻撃判定更新
 		m_enemy->UpdateAttackCollision
 		(
 			m_stateParameter.attackRadius,
@@ -81,6 +104,7 @@ void EnemyState_Attack::StateUpdate()
 		}
 	}
 
+	// アニメーション終了で次の攻撃へ
 	if (m_enemy->GetAnimator()->IsAnimationEnd())
 	{
 		auto attack1 = std::make_shared<EnemyState_Attack1>();
@@ -88,6 +112,7 @@ void EnemyState_Attack::StateUpdate()
 		return;
 	}
 
+	// ダッシュ移動
 	if (m_time < m_stateParameter.dashSpeedTime)
 	{
 		const float dashSpeed = m_stateParameter.dashSpeed;
@@ -102,6 +127,9 @@ void EnemyState_Attack::StateUpdate()
 
 void EnemyState_Attack::StateEnd()
 {
+
+	m_stopped = false;
+
 	for (const auto& effects : m_shineEffectBlues)
 	{
 		if (auto effect = effects.lock())
@@ -122,6 +150,9 @@ void EnemyState_Attack::ApplyFromConfig(const EnemyStateBase& other)
 	m_stateParameter.attackActiveStartTime = p.m_stateParameter.attackActiveStartTime;
 	m_stateParameter.attackActiveEndTime = p.m_stateParameter.attackActiveEndTime;
 	m_stateParameter.distanceThreshold = p.m_stateParameter.distanceThreshold;
+	m_fpsScale = p.m_fpsScale;
+	m_animationStopTime = p.m_animationStopTime;
+	m_hitStopTime = p.m_hitStopTime;
 
 	// 当たり判定設定
 	m_stateParameter.attackRadius = p.m_stateParameter.attackRadius;
@@ -140,6 +171,11 @@ void EnemyState_Attack::ExposeParametersImGui()
 	ImGui::DragFloat(U8("当たり判定スタート時間"), &m_stateParameter.attackActiveStartTime);
 	ImGui::DragFloat(U8("当たり判定エンド時間"), &m_stateParameter.attackActiveEndTime);
 	ImGui::DragFloat(U8("距離閾値"), &m_stateParameter.distanceThreshold, 0.1f, 0.0f, 100.0f);
+	ImGui::DragFloat(U8("FPSスケール"), &m_fpsScale, 0.01f, 0.1f, 10.0f);
+
+	ImGui::Text(U8("攻撃前兆の設定"));
+	ImGui::DragFloat(U8("アニメーション停止時間"), &m_animationStopTime, 0.01f, 0.0f, 1.0f);
+	ImGui::DragFloat(U8("ヒットストップ時間"), &m_hitStopTime, 0.001f, 0.0f, 1.0f);
 
 	const float kLabelWidth = 160.0f;
 	const float kItemWidth = 180.0f;
@@ -194,6 +230,8 @@ void EnemyState_Attack::LoadParametersJson(const nlohmann::json& js)
 		if (enemyNode.contains("blendTime")) m_stateParameter.blendTime = enemyNode["blendTime"].get<float>();
 		if (enemyNode.contains("dashSpeed")) m_stateParameter.dashSpeed = enemyNode["dashSpeed"].get<float>();
 		if (enemyNode.contains("dashSpeedTime")) m_stateParameter.dashSpeedTime = enemyNode["dashSpeedTime"].get<float>();
+		if (enemyNode.contains("fpsScale")) m_fpsScale = enemyNode["fpsScale"].get<float>();
+
 		// 当たり判定有効時間
 		if (enemyNode.contains("attackActiveStartTime")) m_stateParameter.attackActiveStartTime = enemyNode["attackActiveStartTime"].get<float>();
 		if (enemyNode.contains("attackActiveEndTime")) m_stateParameter.attackActiveEndTime = enemyNode["attackActiveEndTime"].get<float>();
@@ -218,6 +256,8 @@ void EnemyState_Attack::SaveParametersJson(nlohmann::json& js) const
 	stateNode["AetheriusEnemy"]["blendTime"] = m_stateParameter.blendTime;
 	stateNode["AetheriusEnemy"]["dashSpeed"] = m_stateParameter.dashSpeed;
 	stateNode["AetheriusEnemy"]["dashSpeedTime"] = m_stateParameter.dashSpeedTime;
+	stateNode["AetheriusEnemy"]["fpsScale"] = m_fpsScale;
+
 	// 当たり判定有効時間
 	stateNode["AetheriusEnemy"]["attackActiveStartTime"] = m_stateParameter.attackActiveStartTime;
 	stateNode["AetheriusEnemy"]["attackActiveEndTime"] = m_stateParameter.attackActiveEndTime;

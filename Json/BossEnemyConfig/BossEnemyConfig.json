@@ -74,7 +74,7 @@
     "BossEnemy": {
       "animationSpeed": 60.0,
       "blendTime": 0.25,
-      "dashSpeed": -0.6,
+      "dashSpeed": -0.6000000238418579,
       "dashSpeedTime": 0.20000000298023224,
       "hitCount": 5
     }
@@ -98,7 +98,7 @@
       "attackCount": 5,
       "attackDistance": 7.0,
       "attackEndTime": 3.0,
-      "attackInterval": 0.1,
+      "attackInterval": 0.10000000149011612,
       "attackRadius": 15.0,
       "attackStartTime": 0.0,
       "blendTime": 0.25,
@@ -127,7 +127,7 @@
       "attackCount": 3,
       "attackDistance": 1.0,
       "attackEndTime": 3.0,
-      "attackInterval": 0.1,
+      "attackInterval": 0.10000000149011612,
       "attackRadius": 4.0,
       "attackStartTime": 1.0,
       "blendTime": 0.25,

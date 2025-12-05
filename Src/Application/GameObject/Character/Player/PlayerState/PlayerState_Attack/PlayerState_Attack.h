@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include"../PlayerState.h"
 class TrailEffect;
-class SwordFlash;
 
 class PlayerState_Attack : public PlayerStateBase
 {
@@ -9,12 +8,7 @@ public:
 	PlayerState_Attack() = default;
 	~PlayerState_Attack() override = default;
 
-	void ApplyFromConfig(const PlayerStateBase& other) override
-	{
-		assert(typeid(other) == typeid(PlayerState_Attack));
-		const auto& p = static_cast<const PlayerState_Attack&>(other);
-		m_stateParameter = p.m_stateParameter; // 構造体一括コピー
-	}
+	void ApplyFromConfig(const PlayerStateBase& other) override;
 
 private:
 	void StateStart() override;
@@ -26,6 +20,5 @@ private:
 	void SaveParametersJson(nlohmann::json& js) const override;
 
 	std::weak_ptr<TrailEffect> m_trailEffect;
-	std::weak_ptr<SwordFlash>  m_slashEffect;
 
 };
