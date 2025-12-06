@@ -47,10 +47,13 @@ void PlayerState_SpecialAttack::StateUpdate()
 
 	if (m_animeTime >= 0.15f)
 	{
-		// 複数エフェクト再生
+		// エフェクト再生・移動停止（複数）
 		for (const auto& ref : m_playerEffects)
 		{
-			if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(true);
+			if (auto effect = ref->GetEffectBase().lock())
+			{
+				effect->PlayForTarget<Player>(std::static_pointer_cast<Player>(m_player->GetMyAdls()));
+			}
 		}
 
 		// 当たり判定
@@ -96,10 +99,13 @@ void PlayerState_SpecialAttack::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
-	// 複数エフェクト停止
+	// エフェクト停止（複数）
 	for (const auto& ref : m_playerEffects)
 	{
-		if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(false);
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->StopEffect();
+		}
 	}
 }
 

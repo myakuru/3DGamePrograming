@@ -1,8 +1,5 @@
 ﻿#pragma once
 #include"../EnemyStateBase.h"
-class EnemyShineBlue;
-class AetheriusEnemy_AttackEffect;
-
 class EnemyState_Attack : public EnemyStateBase
 {
 public:
@@ -18,9 +15,6 @@ private:
 	void ExposeParametersImGui() override;
 	void LoadParametersJson(const nlohmann::json& js) override;
 	void SaveParametersJson(nlohmann::json& js) const override;
-
-	std::list<std::weak_ptr<EnemyShineBlue>> m_shineEffectBlues;
-	std::weak_ptr<AetheriusEnemy_AttackEffect> m_attackEffect;
 
 	float m_fpsScale = 0.4f;
 

@@ -64,6 +64,11 @@
       "distanceThreshold": 10.0
     }
   },
+  "EnemyState_Attack_Effects": [
+    {
+      "Effect": "2e820282-792f-4ce0-a6ce-bff0c5d56abd"
+    }
+  ],
   "EnemyState_Death": {
     "AetheriusEnemy": {
       "blendTime": 0.25

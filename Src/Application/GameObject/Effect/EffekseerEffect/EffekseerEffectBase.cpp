@@ -39,6 +39,7 @@ void EffekseerEffectBase::Update()
 
 	KdEffekseerManager::GetInstance().Update();
 
+	// Fキー制御は残す（手動再生用）
 	if (KeyboardManager::GetInstance().IsKeyJustPressed('F'))
 	{
 		m_load = true;
@@ -48,36 +49,21 @@ void EffekseerEffectBase::Update()
 		m_load = false;
 	}
 
-	SceneManager::Instance().GetObjectWeakPtr(m_player);
-	auto player = m_player.lock();
-	if (!player) return;
+	// 以前のプレイヤー依存の自動位置更新を排除
+	// 代わりに、外部から `PlayForTarget` で毎回スポーンする設計に統一
 
 	if (SceneManager::Instance().m_gameClear)
 	{
-		// プレイヤーがゲームクリアしていたらエフェクトを停止
+		// ゲームクリアで全停止
 		StopEffect();
 	}
-
-	// プレイヤーの前方ベクトル
-	Math::Vector3 forward = Math::Vector3::TransformNormal(Math::Vector3::Forward, Math::Matrix::CreateFromQuaternion(player->GetRotationQuaternion()));
-	forward.Normalize();
-
-	m_mWorld = Math::Matrix::CreateScale(m_scale);
-	m_mWorld *= Math::Matrix::CreateFromYawPitchRoll
-	(
-		DirectX::XMConvertToRadians(m_degree.y),
-		DirectX::XMConvertToRadians(m_degree.x),
-		DirectX::XMConvertToRadians(m_degree.z)
-	) * Math::Matrix::CreateFromQuaternion(player->GetRotationQuaternion());
-
-	m_mWorld.Translation(m_position + player->GetPos() + forward * m_distance);
 
 	EffectUpdate();
 }
 
 void EffekseerEffectBase::EffectUpdate()
 {
-	// 再生要求が来た瞬間だけ再生開始
+	// 既存単一インスタンスの管理（デバッグ用ボタンからの再生）
 	if (!m_once && m_load)
 	{
 		m_wpEffect = KdEffekseerManager::GetInstance().Play(m_path, m_mWorld, m_effectSpeed, false, m_effectColor).lock();
@@ -86,13 +72,12 @@ void EffekseerEffectBase::EffectUpdate()
 
 	if (!m_load) m_once = false;
 
-	// 再生状態更新
+	// 単一の再生状態更新
 	if (auto effect = m_wpEffect.lock(); effect)
 	{
 		m_isEffectPlaying = effect->IsPlaying();
 		if (!m_isEffectPlaying)
 		{
-			// 終了したので参照破棄
 			m_wpEffect.reset();
 			m_isEffectPlaying = false;
 		}
@@ -101,6 +86,19 @@ void EffekseerEffectBase::EffectUpdate()
 	{
 		m_isEffectPlaying = false;
 	}
+
+	// 複数同時のクリーンアップ
+	bool anyPlaying = m_isEffectPlaying;
+	for (auto it = m_effects.begin(); it != m_effects.end();) {
+		if (auto e = it->lock()) {
+			const bool p = e->IsPlaying();
+			anyPlaying = anyPlaying || p;
+			if (!p) it = m_effects.erase(it); else ++it;
+		} else {
+			it = m_effects.erase(it);
+		}
+	}
+	m_isEffectPlaying = anyPlaying;
 }
 
 void EffekseerEffectBase::ImGuiInspector()

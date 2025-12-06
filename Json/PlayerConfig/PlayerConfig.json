@@ -241,6 +241,11 @@
       "MoveSpeedZ": 0.0
     }
   },
+  "PlayerState_ChargeAttackMax1_Effects": [
+    {
+      "Effect": "8adecd20-62c0-46a2-82b8-efa3395a71b2"
+    }
+  ],
   "PlayerState_ChargeAttackMax2": {
     "Player": {
       "AnimationSpeed": 60.0,
@@ -283,6 +288,14 @@
       "MoveSpeedZ": 0.0
     }
   },
+  "PlayerState_ChargeAttackMax3_Effect": [
+    {
+      "Effect": "966b8a15-83c7-46fb-9332-b5a915fa3ed9"
+    },
+    {
+      "Effect": "647675f8-d64b-4169-bca6-95207019df54"
+    }
+  ],
   "PlayerState_ChargeLevel0": {
     "Player": {
       "animationSpeed": 60.0,

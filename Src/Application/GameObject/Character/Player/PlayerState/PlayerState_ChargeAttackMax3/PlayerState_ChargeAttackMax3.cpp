@@ -3,6 +3,9 @@
 #include"../../../../Camera/PlayerCamera/PlayerCamera.h"
 #include"../../../../../Scene/SceneManager.h"
 
+#include "Application/GameObject/Utility/EffectReference.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
+
 void PlayerState_ChargeAttackMax3::StateStart()
 {
 	auto anime = m_player->GetAnimeModel()->GetAnimation("ChargeMax");
@@ -15,6 +18,15 @@ void PlayerState_ChargeAttackMax3::StateStart()
 
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
+
+	// エフェクト再生・移動停止（複数）
+	for (const auto& ref : m_playerEffects)
+	{
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->PlayForTarget<Player>(std::static_pointer_cast<Player>(m_player->GetMyAdls()));
+		}
+	}
 
 }
 
@@ -65,6 +77,15 @@ void PlayerState_ChargeAttackMax3::StateEnd()
 		camera->SetRotationSmooth(m_cameraRotationSmooth);
 	}
 
+	// エフェクト停止（複数）
+	for (const auto& ref : m_playerEffects)
+	{
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->StopEffect();
+		}
+	}
+
 	// 無敵状態解除
 	m_player->SetInvincible(false);
 
@@ -73,4 +94,65 @@ void PlayerState_ChargeAttackMax3::StateEnd()
 
 	// ガードブレイク状態解除
 	m_player->SetGuardBreak(false);
+}
+
+void PlayerState_ChargeAttackMax3::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_ChargeAttackMax3));
+	const auto& p = static_cast<const PlayerState_ChargeAttackMax3&>(other);
+	m_stateParameter = p.m_stateParameter;  // 構造体一括コピー
+	m_playerEffects = p.m_playerEffects;
+}
+
+void PlayerState_ChargeAttackMax3::ExposeParametersImGui()
+{
+	// 複数エフェクトの編集UI
+	ImGui::Text("Effects");
+	for (size_t i = 0; i < m_playerEffects.size(); ++i)
+	{
+		ImGui::PushID(static_cast<int>(i));
+		m_playerEffects[i]->ImGuiInspector("PlayerState_ChargeAttackMax3_Effect");
+		ImGui::PopID();
+	}
+	if (ImGui::SmallButton("+")) { m_playerEffects.emplace_back(std::make_shared<EffectReference>()); }
+	if (ImGui::SmallButton("-")) { if (!m_playerEffects.empty()) m_playerEffects.pop_back(); }
+
+	m_stateParameter.ExposeImGui();
+}
+
+void PlayerState_ChargeAttackMax3::LoadParametersJson(const nlohmann::json& js)
+{
+	// 複数配列のみ
+	if (js.contains("PlayerState_ChargeAttackMax3_Effect") && js["PlayerState_ChargeAttackMax3_Effect"].is_array())
+	{
+		m_playerEffects.clear();
+		for (const auto& node : js["PlayerState_ChargeAttackMax3_Effect"])
+		{
+			auto ref = std::make_shared<EffectReference>();
+			ref->JsonInput("Effect", node);
+			m_playerEffects.emplace_back(std::move(ref));
+		}
+	}
+
+	if (!js.contains("PlayerState_ChargeAttackMax3")) return;
+	const auto& stateNode = js["PlayerState_ChargeAttackMax3"];
+	if (stateNode.contains("Player"))
+	{
+		m_stateParameter.LoadJson(stateNode["Player"]);
+	}
+}
+
+void PlayerState_ChargeAttackMax3::SaveParametersJson(nlohmann::json& js) const
+{
+	// 複数配列
+	nlohmann::json arr = nlohmann::json::array();
+	for (const auto& ref : m_playerEffects)
+	{
+		nlohmann::json item = nlohmann::json::object();
+		ref->JsonSave("Effect", item);
+		arr.push_back(item);
+	}
+	js["PlayerState_ChargeAttackMax3_Effect"] = std::move(arr);
+
+	m_stateParameter.SaveJson(js["PlayerState_ChargeAttackMax3"]);
 }

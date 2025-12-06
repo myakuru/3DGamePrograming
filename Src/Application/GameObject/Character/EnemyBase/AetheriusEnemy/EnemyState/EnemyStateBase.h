@@ -3,6 +3,8 @@
 #include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
 #include"Application/main.h"
 class Player;
+class EffectReference;
+
 class EnemyStateBase : public StateBase
 {
 	struct StateParameter
@@ -30,7 +32,7 @@ class EnemyStateBase : public StateBase
 	};
 
 public:
-	EnemyStateBase() = default;
+	EnemyStateBase();
 	~EnemyStateBase() override = default;
 
 	void SetEnemy(AetheriusEnemy* enemy) { m_enemy = enemy; }
@@ -69,5 +71,8 @@ protected:
 	std::vector<std::weak_ptr<Player>> m_player;	// プレイヤー参照
 
 	StateParameter m_stateParameter;	// ステートパラメータ
+
+	// エフェクト参照（複数）
+	std::vector<std::shared_ptr<EffectReference>> m_enemyEffects;
 
 };

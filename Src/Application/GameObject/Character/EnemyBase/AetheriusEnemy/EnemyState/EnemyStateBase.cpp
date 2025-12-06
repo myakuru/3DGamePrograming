@@ -2,6 +2,13 @@
 #include"Application/GameObject/Character/Player/Player.h"
 #include"Application/Scene/SceneManager.h"
 
+#include "Application/GameObject/Utility/EffectReference.h"
+
+EnemyStateBase::EnemyStateBase()
+{
+	m_enemyEffects.emplace_back(std::make_shared<EffectReference>());
+}
+
 void EnemyStateBase::StateStart()
 {
 

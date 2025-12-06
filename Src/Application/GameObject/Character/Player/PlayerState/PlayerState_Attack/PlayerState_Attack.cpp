@@ -105,7 +105,7 @@ void PlayerState_Attack::StateUpdate()
 		{
 			if (auto effect = ref->GetEffectBase().lock())
 			{
-				effect->SetPlayEffect(true);
+				effect->PlayForTarget<Player>(std::static_pointer_cast<Player>(m_player->GetMyAdls()));
 			}
 		}
 
@@ -134,7 +134,7 @@ void PlayerState_Attack::StateEnd()
 	{
 		if (auto effect = ref->GetEffectBase().lock())
 		{
-			effect->SetPlayEffect(false);
+			effect->StopEffect();
 		}
 	}
 }

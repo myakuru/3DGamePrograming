@@ -47,10 +47,13 @@ void PlayerState_JustAvoidAttack::StateStart()
 		m_stateParameter.afterImageColor
 	);
 
-	// 複数エフェクト再生
+	// エフェクト再生・移動停止（複数）
 	for (const auto& ref : m_playerEffects)
 	{
-		if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(true);
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->PlayForTarget<Player>(std::static_pointer_cast<Player>(m_player->GetMyAdls()));
+		}
 	}
 
 	KdAudioManager::Instance().Play("Asset/Sound/Player/JustAttack.WAV", false)->SetVolume(1.0f);
@@ -167,10 +170,13 @@ void PlayerState_JustAvoidAttack::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
-	// 複数エフェクト停止
+	// エフェクト停止（複数）
 	for (const auto& ref : m_playerEffects)
 	{
-		if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(false);
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->StopEffect();
+		}
 	}
 
 	m_player->GetAfterImage()->AddAfterImage();

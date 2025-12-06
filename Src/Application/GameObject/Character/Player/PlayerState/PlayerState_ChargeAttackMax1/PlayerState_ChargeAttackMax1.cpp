@@ -19,6 +19,15 @@ void PlayerState_ChargeAttackMax1::StateStart()
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
 
+	// エフェクト再生・移動停止（複数）
+	for (const auto& ref : m_playerEffects)
+	{
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->PlayForTarget<Player>(std::static_pointer_cast<Player>(m_player->GetMyAdls()));
+		}
+	}
+
 }
 
 void PlayerState_ChargeAttackMax1::StateUpdate()
@@ -54,11 +63,80 @@ void PlayerState_ChargeAttackMax1::StateUpdate()
 
 	m_player->SetIsMoving(Math::Vector3::Zero);
 
-	// 最後に Base 側の StateUpdate を呼び出すことで、フォーカス/方向の追従が反映されます。
 	PlayerStateBase::StateUpdate();
 }
 
 void PlayerState_ChargeAttackMax1::StateEnd()
 {
 	PlayerStateBase::StateEnd();
+
+	// エフェクト停止（複数）
+	for (const auto& ref : m_playerEffects)
+	{
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->StopEffect();
+		}
+	}
+}
+
+void PlayerState_ChargeAttackMax1::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_ChargeAttackMax1));
+	const auto& p = static_cast<const PlayerState_ChargeAttackMax1&>(other);
+	m_stateParameter = p.m_stateParameter;  // 構造体一括コピー
+	m_playerEffects = p.m_playerEffects;
+}
+
+void PlayerState_ChargeAttackMax1::ExposeParametersImGui()
+{
+	// 複数エフェクトの編集UI
+	ImGui::Text("Effects");
+	for (size_t i = 0; i < m_playerEffects.size(); ++i)
+	{
+		ImGui::PushID(static_cast<int>(i));
+		m_playerEffects[i]->ImGuiInspector("PlayerState_Attack_Effect");
+		ImGui::PopID();
+	}
+	if (ImGui::SmallButton("+")) { m_playerEffects.emplace_back(std::make_shared<EffectReference>()); }
+	if (ImGui::SmallButton("-")) { if (!m_playerEffects.empty()) m_playerEffects.pop_back(); }
+
+	m_stateParameter.ExposeImGui();
+}
+
+void PlayerState_ChargeAttackMax1::LoadParametersJson(const nlohmann::json& js)
+{
+	// 複数配列のみ
+	if (js.contains("PlayerState_ChargeAttackMax1_Effects") && js["PlayerState_ChargeAttackMax1_Effects"].is_array())
+	{
+		m_playerEffects.clear();
+		for (const auto& node : js["PlayerState_ChargeAttackMax1_Effects"])
+		{
+			auto ref = std::make_shared<EffectReference>();
+			ref->JsonInput("Effect", node);
+			m_playerEffects.emplace_back(std::move(ref));
+		}
+	}
+
+	if (!js.contains("PlayerState_ChargeAttackMax1")) return;
+	const auto& stateNode = js["PlayerState_ChargeAttackMax1"];
+	if (stateNode.contains("Player"))
+	{
+		m_stateParameter.LoadJson(stateNode["Player"]);
+	}
+}
+
+void PlayerState_ChargeAttackMax1::SaveParametersJson(nlohmann::json& js) const
+{
+	// 複数配列
+	nlohmann::json arr = nlohmann::json::array();
+	for (const auto& ref : m_playerEffects)
+	{
+		nlohmann::json item = nlohmann::json::object();
+		ref->JsonSave("Effect", item);
+		arr.push_back(item);
+	}
+	js["PlayerState_ChargeAttackMax1_Effects"] = std::move(arr);
+
+	m_stateParameter.SaveJson(js["PlayerState_ChargeAttackMax1"]);
 }

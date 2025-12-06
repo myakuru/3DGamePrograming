@@ -36,12 +36,12 @@ void PlayerState_Attack3::StateStart()
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
 
-	// エフェクト再生（複数）
+	// エフェクト再生・移動停止（複数）
 	for (const auto& ref : m_playerEffects)
 	{
 		if (auto effect = ref->GetEffectBase().lock())
 		{
-			effect->SetPlayEffect(true);
+			effect->PlayForTarget<Player>(std::static_pointer_cast<Player>(m_player->GetMyAdls()));
 		}
 	}
 
@@ -150,7 +150,7 @@ void PlayerState_Attack3::StateEnd()
 	{
 		if (auto effect = ref->GetEffectBase().lock())
 		{
-			effect->SetPlayEffect(false);
+			effect->StopEffect();
 		}
 	}
 

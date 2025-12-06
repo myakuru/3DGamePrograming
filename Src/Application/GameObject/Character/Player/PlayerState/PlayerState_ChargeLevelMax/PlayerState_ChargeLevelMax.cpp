@@ -21,10 +21,13 @@ void PlayerState_ChargeLevelMax::StateStart()
 		camera->SetTargetLookAt({ 0.f,0.5f,-1.7f });
 	}
 
-	// 複数エフェクト再生
+	// エフェクト再生
 	for (const auto& ref : m_playerEffects)
 	{
-		if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(true);
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->PlayForTarget<Player>(std::static_pointer_cast<Player>(m_player->GetMyAdls()));
+		}
 	}
 
 	// アニメーション速度を変更
@@ -82,10 +85,13 @@ void PlayerState_ChargeLevelMax::StateEnd()
 		camera->SetTargetLookAt(m_cameraTargetOffset);
 	}
 
-	// 複数エフェクト停止
+	// エフェクト停止（複数）
 	for (const auto& ref : m_playerEffects)
 	{
-		if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(false);
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->StopEffect();
+		}
 	}
 }
 

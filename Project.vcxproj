@@ -368,6 +368,7 @@
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack\BossWaterFallAttack.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectBase.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectManager.h" />
+    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyEffect\EnemyEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect\EnemyHitEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\PlayerEffect\PlayerEffect.h" />
     <ClInclude Include="Src\Application\GameObject\HUD\AlpfaMoving\AlpfaMoving.h" />
@@ -559,6 +560,7 @@
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack\BossWaterFallAttack.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectBase.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectManager.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyEffect\EnemyEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect\EnemyHitEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\PlayerEffect\PlayerEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\HUD\AlpfaMoving\AlpfaMoving.cpp" />

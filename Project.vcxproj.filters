@@ -484,6 +484,9 @@
     <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\PlayerEffect">
       <UniqueIdentifier>{19b32fb6-9039-4f6c-bcc3-250879c3a34e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyEffect">
+      <UniqueIdentifier>{152ea58e-a7ca-4b81-9f35-b2471513c46a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -1074,6 +1077,9 @@
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\PlayerEffect\PlayerEffect.h">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\PlayerEffect</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyEffect\EnemyEffect.h">
+      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\EnemyEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -1609,6 +1615,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\PlayerEffect\PlayerEffect.cpp">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\PlayerEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyEffect\EnemyEffect.cpp">
+      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\EnemyEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
