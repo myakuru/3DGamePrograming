@@ -2,7 +2,6 @@
 #include"../PlayerState_Idle/PlayerState_Idle.h"
 #include"../../../../Camera/PlayerCamera/PlayerCamera.h"
 #include"../../../../../Scene/SceneManager.h"
-#include"../../../../Effect/EffekseerEffect/ChargeAttackEffect_end/ChargeAttackEffect_end.h"
 
 void PlayerState_ChargeAttackMax3::StateStart()
 {
@@ -11,13 +10,6 @@ void PlayerState_ChargeAttackMax3::StateStart()
 	PlayerStateBase::StateStart();
 	// アニメーション速度を変更
 	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
-
-	SceneManager::Instance().GetObjectWeakPtr(m_effect);
-
-	if (auto effect = m_effect.lock())
-	{
-		effect->SetPlayEffect(true);
-	}
 
 	KdAudioManager::Instance().Play("Asset/Sound/Player/Attack4.WAV", false)->SetVolume(1.0f);
 
@@ -75,12 +67,6 @@ void PlayerState_ChargeAttackMax3::StateEnd()
 
 	// 無敵状態解除
 	m_player->SetInvincible(false);
-
-	if (auto effect = m_effect.lock())
-	{
-		effect->SetPlayEffect(false);
-		effect->StopEffect();
-	}
 
 	// 索敵範囲もとに戻す(Maxの方のImGUiで変更されているデフォルト５だが100になってる。)
 	m_searchEnemyRadius = DefaultSearchEnemyRadius;

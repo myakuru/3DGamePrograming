@@ -4,7 +4,8 @@
 #include "Application/GameObject/Character/Player/PlayerState/PlayerState_SpecialAttack1/PlayerState_SpecialAttack1.h"
 #include "Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
 #include "Application/Scene/SceneManager.h"
-#include "Application/GameObject/Effect/EffekseerEffect/SpecialAttack/SpecialAttack.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
+#include "Application/GameObject/Utility/EffectReference.h"
 
 #include "MyFramework/Manager/JsonManager/JsonManager.h"
 
@@ -17,8 +18,6 @@ void PlayerState_SpecialAttack::StateStart()
 
 	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
-	SceneManager::Instance().GetObjectWeakPtr(m_specialAttackEffect);
-
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
 
@@ -28,8 +27,7 @@ void PlayerState_SpecialAttack::StateStart()
 
 void PlayerState_SpecialAttack::StateUpdate()
 {
-
-	// アニメーション時間のデバッグ表示
+	// アニメーション時間の取得
 	{
 		m_animeTime = m_player->GetAnimator()->GetPlayProgress();
 	}
@@ -49,10 +47,10 @@ void PlayerState_SpecialAttack::StateUpdate()
 
 	if (m_animeTime >= 0.15f)
 	{
-
-		if (auto effect = m_specialAttackEffect.lock())
+		// 複数エフェクト再生
+		for (const auto& ref : m_playerEffects)
 		{
-			effect->SetPlayEffect(true);
+			if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(true);
 		}
 
 		// 当たり判定
@@ -98,9 +96,10 @@ void PlayerState_SpecialAttack::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
-	if (auto effect = m_specialAttackEffect.lock())
+	// 複数エフェクト停止
+	for (const auto& ref : m_playerEffects)
 	{
-		effect->SetPlayEffect(false);
+		if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(false);
 	}
 }
 
@@ -119,10 +118,22 @@ void PlayerState_SpecialAttack::ApplyFromConfig(const PlayerStateBase& other)
 	m_stateParameter.attackStartTime = p.m_stateParameter.attackStartTime;
 	m_stateParameter.attackEndTime = p.m_stateParameter.attackEndTime;
 	m_lastCameraPos = p.m_lastCameraPos;
+	m_playerEffects = p.m_playerEffects;
 }
 
 void PlayerState_SpecialAttack::ExposeParametersImGui()
 {
+	// 複数エフェクトの編集UI
+	ImGui::Text("Effects");
+	for (size_t i = 0; i < m_playerEffects.size(); ++i)
+	{
+		ImGui::PushID(static_cast<int>(i));
+		m_playerEffects[i]->ImGuiInspector("PlayerState_SpecialAttack_Effect");
+		ImGui::PopID();
+	}
+	if (ImGui::SmallButton("+")) { m_playerEffects.emplace_back(std::make_shared<EffectReference>()); }
+	if (ImGui::SmallButton("-")) { if (!m_playerEffects.empty()) m_playerEffects.pop_back(); }
+
 	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
 	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed, 1.0f, 1.0f, 120.0f);
 	ImGui::DragFloat(U8("状態遷移時間"), &m_stateParameter.changeStateTime, 0.01f, 0.0f, 10.0f);
@@ -173,6 +184,18 @@ void PlayerState_SpecialAttack::ExposeParametersImGui()
 
 void PlayerState_SpecialAttack::LoadParametersJson(const nlohmann::json& js)
 {
+	// エフェクト
+	if (js.contains("PlayerState_SpecialAttack_Effects") && js["PlayerState_SpecialAttack_Effects"].is_array())
+	{
+		m_playerEffects.clear();
+		for (const auto& node : js["PlayerState_SpecialAttack_Effects"])
+		{
+			auto ref = std::make_shared<EffectReference>();
+			ref->JsonInput("Effect", node);
+			m_playerEffects.emplace_back(std::move(ref));
+		}
+	}
+
 	if (!js.contains("PlayerState_SpecialAttack")) return;
 	const auto& stateNode = js["PlayerState_SpecialAttack"];
 	if (stateNode.contains("Player"))
@@ -195,6 +218,16 @@ void PlayerState_SpecialAttack::LoadParametersJson(const nlohmann::json& js)
 
 void PlayerState_SpecialAttack::SaveParametersJson(nlohmann::json& js) const
 {
+	// エフェクト
+	nlohmann::json arr = nlohmann::json::array();
+	for (const auto& ref : m_playerEffects)
+	{
+		nlohmann::json item = nlohmann::json::object();
+		ref->JsonSave("Effect", item);
+		arr.push_back(item);
+	}
+	js["PlayerState_SpecialAttack_Effects"] = std::move(arr);
+
 	if (!js.contains("PlayerState_SpecialAttack")) js["PlayerState_SpecialAttack"] = nlohmann::json::object();
 	auto& stateNode = js["PlayerState_SpecialAttack"];
 

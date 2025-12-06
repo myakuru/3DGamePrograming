@@ -1,5 +1,4 @@
 ﻿#pragma once
-class ChargeAttackEffect;
 #include"../PlayerState.h"
 class PlayerState_ChargeAttackMax1 :public PlayerStateBase
 {
@@ -37,7 +36,5 @@ private:
 	{
 		m_stateParameter.SaveJson(js["PlayerState_ChargeAttackMax1"]);
 	}
-
-	std::weak_ptr<ChargeAttackEffect> m_effect;
 
 };

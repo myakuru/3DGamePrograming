@@ -13,12 +13,12 @@
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_BackWordAvoid/PlayerState_BackWordAvoid.h"
 
 #include"Application/Data/CharacterData/CharacterData.h"
-
 #include "Application/GameObject/Utility/EffectReference.h"
 
 PlayerStateBase::PlayerStateBase()
 {
-	m_effect = std::make_shared<EffectReference>();
+	// 最低1つは保持
+	m_playerEffects.emplace_back(std::make_shared<EffectReference>());
 }
 
 PlayerStateBase::~PlayerStateBase() = default;

@@ -3,11 +3,16 @@
 class PlayerEffect : public EffekseerEffectBase
 {
 public:
-	PlayerEffect() = default;
+	
+	static const uint32_t TypeID;
+
+	PlayerEffect() { m_typeID = TypeID; }
 	~PlayerEffect() override = default;
 
 
 
 private:
+
+	void Update() override;
 
 };

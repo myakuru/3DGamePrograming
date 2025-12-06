@@ -3,7 +3,6 @@
 #include"../EnemyState_Run/EnemyState_Run.h"
 #include"Application/Scene/SceneManager.h"
 #include"Application/main.h"
-#include"Application/GameObject/Effect/EffekseerEffect/EnemyShineBlue/EnemyShineBlue.h"
 #include"Application/GameObject/Character/Player/Player.h"
 
 #include"Application/GameObject/Effect/EffekseerEffect/AetheriusEnemyEffect/AetheriusEnemy_AttackEffect/AetheriusEnemy_AttackEffect.h"
@@ -14,15 +13,6 @@ void EnemyState_Attack::StateStart()
 
 	auto anime = m_enemy->GetAnimeModel()->GetAnimation("Attack");
 	m_enemy->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
-
-	for (const auto& effects : m_shineEffectBlues)
-	{
-		if (auto effect = effects.lock())
-		{
-			effect->SetPlayEffect(true);
-			break;
-		}
-	}
 
 	m_stopped = false;
 
@@ -129,15 +119,6 @@ void EnemyState_Attack::StateEnd()
 {
 
 	m_stopped = false;
-
-	for (const auto& effects : m_shineEffectBlues)
-	{
-		if (auto effect = effects.lock())
-		{
-			effect->SetPlayEffect(false);
-			break;
-		}
-	}
 }
 
 void EnemyState_Attack::ApplyFromConfig(const EnemyStateBase& other)

@@ -10,11 +10,12 @@
 #include"../PlayerState_FowardAvoid/PlayerState_FowardAvoid.h"
 
 #include"../../../../../Scene/SceneManager.h"
-#include"../../../../Effect/EffekseerEffect/Rotation/Rotation.h"
-#include"../../../../Effect/EffekseerEffect/AttacEffect1/AttacEffect1.h"
 
 #include"../PlayerState_Skill/PlayerState_Skill.h"
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
+
+#include "Application/GameObject/Utility/EffectReference.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
 
 void PlayerState_Attack2::StateStart()
 {
@@ -33,10 +34,6 @@ void PlayerState_Attack2::StateStart()
 			katana->SetNowAttackState(true);
 		}
 	}
-
-	m_lButtonKeyInput = false;				// 次段コンボ予約フラグ初期化
-
-	SceneManager::Instance().GetObjectWeakPtr(m_slashEffect);
 
 	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
@@ -96,9 +93,12 @@ void PlayerState_Attack2::StateUpdate()
 	}
 	else
 	{
-		if (auto effect = m_slashEffect.lock())
+		for (const auto& ref : m_playerEffects)
 		{
-			effect->SetPlayEffect(true);
+			if (auto effect = ref->GetEffectBase().lock())
+			{
+				effect->SetPlayEffect(true);
+			}
 		}
 
 		// 移動を止める
@@ -124,8 +124,70 @@ void PlayerState_Attack2::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
-	if (auto effect = m_slashEffect.lock())
+	for (const auto& ref : m_playerEffects)
 	{
-		effect->SetPlayEffect(false);
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->SetPlayEffect(false);
+		}
 	}
+}
+
+void PlayerState_Attack2::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_Attack2));
+	const auto& p = static_cast<const PlayerState_Attack2&>(other);
+	m_stateParameter = p.m_stateParameter;  // 構造体一括コピー
+	m_playerEffects = p.m_playerEffects;
+}
+
+void PlayerState_Attack2::ExposeParametersImGui()
+{
+	// 複数エフェクトの編集UI
+	ImGui::Text("Effects");
+	for (size_t i = 0; i < m_playerEffects.size(); ++i)
+	{
+		ImGui::PushID(static_cast<int>(i));
+		m_playerEffects[i]->ImGuiInspector("PlayerState_Attack2_Effect");
+		ImGui::PopID();
+	}
+	if (ImGui::SmallButton("+")) { m_playerEffects.emplace_back(std::make_shared<EffectReference>()); }
+	if (ImGui::SmallButton("-")) { if (!m_playerEffects.empty()) m_playerEffects.pop_back(); }
+
+	m_stateParameter.ExposeImGui();
+}
+
+void PlayerState_Attack2::LoadParametersJson(const nlohmann::json& js)
+{
+	if (js.contains("PlayerState_Attack2_Effects") && js["PlayerState_Attack2_Effects"].is_array())
+	{
+		m_playerEffects.clear();
+		for (const auto& node : js["PlayerState_Attack2_Effects"])
+		{
+			auto ref = std::make_shared<EffectReference>();
+			ref->JsonInput("Effect", node);
+			m_playerEffects.emplace_back(std::move(ref));
+		}
+	}
+
+	if (!js.contains("PlayerState_Attack2")) return;
+	const auto& stateNode = js["PlayerState_Attack2"];
+	if (stateNode.contains("Player"))
+	{
+		m_stateParameter.LoadJson(stateNode["Player"]);
+	}
+}
+
+void PlayerState_Attack2::SaveParametersJson(nlohmann::json& js) const
+{
+	nlohmann::json arr = nlohmann::json::array();
+	for (const auto& ref : m_playerEffects)
+	{
+		nlohmann::json item = nlohmann::json::object();
+		ref->JsonSave("Effect", item);
+		arr.push_back(item);
+	}
+	js["PlayerState_Attack2_Effects"] = std::move(arr);
+
+	m_stateParameter.SaveJson(js["PlayerState_Attack2"]);
 }

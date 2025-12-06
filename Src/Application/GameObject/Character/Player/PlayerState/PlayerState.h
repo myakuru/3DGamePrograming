@@ -22,14 +22,14 @@ class PlayerStateBase : public StateBase
 		Math::Vector2 cameraShake = { 0.2f, 0.0f };
 		float cameraTime = 0.3f;
 
-		float dashSpeed = 0.7f;				// ダッシュ移動速度
-		float blendTime = 0.25f;			// ブレンドエフェクト表示時間
-		float animationSpeed = 60.0f;		// アニメーション速度
-		float dashSpeedTime = 0.2f;			// ダッシュ移動速度時間
-		float changeStateTime = 0.7f;		// 状態遷移までの時間
+		float dashSpeed = 0.7f;                // ダッシュ移動速度
+		float blendTime = 0.25f;            // ブレンドエフェクト表示時間
+		float animationSpeed = 60.0f;        // アニメーション速度
+		float dashSpeedTime = 0.2f;            // ダッシュ移動速度時間
+		float changeStateTime = 0.7f;        // 状態遷移までの時間
 
 		// 残像関係
-		int afterImageMax = 5;	// 残像発生最大数
+		int afterImageMax = 5;    // 残像発生最大数
 		float afterImageInterval = 0.1f; // 残像発生間隔
 		Math::Vector4 afterImageColor = { 0.0f,2.0f,2.0f,1.0f }; // 残像色
 
@@ -101,11 +101,11 @@ protected:
 	float m_time = 0.0f;
 
 	
-	bool m_lButtonKeyInput = false;	// マウス左Buttonが押されているか
-	bool m_rButtonKeyInput = false;	// マウス右Buttonが押されているか
+	bool m_lButtonKeyInput = false;    // マウス左Buttonが押されているか
+	bool m_rButtonKeyInput = false;    // マウス右Buttonが押されているか
 
-	float m_animeTime = 0.0f;		// アニメーション再生時間
-	float m_maxAnimeTime = 0.0f;	// アニメーション最大再生時間
+	float m_animeTime = 0.0f;        // アニメーション再生時間
+	float m_maxAnimeTime = 0.0f;    // アニメーション最大再生時間
 
 	std::weak_ptr<BossEnemy> m_bossEnemy;
 
@@ -120,22 +120,21 @@ protected:
 
 	std::shared_ptr<KdSoundInstance> m_runSound = nullptr;
 
-	std::weak_ptr<KdGameObject> m_focusTarget;		//	フォーカスターゲット
-	float m_focusRemainSec = 0.0f;					//	フォーカスタイマー
-	const float m_focusDurationSec = 10.0f;			// フォーカス継続時間(調整用)
+	std::weak_ptr<KdGameObject> m_focusTarget;        //    フォーカスターゲット
+	float m_focusRemainSec = 0.0f;                    //    フォーカスタイマー
+	const float m_focusDurationSec = 10.0f;            // フォーカス継続時間(調整用)
 	
-	const float DefaultSearchEnemyRadius = 5.0f;	// 既定値
+	const float DefaultSearchEnemyRadius = 5.0f;    // 既定値
 
 	// 索敵範囲
 	float m_searchEnemyRadius = DefaultSearchEnemyRadius;
 
-	std::shared_ptr<KdGameObject>	m_nearestEnemy;
-	Math::Vector3					m_nearestEnemyPos = Math::Vector3::Zero;
-	float							m_minDistSq = std::numeric_limits<float>::max();
+	std::shared_ptr<KdGameObject>    m_nearestEnemy;
+	Math::Vector3                    m_nearestEnemyPos = Math::Vector3::Zero;
+	float                            m_minDistSq = std::numeric_limits<float>::max();
 
 	StateParameter m_stateParameter;
 
-	// エフェクト参照
-	std::shared_ptr<EffectReference> m_effect;
-
+	// エフェクト参照（複数）
+	std::vector<std::shared_ptr<EffectReference>> m_playerEffects;
 };

@@ -38,41 +38,20 @@
 #include"../GameObject/ResultScore/ResultScore.h"
 #include"../GameObject/Collition/Collition.h"
 #include"../GameObject/Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
-#include"../GameObject/Effect/EffekseerEffect/EffectPlay/EffectPlay.h"
-#include"../GameObject//Effect/EffekseerEffect/AttacEffect1/AttacEffect1.h"
-#include"../GameObject/Effect/EffekseerEffect/CloudEffect/CloudEffect.h"
-#include"../GameObject/Effect/EffekseerEffect/SmokeEffect/SmokeEffect.h"
-#include"../GameObject/Effect/EffekseerEffect/ShineEffect/ShineEffect.h"
-#include"../GameObject/Effect/EffekseerEffect/GroundFreezes/GroundFreezes.h"
-#include"../GameObject/Effect/EffekseerEffect/ShineEffectBlue/ShineEffectBlue.h"
-#include"../GameObject/Effect/EffekseerEffect/SwordFlash/SwordFlash.h"
-#include"../GameObject/Effect/EffekseerEffect/Rotation/Rotation.h"
-#include"../GameObject/Effect/EffekseerEffect/SlashEffect/SlashEffect.h"
-#include "../GameObject/Effect/EffekseerEffect/AvoidAttackSlashEffect/AvoidAttackSlashEffect.h"
-#include"../GameObject/Effect/EffekseerEffect/ESkillEffect/ESkillEffect.h"
-#include"../GameObject/Effect/EffekseerEffect/SpecialAttack/SpecialAttack.h"
 #include"../GameObject/Weapon/EnemySword/EnemySword.h"
 #include"../GameObject/Weapon/EnemyShield/EnemyShield.h"
-#include"../GameObject/Effect/EffekseerEffect/EnemyShineBlue/EnemyShineBlue.h"
-#include"../GameObject/Effect/EffekseerEffect/SpecialAttack1/SpecialAttack1.h"
-#include"../GameObject/Effect/EffekseerEffect/SpeedAttackEffect/SpeedAttackEffect.h"
 #include"../GameObject/HUD/EnemyHp/EnemyHp.h"
 #include"../GameObject/Effect/BillBoardEffect/MapGard/MapGard.h"
-#include"../GameObject/Effect/EffekseerEffect/JustAvoidAttackEffect/JustAvoidAttackEffect.h"
-#include"../GameObject/Effect/EffekseerEffect/JustAvoidAttackEffect1/JustAvoidAttackEffect1.h"
 #include"../GameObject/Effect/EffekseerEffect/BossAttack_1stEffect/BossAttack_1stEffect.h"
 #include"../GameObject/Effect/EffekseerEffect/BossEnemyEnterEffect/BossEnemyEnterEffect.h"
 #include"../GameObject/Effect/EffekseerEffect/BossWaterAttackEffect/BossWaterAttackEffect.h"
 #include"../GameObject/Effect/EffekseerEffect/BossWaterFallAttack/BossWaterFallAttack.h"
-#include"../GameObject/Effect/EffekseerEffect/ChargeAttackEffect/ChargeAttackEffect.h"
-#include"../GameObject/Effect/EffekseerEffect/ChargeAttackEffect_end/ChargeAttackEffect_end.h"
 #include"../GameObject/HUD/SkillBar/SkillBar.h"
 #include"../GameObject/HUD/ChallengeResults/ChallengeResults.h"
 #include"../GameObject/HUD/ScoreBackBar/ScoreBackBar.h"
 #include"../GameObject/HUD/TitleRemoveUI/TitleRemoveUI.h"
 #include"../GameObject/HUD/SkillUI/SkillUI.h"
 #include"../GameObject/HUD/SpecialAttackUI/SpecialAttackUI.h"
-#include"../GameObject/Effect/EffekseerEffect/SpecialAttackSmoke/SpecialAttackSmoke.h"
 #include"../GameObject/HUD/BossEnemyUI/BossEnemyUI.h"
 #include"../GameObject/HUD/BossEnemyBlackBarUI/BossEnemyBlackBarUI.h"
 #include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
@@ -83,6 +62,9 @@
 #include"Application/GameObject/Effect/EffekseerEffect/AetheriusEnemyEffect/AetheriusEnemy_Attack_2Effect/AetheriusEnemy_Attack_2Effect.h"
 #include"Application/GameObject/Effect/EffekseerEffect/AetheriusEnemyEffect/AetheriusEnemy_Attack_3Effect/AetheriusEnemy_Attack_3Effect.h"
 #include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectManager.h"
+
+
+#include "Application/GameObject/Effect/EffekseerEffect/PlayerEffect/PlayerEffect.h"
 
 
 void SceneManager::Init()
@@ -144,37 +126,17 @@ void SceneManager::Register() const
 	RegisterObject::GetInstance().Register<Collision>();
 
 	// Effekseer系
-	RegisterObject::GetInstance().Register<EffectPlay>();
-	RegisterObject::GetInstance().Register<AttacEffect1>();
-	RegisterObject::GetInstance().Register<CloudEffect>();
-	RegisterObject::GetInstance().Register<SmokeEffect>();
-	RegisterObject::GetInstance().Register<ShineEffect>();
-	RegisterObject::GetInstance().Register<GroundFreezes>();
-	RegisterObject::GetInstance().Register<ShineEffectBlue>();
-	RegisterObject::GetInstance().Register<SwordFlash>();
-	RegisterObject::GetInstance().Register<Rotation>();
-	RegisterObject::GetInstance().Register<SlashAttack2Effect>();
-	RegisterObject::GetInstance().Register<AvoidAttackSlashEffect>();
-	RegisterObject::GetInstance().Register<ESkillEffect>();
-	RegisterObject::GetInstance().Register<SpecialAttack>();
-	RegisterObject::GetInstance().Register<EnemyShineBlue>();
-	RegisterObject::GetInstance().Register<SpecialAttack1>();
-	RegisterObject::GetInstance().Register<SpeedAttackEffect>();
-	RegisterObject::GetInstance().Register<JustAvoidAttackEffect>();
-	RegisterObject::GetInstance().Register<JustAvoidAttackEffect1>();
 	RegisterObject::GetInstance().Register<BossAttack_1stEffect>();
 	RegisterObject::GetInstance().Register<BossEnemyEnterEffect>();
 	RegisterObject::GetInstance().Register<BossWaterAttackEffect>();
 	RegisterObject::GetInstance().Register<BossWaterFallAttack>();
-	RegisterObject::GetInstance().Register<ChargeAttackEffect>();
-	RegisterObject::GetInstance().Register<ChargeAttackEffect_end>();
-	RegisterObject::GetInstance().Register<SpecialAttackSmoke>();
 	RegisterObject::GetInstance().Register<EnemyHitEffect>();
 	RegisterObject::GetInstance().Register<AetheriusEnemy_AttackEffect>();
 	RegisterObject::GetInstance().Register<AetheriusEnemy_Attack_1Effect>();
 	RegisterObject::GetInstance().Register<AetheriusEnemy_Attack_2Effect>();
 	RegisterObject::GetInstance().Register<AetheriusEnemy_Attack_3Effect>();
 	RegisterObject::GetInstance().Register<EffekseerEffectManager>();
+	RegisterObject::GetInstance().Register<PlayerEffect>();	// Playerのエフェクト系
 
 	// Fieldのエフェクト系
 	RegisterObject::GetInstance().Register<MapGard>();

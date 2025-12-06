@@ -5,14 +5,13 @@
 #include"../../../../Weapon/Katana/Katana.h"
 #include"../../../../Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
 #include"../../../../../Scene/SceneManager.h"
-#include"../../../../Effect/EffekseerEffect/SwordFlash/SwordFlash.h"
+#include"../../../../Camera/PlayerCamera/PlayerCamera.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
+#include "Application/GameObject/Utility/EffectReference.h"
 
 #include"../PlayerState_BackWordAvoid/PlayerState_BackWordAvoid.h"
 #include"../PlayerState_FowardAvoid/PlayerState_FowardAvoid.h"
 
-#include"../../../../Camera/PlayerCamera/PlayerCamera.h"
-
-#include"../../../../Effect/EffekseerEffect/JustAvoidAttackEffect/JustAvoidAttackEffect.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 
 void PlayerState_JustAvoidAttack_end::StateStart()
@@ -27,15 +26,11 @@ void PlayerState_JustAvoidAttack_end::StateStart()
 	// アニメーション速度を変更
 	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
-	SceneManager::Instance().GetObjectWeakPtr(m_justAvoidAttackEffect);
-
-	if (auto effect = m_justAvoidAttackEffect.lock())
+	// 複数エフェクト再生
+	for (const auto& ref : m_playerEffects)
 	{
-		effect->SetPlayEffect(true);
+		if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(true);
 	}
-
-	// 当たり判定リセット
-	m_player->ResetAttackCollision();
 
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
@@ -86,7 +81,6 @@ void PlayerState_JustAvoidAttack_end::StateUpdate()
 
 	// 最後に Base 側の StateUpdate を呼び出すことで、フォーカス/方向の追従が反映されます。
 	PlayerStateBase::StateUpdate();
-
 }
 
 void PlayerState_JustAvoidAttack_end::StateEnd()
@@ -105,9 +99,7 @@ void PlayerState_JustAvoidAttack_end::StateEnd()
 
 	// ジャスト回避フラグを戻す
 	m_player->SetJustAvoidSuccess(false);
-
 	m_player->SetJustAvoidAttackSuccess(false);
-
 
 	if (auto camera = m_player->GetPlayerCamera().lock())
 	{
@@ -121,9 +113,10 @@ void PlayerState_JustAvoidAttack_end::StateEnd()
 		}
 	}
 
-	if (auto effect = m_justAvoidAttackEffect.lock())
+	// 複数エフェクト停止
+	for (const auto& ref : m_playerEffects)
 	{
-		effect->SetPlayEffect(false);
+		if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(false);
 	}
 
 	m_player->SetGuardBreak(false);
@@ -149,10 +142,22 @@ void PlayerState_JustAvoidAttack_end::ApplyFromConfig(const PlayerStateBase& oth
 	m_stateParameter.attackInterval = p.m_stateParameter.attackInterval;
 	m_stateParameter.attackStartTime = p.m_stateParameter.attackStartTime;
 	m_stateParameter.attackEndTime = p.m_stateParameter.attackEndTime;
+	m_playerEffects = p.m_playerEffects;
 }
 
 void PlayerState_JustAvoidAttack_end::ExposeParametersImGui()
 {
+	// 複数エフェクトの編集UI
+	ImGui::Text("Effects");
+	for (size_t i = 0; i < m_playerEffects.size(); ++i)
+	{
+		ImGui::PushID(static_cast<int>(i));
+		m_playerEffects[i]->ImGuiInspector("PlayerState_JustAvoidAttack_end_Effect");
+		ImGui::PopID();
+	}
+	if (ImGui::SmallButton("+")) { m_playerEffects.emplace_back(std::make_shared<EffectReference>()); }
+	if (ImGui::SmallButton("-")) { if (!m_playerEffects.empty()) m_playerEffects.pop_back(); }
+
 	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
 	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
 
@@ -201,6 +206,18 @@ void PlayerState_JustAvoidAttack_end::ExposeParametersImGui()
 
 void PlayerState_JustAvoidAttack_end::LoadParametersJson(const nlohmann::json& js)
 {
+	// エフェクト
+	if (js.contains("PlayerState_JustAvoidAttack_end_Effects") && js["PlayerState_JustAvoidAttack_end_Effects"].is_array())
+	{
+		m_playerEffects.clear();
+		for (const auto& node : js["PlayerState_JustAvoidAttack_end_Effects"])
+		{
+			auto ref = std::make_shared<EffectReference>();
+			ref->JsonInput("Effect", node);
+			m_playerEffects.emplace_back(std::move(ref));
+		}
+	}
+
 	if (!js.contains("PlayerState_JustAvoidAttack_end")) return;
 	const auto& stateNode = js["PlayerState_JustAvoidAttack_end"];
 	if (stateNode.contains("Player"))
@@ -221,6 +238,16 @@ void PlayerState_JustAvoidAttack_end::LoadParametersJson(const nlohmann::json& j
 
 void PlayerState_JustAvoidAttack_end::SaveParametersJson(nlohmann::json& js) const
 {
+	// エフェクト
+	nlohmann::json arr = nlohmann::json::array();
+	for (const auto& ref : m_playerEffects)
+	{
+		nlohmann::json item = nlohmann::json::object();
+		ref->JsonSave("Effect", item);
+		arr.push_back(item);
+	}
+	js["PlayerState_JustAvoidAttack_end_Effects"] = std::move(arr);
+
 	if (!js.contains("PlayerState_JustAvoidAttack_end")) js["PlayerState_JustAvoidAttack_end"] = nlohmann::json::object();
 	auto& stateNode = js["PlayerState_JustAvoidAttack_end"];
 

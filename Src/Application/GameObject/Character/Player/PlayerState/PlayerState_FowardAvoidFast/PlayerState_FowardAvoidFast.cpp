@@ -14,6 +14,8 @@
 #include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
 #include"Application/GameObject/Character/AfterImage/AfterImage.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_Attack/PlayerState_Attack.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
+#include "Application/GameObject/Utility/EffectReference.h"
 
 void PlayerState_FowardAvoidFast::StateStart()
 {
@@ -36,6 +38,12 @@ void PlayerState_FowardAvoidFast::StateStart()
 		m_stateParameter.afterImageInterval,
 		m_stateParameter.afterImageColor
 	);
+
+	// 複数エフェクト再生
+	for (const auto& ref : m_playerEffects)
+	{
+		if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(true);
+	}
 
 	m_afterImagePlayed = false;
 
@@ -90,10 +98,8 @@ void PlayerState_FowardAvoidFast::StateUpdate()
 	// アニメーションが終了したらIdleへ移行
 	if (m_player->GetAnimator()->IsAnimationEnd())
 	{
-
 		// ジャスト回避フラグを戻す
 		m_player->SetJustAvoidSuccess(false);
-
 		m_player->SetJustAvoidAttackSuccess(false);
 
 		// スローモーション解除（ここを終点にする）
@@ -123,6 +129,12 @@ void PlayerState_FowardAvoidFast::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
+	// 複数エフェクト停止
+	for (const auto& ref : m_playerEffects)
+	{
+		if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(false);
+	}
+
 	m_player->GetAfterImage()->AddAfterImage();
 
 	m_player->SetHitCheck(false); // 被ヒット判定解除
@@ -145,10 +157,22 @@ void PlayerState_FowardAvoidFast::ApplyFromConfig(const PlayerStateBase& other)
 	m_stateParameter.afterImageMax = p.m_stateParameter.afterImageMax;
 	m_stateParameter.afterImageInterval = p.m_stateParameter.afterImageInterval;
 	m_stateParameter.afterImageColor = p.m_stateParameter.afterImageColor;
+	m_playerEffects = p.m_playerEffects;
 }
 
 void PlayerState_FowardAvoidFast::ExposeParametersImGui()
 {
+	// 複数エフェクトの編集UI
+	ImGui::Text("Effects");
+	for (size_t i = 0; i < m_playerEffects.size(); ++i)
+	{
+		ImGui::PushID(static_cast<int>(i));
+		m_playerEffects[i]->ImGuiInspector("PlayerState_FowardAvoidFast_Effect");
+		ImGui::PopID();
+	}
+	if (ImGui::SmallButton("+")) { m_playerEffects.emplace_back(std::make_shared<EffectReference>()); }
+	if (ImGui::SmallButton("-")) { if (!m_playerEffects.empty()) m_playerEffects.pop_back(); }
+
 	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
 	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
 	ImGui::Separator();
@@ -160,6 +184,18 @@ void PlayerState_FowardAvoidFast::ExposeParametersImGui()
 
 void PlayerState_FowardAvoidFast::LoadParametersJson(const nlohmann::json& js)
 {
+	// エフェクト
+	if (js.contains("PlayerState_FowardAvoidFast_Effects") && js["PlayerState_FowardAvoidFast_Effects"].is_array())
+	{
+		m_playerEffects.clear();
+		for (const auto& node : js["PlayerState_FowardAvoidFast_Effects"])
+		{
+			auto ref = std::make_shared<EffectReference>();
+			ref->JsonInput("Effect", node);
+			m_playerEffects.emplace_back(std::move(ref));
+		}
+	}
+
 	if (!js.contains("PlayerState_FowardAvoidFast")) return;
 	const auto& stateNode = js["PlayerState_FowardAvoidFast"];
 	if (stateNode.contains("Player"))
@@ -177,6 +213,16 @@ void PlayerState_FowardAvoidFast::LoadParametersJson(const nlohmann::json& js)
 
 void PlayerState_FowardAvoidFast::SaveParametersJson(nlohmann::json& js) const
 {
+	// エフェクト
+	nlohmann::json arr = nlohmann::json::array();
+	for (const auto& ref : m_playerEffects)
+	{
+		nlohmann::json item = nlohmann::json::object();
+		ref->JsonSave("Effect", item);
+		arr.push_back(item);
+	}
+	js["PlayerState_FowardAvoidFast_Effects"] = std::move(arr);
+
 	if (!js.contains("PlayerState_FowardAvoidFast")) js["PlayerState_FowardAvoidFast"] = nlohmann::json::object();
 	auto& stateNode = js["PlayerState_FowardAvoidFast"];
 

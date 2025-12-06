@@ -34,13 +34,19 @@ VSOutput main(
 	VSOutput Out;
 
     // 座標変換
-	Out.Pos = mul(pos, g_mWorld); // ローカル座標系	-> ワールド座標系へ変換
-	Out.wPos = Out.Pos.xyz; // ワールド座標を別途保存
-	Out.Pos = mul(Out.Pos, g_mView); // ワールド座標系	-> ビュー座標系へ変換
+	float4 wPos4 = mul(pos, g_mWorld); // ローカル座標系	-> ワールド座標系へ変換
+	Out.Pos = mul(wPos4, g_mView); // ワールド座標系	-> ビュー座標系へ変換
 	Out.Pos = mul(Out.Pos, g_mProj); // ビュー座標系	-> 射影座標系へ変換
+	Out.wPos = wPos4.xyz; // ワールド座標を別途保存
 
     // 頂点色
 	Out.Color = color;
+
+	// ライトビュープロジェクション座標はワールド座標から計算する
+	Out.posInLVP[0] = mul(wPos4, g_DL_mLightVP[0]);
+	Out.posInLVP[1] = mul(wPos4, g_DL_mLightVP[1]);
+	Out.posInLVP[2] = mul(wPos4, g_DL_mLightVP[2]);
+	
 
     // 法線
 	Out.wN = normalize(mul(normal, (float3x3) g_mWorld));

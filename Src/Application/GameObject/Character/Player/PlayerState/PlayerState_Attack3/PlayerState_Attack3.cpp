@@ -4,8 +4,8 @@
 #include"../PlayerState_Attack4/PlayerState_Attack4.h"
 
 #include"../../../../../Scene/SceneManager.h"
-#include"../../../../Effect/EffekseerEffect/SlashEffect/SlashEffect.h"
 #include"../../../../Camera/PlayerCamera/PlayerCamera.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
 
 #include"../PlayerState_BackWordAvoid/PlayerState_BackWordAvoid.h"
 #include"../PlayerState_FowardAvoid/PlayerState_FowardAvoid.h"
@@ -15,6 +15,7 @@
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
 #include"Application\GameObject\Character\AfterImage\AfterImage.h"
+#include "Application/GameObject/Utility/EffectReference.h"
 
 void PlayerState_Attack3::StateStart()
 {
@@ -35,11 +36,13 @@ void PlayerState_Attack3::StateStart()
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
 
-	SceneManager::Instance().GetObjectWeakPtr(m_slashEffect);
-
-	if (auto effect = m_slashEffect.lock())
+	// エフェクト再生（複数）
+	for (const auto& ref : m_playerEffects)
 	{
-		effect->SetPlayEffect(true);
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->SetPlayEffect(true);
+		}
 	}
 
 	SceneManager::Instance().GetObjectWeakPtr(m_bossEnemy);
@@ -142,11 +145,73 @@ void PlayerState_Attack3::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
-	// エフェクトの停止
-	if (auto effect = m_slashEffect.lock())
+	// エフェクトの停止（複数）
+	for (const auto& ref : m_playerEffects)
 	{
-		effect->SetPlayEffect(false);
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->SetPlayEffect(false);
+		}
 	}
 
 	m_player->GetAfterImage()->AddAfterImage();
+}
+
+void PlayerState_Attack3::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_Attack3));
+	const auto& p = static_cast<const PlayerState_Attack3&>(other);
+	m_stateParameter = p.m_stateParameter;  // 構造体一括コピー
+	m_playerEffects = p.m_playerEffects;
+}
+
+void PlayerState_Attack3::ExposeParametersImGui()
+{
+	// 複数エフェクトの編集UI
+	ImGui::Text("Effects");
+	for (size_t i = 0; i < m_playerEffects.size(); ++i)
+	{
+		ImGui::PushID(static_cast<int>(i));
+		m_playerEffects[i]->ImGuiInspector("PlayerState_Attack3_Effect");
+		ImGui::PopID();
+	}
+	if (ImGui::SmallButton("+")) { m_playerEffects.emplace_back(std::make_shared<EffectReference>()); }
+	if (ImGui::SmallButton("-")) { if (!m_playerEffects.empty()) m_playerEffects.pop_back(); }
+
+	m_stateParameter.ExposeImGui();
+}
+
+void PlayerState_Attack3::LoadParametersJson(const nlohmann::json& js)
+{
+	if (js.contains("PlayerState_Attack3_Effects") && js["PlayerState_Attack3_Effects"].is_array())
+	{
+		m_playerEffects.clear();
+		for (const auto& node : js["PlayerState_Attack3_Effects"])
+		{
+			auto ref = std::make_shared<EffectReference>();
+			ref->JsonInput("Effect", node);
+			m_playerEffects.emplace_back(std::move(ref));
+		}
+	}
+
+	if (!js.contains("PlayerState_Attack3")) return;
+	const auto& stateNode = js["PlayerState_Attack3"];
+	if (stateNode.contains("Player"))
+	{
+		m_stateParameter.LoadJson(stateNode["Player"]);
+	}
+}
+
+void PlayerState_Attack3::SaveParametersJson(nlohmann::json& js) const
+{
+	nlohmann::json arr = nlohmann::json::array();
+	for (const auto& ref : m_playerEffects)
+	{
+		nlohmann::json item = nlohmann::json::object();
+		ref->JsonSave("Effect", item);
+		arr.push_back(item);
+	}
+	js["PlayerState_Attack3_Effects"] = std::move(arr);
+
+	m_stateParameter.SaveJson(js["PlayerState_Attack3"]);
 }

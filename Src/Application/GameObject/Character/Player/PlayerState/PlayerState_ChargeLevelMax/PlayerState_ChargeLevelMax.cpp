@@ -6,9 +6,8 @@
 #include"../../../../Weapon/Katana/Katana.h"
 #include"../../../../../Scene/SceneManager.h"
 #include"../../../../Camera/PlayerCamera/PlayerCamera.h"
-
-#include"../../../../Effect/EffekseerEffect/ShineEffectBlue/ShineEffectBlue.h"
-#include"../../../../Effect/EffekseerEffect/GroundFreezes/GroundFreezes.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
+#include "Application/GameObject/Utility/EffectReference.h"
 
 void PlayerState_ChargeLevelMax::StateStart()
 {
@@ -22,17 +21,10 @@ void PlayerState_ChargeLevelMax::StateStart()
 		camera->SetTargetLookAt({ 0.f,0.5f,-1.7f });
 	}
 
-	SceneManager::Instance().GetObjectWeakPtr(m_shineEffect);
-	SceneManager::Instance().GetObjectWeakPtr(m_groundFreezes);
-
-	if (auto effect = m_shineEffect.lock())
+	// 複数エフェクト再生
+	for (const auto& ref : m_playerEffects)
 	{
-		effect->SetPlayEffect(true);
-	}
-
-	if (auto effect = m_groundFreezes.lock())
-	{
-		effect->SetPlayEffect(true);
+		if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(true);
 	}
 
 	// アニメーション速度を変更
@@ -90,14 +82,10 @@ void PlayerState_ChargeLevelMax::StateEnd()
 		camera->SetTargetLookAt(m_cameraTargetOffset);
 	}
 
-	if (auto effect = m_shineEffect.lock())
+	// 複数エフェクト停止
+	for (const auto& ref : m_playerEffects)
 	{
-		effect->SetPlayEffect(false);
-	}
-
-	if (auto effect = m_groundFreezes.lock())
-	{
-		effect->SetPlayEffect(false);
+		if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(false);
 	}
 }
 
@@ -109,10 +97,22 @@ void PlayerState_ChargeLevelMax::ApplyFromConfig(const PlayerStateBase& other)
 	m_stateParameter.animationSpeed = p.m_stateParameter.animationSpeed;
 	m_startSlowMotionTime = p.m_startSlowMotionTime;
 	m_endSlowMotionTime = p.m_endSlowMotionTime;
+	m_playerEffects = p.m_playerEffects;
 }
 
 void PlayerState_ChargeLevelMax::ExposeParametersImGui()
 {
+	// 複数エフェクトの編集UI
+	ImGui::Text("Effects");
+	for (size_t i = 0; i < m_playerEffects.size(); ++i)
+	{
+		ImGui::PushID(static_cast<int>(i));
+		m_playerEffects[i]->ImGuiInspector("PlayerState_ChargeLevelMax_Effect");
+		ImGui::PopID();
+	}
+	if (ImGui::SmallButton("+")) { m_playerEffects.emplace_back(std::make_shared<EffectReference>()); }
+	if (ImGui::SmallButton("-")) { if (!m_playerEffects.empty()) m_playerEffects.pop_back(); }
+
 	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
 	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
 	ImGui::DragFloat(U8("スローモーション開始時間"), &m_startSlowMotionTime, 0.01f, 0.0f, 1.0f);
@@ -121,6 +121,18 @@ void PlayerState_ChargeLevelMax::ExposeParametersImGui()
 
 void PlayerState_ChargeLevelMax::LoadParametersJson(const nlohmann::json& js)
 {
+	// エフェクト
+	if (js.contains("PlayerState_ChargeLevelMax_Effects") && js["PlayerState_ChargeLevelMax_Effects"].is_array())
+	{
+		m_playerEffects.clear();
+		for (const auto& node : js["PlayerState_ChargeLevelMax_Effects"])
+		{
+			auto ref = std::make_shared<EffectReference>();
+			ref->JsonInput("Effect", node);
+			m_playerEffects.emplace_back(std::move(ref));
+		}
+	}
+
 	if (!js.contains("PlayerState_ChargeLevelMax")) return;
 	const auto& stateNode = js["PlayerState_ChargeLevelMax"];
 	if (stateNode.contains("Player"))
@@ -135,6 +147,16 @@ void PlayerState_ChargeLevelMax::LoadParametersJson(const nlohmann::json& js)
 
 void PlayerState_ChargeLevelMax::SaveParametersJson(nlohmann::json& js) const
 {
+	// エフェクト
+	nlohmann::json arr = nlohmann::json::array();
+	for (const auto& ref : m_playerEffects)
+	{
+		nlohmann::json item = nlohmann::json::object();
+		ref->JsonSave("Effect", item);
+		arr.push_back(item);
+	}
+	js["PlayerState_ChargeLevelMax_Effects"] = std::move(arr);
+
 	auto& stateNode = js["PlayerState_ChargeLevelMax"];
 	auto& playerNode = stateNode["Player"];
 	playerNode["blendTime"] = m_stateParameter.blendTime;

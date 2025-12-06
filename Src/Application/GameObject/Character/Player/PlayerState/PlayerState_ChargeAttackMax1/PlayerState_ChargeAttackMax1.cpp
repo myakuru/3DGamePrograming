@@ -2,7 +2,9 @@
 #include"../PlayerState_Idle/PlayerState_Idle.h"
 #include"../PlayerState_ChargeAttackMax2/PlayerState_ChargeAttackMax2.h"
 #include"../../../../../Scene/SceneManager.h"
-#include"../../../../Effect/EffekseerEffect/ChargeAttackEffect/ChargeAttackEffect.h"
+
+#include "Application/GameObject/Utility/EffectReference.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
 
 void PlayerState_ChargeAttackMax1::StateStart()
 {
@@ -12,15 +14,7 @@ void PlayerState_ChargeAttackMax1::StateStart()
 	// アニメーション速度を変更
 	m_player->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
-	SceneManager::Instance().GetObjectWeakPtr(m_effect);
-
 	KdAudioManager::Instance().Play("Asset/Sound/Player/Attack4.WAV", false)->SetVolume(1.0f);
-
-	if(auto effect = m_effect.lock())
-	{
-		// エフェクトの初期化
-		effect->SetPlayEffect(true);
-	}
 
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
@@ -67,11 +61,4 @@ void PlayerState_ChargeAttackMax1::StateUpdate()
 void PlayerState_ChargeAttackMax1::StateEnd()
 {
 	PlayerStateBase::StateEnd();
-
-	if (auto effect = m_effect.lock())
-	{
-		// エフェクトの初期化
-		effect->SetPlayEffect(false);
-		effect->StopEffect();
-	}
 }

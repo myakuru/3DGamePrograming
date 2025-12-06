@@ -1,10 +1,10 @@
 ﻿#include "EffekseerEffectBase.h"
-#include"../../Character/Player/Player.h"
-#include"../../../Scene/SceneManager.h"
-#include"../../../main.h"
-#include"../../../../MyFramework/Manager/ImGuiManager/ImGuiManager.h"
-#include"../../../../MyFramework/Manager/JsonManager/JsonManager.h"
-#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectManager.h"
+#include"Application/GameObject/Character/Player/Player.h"
+#include"Application/Scene/SceneManager.h"
+#include"Application/main.h"
+#include"MyFramework/Manager/ImGuiManager/ImGuiManager.h"
+#include"MyFramework/Manager/JsonManager/JsonManager.h"
+#include"Application/GameObject/Effect/EffekseerEffect/EffekseerEffectManager.h"
 
 void EffekseerEffectBase::Init()
 {

@@ -4,6 +4,8 @@
 #include"../../../../Weapon/Katana/Katana.h"
 
 #include"../../../../../main.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
+#include "Application/GameObject/Utility/EffectReference.h"
 
 void PlayerState_SpecialAttackCutIn::StateStart()
 {
@@ -25,6 +27,11 @@ void PlayerState_SpecialAttackCutIn::StateStart()
 	// 無敵状態にする
 	m_player->SetInvincible(true);
 
+	// 複数エフェクト再生
+	for (const auto& ref : m_playerEffects)
+	{
+		if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(true);
+	}
 }
 
 void PlayerState_SpecialAttackCutIn::StateUpdate()
@@ -76,6 +83,12 @@ void PlayerState_SpecialAttackCutIn::StateEnd()
 		camera->SetRotationSmooth(m_cameraRotationSmooth);
 		camera->SetDistanceSmooth(m_cameraDistanceSmooth);
 	}
+
+	// 複数エフェクト停止
+	for (const auto& ref : m_playerEffects)
+	{
+		if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(false);
+	}
 }
 
 void PlayerState_SpecialAttackCutIn::ApplyFromConfig(const PlayerStateBase& other)
@@ -89,10 +102,22 @@ void PlayerState_SpecialAttackCutIn::ApplyFromConfig(const PlayerStateBase& othe
 	m_cameraCutInOffset = p.m_cameraCutInOffset;
 	m_cameraCutInRotation = p.m_cameraCutInRotation;
 	m_searchEnemyRadius = p.m_searchEnemyRadius;
+	m_playerEffects = p.m_playerEffects;
 }
 
 void PlayerState_SpecialAttackCutIn::ExposeParametersImGui()
 {
+	// 複数エフェクトの編集UI
+	ImGui::Text("Effects");
+	for (size_t i = 0; i < m_playerEffects.size(); ++i)
+	{
+		ImGui::PushID(static_cast<int>(i));
+		m_playerEffects[i]->ImGuiInspector("PlayerState_SpecialAttackCutIn_Effect");
+		ImGui::PopID();
+	}
+	if (ImGui::SmallButton("+")) { m_playerEffects.emplace_back(std::make_shared<EffectReference>()); }
+	if (ImGui::SmallButton("-")) { if (!m_playerEffects.empty()) m_playerEffects.pop_back(); }
+
 	ImGui::DragFloat(U8("索敵範囲"), &m_searchEnemyRadius);
 	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
 	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
@@ -104,6 +129,18 @@ void PlayerState_SpecialAttackCutIn::ExposeParametersImGui()
 
 void PlayerState_SpecialAttackCutIn::LoadParametersJson(const nlohmann::json& js)
 {
+	// エフェクト
+	if (js.contains("PlayerState_SpecialAttackCutIn_Effects") && js["PlayerState_SpecialAttackCutIn_Effects"].is_array())
+	{
+		m_playerEffects.clear();
+		for (const auto& node : js["PlayerState_SpecialAttackCutIn_Effects"])
+		{
+			auto ref = std::make_shared<EffectReference>();
+			ref->JsonInput("Effect", node);
+			m_playerEffects.emplace_back(std::move(ref));
+		}
+	}
+
 	if (!js.contains("PlayerState_SpecialAttackCutIn")) return;
 	const auto& stateNode = js["PlayerState_SpecialAttackCutIn"];
 	if (stateNode.contains("Player"))
@@ -121,6 +158,16 @@ void PlayerState_SpecialAttackCutIn::LoadParametersJson(const nlohmann::json& js
 
 void PlayerState_SpecialAttackCutIn::SaveParametersJson(nlohmann::json& js) const
 {
+	// エフェクト
+	nlohmann::json arr = nlohmann::json::array();
+	for (const auto& ref : m_playerEffects)
+	{
+		nlohmann::json item = nlohmann::json::object();
+		ref->JsonSave("Effect", item);
+		arr.push_back(item);
+	}
+	js["PlayerState_SpecialAttackCutIn_Effects"] = std::move(arr);
+
 	if (!js.contains("PlayerState_SpecialAttackCutIn")) js["PlayerState_SpecialAttackCutIn"] = nlohmann::json::object();
 	auto& stateNode = js["PlayerState_SpecialAttackCutIn"];
 

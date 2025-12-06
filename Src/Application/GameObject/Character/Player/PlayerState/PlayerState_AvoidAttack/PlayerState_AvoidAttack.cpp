@@ -2,11 +2,14 @@
 #include"../../../../../main.h"
 #include"Application/GameObject/Character/Player/PlayerState/PlayerState_SheathKatana/PlayerState_SheathKatana.h"
 #include"../../../../../Scene/SceneManager.h"
-#include"../../../../Effect/EffekseerEffect/SpeedAttackEffect/SpeedAttackEffect.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
+#include "Application/GameObject/Utility/EffectReference.h"
 #include"../PlayerState_SpecialAttackCutIn/PlayerState_SpecialAttackCutIn.h"
 #include"Application/GameObject/Character/AfterImage/AfterImage.h"
 
 #include"Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
+
+#include "Application/GameObject/Utility/EffectReference.h"
 
 void PlayerState_AvoidAttack::StateStart()
 {
@@ -17,8 +20,7 @@ void PlayerState_AvoidAttack::StateStart()
 	// 当たり判定リセット
 	m_player->ResetAttackCollision();
 
-	SceneManager::Instance().GetObjectWeakPtr(m_effect);
-
+	// 残像
 	m_player->GetAfterImage()->AddAfterImage(true, 5, 3.0f, Math::Color(0.0f, 1.0f, 1.0f, 1.0f));
 }
 
@@ -49,30 +51,7 @@ void PlayerState_AvoidAttack::StateUpdate()
 	// アニメーション終了後の遷移処理
 	if (UpdateSheathKatanaInput()) return;
 
-
-	// 回避中の移動方向で回転を更新
-
-	Math::Vector3 moveDir = m_player->GetMovement();
-
-	if (moveDir != Math::Vector3::Zero)
-	{
-		moveDir.y = 0.0f;
-		moveDir.Normalize();
-		m_player->UpdateQuaternionDirect(moveDir);
-	}
-
 	float deltaTime = Application::Instance().GetDeltaTime();
-
-	Math::Vector3 targetDir = m_nearestEnemyPos - m_player->GetPos();
-
-	if (auto camera = m_player->GetPlayerCamera().lock())
-	{
-		camera->SetTargetLookAt(m_cameraTargetOffset);
-
-		float yaw = std::atan2f(targetDir.x, targetDir.z);
-		float yawDeg = DirectX::XMConvertToDegrees(yaw);
-		camera->SetPlayerRotation({ 0.0f, yawDeg, 0.0f });
-	}
 
 	if (m_time < m_stateParameter.dashSpeedTime)
 	{
@@ -84,9 +63,10 @@ void PlayerState_AvoidAttack::StateUpdate()
 		// 移動を止める
 		m_player->SetIsMoving(Math::Vector3::Zero);
 
-		if (auto effect = m_effect.lock())
+		// 複数エフェクト再生
+		for (const auto& ref : m_playerEffects)
 		{
-			effect->SetPlayEffect(true);
+			if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(true);
 		}
 	}
 	PlayerStateBase::StateUpdate();
@@ -96,11 +76,76 @@ void PlayerState_AvoidAttack::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
-	if (auto effect = m_effect.lock())
+	// 複数エフェクト停止＋StopEffect
+	for (const auto& ref : m_playerEffects)
 	{
-		effect->SetPlayEffect(true);
-		effect->StopEffect();
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->SetPlayEffect(true);
+			effect->StopEffect();
+		}
 	}
 
 	m_player->GetAfterImage()->AddAfterImage();
+}
+
+void PlayerState_AvoidAttack::ApplyFromConfig(const PlayerStateBase& other)
+{
+	assert(typeid(other) == typeid(PlayerState_AvoidAttack));
+	const auto& p = static_cast<const PlayerState_AvoidAttack&>(other);
+	m_stateParameter = p.m_stateParameter;  // 構造体一括コピー
+	m_playerEffects = p.m_playerEffects;
+}
+
+void PlayerState_AvoidAttack::ExposeParametersImGui()
+{
+	// 複数エフェクトの編集UI
+	ImGui::Text("Effects");
+	for (size_t i = 0; i < m_playerEffects.size(); ++i)
+	{
+		ImGui::PushID(static_cast<int>(i));
+		m_playerEffects[i]->ImGuiInspector("PlayerState_AvoidAttack_Effect");
+		ImGui::PopID();
+	}
+	if (ImGui::SmallButton("+")) { m_playerEffects.emplace_back(std::make_shared<EffectReference>()); }
+	if (ImGui::SmallButton("-")) { if (!m_playerEffects.empty()) m_playerEffects.pop_back(); }
+
+	m_stateParameter.ExposeImGui();
+}
+
+void PlayerState_AvoidAttack::LoadParametersJson(const nlohmann::json& js)
+{
+	// エフェクト
+	if (js.contains("PlayerState_AvoidAttack_Effects") && js["PlayerState_AvoidAttack_Effects"].is_array())
+	{
+		m_playerEffects.clear();
+		for (const auto& node : js["PlayerState_AvoidAttack_Effects"])
+		{
+			auto ref = std::make_shared<EffectReference>();
+			ref->JsonInput("Effect", node);
+			m_playerEffects.emplace_back(std::move(ref));
+		}
+	}
+
+	if (!js.contains("PlayerState_AvoidAttack")) return;
+	const auto& stateNode = js["PlayerState_AvoidAttack"];
+	if (stateNode.contains("Player"))
+	{
+		m_stateParameter.LoadJson(stateNode["Player"]);
+	}
+}
+
+void PlayerState_AvoidAttack::SaveParametersJson(nlohmann::json& js) const
+{
+	// エフェクト
+	nlohmann::json arr = nlohmann::json::array();
+	for (const auto& ref : m_playerEffects)
+	{
+		nlohmann::json item = nlohmann::json::object();
+		ref->JsonSave("Effect", item);
+		arr.push_back(item);
+	}
+	js["PlayerState_AvoidAttack_Effects"] = std::move(arr);
+
+	m_stateParameter.SaveJson(js["PlayerState_AvoidAttack"]);
 }

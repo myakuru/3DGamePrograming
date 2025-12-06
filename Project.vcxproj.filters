@@ -172,47 +172,8 @@
     <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect">
       <UniqueIdentifier>{b20c0b6a-3f77-40b8-97f6-24726054b39f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\EffectPlay">
-      <UniqueIdentifier>{1c1aa236-da8e-43dd-9280-c2ec859bf34e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\AttacEffect1">
-      <UniqueIdentifier>{2cf4fbc1-ebfc-4f00-9a53-5f1cf78d2b65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\CloudEffect">
-      <UniqueIdentifier>{a9e58c79-08fa-4510-9fb2-55fbeb45924a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\SmokeEffect">
-      <UniqueIdentifier>{19b57e38-c317-4cdf-8fcf-23a77ddfeda0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\ShineEffect">
-      <UniqueIdentifier>{b96a251d-0732-4e87-a409-34f4602054e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\GroundFreezes">
-      <UniqueIdentifier>{d803d0bb-3b9b-49b6-ae3c-c1bfac0f1c46}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\ShineEffectBlue">
-      <UniqueIdentifier>{c3ee67f2-8003-457b-9163-296f2aeca419}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\SwordFlash">
-      <UniqueIdentifier>{f3e29696-6cbe-4bcb-b54a-4a91b9a251b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\Rotation">
-      <UniqueIdentifier>{39d2e242-6f50-44f3-a18c-ed8d421a4b50}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\SlashEffect">
-      <UniqueIdentifier>{c230a218-9e85-4b8b-b727-c1b8fa59585d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\AvoidAttackSlashEffect">
-      <UniqueIdentifier>{d606f49a-254a-4eaf-8d0a-a0202dac7fb4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\ESkillEffect">
-      <UniqueIdentifier>{d9593dfb-37b1-40b4-aae2-5d5049d97cd2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Framework\Utility">
       <UniqueIdentifier>{f5d733b1-5031-4659-a9d4-0dd3add1e5fb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttack">
-      <UniqueIdentifier>{2ebb3b70-3590-49e6-a97d-85f7796f15e1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\GameObject\Weapon\EnemySword">
       <UniqueIdentifier>{07692688-4f3a-4e54-b0b6-2c9636f2df46}</UniqueIdentifier>
@@ -223,15 +184,6 @@
     <Filter Include="Src\Application\GameObject\Weapon\EnemyShield">
       <UniqueIdentifier>{74c9622f-922c-4354-8536-7eaddf2af641}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue">
-      <UniqueIdentifier>{89f9fe6b-67cd-46b5-b7d6-1f2d37a6cd7a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttack1">
-      <UniqueIdentifier>{117c2922-7c99-4482-984e-5301cf713807}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\SpeedAttackEffect">
-      <UniqueIdentifier>{7916243b-2ec1-4339-8c67-d522a406f0ad}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\Camera\TitleCamera">
       <UniqueIdentifier>{971e0a81-7ee6-4649-92e3-c514eaf3563e}</UniqueIdentifier>
     </Filter>
@@ -240,12 +192,6 @@
     </Filter>
     <Filter Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard">
       <UniqueIdentifier>{c193f2f4-8991-47cb-9655-cc875a1151a3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\JustAvoidAttackEffect">
-      <UniqueIdentifier>{d945845a-86f5-4dc8-b614-88b2de401a64}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\JustAvoidAttackEffect1">
-      <UniqueIdentifier>{4fdf60fc-eaa2-4168-8d69-c9332f4242c7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_IntroCamera">
       <UniqueIdentifier>{55946ce5-bd31-4fbd-abce-e4c1b3a9d3e2}</UniqueIdentifier>
@@ -261,12 +207,6 @@
     </Filter>
     <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack">
       <UniqueIdentifier>{c189cb03-a157-4263-a24b-b33784a9d369}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\ChargeAttackEffect">
-      <UniqueIdentifier>{606b6cd2-610b-4f5b-a38e-a8736f429b24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\ChargeAttackEffect_end">
-      <UniqueIdentifier>{540fe7d3-2586-4ee0-8bfb-10bc8352b8e9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\GameObject\HUD\SkillBar">
       <UniqueIdentifier>{44dfd8a7-2bd6-4535-b0fc-2ad4710b0b65}</UniqueIdentifier>
@@ -288,9 +228,6 @@
     </Filter>
     <Filter Include="Src\Application\GameObject\HUD\SpecialAttackUI">
       <UniqueIdentifier>{26f0e196-aca4-4693-b0f4-b06dff7ce625}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttackSmoke">
-      <UniqueIdentifier>{4f774678-7a30-41f0-a4ab-7424e71a66ec}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\GameObject\HUD\BossEnemyBlackBarUI">
       <UniqueIdentifier>{c2f01b4d-8760-4d4c-802a-36be79abd817}</UniqueIdentifier>
@@ -861,38 +798,8 @@
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectBase.h">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffectPlay\EffectPlay.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\EffectPlay</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AttacEffect1\AttacEffect1.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AttacEffect1</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\CloudEffect\CloudEffect.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\CloudEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\SmokeEffect\SmokeEffect.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\SmokeEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\ShineEffect\ShineEffect.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\ShineEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\GroundFreezes\GroundFreezes.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\GroundFreezes</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\ShineEffectBlue\ShineEffectBlue.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\ShineEffectBlue</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\SwordFlash\SwordFlash.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\SwordFlash</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Framework\Utility\KdFrameTimer.h">
       <Filter>Src\Framework\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\Rotation\Rotation.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\Rotation</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\SlashEffect\SlashEffect.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\SlashEffect</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AvoidAttack\PlayerState_AvoidAttack.h">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AvoidAttack</Filter>
@@ -909,12 +816,6 @@
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_RunEnd\PlayerState_RunEnd.h">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_RunEnd</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\AvoidAttackSlashEffect\AvoidAttackSlashEffect.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AvoidAttackSlashEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\ESkillEffect\ESkillEffect.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\ESkillEffect</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeAttackMax\PlayerState_ChargeAttackMax.h">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttackMax</Filter>
     </ClInclude>
@@ -927,9 +828,6 @@
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeAttackMax3\PlayerState_ChargeAttackMax3.h">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttackMax3</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttack\SpecialAttack.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttack</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Weapon\EnemySword\EnemySword.h">
       <Filter>Src\Application\GameObject\Weapon\EnemySword</Filter>
     </ClInclude>
@@ -939,17 +837,8 @@
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_FowardAvoidFast\PlayerState_FowardAvoidFast.h">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_FowardAvoidFast</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue\EnemyShineBlue.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttack1\PlayerState_SpecialAttack1.h">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_SpecialAttack1</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttack1\SpecialAttack1.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttack1</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\SpeedAttackEffect\SpeedAttackEffect.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\SpeedAttackEffect</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Camera\TitleCamera\TitleCamera.h">
       <Filter>Src\Application\GameObject\Camera\TitleCamera</Filter>
@@ -966,12 +855,6 @@
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_JustAvoidAttack_end\PlayerState_JustAvoidAttack_end.h">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_JustAvoidAttack_end</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\JustAvoidAttackEffect\JustAvoidAttackEffect.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\JustAvoidAttackEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\JustAvoidAttackEffect1\JustAvoidAttackEffect1.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\JustAvoidAttackEffect1</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_IntroCamera\PlayerCameraState_IntroCamera.h">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_IntroCamera</Filter>
     </ClInclude>
@@ -986,12 +869,6 @@
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack\BossWaterFallAttack.h">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\ChargeAttackEffect\ChargeAttackEffect.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\ChargeAttackEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\ChargeAttackEffect_end\ChargeAttackEffect_end.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\ChargeAttackEffect_end</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\HUD\SkillBar\SkillBar.h">
       <Filter>Src\Application\GameObject\HUD\SkillBar</Filter>
@@ -1013,9 +890,6 @@
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\HUD\SpecialAttackUI\SpecialAttackUI.h">
       <Filter>Src\Application\GameObject\HUD\SpecialAttackUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttackSmoke\SpecialAttackSmoke.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttackSmoke</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\HUD\BossEnemyBlackBarUI\BossEnemyBlackBarUI.h">
       <Filter>Src\Application\GameObject\HUD\BossEnemyBlackBarUI</Filter>
@@ -1466,38 +1340,8 @@
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectBase.cpp">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\CloudEffect\CloudEffect.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\CloudEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AttacEffect1\AttacEffect1.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AttacEffect1</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffectPlay\EffectPlay.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\EffectPlay</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\SmokeEffect\SmokeEffect.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\SmokeEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\ShineEffect\ShineEffect.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\ShineEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\GroundFreezes\GroundFreezes.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\GroundFreezes</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\ShineEffectBlue\ShineEffectBlue.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\ShineEffectBlue</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\SwordFlash\SwordFlash.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\SwordFlash</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Framework\Utility\KdFrameTimer.cpp">
       <Filter>Src\Framework\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\Rotation\Rotation.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\Rotation</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\SlashEffect\SlashEffect.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\SlashEffect</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AvoidAttack\PlayerState_AvoidAttack.cpp">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AvoidAttack</Filter>
@@ -1514,12 +1358,6 @@
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_RunEnd\PlayerState_RunEnd.cpp">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_RunEnd</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\AvoidAttackSlashEffect\AvoidAttackSlashEffect.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\AvoidAttackSlashEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\ESkillEffect\ESkillEffect.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\ESkillEffect</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeAttackMax\PlayerState_ChargeAttackMax.cpp">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttackMax</Filter>
     </ClCompile>
@@ -1532,9 +1370,6 @@
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeAttackMax3\PlayerState_ChargeAttackMax3.cpp">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttackMax3</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttack\SpecialAttack.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttack</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Weapon\EnemySword\EnemySword.cpp">
       <Filter>Src\Application\GameObject\Weapon\EnemySword</Filter>
     </ClCompile>
@@ -1544,17 +1379,8 @@
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_FowardAvoidFast\PlayerState_FowardAvoidFast.cpp">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_FowardAvoidFast</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue\EnemyShineBlue.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\EnemyShineBlue</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttack1\PlayerState_SpecialAttack1.cpp">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_SpecialAttack1</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttack1\SpecialAttack1.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttack1</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\SpeedAttackEffect\SpeedAttackEffect.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\SpeedAttackEffect</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Camera\TitleCamera\TitleCamera.cpp">
       <Filter>Src\Application\GameObject\Camera\TitleCamera</Filter>
@@ -1571,12 +1397,6 @@
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_JustAvoidAttack_end\PlayerState_JustAvoidAttack_end.cpp">
       <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_JustAvoidAttack_end</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\JustAvoidAttackEffect\JustAvoidAttackEffect.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\JustAvoidAttackEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\JustAvoidAttackEffect1\JustAvoidAttackEffect1.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\JustAvoidAttackEffect1</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_IntroCamera\PlayerCameraState_IntroCamera.cpp">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_IntroCamera</Filter>
     </ClCompile>
@@ -1591,12 +1411,6 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack\BossWaterFallAttack.cpp">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\ChargeAttackEffect\ChargeAttackEffect.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\ChargeAttackEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\ChargeAttackEffect_end\ChargeAttackEffect_end.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\ChargeAttackEffect_end</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\HUD\SkillBar\SkillBar.cpp">
       <Filter>Src\Application\GameObject\HUD\SkillBar</Filter>
@@ -1618,9 +1432,6 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\HUD\SpecialAttackUI\SpecialAttackUI.cpp">
       <Filter>Src\Application\GameObject\HUD\SpecialAttackUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttackSmoke\SpecialAttackSmoke.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\SpecialAttackSmoke</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\HUD\BossEnemyBlackBarUI\BossEnemyBlackBarUI.cpp">
       <Filter>Src\Application\GameObject\HUD\BossEnemyBlackBarUI</Filter>

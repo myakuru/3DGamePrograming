@@ -5,15 +5,14 @@
 #include"../../../../Weapon/Katana/Katana.h"
 #include"../../../../Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
 #include"../../../../../Scene/SceneManager.h"
-#include"../../../../Effect/EffekseerEffect/SwordFlash/SwordFlash.h"
+#include"../../../../Camera/PlayerCamera/PlayerCamera.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
+#include "Application/GameObject/Utility/EffectReference.h"
 
 #include"../PlayerState_BackWordAvoid/PlayerState_BackWordAvoid.h"
 #include"../PlayerState_FowardAvoid/PlayerState_FowardAvoid.h"
 
 #include"../PlayerState_JustAvoidAttack_end/PlayerState_JustAvoidAttack_end.h"
-#include"../../../../Camera/PlayerCamera/PlayerCamera.h"
-
-#include"../../../../Effect/EffekseerEffect/JustAvoidAttackEffect1/JustAvoidAttackEffect1.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 #include"Application/GameObject/Character/AfterImage/AfterImage.h"
 
@@ -39,8 +38,6 @@ void PlayerState_JustAvoidAttack::StateStart()
 	// ガードブレイク状態にする
 	m_player->SetGuardBreak(true);
 
-	SceneManager::Instance().GetObjectWeakPtr(m_justAvoidAttackEffect);
-
 	// 残像
 	m_player->GetAfterImage()->AddAfterImage
 	(
@@ -50,13 +47,17 @@ void PlayerState_JustAvoidAttack::StateStart()
 		m_stateParameter.afterImageColor
 	);
 
+	// 複数エフェクト再生
+	for (const auto& ref : m_playerEffects)
+	{
+		if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(true);
+	}
 
 	KdAudioManager::Instance().Play("Asset/Sound/Player/JustAttack.WAV", false)->SetVolume(1.0f);
 
 	SceneManager::Instance().GetObjectWeakPtr(m_bossEnemy);
 
 	m_dashDirection = Math::Vector3::Zero;
-
 }
 
 void PlayerState_JustAvoidAttack::StateUpdate()
@@ -98,10 +99,8 @@ void PlayerState_JustAvoidAttack::StateUpdate()
 
 	// 先行ダッシュ処理
 	{
-
 		// 攻撃方向が指定されていない場合は敵の方向に向かう
 		Math::Vector3 toEnemyDir = m_nearestEnemyPos - m_player->GetPos();
-
 
 		if (m_attackDirection != Math::Vector3::Zero)
 		{
@@ -149,12 +148,6 @@ void PlayerState_JustAvoidAttack::StateUpdate()
 		}
 		else
 		{
-
-			if (auto effect = m_justAvoidAttackEffect.lock())
-			{
-				effect->SetPlayEffect(true);
-			}
-
 			toDesired.Normalize();
 
 			// 移動速度の上限
@@ -167,7 +160,6 @@ void PlayerState_JustAvoidAttack::StateUpdate()
 			m_player->SetIsMoving(toDesired * speedThisFrame);
 			m_time += deltaTime;
 		}
-
 	}
 }
 
@@ -175,9 +167,10 @@ void PlayerState_JustAvoidAttack::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
-	if (auto effect = m_justAvoidAttackEffect.lock())
+	// 複数エフェクト停止
+	for (const auto& ref : m_playerEffects)
 	{
-		effect->SetPlayEffect(false);
+		if (auto effect = ref->GetEffectBase().lock()) effect->SetPlayEffect(false);
 	}
 
 	m_player->GetAfterImage()->AddAfterImage();
@@ -203,11 +196,22 @@ void PlayerState_JustAvoidAttack::ApplyFromConfig(const PlayerStateBase& other)
 	m_stateParameter.afterImageMax = p.m_stateParameter.afterImageMax;
 	m_stateParameter.afterImageInterval = p.m_stateParameter.afterImageInterval;
 	m_stateParameter.afterImageColor = p.m_stateParameter.afterImageColor;
-
+	m_playerEffects = p.m_playerEffects;
 }
 
 void PlayerState_JustAvoidAttack::ExposeParametersImGui()
 {
+	// 複数エフェクトの編集UI
+	ImGui::Text("Effects");
+	for (size_t i = 0; i < m_playerEffects.size(); ++i)
+	{
+		ImGui::PushID(static_cast<int>(i));
+		m_playerEffects[i]->ImGuiInspector("PlayerState_JustAvoidAttack_Effect");
+		ImGui::PopID();
+	}
+	if (ImGui::SmallButton("+")) { m_playerEffects.emplace_back(std::make_shared<EffectReference>()); }
+	if (ImGui::SmallButton("-")) { if (!m_playerEffects.empty()) m_playerEffects.pop_back(); }
+
 	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
 	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed);
 
@@ -264,6 +268,18 @@ void PlayerState_JustAvoidAttack::ExposeParametersImGui()
 
 void PlayerState_JustAvoidAttack::LoadParametersJson(const nlohmann::json& js)
 {
+	// エフェクト
+	if (js.contains("PlayerState_JustAvoidAttack_Effects") && js["PlayerState_JustAvoidAttack_Effects"].is_array())
+	{
+		m_playerEffects.clear();
+		for (const auto& node : js["PlayerState_JustAvoidAttack_Effects"])
+		{
+			auto ref = std::make_shared<EffectReference>();
+			ref->JsonInput("Effect", node);
+			m_playerEffects.emplace_back(std::move(ref));
+		}
+	}
+
 	if (!js.contains("PlayerState_JustAvoidAttack")) return;
 	const auto& stateNode = js["PlayerState_JustAvoidAttack"];
 	if (stateNode.contains("Player"))
@@ -285,12 +301,21 @@ void PlayerState_JustAvoidAttack::LoadParametersJson(const nlohmann::json& js)
 		if (playerNode.contains("afterImageMax")) m_stateParameter.afterImageMax = playerNode["afterImageMax"].get<int>();
 		if (playerNode.contains("afterImageInterval")) m_stateParameter.afterImageInterval = playerNode["afterImageInterval"].get<float>();
 		if (playerNode.contains("afterImageColor")) m_stateParameter.afterImageColor = JSON_MANAGER.JsonToVector4(playerNode["afterImageColor"]);
-		
 	}
 }
 
 void PlayerState_JustAvoidAttack::SaveParametersJson(nlohmann::json& js) const
 {
+	// エフェクト
+	nlohmann::json arr = nlohmann::json::array();
+	for (const auto& ref : m_playerEffects)
+	{
+		nlohmann::json item = nlohmann::json::object();
+		ref->JsonSave("Effect", item);
+		arr.push_back(item);
+	}
+	js["PlayerState_JustAvoidAttack_Effects"] = std::move(arr);
+
 	if (!js.contains("PlayerState_JustAvoidAttack")) js["PlayerState_JustAvoidAttack"] = nlohmann::json::object();
 	auto& stateNode = js["PlayerState_JustAvoidAttack"];
 

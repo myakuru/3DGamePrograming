@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include"../PlayerState.h"
-class ESkillEffect;
 class PlayerState_Skill :public PlayerStateBase
 {
 public:
@@ -12,9 +11,6 @@ private:
 	void StateStart() override;
 	void StateUpdate() override;
 	void StateEnd() override;
-
-
-	std::weak_ptr<ESkillEffect> m_effect;
 
 	void ApplyFromConfig(const PlayerStateBase& other) override
 	{

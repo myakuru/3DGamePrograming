@@ -6,7 +6,6 @@
 #include"../../../../Weapon/Katana/Katana.h"
 #include"../../../../Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
 #include"../../../../../Scene/SceneManager.h"
-#include"../../../../Effect/EffekseerEffect/SwordFlash/SwordFlash.h"
 
 #include"../PlayerState_BackWordAvoid/PlayerState_BackWordAvoid.h"
 #include"../PlayerState_FowardAvoid/PlayerState_FowardAvoid.h"
@@ -17,12 +16,19 @@
 #include"Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
 
 #include "Application/GameObject/Utility/EffectReference.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
+
+PlayerState_Attack::PlayerState_Attack()
+{
+
+}
 
 void PlayerState_Attack::ApplyFromConfig(const PlayerStateBase& other)
 {
 	assert(typeid(other) == typeid(PlayerState_Attack));
 	const auto& p = static_cast<const PlayerState_Attack&>(other); 
 	m_stateParameter = p.m_stateParameter; // 構造体一括コピー
+	m_playerEffects = p.m_playerEffects;
 }
 
 void PlayerState_Attack::StateStart()
@@ -94,10 +100,13 @@ void PlayerState_Attack::StateUpdate()
 	}
 	else
 	{
-		// エフェクト再生・移動停止
-		if (auto effect = m_effect->GetEffectBase().lock())
+		// エフェクト再生・移動停止（複数）
+		for (const auto& ref : m_playerEffects)
 		{
-			effect->SetPlayEffect(true);
+			if (auto effect = ref->GetEffectBase().lock())
+			{
+				effect->SetPlayEffect(true);
+			}
 		}
 
 		m_player->SetIsMoving(m_stateParameter.moveSpeed);
@@ -121,22 +130,44 @@ void PlayerState_Attack::StateEnd()
 {
 	PlayerStateBase::StateEnd();
 
-	if (auto effect = m_effect->GetEffectBase().lock())
+	for (const auto& ref : m_playerEffects)
 	{
-		effect->SetPlayEffect(false);
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->SetPlayEffect(false);
+		}
 	}
 }
 
 void PlayerState_Attack::ExposeParametersImGui()
 {
-	m_effect->ImGuiInspector("Slash Effect");
+	// 複数エフェクトの編集UI
+	ImGui::Text("Effects");
+	for (size_t i = 0; i < m_playerEffects.size(); ++i)
+	{
+		ImGui::PushID(static_cast<int>(i));
+		m_playerEffects[i]->ImGuiInspector("PlayerState_Attack_Effect");
+		ImGui::PopID();
+	}
+	if (ImGui::SmallButton("+")) { m_playerEffects.emplace_back(std::make_shared<EffectReference>()); }
+	if (ImGui::SmallButton("-")) { if (!m_playerEffects.empty()) m_playerEffects.pop_back(); }
 
 	m_stateParameter.ExposeImGui();
 }
 
 void PlayerState_Attack::LoadParametersJson(const nlohmann::json& js)
 {
-	m_effect->JsonInput("SwordFlash", js);
+	// 複数のみ
+	if (js.contains("PlayerState_Attack_Effects") && js["PlayerState_Attack_Effects"].is_array())
+	{
+		m_playerEffects.clear();
+		for (const auto& node : js["PlayerState_Attack_Effects"])
+		{
+			auto ref = std::make_shared<EffectReference>();
+			ref->JsonInput("Effect", node);
+			m_playerEffects.emplace_back(std::move(ref));
+		}
+	}
 
 	if (!js.contains("PlayerState_Attack")) return;
 	const auto& stateNode = js["PlayerState_Attack"];
@@ -145,7 +176,15 @@ void PlayerState_Attack::LoadParametersJson(const nlohmann::json& js)
 
 void PlayerState_Attack::SaveParametersJson(nlohmann::json& js) const
 {
-	m_effect->JsonSave("SwordFlash", js);
+	// 複数のみ
+	nlohmann::json arr = nlohmann::json::array();
+	for (const auto& ref : m_playerEffects)
+	{
+		nlohmann::json item = nlohmann::json::object();
+		ref->JsonSave("Effect", item);
+		arr.push_back(item);
+	}
+	js["PlayerState_Attack_Effects"] = std::move(arr);
 
 	m_stateParameter.SaveJson(js["PlayerState_Attack"]);
 	js["PlayerState_Attack"]["m_dashSpeed"] = m_stateParameter.dashSpeed;

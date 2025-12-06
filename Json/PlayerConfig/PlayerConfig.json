@@ -12,7 +12,7 @@
       "CameraShakeTime": 0.30000001192092896,
       "CameraShakeX": 0.20000000298023224,
       "CameraShakeY": 0.0,
-      "ChangeStateTime": 0.699999988079071,
+      "ChangeStateTime": 0.8199999928474426,
       "DashSpeed": 0.699999988079071,
       "DashSpeedTime": 0.20000000298023224,
       "MoveSpeedX": 0.0,
@@ -34,7 +34,7 @@
       "CameraShakeTime": 0.30000001192092896,
       "CameraShakeX": 0.20000000298023224,
       "CameraShakeY": 0.0,
-      "ChangeStateTime": 0.699999988079071,
+      "ChangeStateTime": 0.9100000262260437,
       "DashSpeed": 1.0,
       "DashSpeedTime": 0.20000000298023224,
       "MoveSpeedX": 0.0,
@@ -42,6 +42,11 @@
       "MoveSpeedZ": 0.0
     }
   },
+  "PlayerState_Attack1_Effects": [
+    {
+      "Effect": "b1201809-bfe4-4462-90b7-2a32a69a1b56"
+    }
+  ],
   "PlayerState_Attack2": {
     "Player": {
       "AnimationSpeed": 70.0,
@@ -63,6 +68,11 @@
       "MoveSpeedZ": 0.0
     }
   },
+  "PlayerState_Attack2_Effects": [
+    {
+      "Effect": "6b48bf02-70bd-42d8-8772-615f2623aea5"
+    }
+  ],
   "PlayerState_Attack3": {
     "Player": {
       "AnimationSpeed": 60.0,
@@ -84,6 +94,11 @@
       "MoveSpeedZ": 0.0
     }
   },
+  "PlayerState_Attack3_Effects": [
+    {
+      "Effect": "8adecd20-62c0-46a2-82b8-efa3395a71b2"
+    }
+  ],
   "PlayerState_Attack4": {
     "Player": {
       "AnimationSpeed": 60.0,
@@ -105,6 +120,19 @@
       "MoveSpeedZ": 0.0
     }
   },
+  "PlayerState_Attack4_Effects": [
+    {
+      "Effect": "50ca553b-ba6c-4894-8a93-2e969dc4df0d"
+    },
+    {
+      "Effect": "bfd8ebf1-9e55-4a30-bec8-71644040b11e"
+    }
+  ],
+  "PlayerState_Attack_Effects": [
+    {
+      "Effect": "7ce9f855-00ca-4bd7-917d-32a027eee7ff"
+    }
+  ],
   "PlayerState_AvoidAttack": {
     "Player": {
       "AnimationSpeed": 60.0,
@@ -126,6 +154,11 @@
       "MoveSpeedZ": 0.0
     }
   },
+  "PlayerState_AvoidAttack_Effects": [
+    {
+      "Effect": "647675f8-d64b-4169-bca6-95207019df54"
+    }
+  ],
   "PlayerState_BackWordAvoid": {
     "Player": {
       "afterImageColor": {
@@ -265,12 +298,25 @@
       "startSlowMotionTime": 0.0
     }
   },
+  "PlayerState_ChargeLevel1_Effects": [
+    {
+      "Effect": "9e1dd652-e688-4b79-91bb-01d5901ad94a"
+    },
+    {
+      "Effect": "17fbf3cf-c210-4a38-afd2-e54ca3823939"
+    }
+  ],
   "PlayerState_ChargeLevel2": {
     "Player": {
       "animationSpeed": 60.0,
       "blendTime": 0.25
     }
   },
+  "PlayerState_ChargeLevel2_Effects": [
+    {
+      "Effect": "109de406-31fd-468f-b2fe-4feba663895a"
+    }
+  ],
   "PlayerState_ChargeLevelMax": {
     "Player": {
       "animationSpeed": 60.0,
@@ -279,6 +325,14 @@
       "startSlowMotionTime": 0.0
     }
   },
+  "PlayerState_ChargeLevelMax_Effects": [
+    {
+      "Effect": "9e1dd652-e688-4b79-91bb-01d5901ad94a"
+    },
+    {
+      "Effect": "17fbf3cf-c210-4a38-afd2-e54ca3823939"
+    }
+  ],
   "PlayerState_FowardAvoid": {
     "Player": {
       "afterImageColor": {
@@ -318,6 +372,11 @@
       "blendTime": 0.25
     }
   },
+  "PlayerState_FowardAvoidFast_Effects": [
+    {
+      "Effect": "a002751b-151a-488f-922c-5acabdd05b79"
+    }
+  ],
   "PlayerState_Hit": {
     "Player": {
       "animationSpeed": 60.0,
@@ -353,6 +412,11 @@
       "searchEnemyRadius": 50.0
     }
   },
+  "PlayerState_JustAvoidAttack_Effects": [
+    {
+      "Effect": "b381d742-4b6f-479c-a467-ca4616db81fd"
+    }
+  ],
   "PlayerState_JustAvoidAttack_end": {
     "Player": {
       "animationSpeed": 60.0,
@@ -365,6 +429,14 @@
       "blendTime": 0.25
     }
   },
+  "PlayerState_JustAvoidAttack_end_Effects": [
+    {
+      "Effect": "966b8a15-83c7-46fb-9332-b5a915fa3ed9"
+    },
+    {
+      "Effect": "d0da2e18-d576-486b-bde0-96a90f7e8239"
+    }
+  ],
   "PlayerState_Run": {
     "Player": {
       "blendTime": 0.25
@@ -434,6 +506,14 @@
       "blendTime": 0.25
     }
   },
+  "PlayerState_SpecialAttack1_Effects": [
+    {
+      "Effect": "ae011302-3445-4389-8e99-cf450163be55"
+    },
+    {
+      "Effect": "d0da2e18-d576-486b-bde0-96a90f7e8239"
+    }
+  ],
   "PlayerState_SpecialAttackCutIn": {
     "Player": {
       "SearchEnemyRadius": 50.0,
@@ -452,5 +532,18 @@
       "cameraStartDistanceSmooth": 5.0,
       "cameraStartRotationSmooth": 5.0
     }
-  }
+  },
+  "PlayerState_SpecialAttackCutIn_Effects": [
+    {
+      "Effect": "7f5ad687-cdc3-48c2-818d-d04942eba3f0"
+    }
+  ],
+  "PlayerState_SpecialAttack_Effects": [
+    {
+      "Effect": "d2d16787-ccbc-4396-95a2-e57c75b5487e"
+    },
+    {
+      "Effect": "bfd8ebf1-9e55-4a30-bec8-71644040b11e"
+    }
+  ]
 }

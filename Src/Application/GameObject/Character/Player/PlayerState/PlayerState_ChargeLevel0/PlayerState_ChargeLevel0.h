@@ -1,5 +1,5 @@
-﻿#include"../PlayerState.h"
-#pragma once
+﻿#pragma once
+#include"../PlayerState.h"
 class PlayerState_ChargeLevel0 :public PlayerStateBase
 { 
 public:
