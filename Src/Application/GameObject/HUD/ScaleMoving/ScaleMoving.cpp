@@ -85,7 +85,7 @@ void ScaleMoving::ImGuiInspector()
 
 void ScaleMoving::JsonSave(nlohmann::json& _json) const
 {
-	//SelectDraw2DTexture::JsonSave(_json);
+	SelectDraw2DTexture::JsonSave(_json);
 	_json["DawnTimer"] = m_dawnTimer;
 	_json["DawnPos"] = JSON_MANAGER.VectorToJson(m_dawnPos);
 }

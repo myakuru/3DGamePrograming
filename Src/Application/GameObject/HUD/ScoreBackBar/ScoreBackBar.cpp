@@ -5,12 +5,16 @@
 
 const uint32_t ScoreBackBar::TypeID = KdGameObject::GenerateTypeID();
 
+void ScoreBackBar::Init()
+{
+	SelectDraw2DTexture::Init();
+	m_position = Math::Vector3(333.5f, 223.7f, 0.0f);
+}
+
 void ScoreBackBar::DrawSprite()
 {
 	if (SceneManager::Instance().IsIntroCamera()) return;
 	SelectDraw2DTexture::DrawSprite();
-
-	m_position = Math::Vector3(333.5f, 223.7f, 0.0f);
 }
 
 void ScoreBackBar::Update()
