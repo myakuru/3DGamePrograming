@@ -10,6 +10,8 @@ void Scoring::Init()
 {
 	SelectDraw2DTexture::Init();
 	m_texture = KdAssets::Instance().m_textures.GetData("Asset/Textures/GameUI/Score.png");
+
+	m_position = Math::Vector3(654.0f, 220.8f, 0.0f);
 }
 
 void Scoring::Update()
@@ -65,9 +67,7 @@ void Scoring::DrawSprite()
 	// 伸張（Stretch）：XとYを個別にスケーリング（画面サイズにピッタリ）
 	const float sx = vp.width / kRefW;
 	const float sy = vp.height / kRefH;
-	// 等方（Fit）にしたい場合は以下を使う（必要なら切替）
-	//const float s  = std::min(sx, sy);
-	// Math::Matrix uiScale = Math::Matrix::CreateScale(s, s, 1.0f);
+
 	Math::Matrix uiScale = Math::Matrix::CreateScale(sx, sy, 1.0f);
 	// UIスケールをワールド行列に後掛け（平行移動も含め全体をスケール）
 	Math::Matrix m = m_mWorld * uiScale;
@@ -91,6 +91,8 @@ void Scoring::ImGuiInspector()
 
 	ImGui::DragFloat("Dawn Timer", &m_dawnTimer);
 	ImGui::DragFloat3("Dawn Position", &m_dawnPos.x);
+
+
 }
 
 void Scoring::JsonSave(nlohmann::json& _json) const

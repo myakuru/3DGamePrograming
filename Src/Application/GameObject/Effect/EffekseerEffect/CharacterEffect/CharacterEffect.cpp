@@ -1,10 +1,10 @@
-﻿#include "PlayerEffect.h"
+﻿#include "CharacterEffect.h"
 #include"Application/Scene/SceneManager.h"
 #include "Application/GameObject/Character/Player/Player.h"
 
-const uint32_t PlayerEffect::TypeID = KdGameObject::GenerateTypeID();
+const uint32_t CharacterEffect::TypeID = KdGameObject::GenerateTypeID();
 
-void PlayerEffect::Update()
+void CharacterEffect::Update()
 {
 	EffekseerEffectBase::Update();
 }

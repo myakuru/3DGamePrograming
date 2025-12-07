@@ -13,7 +13,6 @@
 #include "Application/main.h"
 #include "MyFramework/Manager/JsonManager/JsonManager.h"
 
-// ================== ヘルパー ==================
 float BossEnemyAI::GetDistanceToPlayer(BossEnemy* boss)
 {
 	if (!boss) return m_settings.noTargetDistance;
@@ -29,7 +28,6 @@ float BossEnemyAI::GetDistanceToPlayer(BossEnemy* boss)
 	return m_settings.noTargetDistance;
 }
 
-// ================== AI決定 ==================
 std::shared_ptr<BossEnemyStateBase> BossEnemyAI::DecideNext(BossEnemy* boss)
 {
 	auto FallbackIdle = []() { return std::make_shared<BossEnemyState_Idle>(); };
@@ -83,7 +81,7 @@ std::shared_ptr<BossEnemyStateBase> BossEnemyAI::DecideNext(BossEnemy* boss)
 	return std::make_shared<BossEnemyState_Run>();
 }
 
-// ================== JSON入力 ==================
+
 void BossEnemyAI::JsonInput(const nlohmann::json& _json)
 {
 	if (!_json.is_object()) return;
@@ -91,6 +89,7 @@ void BossEnemyAI::JsonInput(const nlohmann::json& _json)
 
 	const auto& node = _json["BossEnemyAI"];
 
+	// contents使わなくてもvalueでデフォルト値設定できるのでそちらを使用
 	m_settings.chaseRange = node.value("chaseRange", m_settings.chaseRange);
 	m_settings.meleeRange = node.value("meleeRange", m_settings.meleeRange);
 	m_settings.justAvoidWaterCooldown = node.value("justAvoidWaterCooldown", m_settings.justAvoidWaterCooldown);
@@ -101,7 +100,7 @@ void BossEnemyAI::JsonInput(const nlohmann::json& _json)
 	m_settings.randomRangeMaxExclusive = node.value("randomRangeMaxExclusive", m_settings.randomRangeMaxExclusive);
 }
 
-// ================== JSON保存 ==================
+
 void BossEnemyAI::JsonSave()
 {
 	nlohmann::json root = nlohmann::json::object();

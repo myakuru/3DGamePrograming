@@ -5,10 +5,8 @@
 #include"Application/main.h"
 #include"Application/GameObject/Character/Player/Player.h"
 
-#include"Application/GameObject/Effect/EffekseerEffect/AetheriusEnemyEffect/AetheriusEnemy_AttackEffect/AetheriusEnemy_AttackEffect.h"
-
 #include "Application/GameObject/Utility/EffectReference.h"
-#include "Application/GameObject/Effect/EffekseerEffect/EnemyEffect/EnemyEffect.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
 
 void EnemyState_Attack::StateStart()
 {
@@ -166,7 +164,8 @@ void EnemyState_Attack::ExposeParametersImGui()
 		m_enemyEffects[i]->ImGuiInspector("EffectSelection");
 		ImGui::PopID();
 	}
-
+	if (ImGui::SmallButton("+")) { m_enemyEffects.emplace_back(std::make_shared<EffectReference>()); }
+	if (ImGui::SmallButton("-")) { if (!m_enemyEffects.empty()) m_enemyEffects.pop_back(); }
 
 	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
 	ImGui::DragFloat(U8("ダッシュ移動速度"), &m_stateParameter.dashSpeed, 0.01f, 0.0f, 10.0f);

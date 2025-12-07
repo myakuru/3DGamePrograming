@@ -3,6 +3,7 @@
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 
 class Player;
+class EffectReference;
 
 class BossEnemyStateBase : public StateBase
 {
@@ -29,7 +30,7 @@ class BossEnemyStateBase : public StateBase
 	};
 
 public:
-	BossEnemyStateBase() = default;
+	BossEnemyStateBase();
 	~BossEnemyStateBase() override = default;
 
 	void SetBossEnemy(BossEnemy* enemy) { m_bossEnemy = enemy; }
@@ -72,5 +73,8 @@ protected:
 	std::vector<std::weak_ptr<Player>> m_player;
 
 	StateParameter m_stateParameter;
+
+	// エフェクト参照（複数）
+	std::vector<std::shared_ptr<EffectReference>> m_enemyEffects;
 
 };

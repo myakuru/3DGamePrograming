@@ -172,10 +172,16 @@ void ConstructionSiteStage::SearchEnemy()
 	if (SceneManager::Instance().IsBossAppear() && !m_bossAppear)
 	{
 		m_bossAppear = true;
+		SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::EnemyLike, m_bossEnemies);
 
-		auto bossEnemy = std::make_shared<BossEnemy>();
-		bossEnemy->Init();
-		SceneManager::Instance().AddObject(bossEnemy);
+		for(auto wb : m_bossEnemies)
+		{
+			if (auto boss = wb.lock())
+			{
+				boss->StateInit();
+				SceneManager::Instance().SetBossAppear(true);
+			}
+		}
 
 		// このフレームではbossExistsはまだfalseのため、即クリアへ入らないよう終了
 		return;

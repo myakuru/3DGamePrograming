@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include"../BossEnemyState.h"
-class EnemyShineBlue;
 class BossEnemyState_WaterAttack_end : public BossEnemyStateBase
 {
 public:
@@ -17,7 +16,5 @@ private:
 	void ExposeParametersImGui() override;
 	void LoadParametersJson(const nlohmann::json& js) override;
 	void SaveParametersJson(nlohmann::json& js) const override;
-
-	std::list<std::weak_ptr<EnemyShineBlue>> m_shineEffectBlues;
 
 };

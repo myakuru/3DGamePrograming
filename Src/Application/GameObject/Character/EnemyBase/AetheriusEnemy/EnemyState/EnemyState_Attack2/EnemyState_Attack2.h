@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include"../EnemyStateBase.h"
-class AetheriusEnemy_Attack_2Effect;
 
 class EnemyState_Attack2 : public EnemyStateBase
 {
@@ -18,7 +17,5 @@ public:
 	void SaveParametersJson(nlohmann::json& js) const override;
 
 private:
-
-	std::weak_ptr<AetheriusEnemy_Attack_2Effect> m_attack2Effect;
 
 };

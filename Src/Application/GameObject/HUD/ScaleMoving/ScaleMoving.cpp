@@ -7,6 +7,12 @@
 const uint32_t ScaleMoving::TypeID = KdGameObject::GenerateTypeID();
 
 
+void ScaleMoving::Init()
+{
+	SelectDraw2DTexture::Init();
+	m_position = Math::Vector3(470.0f, 304.2f, 0.0f);
+}
+
 void ScaleMoving::Update()
 {
 	float timeLeft = Time::Instance().GetCountdownTimeLeft();
@@ -79,7 +85,7 @@ void ScaleMoving::ImGuiInspector()
 
 void ScaleMoving::JsonSave(nlohmann::json& _json) const
 {
-	SelectDraw2DTexture::JsonSave(_json);
+	//SelectDraw2DTexture::JsonSave(_json);
 	_json["DawnTimer"] = m_dawnTimer;
 	_json["DawnPos"] = JSON_MANAGER.VectorToJson(m_dawnPos);
 }

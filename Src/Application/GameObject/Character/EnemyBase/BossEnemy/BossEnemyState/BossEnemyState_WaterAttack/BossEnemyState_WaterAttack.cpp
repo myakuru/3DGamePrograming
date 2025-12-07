@@ -5,6 +5,9 @@
 #include"Application/Scene/SceneManager.h"
 #include"Application/main.h"
 
+#include "Application/GameObject/Utility/EffectReference.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
+
 void BossEnemyState_WaterAttack::StateStart()
 {
 	auto anime = m_bossEnemy->GetAnimeModel()->GetAnimation("Attack_Water");
@@ -18,8 +21,6 @@ void BossEnemyState_WaterAttack::StateStart()
 	// 行動CDと直前行動
 	m_bossEnemy->SetWaterCooldown(6.0f);
 	m_bossEnemy->SetLastAction(BossEnemy::ActionType::Water);
-
-	SceneManager::Instance().GetObjectWeakPtr(m_waterAttackEffect);
 
 	KdAudioManager::Instance().Play("Asset/Sound/BossEnemy/WaterAttack.WAV", false)->SetVolume(1.0f);
 }
@@ -44,10 +45,13 @@ void BossEnemyState_WaterAttack::StateUpdate()
 			m_stateParameter.attackEndTime
 		);
 
-		if (auto effect = m_waterAttackEffect.lock())
+		// エフェクト再生・移動停止（複数）
+		for (const auto& ref : m_enemyEffects)
 		{
-			// エフェクトの初期化
-			effect->SetPlayEffect(true);
+			if (auto effect = ref->GetEffectBase().lock())
+			{
+				effect->PlayForTarget<BossEnemy>(std::static_pointer_cast<BossEnemy>(m_bossEnemy->GetMyAdls()));
+			}
 		}
 	}
 
@@ -72,11 +76,12 @@ void BossEnemyState_WaterAttack::StateUpdate()
 
 void BossEnemyState_WaterAttack::StateEnd()
 {
-	if (auto effect = m_waterAttackEffect.lock())
+	for (const auto& ref : m_enemyEffects)
 	{
-		// エフェクトの初期化
-		effect->SetPlayEffect(false);
-		effect->StopEffect();
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->StopEffect();
+		}
 	}
 }
 
@@ -97,10 +102,22 @@ void BossEnemyState_WaterAttack::ApplyFromConfig(const BossEnemyStateBase& other
 	m_stateParameter.attackInterval = p.m_stateParameter.attackInterval;
 	m_stateParameter.attackStartTime = p.m_stateParameter.attackStartTime;
 	m_stateParameter.attackEndTime = p.m_stateParameter.attackEndTime;
+
+	m_enemyEffects = p.m_enemyEffects;
 }
 
 void BossEnemyState_WaterAttack::ExposeParametersImGui()
 {
+	ImGui::Text("Effects");
+	for (size_t i = 0; i < m_enemyEffects.size(); ++i)
+	{
+		ImGui::PushID(static_cast<int>(i));
+		m_enemyEffects[i]->ImGuiInspector("EffectSelection");
+		ImGui::PopID();
+	}
+	if (ImGui::SmallButton("+")) { m_enemyEffects.emplace_back(std::make_shared<EffectReference>()); }
+	if (ImGui::SmallButton("-")) { if (!m_enemyEffects.empty()) m_enemyEffects.pop_back(); }
+
 	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
 	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed, 1.0f, 1.0f, 200.0f);
 	ImGui::DragFloat(U8("ダッシュ移動速度"), &m_stateParameter.dashSpeed, 0.01f, 0.0f, 10.0f);
@@ -152,6 +169,18 @@ void BossEnemyState_WaterAttack::ExposeParametersImGui()
 
 void BossEnemyState_WaterAttack::LoadParametersJson(const nlohmann::json& js)
 {
+	// 複数のみ
+	if (js.contains("BossEnemyState_WaterAttack_Effects") && js["BossEnemyState_WaterAttack_Effects"].is_array())
+	{
+		m_enemyEffects.clear();
+		for (const auto& node : js["BossEnemyState_WaterAttack_Effects"])
+		{
+			auto ref = std::make_shared<EffectReference>();
+			ref->JsonInput("Effect", node);
+			m_enemyEffects.emplace_back(std::move(ref));
+		}
+	}
+
 	if (!js.contains("BossEnemyState_WaterAttack")) return;
 	const auto& stateNode = js["BossEnemyState_WaterAttack"];
 	if (stateNode.contains("BossEnemy"))
@@ -174,6 +203,17 @@ void BossEnemyState_WaterAttack::LoadParametersJson(const nlohmann::json& js)
 
 void BossEnemyState_WaterAttack::SaveParametersJson(nlohmann::json& js) const
 {
+	// 複数のみ
+	nlohmann::json arr = nlohmann::json::array();
+	for (const auto& ref : m_enemyEffects)
+	{
+		nlohmann::json item = nlohmann::json::object();
+		ref->JsonSave("Effect", item);
+		arr.push_back(item);
+	}
+	js["BossEnemyState_WaterAttack_Effects"] = std::move(arr);
+
+
 	if (!js.contains("BossEnemyState_WaterAttack")) js["BossEnemyState_WaterAttack"] = nlohmann::json::object();
 	auto& stateNode = js["BossEnemyState_WaterAttack"];
 

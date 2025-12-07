@@ -48,6 +48,11 @@
       "distanceThreshold": 10.0
     }
   },
+  "EnemyState_Attack1_Effects": [
+    {
+      "Effect": "5f4f9524-de96-41fe-a950-bc9d7863ef31"
+    }
+  ],
   "EnemyState_Attack2": {
     "AetheriusEnemy": {
       "attackActiveEndTime": 1.0,
@@ -64,6 +69,16 @@
       "distanceThreshold": 10.0
     }
   },
+  "EnemyState_Attack2_Effects": [
+    {
+      "Effect": "c08dfad5-477c-4846-86de-55aa18bb726f"
+    }
+  ],
+  "EnemyState_Attack3_Effects": [
+    {
+      "Effect": "df818d29-a7ac-4334-a0f3-8043538c8454"
+    }
+  ],
   "EnemyState_Attack_Effects": [
     {
       "Effect": "2e820282-792f-4ce0-a6ce-bff0c5d56abd"

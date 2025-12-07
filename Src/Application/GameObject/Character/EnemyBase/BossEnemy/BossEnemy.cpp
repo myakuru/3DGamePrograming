@@ -22,7 +22,6 @@ void BossEnemy::Init()
 	EnemyBase::Init(); // CharacterBase::Init() 呼び出し済み
 
 	m_modelWork->SetModelData("Asset/Models/Enemy/BossEnemy/BossEnemy.gltf");
-	SetDrawFlag("DrawLit", true);
 
 	Movement().rotateSpeed = 10.0f;
 	Movement().moveSpeed = 0.1f;
@@ -32,9 +31,6 @@ void BossEnemy::Init()
 	m_position = { -8.0f, 101.0f, 18.0f };
 
 	m_lastAction = ActionType::None;
-
-	// ステート初期化
-	StateInit();
 
 	// ステータス初期値（暫定）
 	GetCharacterData()->SetCharacterData().hp = 500;
@@ -61,6 +57,8 @@ void BossEnemy::Init()
 
 void BossEnemy::Update()
 {
+	if (!SceneManager::Instance().IsBossAppear()) return;
+
 	float unscaledDt = Application::Instance().GetUnscaledDeltaTime();
 	float dt = Application::Instance().GetDeltaTime();
 
@@ -159,6 +157,12 @@ void BossEnemy::Update()
 		ChangeState(dodgeState);
 		return;
 	}*/
+}
+
+void BossEnemy::DrawLit()
+{
+	if (!SceneManager::Instance().IsBossAppear()) return;
+	SelectDraw3dModel::DrawLit();
 }
 
 void BossEnemy::StateInit()

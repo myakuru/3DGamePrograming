@@ -22,6 +22,11 @@ void Timer::Init()
 	m_displayTime = 0; // 初期表示時間を0に設定
 	m_lastTime = 0.0f; // 最後の時間を初期化
 
+	if (SceneManager::Instance().GetCurrentScene()->GetSceneName() == "ConstructionSiteStage")
+	{
+		m_position = Math::Vector3(650.0f, 366.6f, 0.0f);
+	}
+
 	m_scale = { 0.015f, 0.15f, 1.0f };
 	m_resultScaleInited = false;
 }

@@ -65,6 +65,7 @@ void BossEnemyState_WaterAttack_end::ApplyFromConfig(const BossEnemyStateBase& o
 	m_stateParameter.attackInterval = p.m_stateParameter.attackInterval;
 	m_stateParameter.attackStartTime = p.m_stateParameter.attackStartTime;
 	m_stateParameter.attackEndTime = p.m_stateParameter.attackEndTime;
+
 }
 
 void BossEnemyState_WaterAttack_end::ExposeParametersImGui()

@@ -3,7 +3,9 @@
 #include"../EnemyState_Run/EnemyState_Run.h"
 #include"Application/GameObject/Character/Player/Player.h"
 #include "Application/Scene/SceneManager.h"
-#include "Application/GameObject/Effect/EffekseerEffect/AetheriusEnemyEffect/AetheriusEnemy_Attack_3Effect/AetheriusEnemy_Attack_3Effect.h"
+
+#include "Application/GameObject/Utility/EffectReference.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
 
 void EnemState_Attack3::StateStart()
 {
@@ -15,8 +17,6 @@ void EnemState_Attack3::StateStart()
 
 	// 当たり判定リセット
 	m_enemy->ResetAttackCollision();
-
-	SceneManager::Instance().GetObjectWeakPtr(m_attack3Effect);
 }
 
 void EnemState_Attack3::StateUpdate()
@@ -28,11 +28,13 @@ void EnemState_Attack3::StateUpdate()
 	// アニメーション時間の35％から100％の間、攻撃判定有効
 	if (m_animeTime >= m_stateParameter.attackActiveStartTime && m_animeTime <= m_stateParameter.attackActiveEndTime)
 	{
-		// エフェクト再生
-		if (auto effect = m_attack3Effect.lock(); !m_effectPlayed)
+		// エフェクト再生・移動停止（複数）
+		for (const auto& ref : m_enemyEffects)
 		{
-			effect->PlayForEnemy(std::static_pointer_cast<AetheriusEnemy>(m_enemy->GetMyAdls()));
-			m_effectPlayed = true;
+			if (auto effect = ref->GetEffectBase().lock())
+			{
+				effect->PlayForTarget<AetheriusEnemy>(std::static_pointer_cast<AetheriusEnemy>(m_enemy->GetMyAdls()));
+			}
 		}
 
 		m_enemy->UpdateAttackCollision
@@ -80,6 +82,14 @@ void EnemState_Attack3::StateUpdate()
 
 void EnemState_Attack3::StateEnd()
 {
+	for (const auto& ref : m_enemyEffects)
+	{
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->StopEffect();
+		}
+	}
+
 	m_enemy->SetInvincible(false);
 }
 
@@ -101,10 +111,22 @@ void EnemState_Attack3::ApplyFromConfig(const EnemyStateBase& other)
 	m_stateParameter.attackInterval = p.m_stateParameter.attackInterval;
 	m_stateParameter.attackStartTime = p.m_stateParameter.attackStartTime;
 	m_stateParameter.attackEndTime = p.m_stateParameter.attackEndTime;
+
+	m_enemyEffects = p.m_enemyEffects;
 }
 
 void EnemState_Attack3::ExposeParametersImGui()
 {
+	ImGui::Text("Effects");
+	for (size_t i = 0; i < m_enemyEffects.size(); ++i)
+	{
+		ImGui::PushID(static_cast<int>(i));
+		m_enemyEffects[i]->ImGuiInspector("EffectSelection");
+		ImGui::PopID();
+	}
+	if (ImGui::SmallButton("+")) { m_enemyEffects.emplace_back(std::make_shared<EffectReference>()); }
+	if (ImGui::SmallButton("-")) { if (!m_enemyEffects.empty()) m_enemyEffects.pop_back(); }
+
 	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
 	ImGui::DragFloat(U8("ダッシュ移動速度"), &m_stateParameter.dashSpeed, 0.01f, 0.0f, 10.0f);
 	ImGui::DragFloat(U8("ダッシュ移動速度時間"), &m_stateParameter.dashSpeedTime, 0.01f, 0.0f, 5.0f);
@@ -157,6 +179,18 @@ void EnemState_Attack3::ExposeParametersImGui()
 
 void EnemState_Attack3::LoadParametersJson(const nlohmann::json& js)
 {
+	// 複数のみ
+	if (js.contains("EnemyState_Attack3_Effects") && js["EnemyState_Attack3_Effects"].is_array())
+	{
+		m_enemyEffects.clear();
+		for (const auto& node : js["EnemyState_Attack3_Effects"])
+		{
+			auto ref = std::make_shared<EffectReference>();
+			ref->JsonInput("Effect", node);
+			m_enemyEffects.emplace_back(std::move(ref));
+		}
+	}
+
 	if (!js.contains("EnemState_Attack3")) return;
 	const auto& stateNode = js["EnemState_Attack3"];
 	if (stateNode.contains("AetheriusEnemy"))
@@ -181,6 +215,17 @@ void EnemState_Attack3::LoadParametersJson(const nlohmann::json& js)
 
 void EnemState_Attack3::SaveParametersJson(nlohmann::json& js) const
 {
+	// 複数のみ
+	nlohmann::json arr = nlohmann::json::array();
+	for (const auto& ref : m_enemyEffects)
+	{
+		nlohmann::json item = nlohmann::json::object();
+		ref->JsonSave("Effect", item);
+		arr.push_back(item);
+	}
+	js["EnemyState_Attack3_Effects"] = std::move(arr);
+
+
 	if (!js.contains("EnemState_Attack3")) js["EnemState_Attack3"] = nlohmann::json::object();
 	auto& stateNode = js["EnemState_Attack3"];
 

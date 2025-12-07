@@ -19,6 +19,7 @@ public:
 
 	void Init() override;
 	void Update() override;
+	void DrawLit() override;
 
 	void StateInit();
 	void ChangeState(std::shared_ptr<BossEnemyStateBase> _state);

@@ -5,7 +5,10 @@
 #include"../BossEnemyAI.h"
 #include"Application/main.h"
 #include "Application/Scene/SceneManager.h"
-#include"Application/GameObject/Effect/EffekseerEffect/BossAttack_1stEffect/BossAttack_1stEffect.h"
+
+#include "Application/GameObject/Utility/EffectReference.h"
+#include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
+
 
 void BossEnemyState_Attack_R::StateStart()
 {
@@ -21,8 +24,6 @@ void BossEnemyState_Attack_R::StateStart()
 	// 近接CDと直前行動をセット
 	m_bossEnemy->SetMeleeCooldown(1.0f);
 	m_bossEnemy->SetLastAction(BossEnemy::ActionType::AttackR);
-
-	SceneManager::Instance().GetObjectWeakPtr(m_attackEffect);
 }
 
 void BossEnemyState_Attack_R::StateUpdate()
@@ -53,9 +54,13 @@ void BossEnemyState_Attack_R::StateUpdate()
 
 	if (m_animeTime >= m_stateParameter.attackActiveStartTime)
 	{
-		if (const auto& effect = m_attackEffect.lock())
+		// エフェクト再生・移動停止（複数）
+		for (const auto& ref : m_enemyEffects)
 		{
-			effect->SetPlayEffect(true);
+			if (auto effect = ref->GetEffectBase().lock())
+			{
+				effect->PlayForTarget<BossEnemy>(std::static_pointer_cast<BossEnemy>(m_bossEnemy->GetMyAdls()));
+			}
 		}
 	}
 
@@ -81,10 +86,12 @@ void BossEnemyState_Attack_R::StateEnd()
 {
 	m_bossEnemy->SetInvincible(false);
 
-	if (const auto& effect = m_attackEffect.lock())
+	for (const auto& ref : m_enemyEffects)
 	{
-		effect->SetPlayEffect(false);
-		effect->StopEffect();
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->StopEffect();
+		}
 	}
 }
 
@@ -106,10 +113,22 @@ void BossEnemyState_Attack_R::ApplyFromConfig(const BossEnemyStateBase& other)
 	m_stateParameter.attackInterval = p.m_stateParameter.attackInterval;
 	m_stateParameter.attackStartTime = p.m_stateParameter.attackStartTime;
 	m_stateParameter.attackEndTime = p.m_stateParameter.attackEndTime;
+
+	m_enemyEffects = p.m_enemyEffects;
 }
 
 void BossEnemyState_Attack_R::ExposeParametersImGui()
 {
+	ImGui::Text("Effects");
+	for (size_t i = 0; i < m_enemyEffects.size(); ++i)
+	{
+		ImGui::PushID(static_cast<int>(i));
+		m_enemyEffects[i]->ImGuiInspector("EffectSelection");
+		ImGui::PopID();
+	}
+	if (ImGui::SmallButton("+")) { m_enemyEffects.emplace_back(std::make_shared<EffectReference>()); }
+	if (ImGui::SmallButton("-")) { if (!m_enemyEffects.empty()) m_enemyEffects.pop_back(); }
+
 	ImGui::DragFloat(U8("アニメーションブレンド"), &m_stateParameter.blendTime);
 	ImGui::DragFloat(U8("アニメーション速度"), &m_stateParameter.animationSpeed, 1.0f, 1.0f, 200.0f);
 	ImGui::DragFloat(U8("ダッシュ移動速度"), &m_stateParameter.dashSpeed, 0.01f, 0.0f, 10.0f);
@@ -162,6 +181,19 @@ void BossEnemyState_Attack_R::ExposeParametersImGui()
 
 void BossEnemyState_Attack_R::LoadParametersJson(const nlohmann::json& js)
 {
+	// 複数のみ
+	if (js.contains("BossEnemyState_Attack_R_Effects") && js["BossEnemyState_Attack_R_Effects"].is_array())
+	{
+		m_enemyEffects.clear();
+		for (const auto& node : js["BossEnemyState_Attack_R_Effects"])
+		{
+			auto ref = std::make_shared<EffectReference>();
+			ref->JsonInput("Effect", node);
+			m_enemyEffects.emplace_back(std::move(ref));
+		}
+	}
+
+
 	if (!js.contains("BossEnemyState_Attack_R")) return;
 	const auto& stateNode = js["BossEnemyState_Attack_R"];
 	if (stateNode.contains("BossEnemy"))
@@ -185,6 +217,17 @@ void BossEnemyState_Attack_R::LoadParametersJson(const nlohmann::json& js)
 
 void BossEnemyState_Attack_R::SaveParametersJson(nlohmann::json& js) const
 {
+	// 複数のみ
+	nlohmann::json arr = nlohmann::json::array();
+	for (const auto& ref : m_enemyEffects)
+	{
+		nlohmann::json item = nlohmann::json::object();
+		ref->JsonSave("Effect", item);
+		arr.push_back(item);
+	}
+	js["BossEnemyState_Attack_R_Effects"] = std::move(arr);
+
+
 	if (!js.contains("BossEnemyState_Attack_R")) js["BossEnemyState_Attack_R"] = nlohmann::json::object();
 	auto& stateNode = js["BossEnemyState_Attack_R"];
 
