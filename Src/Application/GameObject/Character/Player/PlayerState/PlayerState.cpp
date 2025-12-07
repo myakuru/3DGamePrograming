@@ -46,6 +46,13 @@ void PlayerStateBase::StateStart()
 		{
 			auto enemy = w.lock();
 			if (!enemy) continue;
+
+			// もしボスが出現していなければ無視
+			if (enemy->GetTypeID() == BossEnemy::TypeID && !SceneManager::Instance().IsBossAppear())
+			{
+				continue;
+			}
+
 			const float distance = (enemy->GetPos() - m_player->GetPos()).LengthSquared();
 			if (distance < minSq)
 			{

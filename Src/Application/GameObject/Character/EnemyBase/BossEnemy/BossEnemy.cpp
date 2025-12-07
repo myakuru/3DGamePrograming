@@ -21,6 +21,8 @@ void BossEnemy::Init()
 {
 	EnemyBase::Init(); // CharacterBase::Init() 呼び出し済み
 
+	if (!SceneManager::Instance().IsBossAppear()) return;
+
 	m_modelWork->SetModelData("Asset/Models/Enemy/BossEnemy/BossEnemy.gltf");
 
 	Movement().rotateSpeed = 10.0f;
@@ -31,6 +33,8 @@ void BossEnemy::Init()
 	m_position = { -8.0f, 101.0f, 18.0f };
 
 	m_lastAction = ActionType::None;
+
+	StateInit();
 
 	// ステータス初期値（暫定）
 	GetCharacterData()->SetCharacterData().hp = 500;

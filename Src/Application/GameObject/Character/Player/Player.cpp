@@ -150,6 +150,12 @@ void Player::PostUpdate()
 		auto obj = enemyWeakPtr.lock();
 		if (!obj) { continue; }
 
+		// もしボスが出現していなければ無視
+		if (obj->GetTypeID() == BossEnemy::TypeID && !SceneManager::Instance().IsBossAppear())
+		{
+			continue;
+		}
+
 		obj->Intersects(enemyHit, &retSpherelist);
 	}
 
@@ -404,6 +410,12 @@ void Player::UpdateAttackCollision(float _radius         , float         _distan
 		{
 			auto obj = wk.lock();
 			if (!obj) continue;
+
+			// もしボスが出現していなければ無視
+			if (obj->GetTypeID() == BossEnemy::TypeID && !SceneManager::Instance().IsBossAppear())
+			{
+				continue;
+			}
 
 			std::list<KdCollider::CollisionResult> results;
 			if (obj->Intersects(attackSphere, &results) && !results.empty())

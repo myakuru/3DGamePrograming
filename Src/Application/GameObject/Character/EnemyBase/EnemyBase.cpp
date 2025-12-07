@@ -13,7 +13,10 @@ void EnemyBase::Init()
 
 	Movement().rotateSpeed = 10.0f;
 
-	GetAnimator()->SetAnimation(m_modelWork->GetData()->GetAnimation("Idle"));
+	if (GetAnimator())
+	{
+		GetAnimator()->SetAnimation(m_modelWork->GetData()->GetAnimation("Idle"));
+	}
 
 	m_pCollider = std::make_unique<KdCollider>();
 	m_pCollider->RegisterCollisionShape("EnemySphere", GetBoundingSphere(), KdCollider::TypeDamage);
