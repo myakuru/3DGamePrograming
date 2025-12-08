@@ -33,8 +33,27 @@ void EnemyState_Attack1::StateUpdate()
 		m_enemy->UpdateQuaternionDirect(moveDir);
 	}
 
+	if (m_animeTime >= 0.2)
+	{
+		m_stopped = true;
+	}
 
 	float deltaTime = Application::Instance().GetDeltaTime();
+
+	// 攻撃するタイミングでヒットストップをかける（攻撃前兆）
+	if (m_stopped)
+	{
+		m_hitStopTimer += deltaTime;
+
+		if (m_hitStopTimer <= m_animationStopTime)
+		{
+			m_enemy->SetHitStop(m_hitStopTime);
+		}
+		else
+		{
+			m_enemy->SetHitStop(m_KdefaultHitStopTime);
+		}
+	}
 
 	m_time += deltaTime;
 
@@ -157,6 +176,10 @@ void EnemyState_Attack1::ExposeParametersImGui()
 	ImGui::DragFloat(U8("当たり判定エンド時間"), &m_stateParameter.attackActiveEndTime, 0.01f, 0.0f, 10.0f);
 	ImGui::DragFloat(U8("距離閾値"), &m_stateParameter.distanceThreshold, 0.1f, 0.0f, 100.0f);
 
+	ImGui::Text(U8("攻撃前兆の設定"));
+	ImGui::DragFloat(U8("アニメーション停止時間"), &m_animationStopTime, 0.01f, 0.0f, 1.0f);
+	ImGui::DragFloat(U8("ヒットストップ時間"), &m_hitStopTime, 0.001f, 0.0f, 1.0f);
+
 	const float kLabelWidth = 160.0f;
 	const float kItemWidth = 180.0f;
 
@@ -226,6 +249,8 @@ void EnemyState_Attack1::LoadParametersJson(const nlohmann::json& js)
 		if (enemyNode.contains("attackActiveStartTime")) m_stateParameter.attackActiveStartTime = enemyNode["attackActiveStartTime"].get<float>();
 		if (enemyNode.contains("attackActiveEndTime")) m_stateParameter.attackActiveEndTime = enemyNode["attackActiveEndTime"].get<float>();
 		if (enemyNode.contains("distanceThreshold")) m_stateParameter.distanceThreshold = enemyNode["distanceThreshold"].get<float>();
+		if (enemyNode.contains("animationSpeed")) m_stateParameter.animationSpeed = enemyNode["animationSpeed"].get<float>();
+		if (enemyNode.contains("hitStopTime")) m_hitStopTime = enemyNode["hitStopTime"].get<float>();
 
 		// 当たり判定設定
 		if (enemyNode.contains("attackRadius")) m_stateParameter.attackRadius = enemyNode["attackRadius"].get<float>();
@@ -258,6 +283,8 @@ void EnemyState_Attack1::SaveParametersJson(nlohmann::json& js) const
 	stateNode["AetheriusEnemy"]["attackActiveStartTime"] = m_stateParameter.attackActiveStartTime;
 	stateNode["AetheriusEnemy"]["attackActiveEndTime"] = m_stateParameter.attackActiveEndTime;
 	stateNode["AetheriusEnemy"]["distanceThreshold"] = m_stateParameter.distanceThreshold;
+	stateNode["AetheriusEnemy"]["animationSpeed"] = m_stateParameter.animationSpeed;
+	stateNode["AetheriusEnemy"]["hitStopTime"] = m_hitStopTime;
 
 	// 当たり判定設定
 	stateNode["AetheriusEnemy"]["attackRadius"] = m_stateParameter.attackRadius;

@@ -246,6 +246,8 @@ void EnemyState_Attack::LoadParametersJson(const nlohmann::json& js)
 		if (enemyNode.contains("dashSpeed")) m_stateParameter.dashSpeed = enemyNode["dashSpeed"].get<float>();
 		if (enemyNode.contains("dashSpeedTime")) m_stateParameter.dashSpeedTime = enemyNode["dashSpeedTime"].get<float>();
 		if (enemyNode.contains("fpsScale")) m_fpsScale = enemyNode["fpsScale"].get<float>();
+		if (enemyNode.contains("animationSpeed")) m_stateParameter.animationSpeed = enemyNode["animationSpeed"].get<float>();
+		if (enemyNode.contains("hitStopTime")) m_hitStopTime = enemyNode["hitStopTime"].get<float>();
 
 		// 当たり判定有効時間
 		if (enemyNode.contains("attackActiveStartTime")) m_stateParameter.attackActiveStartTime = enemyNode["attackActiveStartTime"].get<float>();
@@ -283,6 +285,8 @@ void EnemyState_Attack::SaveParametersJson(nlohmann::json& js) const
 	stateNode["AetheriusEnemy"]["dashSpeed"] = m_stateParameter.dashSpeed;
 	stateNode["AetheriusEnemy"]["dashSpeedTime"] = m_stateParameter.dashSpeedTime;
 	stateNode["AetheriusEnemy"]["fpsScale"] = m_fpsScale;
+	stateNode["AetheriusEnemy"]["animationSpeed"] = m_stateParameter.animationSpeed;
+	stateNode["AetheriusEnemy"]["hitStopTime"] = m_hitStopTime;
 
 	// 当たり判定有効時間
 	stateNode["AetheriusEnemy"]["attackActiveStartTime"] = m_stateParameter.attackActiveStartTime;

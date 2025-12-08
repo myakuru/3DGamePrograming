@@ -358,10 +358,6 @@
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttack\PlayerState_SpecialAttack.h" />
     <ClInclude Include="Src\Application\GameObject\Collition\Collition.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.h" />
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\BossAttack_1stEffect\BossAttack_1stEffect.h" />
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\BossEnemyEnterEffect\BossEnemyEnterEffect.h" />
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterAttackEffect\BossWaterAttackEffect.h" />
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack\BossWaterFallAttack.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\CharacterEffect\CharacterEffect.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectBase.h" />
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectManager.h" />
@@ -545,10 +541,6 @@
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttack\PlayerState_SpecialAttack.cpp" />
     <ClCompile Include="Src\Application\GameObject\Collition\Collition.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.cpp" />
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\BossAttack_1stEffect\BossAttack_1stEffect.cpp" />
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\BossEnemyEnterEffect\BossEnemyEnterEffect.cpp" />
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterAttackEffect\BossWaterAttackEffect.cpp" />
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack\BossWaterFallAttack.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\CharacterEffect\CharacterEffect.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectBase.cpp" />
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectManager.cpp" />

@@ -1,7 +1,6 @@
 ﻿#include "BossEnemyState_WaterAttack.h"
 #include"../BossEnemyState_WaterAttack_end/BossEnemyState_WaterAttack_end.h"
 #include"../BossEnemyState_Idle/BossEnemyState_Idle.h"
-#include"Application/GameObject/Effect/EffekseerEffect/BossWaterAttackEffect/BossWaterAttackEffect.h"
 #include"Application/Scene/SceneManager.h"
 #include"Application/main.h"
 

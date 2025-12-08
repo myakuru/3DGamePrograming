@@ -3,7 +3,6 @@
 #include"../BossEnemyState_Attack_R/BossEnemyState_Attack_R.h"
 #include"../BossEnemyState_WaterAttack/BossEnemyState_WaterAttack.h"
 #include"Application/Scene/SceneManager.h"
-#include"Application/GameObject/Effect/EffekseerEffect/BossAttack_1stEffect/BossAttack_1stEffect.h"
 #include"../BossEnemyAI.h"
 #include"Application/GameObject/Character/Player/Player.h"
 #include"Application/main.h"

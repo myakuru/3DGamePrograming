@@ -178,7 +178,7 @@ void ConstructionSiteStage::SearchEnemy()
 		{
 			if (auto boss = wb.lock())
 			{
-				boss->Init();
+				boss->StateInit();
 				m_bossDefeated = false;
 				SceneManager::Instance().SetBossAppear(true);
 			}

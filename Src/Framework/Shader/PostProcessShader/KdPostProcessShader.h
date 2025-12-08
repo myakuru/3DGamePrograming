@@ -27,6 +27,32 @@ public:
 	// ノイズの強さを設定
 	void SetNoiseStrength(float strength) { m_cb0_NoiseInfo.Work().NoiseStrength = strength; }
 
+	// ノイズのターゲット位置を設定
+	void SetNoiseTargetPos(const Math::Vector2& screenPosCenterOrigin, bool enableWarningSign)
+	{
+		// 現在のビューポート取得
+		Math::Viewport vp;
+		KdDirect3D::Instance().CopyViewportInfo(vp);
+
+		// 画面中心原点[-halfW..halfW], [-halfH..halfH] → 画面左上原点[0..W],[0..H]
+		const float halfW = vp.width * 0.5f;
+		const float halfH = vp.height * 0.5f;
+
+		float px = screenPosCenterOrigin.x + halfW;
+		float py = screenPosCenterOrigin.y + halfH;
+
+		// ピクセル → UV 正規化
+		float u = px / vp.width;
+		float v = py / vp.height;
+
+		// 必要ならY反転（UVのY上原点に合わせる場合はコメントアウト）
+		// v = 1.0f - v;
+
+		// 定数バッファへ
+		m_cb0_NoiseInfo.Work().m_targetPos = { u, v };
+		m_cb0_NoiseInfo.Work().WarningSign = enableWarningSign ? 1 : 0;
+	}
+
 	const KdRenderTargetPack& GetNoiseRenderTargetPack() const { return m_noiseRTPack; }
 
 	// 放射状ブラーの有効無効を設定
@@ -147,12 +173,16 @@ private:
 	ID3D11PixelShader* m_PS_Noise = nullptr;
 	ID3D11PixelShader* m_PS_RadialBlur = nullptr;	// 放射状ブラー用
 
+	// ノイズ用定数バッファ
 	struct cbNoise
 	{
 		float NoiseStrength;
 		float Time;
 		int EnableGray;
 		int EnableNoise;
+		int WarningSign;
+		Math::Vector2 m_targetPos;
+		float _blank;
 	};
 	KdConstantBuffer<cbNoise> m_cb0_NoiseInfo;
 

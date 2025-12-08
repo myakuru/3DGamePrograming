@@ -42,10 +42,6 @@
 #include"../GameObject/Weapon/EnemyShield/EnemyShield.h"
 #include"../GameObject/HUD/EnemyHp/EnemyHp.h"
 #include"../GameObject/Effect/BillBoardEffect/MapGard/MapGard.h"
-#include"../GameObject/Effect/EffekseerEffect/BossAttack_1stEffect/BossAttack_1stEffect.h"
-#include"../GameObject/Effect/EffekseerEffect/BossEnemyEnterEffect/BossEnemyEnterEffect.h"
-#include"../GameObject/Effect/EffekseerEffect/BossWaterAttackEffect/BossWaterAttackEffect.h"
-#include"../GameObject/Effect/EffekseerEffect/BossWaterFallAttack/BossWaterFallAttack.h"
 #include"../GameObject/HUD/SkillBar/SkillBar.h"
 #include"../GameObject/HUD/ChallengeResults/ChallengeResults.h"
 #include"../GameObject/HUD/ScoreBackBar/ScoreBackBar.h"
@@ -122,10 +118,6 @@ void SceneManager::Register() const
 	RegisterObject::GetInstance().Register<Collision>();
 
 	// Effekseer系
-	RegisterObject::GetInstance().Register<BossAttack_1stEffect>();
-	RegisterObject::GetInstance().Register<BossEnemyEnterEffect>();
-	RegisterObject::GetInstance().Register<BossWaterAttackEffect>();
-	RegisterObject::GetInstance().Register<BossWaterFallAttack>();
 	RegisterObject::GetInstance().Register<EnemyHitEffect>();
 	RegisterObject::GetInstance().Register<EffekseerEffectManager>();
 	RegisterObject::GetInstance().Register<CharacterEffect>();	// Playerのエフェクト系

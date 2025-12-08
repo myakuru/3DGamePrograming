@@ -17,6 +17,7 @@
   },
   "EnemyState_Attack": {
     "AetheriusEnemy": {
+      "animationSpeed": 60.0,
       "attackActiveEndTime": 1.0,
       "attackActiveStartTime": 0.3499999940395355,
       "attackCount": 1,
@@ -29,11 +30,13 @@
       "dashSpeed": 0.699999988079071,
       "dashSpeedTime": 0.20000000298023224,
       "distanceThreshold": 10.0,
-      "fpsScale": 0.4000000059604645
+      "fpsScale": 0.4000000059604645,
+      "hitStopTime": 0.10000000149011612
     }
   },
   "EnemyState_Attack1": {
     "AetheriusEnemy": {
+      "animationSpeed": 60.0,
       "attackActiveEndTime": 1.0,
       "attackActiveStartTime": 0.3499999940395355,
       "attackCount": 1,
@@ -45,7 +48,8 @@
       "blendTime": 0.25,
       "dashSpeed": 0.699999988079071,
       "dashSpeedTime": 0.20000000298023224,
-      "distanceThreshold": 10.0
+      "distanceThreshold": 10.0,
+      "hitStopTime": 0.10000000149011612
     }
   },
   "EnemyState_Attack1_Effects": [

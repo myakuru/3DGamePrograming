@@ -1,7 +1,6 @@
 ﻿#include "BossEnemyState_WaterFall.h"
 #include"../BossEnemyState_Idle/BossEnemyState_Idle.h"
 #include"Application/Scene/SceneManager.h"
-#include"Application/GameObject/Effect/EffekseerEffect/BossWaterFallAttack/BossWaterFallAttack.h"
 #include "Application/main.h"
 
 #include "Application/GameObject/Utility/EffectReference.h"
@@ -22,6 +21,15 @@ void BossEnemyState_WaterFall::StateStart()
 	// 追加: 行動CDと直前行動
 	m_bossEnemy->SetWaterCooldown(2.0f);
 	m_bossEnemy->SetLastAction(BossEnemy::ActionType::WaterFall);
+
+	// エフェクト再生・移動停止（複数）
+	for (const auto& ref : m_enemyEffects)
+	{
+		if (auto effect = ref->GetEffectBase().lock())
+		{
+			effect->PlayForTarget<BossEnemy>(std::static_pointer_cast<BossEnemy>(m_bossEnemy->GetMyAdls()));
+		}
+	}
 
 	m_oneSound = false;
 }
@@ -50,15 +58,6 @@ void BossEnemyState_WaterFall::StateUpdate()
 		{
 			KdAudioManager::Instance().Play("Asset/Sound/BossEnemy/WaterFall.WAV", false)->SetVolume(1.0f);
 			m_oneSound = true;
-		}
-
-		// エフェクト再生・移動停止（複数）
-		for (const auto& ref : m_enemyEffects)
-		{
-			if (auto effect = ref->GetEffectBase().lock())
-			{
-				effect->PlayForTarget<BossEnemy>(std::static_pointer_cast<BossEnemy>(m_bossEnemy->GetMyAdls()));
-			}
 		}
 	}
 
@@ -198,6 +197,7 @@ void BossEnemyState_WaterFall::LoadParametersJson(const nlohmann::json& js)
 	{
 		const auto& enemyNode = stateNode["BossEnemy"];
 		if (enemyNode.contains("blendTime")) m_stateParameter.blendTime = enemyNode["blendTime"].get<float>();
+		if (enemyNode.contains("animationSpeed")) m_stateParameter.animationSpeed = enemyNode["animationSpeed"].get<float>();
 		if (enemyNode.contains("dashSpeed")) m_stateParameter.dashSpeed = enemyNode["dashSpeed"].get<float>();
 		if (enemyNode.contains("dashSpeedTime")) m_stateParameter.dashSpeedTime = enemyNode["dashSpeedTime"].get<float>();
 		if (enemyNode.contains("attackActiveStartTime")) m_stateParameter.attackActiveStartTime = enemyNode["attackActiveStartTime"].get<float>();
@@ -228,6 +228,7 @@ void BossEnemyState_WaterFall::SaveParametersJson(nlohmann::json& js) const
 	auto& stateNode = js["BossEnemyState_WaterFall"];
 
 	stateNode["BossEnemy"]["blendTime"] = m_stateParameter.blendTime;
+	stateNode["BossEnemy"]["animationSpeed"] = m_stateParameter.animationSpeed;
 	stateNode["BossEnemy"]["dashSpeed"] = m_stateParameter.dashSpeed;
 	stateNode["BossEnemy"]["dashSpeedTime"] = m_stateParameter.dashSpeedTime;
 	stateNode["BossEnemy"]["attackActiveStartTime"] = m_stateParameter.attackActiveStartTime;

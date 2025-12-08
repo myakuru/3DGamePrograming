@@ -86,7 +86,7 @@ void EnemyHp::DrawSprite()
 	// 非表示なら描画しない
 	if (!m_bDrawTexture || m_screenPosList.empty()) { return; }
 
-
+	// 黒い縁部分
 	for (const auto& pos : m_screenPosList)
 	{
 		KdShaderManager::Instance().m_spriteShader.DrawTex

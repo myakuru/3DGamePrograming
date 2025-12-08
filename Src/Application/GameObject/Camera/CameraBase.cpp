@@ -88,7 +88,7 @@ void CameraBase::UpdateRotateByMouse()
 	static bool prevTab = false; // 前フレームのTABキー状態
 
 	// TABキーの現在の状態
-	bool nowTab = (KeyboardManager::GetInstance().IsKeyJustPressed(VK_TAB));
+	bool nowTab = (KeyboardManager::GetInstance().IsKeyJustPressed(VK_F1));
 
 	// TABキーが押された瞬間だけトグル
 	if (nowTab && !prevTab)

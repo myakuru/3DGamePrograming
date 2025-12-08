@@ -5,6 +5,7 @@ class EnemyStateBase;
 class Player;
 class EnemySword;
 class EnemyShield;
+class PlayerCamera;
 class AetheriusEnemyConfig;
 
 class AetheriusEnemy : public EnemyBase
@@ -47,6 +48,7 @@ private:
 
 	std::vector<std::weak_ptr<EnemySword>>  m_enemySwords;	// 武器参照
 	std::vector<std::weak_ptr<EnemyShield>> m_enemyShields;	// 武器参照
+	std::weak_ptr<PlayerCamera> 			m_playerCamera;	// カメラ参照
 
 	std::weak_ptr<EnemySword>  m_wpSword;
 	std::weak_ptr<EnemyShield> m_wpShield;

@@ -196,18 +196,6 @@
     <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_IntroCamera">
       <UniqueIdentifier>{55946ce5-bd31-4fbd-abce-e4c1b3a9d3e2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\BossAttack_1stEffect">
-      <UniqueIdentifier>{9f65f227-0746-42a4-a3f0-e5c5f2778240}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\BossEnemyEnterEffect">
-      <UniqueIdentifier>{bd615a45-e8dd-47ef-a4b6-68fcacb68f7a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterAttackEffect">
-      <UniqueIdentifier>{b1f0e108-720f-4995-b1f8-00429ba15d3e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack">
-      <UniqueIdentifier>{c189cb03-a157-4263-a24b-b33784a9d369}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\HUD\SkillBar">
       <UniqueIdentifier>{44dfd8a7-2bd6-4535-b0fc-2ad4710b0b65}</UniqueIdentifier>
     </Filter>
@@ -843,18 +831,6 @@
     <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_IntroCamera\PlayerCameraState_IntroCamera.h">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_IntroCamera</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\BossAttack_1stEffect\BossAttack_1stEffect.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\BossAttack_1stEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\BossEnemyEnterEffect\BossEnemyEnterEffect.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\BossEnemyEnterEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterAttackEffect\BossWaterAttackEffect.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\BossWaterAttackEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack\BossWaterFallAttack.h">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\HUD\SkillBar\SkillBar.h">
       <Filter>Src\Application\GameObject\HUD\SkillBar</Filter>
     </ClInclude>
@@ -1372,18 +1348,6 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_IntroCamera\PlayerCameraState_IntroCamera.cpp">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_IntroCamera</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\BossAttack_1stEffect\BossAttack_1stEffect.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\BossAttack_1stEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\BossEnemyEnterEffect\BossEnemyEnterEffect.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\BossEnemyEnterEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterAttackEffect\BossWaterAttackEffect.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\BossWaterAttackEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack\BossWaterFallAttack.cpp">
-      <Filter>Src\Application\GameObject\Effect\EffekseerEffect\BossWaterFallAttack</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\HUD\SkillBar\SkillBar.cpp">
       <Filter>Src\Application\GameObject\HUD\SkillBar</Filter>

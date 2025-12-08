@@ -20,7 +20,7 @@ private:
 
 	float m_hitStopTimer = 0.0f;
 	bool m_stopped = false;
-	float m_animationStopTime = 0.5f;
+	float m_animationStopTime = 0.2f;
 	float m_hitStopTime = 0.1f;
 
 	const float m_KdefaultHitStopTime = 1.0f;

@@ -1045,8 +1045,8 @@
       "z": 1.0
     },
     "deg": {
-      "x": 9.750000953674316,
-      "y": 320.1500244140625,
+      "x": 13.799994468688965,
+      "y": 319.9998474121094,
       "z": 0.0
     },
     "fov": 70.0,
@@ -1084,7 +1084,7 @@
     "targetLookAt": {
       "x": 0.0,
       "y": 1.0,
-      "z": -2.5
+      "z": -2.499999523162842
     },
     "type": 32
   },
@@ -2968,7 +2968,7 @@
           "DrawLit": true,
           "DrawToon": false,
           "DrawUnLit": false,
-          "GenerateDepthMapFromLight": false
+          "GenerateDepthMapFromLight": true
         },
         "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_0.gltf",
         "pos": {
@@ -3116,7 +3116,7 @@
           "DrawLit": true,
           "DrawToon": false,
           "DrawUnLit": false,
-          "GenerateDepthMapFromLight": false
+          "GenerateDepthMapFromLight": true
         },
         "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_1.gltf",
         "pos": {
@@ -3153,7 +3153,7 @@
           "DrawLit": true,
           "DrawToon": false,
           "DrawUnLit": false,
-          "GenerateDepthMapFromLight": false
+          "GenerateDepthMapFromLight": true
         },
         "path": "Asset\\Models\\BuildingSphere\\BuildingSphere_3.gltf",
         "pos": {
@@ -5147,7 +5147,7 @@
       "DrawLit": true,
       "DrawToon": false,
       "DrawUnLit": false,
-      "GenerateDepthMapFromLight": false
+      "GenerateDepthMapFromLight": true
     },
     "fixedFps": 60.0,
     "moveSpeed": 0.05000000074505806,
@@ -5327,16 +5327,16 @@
       "z": 1.0
     },
     "deg": {
-      "x": -0.299986869096756,
-      "y": 353.2301330566406,
+      "x": 17.999919891357422,
+      "y": 273.5814208984375,
       "z": 0.0
     },
     "moveSpeed": 10.0,
     "path": "Asset/Models/Sky/Sky.gltf",
     "pos": {
-      "x": 5.6236395835876465,
-      "y": 102.94412994384766,
-      "z": -7.803741931915283
+      "x": 30.730104446411133,
+      "y": 135.7718048095703,
+      "z": 10.941843032836914
     },
     "scale": {
       "x": 1.0,

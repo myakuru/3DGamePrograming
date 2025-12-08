@@ -331,6 +331,7 @@ void KdPostProcessShader::NoiseProcess()
 	m_cb0_NoiseInfo.Work().Time = Time::Instance().GetElapsedTime();
 	m_cb0_NoiseInfo.Work().EnableGray = m_enableGray ? 1 : 0;
 	m_cb0_NoiseInfo.Work().EnableNoise = m_enableNoise ? 1 : 0;
+
 	m_cb0_NoiseInfo.Write();
 
 	ID3D11DeviceContext* DevCon = KdDirect3D::Instance().WorkDevContext();

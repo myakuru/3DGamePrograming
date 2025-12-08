@@ -27,7 +27,7 @@ private:
 	bool m_isCountDown = false; // カウントダウン中かどうか
 
 	float m_countDownTimer = 0.0f;		// カウントダウンタイマー
-	float m_countDownTimeMax = 2000.0f;	// カウントダウン時間最大値
+	float m_countDownTimeMax = 300.0f;	// カウントダウン時間最大値
 
 	std::weak_ptr<Player> m_player;
 	std::vector<std::weak_ptr<AetheriusEnemy>> m_aetheriusEnemies;
