@@ -151,7 +151,7 @@ float4 main(VSOutput In) : SV_Target0
 	float3 outColor = 0;
 	
 	//-------------------------------
-	// シャドウマッピング(影判定) - 平行光用（比較サンプラ、PCFなし）
+	// シャドウマッピング(影判定) - 平行光用（PCF 3x3, 通常サンプラ＋手動比較）
 	//-------------------------------
 
 	// シャドウの可視性係数（1.0=完全にライトが当たる、0.0=完全に影）
@@ -163,31 +163,52 @@ float4 main(VSOutput In) : SV_Target0
 	// 有効なカスケードが見つかったかどうか
 	bool cascadeFound = false;
 
-	// 比較サンプラの結果（0.0=遮蔽、1.0=非遮蔽）
+	// PCF平均可視性（0.0=遮蔽、1.0=非遮蔽）
 	float visibility = 1.0f;
+
+	// PCFフィルタのテクセルステップ（シャドウマップ解像度に合わせて調整推奨）
+	// 例: 2048x2048 の場合は 1/2048 を指定
+	const float2 pcfStep = float2(1.0f / 2048.0f, 1.0f / 2048.0f);
 
 	// 3つのカスケードシャドウマップを順にチェック
 	for (int cascadeIndex = 0; cascadeIndex < 3; cascadeIndex++)
 	{
-        // ライトのクリップ空間での深度値（z/w）。0～1に収まっている場合のみ有効
+		// ライトのクリップ空間での深度値（z/w）。0～1に収まっている場合のみ有効
 		float zInLVP = In.posInLVP[cascadeIndex].z / In.posInLVP[cascadeIndex].w;
 		if (zInLVP >= 0.0f && zInLVP <= 1.0f)
 		{
-            // ライトのクリップ空間のXY（x/w, y/w）をNDC(-1～1)からUV(0～1)へ変換
+			// ライトのクリップ空間のXY（x/w, y/w）をNDC(-1～1)からUV(0～1)へ変換
 			float2 shadowMapUV = In.posInLVP[cascadeIndex].xy / In.posInLVP[cascadeIndex].w;
 			shadowMapUV *= float2(0.5f, -0.5f); // xは0.5倍、yは反転して0.5倍
 			shadowMapUV += 0.5f; // -1～1 を 0～1 にシフト
 
-            // シャドウマップのUV範囲内であるか確認（スキップで範囲外のサンプリングを防止）
+			// シャドウマップのUV範囲内であるか確認（スキップで範囲外のサンプリングを防止）
 			if (shadowMapUV.x >= 0.0f && shadowMapUV.x <= 1.0f
-                && shadowMapUV.y >= 0.0f && shadowMapUV.y <= 1.0f)
+				&& shadowMapUV.y >= 0.0f && shadowMapUV.y <= 1.0f)
 			{
-                // ライト空間の現在ピクセル深度にバイアスを引いて比較用深度を作成
+				// ライト空間の現在ピクセル深度にバイアスを引いて比較用深度を作成
 				float compareDepth = saturate(zInLVP - bias);
 
-				// 比較サンプラを用いてシャドウマップの深度とcompareDepthをハードウェア比較
-				// 戻り値：1.0（非遮蔽、光が当たる）～0.0（遮蔽、影）
-				visibility = g_dirShadowMap[cascadeIndex].SampleCmpLevelZero(g_ssCmp, shadowMapUV, compareDepth);
+				// 3x3 PCFカーネル（通常サンプラで取得し、手動比較）
+				float sum = 0.0f;
+				[unroll]
+				for (int oy = -1; oy <= 1; ++oy)
+				{
+					[unroll]
+					for (int ox = -1; ox <= 1; ++ox)
+					{
+						float2 uv = shadowMapUV + float2(ox, oy) * pcfStep;
+						uv = saturate(uv); // 範囲外サンプリングの暴発防止
+
+						// シャドウマップ深度を通常サンプラで取得
+						float sampledDepth = g_dirShadowMap[cascadeIndex].Sample(g_ss, uv).r;
+
+						// 手動比較：非遮蔽なら1、遮蔽なら0
+						sum += (sampledDepth > compareDepth) ? 1.0f : 0.0f;
+					}
+				}
+
+				visibility = sum / 9.0f;
 
 				// 使用するカスケードが決定したことを記録
 				cascadeFound = true;

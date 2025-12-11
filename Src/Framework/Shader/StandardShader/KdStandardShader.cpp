@@ -807,7 +807,6 @@ void KdStandardShader::Release()
 	// エフェクト用
 	m_cb4_Effect.Release();
 }
-
 void KdStandardShader::GetProjectctionDecompose(float& _OutFov, float& _outAspect, float& _outNear, float& _outFar, Math::Matrix& _outProjMat)
 {
 	Math::Matrix mProj = KdShaderManager::Instance().GetCameraCB().mProj;
@@ -909,10 +908,6 @@ void KdStandardShader::CascadeShadowMapChangea(const DirectX::BoundingBox& _BBox
 		DirectX::BoundingBox frustAABB_LS;
 		DirectX::BoundingBox::CreateFromPoints(frustAABB_LS, 8, frustCornersLS, sizeof(DirectX::XMFLOAT3));
 
-		// 重要: ライト方向（LS の Z）に余白を追加して、視錐台外キャスターを許容
-		const float ShadowCasterMargin = 30.0f; // シーンに合わせて調整（最大影長/最大オブジェクトサイズなど）
-		frustAABB_LS.Extents.z += ShadowCasterMargin;
-
 		// メッシュの AABB をワールド→ライト空間に変換して作成
 		DirectX::XMFLOAT3 meshCornersWS[8];
 		_BBox.GetCorners(meshCornersWS);
@@ -926,10 +921,6 @@ void KdStandardShader::CascadeShadowMapChangea(const DirectX::BoundingBox& _BBox
 		DirectX::BoundingBox meshAABB_LS;
 		DirectX::BoundingBox::CreateFromPoints(meshAABB_LS, 8, meshCornersLS, sizeof(DirectX::XMFLOAT3));
 
-		const float XYMarginScale = 10.05f;
-		frustAABB_LS.Extents.x *= XYMarginScale;
-		frustAABB_LS.Extents.y *= XYMarginScale;
-
 		// 判定：ライト空間の AABB 同士が重なれば該当カスケードに描画が必要
 		if (frustAABB_LS.Intersects(meshAABB_LS))
 		{
@@ -937,6 +928,7 @@ void KdStandardShader::CascadeShadowMapChangea(const DirectX::BoundingBox& _BBox
 		}
 	}
 }
+
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 // 描画用マテリアル情報の転送
