@@ -2,7 +2,7 @@
 #include"../BaseScene/BaseScene.h"
 class Player;
 class BossEnemy;
-class AetheriusEnemy;
+class RedEnemy;
 class ConstructionSiteStage : public BaseScene
 {
 public:
@@ -30,7 +30,7 @@ private:
 	float m_countDownTimeMax = 300.0f;	// カウントダウン時間最大値
 
 	std::weak_ptr<Player> m_player;
-	std::vector<std::weak_ptr<AetheriusEnemy>> m_aetheriusEnemies;
+	std::vector<std::weak_ptr<RedEnemy>> m_aetheriusEnemies;
 	std::vector<std::weak_ptr<BossEnemy>> m_bossEnemies;
 
 

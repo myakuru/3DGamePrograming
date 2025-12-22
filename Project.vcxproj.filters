@@ -154,9 +154,6 @@
     <Filter Include="Src\Application\Scene\TestStage">
       <UniqueIdentifier>{050e7bb7-ebf5-410f-9cd0-b065c6a649e4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\GameObject\Collition">
-      <UniqueIdentifier>{9f81d21b-842f-45bb-8b68-fb4a35802cbc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\HUD\EnemyHp">
       <UniqueIdentifier>{4060fbd0-7e96-414a-a854-f29f1f041b59}</UniqueIdentifier>
     </Filter>
@@ -244,75 +241,6 @@
     <Filter Include="Src\Application\GameObject\Character\Player\State">
       <UniqueIdentifier>{1cd19184-ee19-44b7-be0d-6ddb404adcf9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_Idle">
-      <UniqueIdentifier>{db560bc2-bbf7-4b9d-9bce-4e2238cbfc73}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_Run">
-      <UniqueIdentifier>{324d331c-5567-4c7f-b182-41c4d1405302}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_Attack">
-      <UniqueIdentifier>{3b166324-03ae-4787-8c16-39e458eadddf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_Attack1">
-      <UniqueIdentifier>{325f0f44-f5f5-496c-b6f8-37cd8589507f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_Attack2">
-      <UniqueIdentifier>{9d332d6f-b02f-4a7a-a761-c9fcb3b741ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_BackWordAvoid">
-      <UniqueIdentifier>{732548b6-5c25-4155-8fe7-06844cb41e02}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_FowardAvoid">
-      <UniqueIdentifier>{9a24f795-5465-4cbb-b8c2-2ee2f1ad9067}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_Skill">
-      <UniqueIdentifier>{96eb8903-ac9b-4f8e-9ed3-d1d9d5409cfa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_Hit">
-      <UniqueIdentifier>{5082ce6d-0c5c-42c2-b8fa-4fca27b673f9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_Attack4">
-      <UniqueIdentifier>{99fec502-20b9-4942-a6ac-2e45417a022d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_Attack3">
-      <UniqueIdentifier>{691e9d26-5bb9-4a70-8524-46c5ef4774b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_SpecialAttack">
-      <UniqueIdentifier>{59008110-b006-4169-a131-d3bcf00edf77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_SpecialAttackCutIn">
-      <UniqueIdentifier>{c34bd41a-f23c-408a-ad48-64f22c123383}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_RunStart">
-      <UniqueIdentifier>{f45ac0e4-3fc5-443d-938a-aa94f0bb669c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_RunEnd">
-      <UniqueIdentifier>{4ab2ac0b-f325-40e5-aabc-3dfcfc3724d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttackMax">
-      <UniqueIdentifier>{6c68bc13-bf81-42d9-8c9a-32d5d0e81962}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttackMax1">
-      <UniqueIdentifier>{39275c22-6887-4c34-9c98-295b07fec0f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttackMax2">
-      <UniqueIdentifier>{24e37e07-a611-43d4-a5e1-29edcc8a790f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttackMax3">
-      <UniqueIdentifier>{1ba911da-1f87-4212-8c3c-6d9cc33a2ee7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_FowardAvoidFast">
-      <UniqueIdentifier>{f6c06f2d-6ec1-4d34-8d33-f1e152b1013d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_SpecialAttack1">
-      <UniqueIdentifier>{de27f75c-fa70-4bbd-94fc-8397638a6aee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_JustAvoidAttack">
-      <UniqueIdentifier>{59054334-7fc8-4be8-b1b3-63dbdf00a95a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_JustAvoidAttack_end">
-      <UniqueIdentifier>{59d7c162-c61d-46b8-a84c-40306da30baf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\Character\EnemyBase">
       <UniqueIdentifier>{e10ff7ef-e9c2-496b-9d43-0c69bcb0cb9c}</UniqueIdentifier>
     </Filter>
@@ -339,9 +267,6 @@
     </Filter>
     <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Run">
       <UniqueIdentifier>{729016aa-1bc6-4fec-93c6-7f98ccbcb7e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Walk_Left">
-      <UniqueIdentifier>{71d5ee3e-3f19-4433-8e7c-5c1b26952b94}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Walk_Right">
       <UniqueIdentifier>{c9a848ad-7cdd-4933-8444-b5b062a657e2}</UniqueIdentifier>
@@ -391,29 +316,11 @@
     <Filter Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_WaterFall">
       <UniqueIdentifier>{ba950b46-b3be-40f3-ba1d-7e4c2d1dfb3f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_SheathKatana">
-      <UniqueIdentifier>{44ba3a1e-f988-4ec9-a15e-3f2299ed8297}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\Character\AfterImage">
       <UniqueIdentifier>{c95db03a-2861-47be-b287-f9ce48d935bb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect">
       <UniqueIdentifier>{e6cd1c09-4c52-45fd-bd60-c93388716786}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevel0">
-      <UniqueIdentifier>{c271c5b5-399a-4d5b-944c-78e9d113a6c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevel1">
-      <UniqueIdentifier>{969ceb3f-dbd6-4a48-88f1-4ba296372b41}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevel2">
-      <UniqueIdentifier>{f4d8f7f1-5201-4546-acfc-c034ecd1011a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelMax">
-      <UniqueIdentifier>{ac0984c4-78f3-4097-b67a-c389429b058d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AvoidAttack">
-      <UniqueIdentifier>{81d92776-12ab-4dd6-bb5c-5377408da1be}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\MyFramework\Manager\ImGuiManager">
       <UniqueIdentifier>{879c7b19-c6b0-4933-a569-763119b37800}</UniqueIdentifier>
@@ -439,9 +346,6 @@
     <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_2nd">
       <UniqueIdentifier>{c91ba7b2-2131-4d58-ade7-7454f01bd809}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_3rd">
-      <UniqueIdentifier>{e9e79833-5c85-4be1-936d-1bed88a9fddb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_Final">
       <UniqueIdentifier>{7da256c1-1eec-4630-851f-9b1cf46878c5}</UniqueIdentifier>
     </Filter>
@@ -456,6 +360,132 @@
     </Filter>
     <Filter Include="Src\Application\GameObject\Effect\EffekseerEffect\CharacterEffect">
       <UniqueIdentifier>{19b32fb6-9039-4f6c-bcc3-250879c3a34e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Collision">
+      <UniqueIdentifier>{9f81d21b-842f-45bb-8b68-fb4a35802cbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\MyFramework\State\Support">
+      <UniqueIdentifier>{37f24cb3-dfe0-41dc-9f92-d0f314d50758}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\Common">
+      <UniqueIdentifier>{77e066a0-a4e9-4b7a-bf0f-241d79e1bb34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase">
+      <UniqueIdentifier>{b4327bc5-6b78-4f55-927a-199f44d86165}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AvoidBase">
+      <UniqueIdentifier>{7bd4de69-5be6-41ce-b1b5-f68669475856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\PlayerState_AvoidAttack">
+      <UniqueIdentifier>{424c1afd-19f8-471c-93ef-730f0240c9ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AvoidBase\PlayerState_BackWordAvoid">
+      <UniqueIdentifier>{d4e078cf-386f-4b3f-8146-4fafd272e04d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AvoidBase\PlayerState_FowardAvoid">
+      <UniqueIdentifier>{98616ba2-df56-4dc3-a106-e9af81481e0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AvoidBase\PlayerState_FowardAvoidFast">
+      <UniqueIdentifier>{45b20f62-a837-42cd-bddc-86abf304f8a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge">
+      <UniqueIdentifier>{5d5ba08b-b6de-4df8-ac76-29ad9cc027dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\CommonAttack">
+      <UniqueIdentifier>{c7649632-a7c5-4400-aac2-23cd1f2d8909}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\CommonAttack\PlayerState_Attack">
+      <UniqueIdentifier>{3b166324-03ae-4787-8c16-39e458eadddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\CommonAttack\PlayerState_Attack1">
+      <UniqueIdentifier>{325f0f44-f5f5-496c-b6f8-37cd8589507f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\CommonAttack\PlayerState_Attack2">
+      <UniqueIdentifier>{9d332d6f-b02f-4a7a-a761-c9fcb3b741ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\CommonAttack\PlayerState_Attack3">
+      <UniqueIdentifier>{691e9d26-5bb9-4a70-8524-46c5ef4774b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\CommonAttack\PlayerState_Attack4">
+      <UniqueIdentifier>{99fec502-20b9-4942-a6ac-2e45417a022d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMax">
+      <UniqueIdentifier>{d4211f77-0c2a-4aa3-90f2-16ccc47fa952}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMax1">
+      <UniqueIdentifier>{2e9681fe-68cc-4cdb-ae88-14205bffea7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMax2">
+      <UniqueIdentifier>{773006d1-4943-4000-b19d-0b42199d051f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMaxEnd">
+      <UniqueIdentifier>{be58509e-9e76-49a3-ace6-bd5d3aa770f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\JustAvoidAttack">
+      <UniqueIdentifier>{708cc122-0302-4ac2-a712-32e309af4aba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\JustAvoidAttack\PlayerState_JustAvoidAttack">
+      <UniqueIdentifier>{83000033-b493-438e-b293-4f3092a1bca8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\JustAvoidAttack\PlayerState_JustAvoidAttack_end">
+      <UniqueIdentifier>{9500458e-da00-4f0e-8133-3d7fbd23776c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\SpecialAttack">
+      <UniqueIdentifier>{b6b8d79c-cc28-4f4a-9340-ed5786bc73d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\SpecialAttack\PlayerState_SpecialAttack">
+      <UniqueIdentifier>{f6fb7240-2b7a-43c3-ae2b-e545d89b2d2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\SpecialAttack\PlayerState_SpecialAttackEnd">
+      <UniqueIdentifier>{47d64172-aff5-45c7-8a68-3563b019fe37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelBase">
+      <UniqueIdentifier>{8bf54197-096f-4d63-91ed-91fbaa04b6aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel">
+      <UniqueIdentifier>{f938dc25-95ce-459e-893e-11021fb82bbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel\PlayerState_ChargeLevel0">
+      <UniqueIdentifier>{1de20d04-11b9-4495-a4db-f52682d1fef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel\PlayerState_ChargeLevel1">
+      <UniqueIdentifier>{4afe9a4f-578b-433f-ab7d-6015948e48ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel\PlayerState_ChargeLevel2">
+      <UniqueIdentifier>{a1c642b0-f0d7-494a-bddb-19fcc41584cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel\PlayerState_ChargeLevelMax">
+      <UniqueIdentifier>{71950663-5795-418d-a59c-9d78e9866e05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase">
+      <UniqueIdentifier>{12133a1d-8d2b-4b94-8aee-474a53c25f84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase\PlayerState_Idle">
+      <UniqueIdentifier>{8630479b-0f2e-4932-990c-c2da293af431}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase\PlayerState_Run">
+      <UniqueIdentifier>{969f58e3-e4cc-4134-80b9-3ec871a041ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase\PlayerState_SheathKatana">
+      <UniqueIdentifier>{f12befcc-8c25-4a6c-849f-f759795e9a65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase\PlayerState_RunEnd">
+      <UniqueIdentifier>{a0406f2c-770f-4239-803d-137d03210148}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase\PlayerState_SpecialAttackCutIn">
+      <UniqueIdentifier>{d19a5bc1-4765-4319-890f-739ce4165480}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_HitBase">
+      <UniqueIdentifier>{9831a0c9-d16b-4171-a86a-3f9ceea94f8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\Player\State\PlayerState_HitBase\PlayerState_Hit">
+      <UniqueIdentifier>{ba16fee7-e3e5-40ae-8a30-d51f2b2def11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Walk_Left">
+      <UniqueIdentifier>{71d5ee3e-3f19-4433-8e7c-5c1b26952b94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_WinnerCamera_3rd">
+      <UniqueIdentifier>{e9e79833-5c85-4be1-936d-1bed88a9fddb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -669,35 +699,14 @@
     <ClInclude Include="Src\MyFramework\State\StateManager\StateManager.h">
       <Filter>Src\MyFramework\State\StateManager</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Run\PlayerState_Run.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Run</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Idle\PlayerState_Idle.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Idle</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCamera.h">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Attack\PlayerState_Attack.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Attack</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Attack1\PlayerState_Attack1.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Attack1</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Attack2\PlayerState_Attack2.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Attack2</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\HUD\AlpfaMoving\AlpfaMoving.h">
       <Filter>Src\Application\GameObject\HUD\AlpfaMoving</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerConfig.h">
       <Filter>Src\Application\GameObject\Character\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_BackWordAvoid\PlayerState_BackWordAvoid.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_BackWordAvoid</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_FowardAvoid\PlayerState_FowardAvoid.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_FowardAvoid</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\HUD\ScaleMoving\ScaleMoving.h">
       <Filter>Src\Application\GameObject\HUD\ScaleMoving</Filter>
@@ -744,29 +753,11 @@
     <ClInclude Include="Src\Application\Scene\TestStage\TestStage.h">
       <Filter>Src\Application\Scene\TestStage</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Collition\Collition.h">
-      <Filter>Src\Application\GameObject\Collition</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Skill\PlayerState_Skill.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Skill</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Hit\PlayerState_Hit.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Hit</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\HUD\EnemyHp\EnemyHp.h">
       <Filter>Src\Application\GameObject\HUD\EnemyHp</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Weapon\WeaponKatanaScabbard\WeaponKatanaScabbard.h">
       <Filter>Src\Application\GameObject\Weapon\WeaponKatanaScabbard</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState.h">
-      <Filter>Src\Application\GameObject\Character\Player\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Attack3\PlayerState_Attack3.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Attack3</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Attack4\PlayerState_Attack4.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Attack4</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectBase.h">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect</Filter>
@@ -774,44 +765,11 @@
     <ClInclude Include="Src\Framework\Utility\KdFrameTimer.h">
       <Filter>Src\Framework\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AvoidAttack\PlayerState_AvoidAttack.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AvoidAttack</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttack\PlayerState_SpecialAttack.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_SpecialAttack</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttackCutIn\PlayerState_SpecialAttackCutIn.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_SpecialAttackCutIn</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_RunStart\PlayerState_RunStart.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_RunStart</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_RunEnd\PlayerState_RunEnd.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_RunEnd</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeAttackMax\PlayerState_ChargeAttackMax.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttackMax</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeAttackMax1\PlayerState_ChargeAttackMax1.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttackMax1</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeAttackMax2\PlayerState_ChargeAttackMax2.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttackMax2</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeAttackMax3\PlayerState_ChargeAttackMax3.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttackMax3</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Weapon\EnemySword\EnemySword.h">
       <Filter>Src\Application\GameObject\Weapon\EnemySword</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Weapon\EnemyShield\EnemyShield.h">
       <Filter>Src\Application\GameObject\Weapon\EnemyShield</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_FowardAvoidFast\PlayerState_FowardAvoidFast.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_FowardAvoidFast</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttack1\PlayerState_SpecialAttack1.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_SpecialAttack1</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Camera\TitleCamera\TitleCamera.h">
       <Filter>Src\Application\GameObject\Camera\TitleCamera</Filter>
@@ -821,12 +779,6 @@
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.h">
       <Filter>Src\Application\GameObject\Effect\BillBoardEffect\MapGard</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_JustAvoidAttack\PlayerState_JustAvoidAttack.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_JustAvoidAttack</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_JustAvoidAttack_end\PlayerState_JustAvoidAttack_end.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_JustAvoidAttack_end</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_IntroCamera\PlayerCameraState_IntroCamera.h">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_IntroCamera</Filter>
@@ -879,7 +831,7 @@
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\EnemyBase.h">
       <Filter>Src\Application\GameObject\Character\EnemyBase</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemy.h">
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\RedEnemy.h">
       <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack\EnemyState_Attack.h">
@@ -891,7 +843,7 @@
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack2\EnemyState_Attack2.h">
       <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack2</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack3\EnemState_Attack3.h">
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack3\EnemyState_Attack3.h">
       <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack3</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Hit\EnemyState_Hit.h">
@@ -927,7 +879,7 @@
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChargeStart\BossEnemyState_ChargeStart.h">
       <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChargeStart</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChrgeLoop\BossEnemyState_ChrgeLoop.h">
+    <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChrgeLoop\BossEnemyState_ChargeLoop.h">
       <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChrgeLoop</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Dodge\BossEnemyState_Dodge.h">
@@ -960,9 +912,6 @@
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyAI.h">
       <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SheathKatana\PlayerState_SheathKatana.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_SheathKatana</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\HUD\HUDBase.h">
       <Filter>Src\Application\GameObject\HUD</Filter>
     </ClInclude>
@@ -971,18 +920,6 @@
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect\EnemyHitEffect.h">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevel2\PlayerState_ChargeLevel2.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevel2</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevel0\PlayerState_ChargeLevel0.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevel0</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevel1\PlayerState_ChargeLevel1.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevel1</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevelMax\PlayerState_ChargeLevelMax.h">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelMax</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death\EnemyState_Death.h">
       <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Death</Filter>
@@ -1022,6 +959,120 @@
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Effect\EffekseerEffect\CharacterEffect\CharacterEffect.h">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\CharacterEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Collision\Collision.h">
+      <Filter>Src\Application\GameObject\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\MyFramework\State\Support\StateConfig.h">
+      <Filter>Src\MyFramework\State\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\Common\PlayerStateCommonParams.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\Common\PlayerStateServices.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\Common\PlayerInputServices.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\PlayerState_AttackBase.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AvoidBase\PlayerState_AvoidBase.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AvoidBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\PlayerState_AvoidAttack\PlayerState_AvoidAttack.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\PlayerState_AvoidAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AvoidBase\PlayerState_BackWordAvoid\PlayerState_BackWordAvoid.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AvoidBase\PlayerState_BackWordAvoid</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AvoidBase\PlayerState_FowardAvoid\PlayerState_ForwardAvoid.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AvoidBase\PlayerState_FowardAvoid</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AvoidBase\PlayerState_FowardAvoidFast\PlayerState_ForwardAvoidFast.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AvoidBase\PlayerState_FowardAvoidFast</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMax\PlayerState_ChargeAttackMax.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMax</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\CommonAttack\PlayerState_Attack\PlayerState_Attack.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\CommonAttack\PlayerState_Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\CommonAttack\PlayerState_Attack1\PlayerState_Attack1.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\CommonAttack\PlayerState_Attack1</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\CommonAttack\PlayerState_Attack2\PlayerState_Attack2.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\CommonAttack\PlayerState_Attack2</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\CommonAttack\PlayerState_Attack3\PlayerState_Attack3.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\CommonAttack\PlayerState_Attack3</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\CommonAttack\PlayerState_Attack4\PlayerState_Attack4.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\CommonAttack\PlayerState_Attack4</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\Charge\PlayerState_ChargeBase.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMax1\PlayerState_ChargeAttackMax1.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMax1</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMax2\PlayerState_ChargeAttackMax2.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMax2</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMaxEnd\PlayerState_ChargeAttackMaxEnd.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMaxEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\Charge\JustAvoidAttack\PlayerState_JustAvoidAttack\PlayerState_JustAvoidAttack.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\JustAvoidAttack\PlayerState_JustAvoidAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\Charge\JustAvoidAttack\PlayerState_JustAvoidAttack_end\PlayerState_JustAvoidAttack_end.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\JustAvoidAttack\PlayerState_JustAvoidAttack_end</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\SpecialAttack\PlayerState_SpecialAttack\PlayerState_SpecialAttack.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\SpecialAttack\PlayerState_SpecialAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\SpecialAttack\PlayerState_SpecialAttackEnd\PlayerState_SpecialAttackEnd.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\SpecialAttack\PlayerState_SpecialAttackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevelBase\PlayerState_ChargeLevelBase.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel0\PlayerState_ChargeLevel0.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel\PlayerState_ChargeLevel0</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel1\PlayerState_ChargeLevel1.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel\PlayerState_ChargeLevel1</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel2\PlayerState_ChargeLevel2.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel\PlayerState_ChargeLevel2</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevelBase\PlayerState_ChargeLevelMax\PlayerState_ChargeLevelMax.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel\PlayerState_ChargeLevelMax</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_MotionBase\PlayerState_MotionBase.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_MotionBase\PlayerState_Idle\PlayerState_Idle.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase\PlayerState_Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_MotionBase\PlayerState_Run\PlayerState_Run.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase\PlayerState_Run</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_MotionBase\PlayerState_SheathKatana\PlayerState_SheathKatana.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase\PlayerState_SheathKatana</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_MotionBase\PlayerState_RunEnd\PlayerState_RunEnd.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase\PlayerState_RunEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_MotionBase\PlayerState_SpecialAttackCutIn\PlayerState_SpecialAttackCutIn.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase\PlayerState_SpecialAttackCutIn</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_HitBase\PlayerState_HitBase.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_HitBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_HitBase\PlayerState_Hit\PlayerState_Hit.h">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_HitBase\PlayerState_Hit</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1175,9 +1226,6 @@
     <ClCompile Include="Src\Framework\Utility\KdDebugWireFrame.cpp">
       <Filter>Src\Framework\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\Player.cpp">
-      <Filter>Src\Application\GameObject\Character\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\CharacterBase.cpp">
       <Filter>Src\Application\GameObject\Character</Filter>
     </ClCompile>
@@ -1190,35 +1238,14 @@
     <ClCompile Include="Src\MyFramework\State\StateManager\StateManager.cpp">
       <Filter>Src\MyFramework\State\StateManager</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Run\PlayerState_Run.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Run</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Idle\PlayerState_Idle.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Idle</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCamera.cpp">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\HUD\NormalUI\NormalUI.cpp">
       <Filter>Src\Application\GameObject\HUD\NormalUI</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Attack\PlayerState_Attack.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Attack</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Attack1\PlayerState_Attack1.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Attack1</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Attack2\PlayerState_Attack2.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Attack2</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\HUD\AlpfaMoving\AlpfaMoving.cpp">
       <Filter>Src\Application\GameObject\HUD\AlpfaMoving</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_BackWordAvoid\PlayerState_BackWordAvoid.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_BackWordAvoid</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_FowardAvoid\PlayerState_FowardAvoid.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_FowardAvoid</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\HUD\ScaleMoving\ScaleMoving.cpp">
       <Filter>Src\Application\GameObject\HUD\ScaleMoving</Filter>
@@ -1262,29 +1289,11 @@
     <ClCompile Include="Src\Application\Scene\TestStage\TestStage.cpp">
       <Filter>Src\Application\Scene\TestStage</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Collition\Collition.cpp">
-      <Filter>Src\Application\GameObject\Collition</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Skill\PlayerState_Skill.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Hit\PlayerState_Hit.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Hit</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\HUD\EnemyHp\EnemyHp.cpp">
       <Filter>Src\Application\GameObject\HUD\EnemyHp</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Weapon\WeaponKatanaScabbard\WeaponKatanaScabbard.cpp">
       <Filter>Src\Application\GameObject\Weapon\WeaponKatanaScabbard</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Attack3\PlayerState_Attack3.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Attack3</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_Attack4\PlayerState_Attack4.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_Attack4</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EffekseerEffectBase.cpp">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect</Filter>
@@ -1292,44 +1301,11 @@
     <ClCompile Include="Src\Framework\Utility\KdFrameTimer.cpp">
       <Filter>Src\Framework\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AvoidAttack\PlayerState_AvoidAttack.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AvoidAttack</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttack\PlayerState_SpecialAttack.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_SpecialAttack</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttackCutIn\PlayerState_SpecialAttackCutIn.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_SpecialAttackCutIn</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_RunStart\PlayerState_RunStart.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_RunStart</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_RunEnd\PlayerState_RunEnd.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_RunEnd</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeAttackMax\PlayerState_ChargeAttackMax.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttackMax</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeAttackMax1\PlayerState_ChargeAttackMax1.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttackMax1</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeAttackMax2\PlayerState_ChargeAttackMax2.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttackMax2</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeAttackMax3\PlayerState_ChargeAttackMax3.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeAttackMax3</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Weapon\EnemySword\EnemySword.cpp">
       <Filter>Src\Application\GameObject\Weapon\EnemySword</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Weapon\EnemyShield\EnemyShield.cpp">
       <Filter>Src\Application\GameObject\Weapon\EnemyShield</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_FowardAvoidFast\PlayerState_FowardAvoidFast.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_FowardAvoidFast</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SpecialAttack1\PlayerState_SpecialAttack1.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_SpecialAttack1</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Camera\TitleCamera\TitleCamera.cpp">
       <Filter>Src\Application\GameObject\Camera\TitleCamera</Filter>
@@ -1339,12 +1315,6 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Effect\BillBoardEffect\MapGard\MapGard.cpp">
       <Filter>Src\Application\GameObject\Effect\BillBoardEffect\MapGard</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_JustAvoidAttack\PlayerState_JustAvoidAttack.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_JustAvoidAttack</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_JustAvoidAttack_end\PlayerState_JustAvoidAttack_end.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_JustAvoidAttack_end</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_IntroCamera\PlayerCameraState_IntroCamera.cpp">
       <Filter>Src\Application\GameObject\Camera\PlayerCamera\PlayerCameraState\PlayerCameraState_IntroCamera</Filter>
@@ -1391,7 +1361,7 @@
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\EnemyBase.cpp">
       <Filter>Src\Application\GameObject\Character\EnemyBase</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\AetheriusEnemy.cpp">
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\RedEnemy.cpp">
       <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack\EnemyState_Attack.cpp">
@@ -1403,7 +1373,7 @@
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack2\EnemyState_Attack2.cpp">
       <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack2</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack3\EnemState_Attack3.cpp">
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack3\EnemyState_Attack3.cpp">
       <Filter>Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Attack3</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\AetheriusEnemy\EnemyState\EnemyState_Hit\EnemyState_Hit.cpp">
@@ -1439,7 +1409,7 @@
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChargeStart\BossEnemyState_ChargeStart.cpp">
       <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChargeStart</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChrgeLoop\BossEnemyState_ChrgeLoop.cpp">
+    <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChrgeLoop\BossEnemyState_ChargeLoop.cpp">
       <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_ChrgeLoop</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyState_Dodge\BossEnemyState_Dodge.cpp">
@@ -1472,9 +1442,6 @@
     <ClCompile Include="Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState\BossEnemyAI.cpp">
       <Filter>Src\Application\GameObject\Character\EnemyBase\BossEnemy\BossEnemyState</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_SheathKatana\PlayerState_SheathKatana.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_SheathKatana</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\HUD\HUDBase.cpp">
       <Filter>Src\Application\GameObject\HUD</Filter>
     </ClCompile>
@@ -1483,18 +1450,6 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect\EnemyHitEffect.cpp">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\EnemyHitEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevel2\PlayerState_ChargeLevel2.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevel2</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevel0\PlayerState_ChargeLevel0.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevel0</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevel1\PlayerState_ChargeLevel1.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevel1</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevelMax\PlayerState_ChargeLevelMax.cpp">
-      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelMax</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerConfig.cpp">
       <Filter>Src\Application\GameObject\Character\Player</Filter>
@@ -1534,6 +1489,111 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Effect\EffekseerEffect\CharacterEffect\CharacterEffect.cpp">
       <Filter>Src\Application\GameObject\Effect\EffekseerEffect\CharacterEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Collision\Collision.cpp">
+      <Filter>Src\Application\GameObject\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AvoidBase\PlayerState_AvoidBase.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AvoidBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\PlayerState_AvoidAttack\PlayerState_AvoidAttack.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\PlayerState_AvoidAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AvoidBase\PlayerState_BackWordAvoid\PlayerState_BackWordAvoid.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AvoidBase\PlayerState_BackWordAvoid</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AvoidBase\PlayerState_FowardAvoid\PlayerState_ForwardAvoid.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AvoidBase\PlayerState_FowardAvoid</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AvoidBase\PlayerState_FowardAvoidFast\PlayerState_ForwardAvoidFast.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AvoidBase\PlayerState_FowardAvoidFast</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMax\PlayerState_ChargeAttackMax.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMax</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\CommonAttack\PlayerState_Attack\PlayerState_Attack.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\CommonAttack\PlayerState_Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\CommonAttack\PlayerState_Attack1\PlayerState_Attack1.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\CommonAttack\PlayerState_Attack1</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\CommonAttack\PlayerState_Attack2\PlayerState_Attack2.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\CommonAttack\PlayerState_Attack2</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\CommonAttack\PlayerState_Attack3\PlayerState_Attack3.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\CommonAttack\PlayerState_Attack3</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\CommonAttack\PlayerState_Attack4\PlayerState_Attack4.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\CommonAttack\PlayerState_Attack4</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\Charge\PlayerState_ChargeBase.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\PlayerState_AttackBase.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMax1\PlayerState_ChargeAttackMax1.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMax1</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMax2\PlayerState_ChargeAttackMax2.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMax2</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMaxEnd\PlayerState_ChargeAttackMaxEnd.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\PlayerState_ChargeAttackMaxEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\Charge\JustAvoidAttack\PlayerState_JustAvoidAttack\PlayerState_JustAvoidAttack.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\JustAvoidAttack\PlayerState_JustAvoidAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\Charge\JustAvoidAttack\PlayerState_JustAvoidAttack_end\PlayerState_JustAvoidAttack_end.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\Charge\JustAvoidAttack\PlayerState_JustAvoidAttack_end</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\SpecialAttack\PlayerState_SpecialAttack\PlayerState_SpecialAttack.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\SpecialAttack\PlayerState_SpecialAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_AttackBase\SpecialAttack\PlayerState_SpecialAttackEnd\PlayerState_SpecialAttackEnd.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_AttackBase\SpecialAttack\PlayerState_SpecialAttackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevelBase\PlayerState_ChargeLevelBase.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel0\PlayerState_ChargeLevel0.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel\PlayerState_ChargeLevel0</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel1\PlayerState_ChargeLevel1.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel\PlayerState_ChargeLevel1</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel2\PlayerState_ChargeLevel2.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel\PlayerState_ChargeLevel2</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_ChargeLevelBase\PlayerState_ChargeLevelMax\PlayerState_ChargeLevelMax.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_ChargeLevelBase\PlayerState_ChargeLevel\PlayerState_ChargeLevelMax</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_MotionBase\PlayerState_MotionBase.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_MotionBase\PlayerState_Idle\PlayerState_Idle.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase\PlayerState_Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_MotionBase\PlayerState_Run\PlayerState_Run.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase\PlayerState_Run</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_MotionBase\PlayerState_SheathKatana\PlayerState_SheathKatana.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase\PlayerState_SheathKatana</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_MotionBase\PlayerState_RunEnd\PlayerState_RunEnd.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase\PlayerState_RunEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_MotionBase\PlayerState_SpecialAttackCutIn\PlayerState_SpecialAttackCutIn.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_MotionBase\PlayerState_SpecialAttackCutIn</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_HitBase\PlayerState_HitBase.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_HitBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\PlayerState\PlayerState_HitBase\PlayerState_Hit\PlayerState_Hit.cpp">
+      <Filter>Src\Application\GameObject\Character\Player\State\PlayerState_HitBase\PlayerState_Hit</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Character\Player\Player.cpp">
+      <Filter>Src\Application\GameObject\Character\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 #include"Application/main.h"
 #include"Application/Scene/SceneManager.h"
 #include"Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
-#include"Application/GameObject/Collition/Collition.h"
+#include"Application/GameObject/Collision/Collision.h"
 #include"Application/Scene/BaseScene/BaseScene.h"
 #include"Application/Data/CharacterData/CharacterData.h"
 
@@ -96,7 +96,7 @@ void CharacterBase::Update()
 	// 垂直
 	m_position.y += m_physics.gravity;
 
-	m_stateManager.Update();
+	m_stateMachine.Update();
 
 	Math::Matrix scale = Math::Matrix::CreateScale(m_scale);
 	Math::Matrix quaternion = Math::Matrix::CreateFromQuaternion(m_rotation);

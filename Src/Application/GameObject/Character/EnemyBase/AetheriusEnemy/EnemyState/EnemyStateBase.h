@@ -1,11 +1,11 @@
 ﻿#pragma once
-#include"MyFramework/State/StateBase/StateBase.h"
-#include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
+#include "MyFramework/State/StateBase/StateBase.h"
+#include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/RedEnemy.h"
 #include"Application/main.h"
 class Player;
 class EffectReference;
 
-class EnemyStateBase : public StateBase
+class EnemyStateBase : public StateBase<RedEnemy>
 {
 	struct StateParameter
 	{
@@ -35,8 +35,6 @@ public:
 	EnemyStateBase();
 	~EnemyStateBase() override = default;
 
-	void SetEnemy(AetheriusEnemy* enemy) { m_enemy = enemy; }
-
 	void ExposeParametersImGui() override {}
 	// JSON 読み込み
 	virtual void LoadParametersJson(const nlohmann::json& _json) { (void)_json; }
@@ -47,17 +45,15 @@ public:
 
 protected:
 
-	void StateStart() override = 0;
-	void StateUpdate() override = 0;
-	void StateEnd() override = 0;
+	void StateStart(RedEnemy* _owner) override;
+	void StateUpdate(RedEnemy* _owner) override { (void)_owner; }
+	void StateEnd(RedEnemy* _owner) override { (void)_owner; }
 
 
 	Math::Vector3 m_attackDirection = Math::Vector3::Zero;
 
 	Math::Vector3 m_playerPos = Math::Vector3::Zero;
 	Math::Vector3 m_enemyPos = Math::Vector3::Zero;
-
-	AetheriusEnemy* m_enemy = nullptr;		// 所有者敵キャラ
 
 	float m_time = 0.0f;
 	float m_distance = 0.0f;	// プレイヤーとの距離

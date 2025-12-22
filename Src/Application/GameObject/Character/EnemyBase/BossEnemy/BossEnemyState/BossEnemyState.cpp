@@ -9,7 +9,7 @@ BossEnemyStateBase::BossEnemyStateBase()
 	m_enemyEffects.emplace_back(std::make_shared<EffectReference>());
 }
 
-void BossEnemyStateBase::StateStart()
+void BossEnemyStateBase::StateStart(BossEnemy* _owner)
 {
 	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::PlayerLike, m_player);
 
@@ -24,7 +24,7 @@ void BossEnemyStateBase::StateStart()
 	}
 
 	// 敵の方向ベクトルを計算
-	Math::Vector3 enemyPos = m_bossEnemy->GetPos();
+	Math::Vector3 enemyPos = _owner->GetPos();
 	Math::Vector3 playerPos = m_playerPos;
 	m_attackDirection = playerPos - enemyPos;
 
@@ -38,7 +38,7 @@ void BossEnemyStateBase::StateStart()
 
 		const float yaw = atan2(-m_attackDirection.x, -m_attackDirection.z);
 		Math::Quaternion rot = Math::Quaternion::CreateFromAxisAngle(Math::Vector3::Up, yaw);
-		m_bossEnemy->SetRotation(rot);
+		_owner->SetRotation(rot);
 	}
 
 	m_time = 0.0f;

@@ -1,6 +1,6 @@
 ﻿#include"EnemyHitEffect.h"
 #include"Application/Scene/SceneManager.h"
-#include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/RedEnemy.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 
 const uint32_t EnemyHitEffect::TypeID = KdGameObject::GenerateTypeID();
@@ -42,7 +42,7 @@ void EnemyHitEffect::EffectUpdate()
 	}
 }
 
-void EnemyHitEffect::PlayForEnemy(const std::shared_ptr<AetheriusEnemy>& enemy)
+void EnemyHitEffect::PlayForEnemy(const std::shared_ptr<RedEnemy>& enemy)
 {
 	if (!enemy) return;
 

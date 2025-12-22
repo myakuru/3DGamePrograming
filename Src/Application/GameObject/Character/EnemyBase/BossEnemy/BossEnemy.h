@@ -73,6 +73,8 @@ private:
 	std::shared_ptr<BossEnemyConfig> m_bossEnemyConfig;
 	std::shared_ptr<BossEnemyAI>     m_bossEnemyAI;
 
+	StateManager<BossEnemy> m_stateMachine;
+
 	ActionType m_lastAction = ActionType::None;
 	float      m_meleeCooldown = 0.0f;
 	float      m_waterCooldown = 0.0f;

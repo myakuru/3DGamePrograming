@@ -1,13 +1,11 @@
 ﻿#pragma once
 #include"../../../../../MyFramework/State/StateBase/StateBase.h"
 #include"../PlayerCamera.h"
-class PlayerCameraState : public StateBase
+class PlayerCameraState : public StateBase<PlayerCamera>
 {
 public:
 	PlayerCameraState() = default;
 	~PlayerCameraState() override = default;
-
-	void SetPlayerCamera(PlayerCamera* camera) { m_playerCamera = camera; }
 
 	void ExposeParametersImGui() override {}
 	// JSON 読み込み
@@ -19,11 +17,9 @@ public:
 
 protected:
 
-	void StateStart() override;
-	void StateUpdate() override;
-	void StateEnd() override;
-
-	PlayerCamera* m_playerCamera = nullptr;
+	void StateStart(PlayerCamera* _owner) override { (void)_owner; }
+	void StateUpdate(PlayerCamera* _owner) override { (void)_owner; }
+	void StateEnd(PlayerCamera* _owner) override { (void)_owner; }
 
 
 	Math::Vector3 m_startFollow = Math::Vector3::Zero;

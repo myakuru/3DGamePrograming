@@ -4,6 +4,7 @@
 class Time : public KdGameObject
 {
 public:
+
 	// シングルトンインスタンスを取得
 	static Time& Instance()
 	{

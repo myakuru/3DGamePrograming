@@ -2,7 +2,7 @@
 #include"Application/Scene/SceneManager.h"
 #include"Application/GameObject/Utility/Time.h"
 #include"Application/GameObject/Character/Player/Player.h"
-#include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/RedEnemy.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 #include"Application/Data/CharacterData/CharacterData.h"
 

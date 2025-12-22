@@ -4,48 +4,48 @@
 #include "Application/main.h"
 #include "Application/GameObject/Camera/PlayerCamera/PlayerCameraState/PlayerCameraState_LookPlayer/PlayerCameraState_LookPlayer.h"
 
-void PlayerCameraState_IntroCamera::StateStart() 
+void PlayerCameraState_IntroCamera::StateStart(PlayerCamera* _owner)
 {
 	m_started = false;
 	m_timer = 0.0f;
 
 	// 状態データ参照
-	auto& look = m_playerCamera->LookState();
-	auto& intro = m_playerCamera->IntroState();
-	const auto& cfg = m_playerCamera->IntroConfigRef();
+	auto& look = _owner->LookState();
+	auto& intro = _owner->IntroState();
+	const auto& cfg = _owner->IntroConfigRef();
 
 	// プレイヤーの斜め前あたりからスタート
-	m_playerCamera->SetPlayerRotation({ m_playerCamera->GetPlayerRotation().x, cfg.startYawDeg, m_playerCamera->GetPlayerRotation().z });
-	intro.startYaw = m_playerCamera->GetPlayerRotation().y;
+	_owner->SetPlayerRotation({ _owner->GetPlayerRotation().x, cfg.startYawDeg, _owner->GetPlayerRotation().z });
+	intro.startYaw = _owner->GetPlayerRotation().y;
 	intro.introTimer = 0.0f;
 	look.followRate = cfg.startFollow;
 	intro.inited = true;
 	SceneManager::Instance().SetIntroCamera(true);
 }
 
-void PlayerCameraState_IntroCamera::StateUpdate()
+void PlayerCameraState_IntroCamera::StateUpdate(PlayerCamera* _owner)
 {
-	auto* cam = m_playerCamera; if (!cam) return;
+	auto* cam = _owner; if (!cam) return;
 	float deltaTime = Application::Instance().GetDeltaTime();
 
 	// 状態データ参照
-	auto& look = cam->LookState();
-	auto& intro = cam->IntroState();
-	const auto& cfg = cam->IntroConfigRef();
+	auto& look = _owner->LookState();
+	auto& intro = _owner->IntroState();
+	const auto& cfg = _owner->IntroConfigRef();
 
 	// 回転進行
-	cam->SetPlayerRotation({ cam->GetPlayerRotation().x,
-		cam->GetPlayerRotation().y + cfg.yawSpeedDegPerSec * deltaTime,
-		cam->GetPlayerRotation().z });
+	_owner->SetPlayerRotation({ _owner->GetPlayerRotation().x,
+		_owner->GetPlayerRotation().y + cfg.yawSpeedDegPerSec * deltaTime,
+		_owner->GetPlayerRotation().z });
 
 	// 徐々に近づける
 	m_timer += deltaTime;
 	look.followRate = Math::Vector3::SmoothStep(cfg.startFollow, cfg.endFollow, m_timer);
 
 	// 回転終了判定
-	if (cam->GetPlayerRotation().y >= cfg.endYawDeg)
+	if (_owner->GetPlayerRotation().y >= cfg.endYawDeg)
 	{
-		cam->SetPlayerRotation({ cam->GetPlayerRotation().x, cfg.endYawDeg, cam->GetPlayerRotation().z });
+		_owner->SetPlayerRotation({ _owner->GetPlayerRotation().x, cfg.endYawDeg, _owner->GetPlayerRotation().z });
 		look.followRate = cfg.endFollow;
 
 		intro.introTimer += deltaTime;
@@ -70,7 +70,7 @@ void PlayerCameraState_IntroCamera::StateUpdate()
 	}
 }
 
-void PlayerCameraState_IntroCamera::StateEnd()
+void PlayerCameraState_IntroCamera::StateEnd(PlayerCamera* _owner)
 {
 	// 既存のフラグをOFF
 	SceneManager::Instance().SetIntroCamera(false);

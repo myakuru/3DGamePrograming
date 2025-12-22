@@ -21,7 +21,7 @@ void ResultScore::Init()
 
 void ResultScore::Update()
 {
-	float deltatime = Application::Instance().GetUnscaledDeltaTime();
+	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
 
 	m_time = Time::Instance().GetElapsedTime();
 
@@ -46,7 +46,7 @@ void ResultScore::Update()
 
 	if (m_distance > 0.0f)
 	{
-		m_distance -= deltatime * 15.0f; // 徐々に近づく
+		m_distance -= deltaTime * 15.0f; // 徐々に近づく
 	}
 	else
 	{

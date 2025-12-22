@@ -165,6 +165,9 @@ private:
 	// ステートコンフィグ
 	std::shared_ptr<PlayerCameraConfig> m_playerCameraConfig = nullptr;
 
+	// ステートマシン
+	StateManager<PlayerCamera> m_stateMachine;
+
 	// 一度だけ処理フラグ
-	bool m_oneceFlag = false;
+	bool m_onceFlag = false;
 };

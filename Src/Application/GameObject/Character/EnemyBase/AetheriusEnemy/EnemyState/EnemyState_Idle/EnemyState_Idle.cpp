@@ -3,29 +3,28 @@
 #include "Application/Scene/SceneManager.h"
 #include "Application/GameObject/Character/Player/Player.h"
 
-void EnemyState_Idle::StateStart()
+void EnemyState_Idle::StateStart(RedEnemy* _owner)
 {
-	EnemyStateBase::StateStart();
+	EnemyStateBase::StateStart(_owner);
 
-	auto anime = m_enemy->GetAnimeModel()->GetAnimation("Idle");
-	m_enemy->GetAnimator()->SetAnimation(anime);
+	auto anime = _owner->GetAnimeModel()->GetAnimation("Idle");
+	_owner->GetAnimator()->SetAnimation(anime);
 
-	m_enemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
+	_owner->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 }
 
-void EnemyState_Idle::StateUpdate()
+void EnemyState_Idle::StateUpdate(RedEnemy* _owner)
 {
-
 	// 移動量リセット
-	m_enemy->SetIsMoving(Math::Vector3::Zero);
+	_owner->SetIsMoving(Math::Vector3::Zero);
 
 	for (const auto& player : m_player)
 	{
 		if (auto p = player.lock())
 		{
 			m_playerPos = p->GetPos();
-			m_enemyPos = m_enemy->GetPos();
+			m_enemyPos = _owner->GetPos();
 		}
 	}
 
@@ -36,12 +35,11 @@ void EnemyState_Idle::StateUpdate()
 	{
 		// Runステートに移行
 		auto spRunState = std::make_shared<EnemyState_Run>();
-		m_enemy->ChangeState(spRunState);
-		return;
+		_owner->ChangeState(spRunState);
 	}
 }
 
-void EnemyState_Idle::StateEnd()
+void EnemyState_Idle::StateEnd(RedEnemy* _owner)
 {
 }
 

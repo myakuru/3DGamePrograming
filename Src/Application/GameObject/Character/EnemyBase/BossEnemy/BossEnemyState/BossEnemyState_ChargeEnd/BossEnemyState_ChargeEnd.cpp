@@ -1,25 +1,25 @@
 ﻿#include "BossEnemyState_ChargeEnd.h"
 #include"../BossEnemyState_Idle/BossEnemyState_Idle.h"
 
-void BossEnemyState_ChargeEnd::StateStart()
+void BossEnemyState_ChargeEnd::StateStart(BossEnemy* _owner)
 {
-	auto anime = m_bossEnemy->GetAnimeModel()->GetAnimation("ChargeEnd");
-	m_bossEnemy->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
-	BossEnemyStateBase::StateStart();
+	auto anime = _owner->GetAnimeModel()->GetAnimation("ChargeEnd");
+	_owner->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
+	BossEnemyStateBase::StateStart(_owner);
 	// アニメーション速度を変更
-	m_bossEnemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
+	_owner->SetAnimeSpeed(m_stateParameter.animationSpeed);
 }
 
-void BossEnemyState_ChargeEnd::StateUpdate()
+void BossEnemyState_ChargeEnd::StateUpdate(BossEnemy* _owner)
 {
 
 	// アニメーション再生時間を取得
-	m_animeTime = m_bossEnemy->GetAnimator()->GetPlayProgress();
+	m_animeTime = _owner->GetAnimator()->GetPlayProgress();
 
 	// アニメーション時間の35％から100％の間、攻撃判定有効
 	if (m_animeTime >= m_stateParameter.attackActiveStartTime && m_animeTime <= m_stateParameter.attackActiveEndTime)
 	{
-		m_bossEnemy->UpdateAttackCollision
+		_owner->UpdateAttackCollision
 		(
 			m_stateParameter.attackRadius,
 			m_stateParameter.attackDistance,
@@ -31,19 +31,19 @@ void BossEnemyState_ChargeEnd::StateUpdate()
 	}
 
 	// アニメーションが終了したらIdleへ遷移
-	if (m_bossEnemy->GetAnimator()->IsAnimationEnd())
+	if (_owner->GetAnimator()->IsAnimationEnd())
 	{
 		auto state = std::make_shared<BossEnemyState_Idle>();
-		m_bossEnemy->ChangeState(state);
+		_owner->ChangeState(state);
 		return;
 	}
 
-	m_bossEnemy->SetIsMoving(Math::Vector3::Zero);
+	_owner->SetIsMoving(Math::Vector3::Zero);
 }
 
-void BossEnemyState_ChargeEnd::StateEnd()
+void BossEnemyState_ChargeEnd::StateEnd(BossEnemy* _owner)
 {
-	m_bossEnemy->SetInvincible(false);
+	_owner->SetInvincible(false);
 }
 
 void BossEnemyState_ChargeEnd::ApplyFromConfig(const BossEnemyStateBase& other)

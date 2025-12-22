@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "../../Utility/SelectDraw2DTexture.h"
-class AetheriusEnemy;
+class RedEnemy;
 class PlayerCamera;
 class CharacterData;
 
@@ -30,7 +30,7 @@ private:
 	// ワールド座標での頭上オフセット
 	Math::Vector3 m_offsetPos = Math::Vector3(-0.5f, 2.5f, 0);
 
-	std::vector<std::weak_ptr<AetheriusEnemy>> m_enemies;
+	std::vector<std::weak_ptr<RedEnemy>> m_enemies;
 
 	Math::Rectangle m_srcRect = { 0,0,1600,300 };
 
@@ -47,7 +47,7 @@ private:
 	Math::Rectangle m_hpBarRect = { 0,0,1500,300 };
 
 	// 追加: 敵ごとの「表示用HP割合」を保持
-	std::unordered_map<const AetheriusEnemy*, float> m_dispHpRate;
+	std::unordered_map<const RedEnemy*, float> m_dispHpRate;
 
 	// 追加: 補間係数（減少時/回復時）
 	float m_dropLerp = 0.20f;  // 小さめ=ゆっくり減る

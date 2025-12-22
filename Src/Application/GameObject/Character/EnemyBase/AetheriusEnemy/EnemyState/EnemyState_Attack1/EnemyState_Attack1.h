@@ -6,16 +6,16 @@ public:
 	EnemyState_Attack1() = default;
 	~EnemyState_Attack1()override = default;
 
-private:
-
-	void StateStart() override;
-	void StateUpdate() override;
-	void StateEnd() override;
+	void StateStart(RedEnemy* _owner) override;
+	void StateUpdate(RedEnemy* _owner) override;
+	void StateEnd(RedEnemy* _owner) override;
 
 	void ApplyFromConfig(const EnemyStateBase& other) override;
 	void ExposeParametersImGui() override;
 	void LoadParametersJson(const nlohmann::json& js) override;
 	void SaveParametersJson(nlohmann::json& js) const override;
+
+private:
 
 	float m_hitStopTimer = 0.0f;				// ヒットストップでの経過時間
 	bool m_stopped = false;						// アニメーション停止フラグ

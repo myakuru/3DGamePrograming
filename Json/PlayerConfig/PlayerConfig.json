@@ -1,158 +1,385 @@
 {
+  "ChargeLevel0": {
+    "AfterImageColorA": 1.0,
+    "AfterImageColorB": 2.0,
+    "AfterImageColorG": 2.0,
+    "AfterImageColorR": 0.0,
+    "AfterImageInterval": 0.10000000149011612,
+    "AfterImageMax": 5,
+    "AnimationSpeed": 60.0,
+    "AnimeTime": 0.0,
+    "AttackCount": 1,
+    "AttackDistance": 1.0,
+    "AttackEndTime": 0.4000000059604645,
+    "AttackInterval": 0.10000000149011612,
+    "AttackRadius": 1.0,
+    "AttackStartTime": 0.0,
+    "AttackTime": 0.10000000149011612,
+    "BleedTime": 0.25,
+    "BlendTime": 0.25,
+    "CameraShakeTime": 0.30000001192092896,
+    "CameraShakeX": 0.20000000298023224,
+    "CameraShakeY": 0.0,
+    "ChangeStateTime": 0.699999988079071,
+    "DashSpeed": 0.699999988079071,
+    "DashSpeedTime": 0.20000000298023224,
+    "EndSlowMotionTime": 0.10000000149011612,
+    "LButtonKeyInput": false,
+    "MoveSpeedX": 0.0,
+    "MoveSpeedY": 0.0,
+    "MoveSpeedZ": 0.0,
+    "RButtonKeyInput": false,
+    "StartSlowMotionTime": 0.0,
+    "searchEnemyRadius": 20.0
+  },
+  "ChargeLevel0Effects": [],
+  "ChargeLevel1": {
+    "AfterImageColorA": 1.0,
+    "AfterImageColorB": 2.0,
+    "AfterImageColorG": 2.0,
+    "AfterImageColorR": 0.0,
+    "AfterImageInterval": 0.10000000149011612,
+    "AfterImageMax": 5,
+    "AnimationSpeed": 60.0,
+    "AnimeTime": 0.0,
+    "AttackCount": 1,
+    "AttackDistance": 1.0,
+    "AttackEndTime": 0.4000000059604645,
+    "AttackInterval": 0.10000000149011612,
+    "AttackRadius": 1.0,
+    "AttackStartTime": 0.0,
+    "AttackTime": 0.10000000149011612,
+    "BleedTime": 0.25,
+    "BlendTime": 0.25,
+    "CameraShakeTime": 0.30000001192092896,
+    "CameraShakeX": 0.20000000298023224,
+    "CameraShakeY": 0.0,
+    "ChangeStateTime": 0.699999988079071,
+    "DashSpeed": 0.699999988079071,
+    "DashSpeedTime": 0.20000000298023224,
+    "EndSlowMotionTime": 0.10000000149011612,
+    "LButtonKeyInput": false,
+    "MoveSpeedX": 0.0,
+    "MoveSpeedY": 0.0,
+    "MoveSpeedZ": 0.0,
+    "RButtonKeyInput": false,
+    "StartSlowMotionTime": 0.0,
+    "searchEnemyRadius": 5.0
+  },
+  "ChargeLevel1Effects": [],
+  "ChargeLevel2": {
+    "AfterImageColorA": 1.0,
+    "AfterImageColorB": 2.0,
+    "AfterImageColorG": 2.0,
+    "AfterImageColorR": 0.0,
+    "AfterImageInterval": 0.10000000149011612,
+    "AfterImageMax": 5,
+    "AnimationSpeed": 60.0,
+    "AnimeTime": 0.0,
+    "AttackCount": 1,
+    "AttackDistance": 1.0,
+    "AttackEndTime": 0.4000000059604645,
+    "AttackInterval": 0.10000000149011612,
+    "AttackRadius": 1.0,
+    "AttackStartTime": 0.0,
+    "AttackTime": 0.10000000149011612,
+    "BleedTime": 0.25,
+    "BlendTime": 0.25,
+    "CameraShakeTime": 0.30000001192092896,
+    "CameraShakeX": 0.20000000298023224,
+    "CameraShakeY": 0.0,
+    "ChangeStateTime": 0.699999988079071,
+    "DashSpeed": 0.699999988079071,
+    "DashSpeedTime": 0.20000000298023224,
+    "EndSlowMotionTime": 0.10000000149011612,
+    "LButtonKeyInput": false,
+    "MoveSpeedX": 0.0,
+    "MoveSpeedY": 0.0,
+    "MoveSpeedZ": 0.0,
+    "RButtonKeyInput": false,
+    "StartSlowMotionTime": 0.0,
+    "searchEnemyRadius": 5.0
+  },
+  "ChargeLevel2Effects": [],
+  "ChargeLevelMax": {
+    "AfterImageColorA": 1.0,
+    "AfterImageColorB": 2.0,
+    "AfterImageColorG": 2.0,
+    "AfterImageColorR": 0.0,
+    "AfterImageInterval": 0.10000000149011612,
+    "AfterImageMax": 5,
+    "AnimationSpeed": 60.0,
+    "AnimeTime": 0.0,
+    "AttackCount": 1,
+    "AttackDistance": 1.0,
+    "AttackEndTime": 0.4000000059604645,
+    "AttackInterval": 0.10000000149011612,
+    "AttackRadius": 1.0,
+    "AttackStartTime": 0.0,
+    "AttackTime": 0.10000000149011612,
+    "BleedTime": 0.25,
+    "BlendTime": 0.25,
+    "CameraShakeTime": 0.30000001192092896,
+    "CameraShakeX": 0.20000000298023224,
+    "CameraShakeY": 0.0,
+    "ChangeStateTime": 0.699999988079071,
+    "DashSpeed": 0.699999988079071,
+    "DashSpeedTime": 0.20000000298023224,
+    "EndSlowMotionTime": 0.10000000149011612,
+    "LButtonKeyInput": false,
+    "MoveSpeedX": 0.0,
+    "MoveSpeedY": 0.0,
+    "MoveSpeedZ": 0.0,
+    "RButtonKeyInput": false,
+    "StartSlowMotionTime": 0.0,
+    "searchEnemyRadius": 5.0
+  },
+  "ChargeLevelMaxEffects": [],
   "PlayerState_Attack": {
-    "Player": {
+    "Camera": {
+      "bossTargetOffset": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -2.0
+      },
+      "targetOffset": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -2.0
+      }
+    },
+    "PlayerState_Attack": {
+      "AfterImageColorA": 1.0,
+      "AfterImageColorB": 2.0,
+      "AfterImageColorG": 2.0,
+      "AfterImageColorR": 0.0,
+      "AfterImageInterval": 0.10000000149011612,
+      "AfterImageMax": 5,
       "AnimationSpeed": 60.0,
+      "AnimeTime": 0.0,
       "AttackCount": 1,
       "AttackDistance": 1.0,
       "AttackEndTime": 0.4000000059604645,
-      "AttackRadius": 2.0,
+      "AttackInterval": 0.10000000149011612,
+      "AttackRadius": 1.0,
       "AttackStartTime": 0.0,
       "AttackTime": 0.10000000149011612,
       "BleedTime": 0.25,
+      "BlendTime": 0.25,
       "CameraShakeTime": 0.30000001192092896,
       "CameraShakeX": 0.20000000298023224,
       "CameraShakeY": 0.0,
-      "ChangeStateTime": 0.8199999928474426,
+      "ChangeStateTime": 0.699999988079071,
       "DashSpeed": 0.699999988079071,
       "DashSpeedTime": 0.20000000298023224,
+      "EndSlowMotionTime": 0.10000000149011612,
+      "LButtonKeyInput": false,
       "MoveSpeedX": 0.0,
       "MoveSpeedY": 0.0,
-      "MoveSpeedZ": 0.0
+      "MoveSpeedZ": 0.0,
+      "RButtonKeyInput": false,
+      "StartSlowMotionTime": 0.0,
+      "searchEnemyRadius": 5.0
     },
-    "m_dashSpeed": 0.699999988079071
+    "PlayerState_Attack_Effects": [
+      {
+        "Effect": "7ce9f855-00ca-4bd7-917d-32a027eee7ff"
+      }
+    ]
   },
   "PlayerState_Attack1": {
-    "Player": {
+    "PlayerState_Attack1": {
+      "AfterImageColorA": 1.0,
+      "AfterImageColorB": 2.0,
+      "AfterImageColorG": 2.0,
+      "AfterImageColorR": 0.0,
+      "AfterImageInterval": 0.10000000149011612,
+      "AfterImageMax": 5,
       "AnimationSpeed": 60.0,
+      "AnimeTime": 0.0,
       "AttackCount": 1,
       "AttackDistance": 1.0,
       "AttackEndTime": 0.4000000059604645,
+      "AttackInterval": 0.10000000149011612,
       "AttackRadius": 1.0,
       "AttackStartTime": 0.0,
       "AttackTime": 0.10000000149011612,
       "BleedTime": 0.25,
-      "CameraShakeTime": 0.30000001192092896,
-      "CameraShakeX": 0.20000000298023224,
-      "CameraShakeY": 0.0,
-      "ChangeStateTime": 0.9100000262260437,
-      "DashSpeed": 1.0,
-      "DashSpeedTime": 0.20000000298023224,
-      "MoveSpeedX": 0.0,
-      "MoveSpeedY": 0.0,
-      "MoveSpeedZ": 0.0
-    }
-  },
-  "PlayerState_Attack1_Effects": [
-    {
-      "Effect": "b1201809-bfe4-4462-90b7-2a32a69a1b56"
-    }
-  ],
-  "PlayerState_Attack2": {
-    "Player": {
-      "AnimationSpeed": 70.0,
-      "AttackCount": 1,
-      "AttackDistance": 1.0,
-      "AttackEndTime": 0.4000000059604645,
-      "AttackRadius": 1.0,
-      "AttackStartTime": 0.0,
-      "AttackTime": 0.10000000149011612,
-      "BleedTime": 0.25,
-      "CameraShakeTime": 0.30000001192092896,
-      "CameraShakeX": 0.20000000298023224,
-      "CameraShakeY": 0.0,
-      "ChangeStateTime": 0.699999988079071,
-      "DashSpeed": 1.7000000476837158,
-      "DashSpeedTime": 0.20000000298023224,
-      "MoveSpeedX": 0.0,
-      "MoveSpeedY": 0.0,
-      "MoveSpeedZ": 0.0
-    }
-  },
-  "PlayerState_Attack2_Effects": [
-    {
-      "Effect": "6b48bf02-70bd-42d8-8772-615f2623aea5"
-    }
-  ],
-  "PlayerState_Attack3": {
-    "Player": {
-      "AnimationSpeed": 60.0,
-      "AttackCount": 1,
-      "AttackDistance": 1.0,
-      "AttackEndTime": 0.4000000059604645,
-      "AttackRadius": 1.0,
-      "AttackStartTime": 0.0,
-      "AttackTime": 0.10000000149011612,
-      "BleedTime": 0.25,
+      "BlendTime": 0.25,
       "CameraShakeTime": 0.30000001192092896,
       "CameraShakeX": 0.20000000298023224,
       "CameraShakeY": 0.0,
       "ChangeStateTime": 0.699999988079071,
       "DashSpeed": 0.699999988079071,
       "DashSpeedTime": 0.20000000298023224,
+      "EndSlowMotionTime": 0.10000000149011612,
+      "LButtonKeyInput": false,
       "MoveSpeedX": 0.0,
       "MoveSpeedY": 0.0,
-      "MoveSpeedZ": 0.0
-    }
+      "MoveSpeedZ": 0.0,
+      "RButtonKeyInput": false,
+      "StartSlowMotionTime": 0.0,
+      "searchEnemyRadius": 5.0
+    },
+    "PlayerState_Attack1_Effects": [
+      {
+        "Effect": "b1201809-bfe4-4462-90b7-2a32a69a1b56"
+      }
+    ]
   },
-  "PlayerState_Attack3_Effects": [
-    {
-      "Effect": "8adecd20-62c0-46a2-82b8-efa3395a71b2"
-    }
-  ],
-  "PlayerState_Attack4": {
-    "Player": {
+  "PlayerState_Attack2": {
+    "PlayerState_Attack2": {
+      "AfterImageColorA": 1.0,
+      "AfterImageColorB": 2.0,
+      "AfterImageColorG": 2.0,
+      "AfterImageColorR": 0.0,
+      "AfterImageInterval": 0.10000000149011612,
+      "AfterImageMax": 5,
       "AnimationSpeed": 60.0,
+      "AnimeTime": 0.0,
       "AttackCount": 1,
       "AttackDistance": 1.0,
       "AttackEndTime": 0.4000000059604645,
+      "AttackInterval": 0.10000000149011612,
       "AttackRadius": 1.0,
       "AttackStartTime": 0.0,
       "AttackTime": 0.10000000149011612,
       "BleedTime": 0.25,
+      "BlendTime": 0.25,
       "CameraShakeTime": 0.30000001192092896,
       "CameraShakeX": 0.20000000298023224,
       "CameraShakeY": 0.0,
       "ChangeStateTime": 0.699999988079071,
-      "DashSpeed": 1.25,
+      "DashSpeed": 0.699999988079071,
       "DashSpeedTime": 0.20000000298023224,
+      "EndSlowMotionTime": 0.10000000149011612,
+      "LButtonKeyInput": false,
       "MoveSpeedX": 0.0,
       "MoveSpeedY": 0.0,
-      "MoveSpeedZ": 0.0
-    }
+      "MoveSpeedZ": 0.0,
+      "RButtonKeyInput": false,
+      "StartSlowMotionTime": 0.0,
+      "searchEnemyRadius": 5.0
+    },
+    "PlayerState_Attack2_Effects": [
+      {
+        "Effect": "6b48bf02-70bd-42d8-8772-615f2623aea5"
+      }
+    ]
+  },
+  "PlayerState_Attack3": {
+    "PlayerState_Attack3": {
+      "AfterImageColorA": 1.0,
+      "AfterImageColorB": 2.0,
+      "AfterImageColorG": 2.0,
+      "AfterImageColorR": 0.0,
+      "AfterImageInterval": 0.10000000149011612,
+      "AfterImageMax": 5,
+      "AnimationSpeed": 60.0,
+      "AnimeTime": 0.0,
+      "AttackCount": 1,
+      "AttackDistance": 1.0,
+      "AttackEndTime": 0.4000000059604645,
+      "AttackInterval": 0.10000000149011612,
+      "AttackRadius": 1.0,
+      "AttackStartTime": 0.0,
+      "AttackTime": 0.10000000149011612,
+      "BleedTime": 0.25,
+      "BlendTime": 0.25,
+      "CameraShakeTime": 0.30000001192092896,
+      "CameraShakeX": 0.20000000298023224,
+      "CameraShakeY": 0.0,
+      "ChangeStateTime": 0.699999988079071,
+      "DashSpeed": 0.699999988079071,
+      "DashSpeedTime": 0.20000000298023224,
+      "EndSlowMotionTime": 0.10000000149011612,
+      "LButtonKeyInput": false,
+      "MoveSpeedX": 0.0,
+      "MoveSpeedY": 0.0,
+      "MoveSpeedZ": 0.0,
+      "RButtonKeyInput": false,
+      "StartSlowMotionTime": 0.0,
+      "searchEnemyRadius": 5.0
+    },
+    "PlayerState_Attack3_Effects": [
+      {
+        "Effect": "8adecd20-62c0-46a2-82b8-efa3395a71b2"
+      }
+    ]
+  },
+  "PlayerState_Attack4": {
+    "AfterImageColorA": 1.0,
+    "AfterImageColorB": 2.0,
+    "AfterImageColorG": 2.0,
+    "AfterImageColorR": 0.0,
+    "AfterImageInterval": 0.10000000149011612,
+    "AfterImageMax": 5,
+    "AnimationSpeed": 60.0,
+    "AnimeTime": 0.0,
+    "AttackCount": 1,
+    "AttackDistance": 1.0,
+    "AttackEndTime": 0.4000000059604645,
+    "AttackInterval": 0.10000000149011612,
+    "AttackRadius": 1.0,
+    "AttackStartTime": 0.0,
+    "AttackTime": 0.10000000149011612,
+    "BleedTime": 0.25,
+    "BlendTime": 0.25,
+    "CameraShakeTime": 0.30000001192092896,
+    "CameraShakeX": 0.20000000298023224,
+    "CameraShakeY": 0.0,
+    "ChangeStateTime": 0.699999988079071,
+    "DashSpeed": 0.699999988079071,
+    "DashSpeedTime": 0.20000000298023224,
+    "EndSlowMotionTime": 0.10000000149011612,
+    "LButtonKeyInput": false,
+    "MoveSpeedX": 0.0,
+    "MoveSpeedY": 0.0,
+    "MoveSpeedZ": 0.0,
+    "RButtonKeyInput": false,
+    "StartSlowMotionTime": 0.0,
+    "searchEnemyRadius": 5.0
   },
   "PlayerState_Attack4_Effects": [
     {
-      "Effect": "50ca553b-ba6c-4894-8a93-2e969dc4df0d"
+      "Effect": "b1201809-bfe4-4462-90b7-2a32a69a1b56"
     },
     {
       "Effect": "bfd8ebf1-9e55-4a30-bec8-71644040b11e"
     }
   ],
-  "PlayerState_Attack_Effects": [
-    {
-      "Effect": "7ce9f855-00ca-4bd7-917d-32a027eee7ff"
-    }
-  ],
   "PlayerState_AvoidAttack": {
-    "Player": {
-      "AnimationSpeed": 60.0,
-      "AttackCount": 1,
-      "AttackDistance": 1.0,
-      "AttackEndTime": 0.4000000059604645,
-      "AttackRadius": 1.0,
-      "AttackStartTime": 0.0,
-      "AttackTime": 0.10000000149011612,
-      "BleedTime": 0.25,
-      "CameraShakeTime": 0.30000001192092896,
-      "CameraShakeX": 0.20000000298023224,
-      "CameraShakeY": 0.0,
-      "ChangeStateTime": 0.699999988079071,
-      "DashSpeed": 2.0399999618530273,
-      "DashSpeedTime": 0.20000000298023224,
-      "MoveSpeedX": 0.0,
-      "MoveSpeedY": 0.0,
-      "MoveSpeedZ": 0.0
-    }
+    "AfterImageColorA": 1.0,
+    "AfterImageColorB": 2.0,
+    "AfterImageColorG": 2.0,
+    "AfterImageColorR": 0.0,
+    "AfterImageInterval": 0.10000000149011612,
+    "AfterImageMax": 5,
+    "AnimationSpeed": 60.0,
+    "AnimeTime": 0.0,
+    "AttackCount": 1,
+    "AttackDistance": 1.0,
+    "AttackEndTime": 0.4000000059604645,
+    "AttackInterval": 0.10000000149011612,
+    "AttackRadius": 1.0,
+    "AttackStartTime": 0.0,
+    "AttackTime": 0.10000000149011612,
+    "BleedTime": 0.25,
+    "BlendTime": 0.25,
+    "CameraShakeTime": 0.30000001192092896,
+    "CameraShakeX": 0.20000000298023224,
+    "CameraShakeY": 0.0,
+    "ChangeStateTime": 0.699999988079071,
+    "DashSpeed": 0.699999988079071,
+    "DashSpeedTime": 0.20000000298023224,
+    "EndSlowMotionTime": 0.10000000149011612,
+    "LButtonKeyInput": false,
+    "MoveSpeedX": 0.0,
+    "MoveSpeedY": 0.0,
+    "MoveSpeedZ": 0.0,
+    "RButtonKeyInput": false,
+    "StartSlowMotionTime": 0.0,
+    "searchEnemyRadius": 5.0
   },
   "PlayerState_AvoidAttack_Effects": [
     {
@@ -191,25 +418,40 @@
     }
   },
   "PlayerState_ChargeAttackMax": {
-    "Player": {
+    "PlayerState_ChargeAttackMax": {
+      "AfterImageColorA": 1.9607843160629272,
+      "AfterImageColorB": 2.0,
+      "AfterImageColorG": 2.0,
+      "AfterImageColorR": 0.0,
+      "AfterImageInterval": 0.10000000149011612,
+      "AfterImageMax": 8,
       "AnimationSpeed": 60.0,
-      "AttackCount": 7,
+      "AnimeTime": 0.0,
+      "AttackCount": 1,
       "AttackDistance": 1.0,
-      "AttackEndTime": 3.0,
-      "AttackRadius": 5.079999923706055,
+      "AttackEndTime": 0.4000000059604645,
+      "AttackInterval": 0.10000000149011612,
+      "AttackRadius": 1.0,
       "AttackStartTime": 0.0,
       "AttackTime": 0.10000000149011612,
       "BleedTime": 0.25,
+      "BlendTime": 0.25,
       "CameraShakeTime": 0.30000001192092896,
       "CameraShakeX": 0.20000000298023224,
       "CameraShakeY": 0.0,
       "ChangeStateTime": 0.699999988079071,
       "DashSpeed": 0.699999988079071,
       "DashSpeedTime": 0.20000000298023224,
+      "EndSlowMotionTime": 0.10000000149011612,
+      "LButtonKeyInput": false,
       "MoveSpeedX": 0.0,
       "MoveSpeedY": 0.0,
-      "MoveSpeedZ": 0.0
+      "MoveSpeedZ": 0.0,
+      "RButtonKeyInput": false,
+      "StartSlowMotionTime": 0.0,
+      "searchEnemyRadius": 50.0
     },
+    "PlayerState_ChargeAttackMax_Effects": [],
     "SearchEnemyRadius": 50.0,
     "afterImageColor": {
       "w": 1.9607843160629272,
@@ -221,132 +463,78 @@
     "afterImageMax": 8
   },
   "PlayerState_ChargeAttackMax1": {
-    "Player": {
+    "PlayerState_ChargeAttackMax1": {
+      "AfterImageColorA": 1.0,
+      "AfterImageColorB": 2.0,
+      "AfterImageColorG": 2.0,
+      "AfterImageColorR": 0.0,
+      "AfterImageInterval": 0.10000000149011612,
+      "AfterImageMax": 5,
       "AnimationSpeed": 60.0,
-      "AttackCount": 8,
-      "AttackDistance": 1.159999966621399,
-      "AttackEndTime": 3.0,
-      "AttackRadius": 5.119999885559082,
-      "AttackStartTime": 0.0,
-      "AttackTime": 0.2160000056028366,
-      "BleedTime": 0.25,
-      "CameraShakeTime": 0.30000001192092896,
-      "CameraShakeX": 0.20000000298023224,
-      "CameraShakeY": 0.0,
-      "ChangeStateTime": 0.699999988079071,
-      "DashSpeed": 0.699999988079071,
-      "DashSpeedTime": 0.20000000298023224,
-      "MoveSpeedX": 0.0,
-      "MoveSpeedY": 0.0,
-      "MoveSpeedZ": 0.0
-    }
-  },
-  "PlayerState_ChargeAttackMax1_Effects": [
-    {
-      "Effect": "8adecd20-62c0-46a2-82b8-efa3395a71b2"
-    }
-  ],
-  "PlayerState_ChargeAttackMax2": {
-    "Player": {
-      "AnimationSpeed": 60.0,
-      "AttackCount": 3,
+      "AnimeTime": 0.0,
+      "AttackCount": 1,
       "AttackDistance": 1.0,
       "AttackEndTime": 0.4000000059604645,
-      "AttackRadius": 5.199999809265137,
+      "AttackInterval": 0.10000000149011612,
+      "AttackRadius": 1.0,
       "AttackStartTime": 0.0,
       "AttackTime": 0.10000000149011612,
       "BleedTime": 0.25,
+      "BlendTime": 0.25,
       "CameraShakeTime": 0.30000001192092896,
       "CameraShakeX": 0.20000000298023224,
       "CameraShakeY": 0.0,
       "ChangeStateTime": 0.699999988079071,
       "DashSpeed": 0.699999988079071,
       "DashSpeedTime": 0.20000000298023224,
+      "EndSlowMotionTime": 0.10000000149011612,
+      "LButtonKeyInput": false,
       "MoveSpeedX": 0.0,
       "MoveSpeedY": 0.0,
-      "MoveSpeedZ": 0.0
-    }
+      "MoveSpeedZ": 0.0,
+      "RButtonKeyInput": false,
+      "StartSlowMotionTime": 0.0,
+      "searchEnemyRadius": 5.0
+    },
+    "PlayerState_ChargeAttackMax1_Effects": []
   },
-  "PlayerState_ChargeAttackMax3": {
-    "Player": {
+  "PlayerState_ChargeAttackMax2": {
+    "PlayerState_ChargeAttackMax2": {
+      "AfterImageColorA": 1.0,
+      "AfterImageColorB": 2.0,
+      "AfterImageColorG": 2.0,
+      "AfterImageColorR": 0.0,
+      "AfterImageInterval": 0.10000000149011612,
+      "AfterImageMax": 5,
       "AnimationSpeed": 60.0,
-      "AttackCount": 7,
+      "AnimeTime": 0.0,
+      "AttackCount": 1,
       "AttackDistance": 1.0,
-      "AttackEndTime": 3.0,
-      "AttackRadius": 5.0,
+      "AttackEndTime": 0.4000000059604645,
+      "AttackInterval": 0.10000000149011612,
+      "AttackRadius": 1.0,
       "AttackStartTime": 0.0,
-      "AttackTime": 0.2680000066757202,
+      "AttackTime": 0.10000000149011612,
       "BleedTime": 0.25,
+      "BlendTime": 0.25,
       "CameraShakeTime": 0.30000001192092896,
       "CameraShakeX": 0.20000000298023224,
       "CameraShakeY": 0.0,
       "ChangeStateTime": 0.699999988079071,
       "DashSpeed": 0.699999988079071,
       "DashSpeedTime": 0.20000000298023224,
+      "EndSlowMotionTime": 0.10000000149011612,
+      "LButtonKeyInput": false,
       "MoveSpeedX": 0.0,
       "MoveSpeedY": 0.0,
-      "MoveSpeedZ": 0.0
-    }
-  },
-  "PlayerState_ChargeAttackMax3_Effect": [
-    {
-      "Effect": "966b8a15-83c7-46fb-9332-b5a915fa3ed9"
+      "MoveSpeedZ": 0.0,
+      "RButtonKeyInput": false,
+      "StartSlowMotionTime": 0.0,
+      "searchEnemyRadius": 5.0
     },
-    {
-      "Effect": "647675f8-d64b-4169-bca6-95207019df54"
-    }
-  ],
-  "PlayerState_ChargeLevel0": {
-    "Player": {
-      "animationSpeed": 60.0,
-      "blendTime": 0.25,
-      "changeStateTime": 0.699999988079071
-    }
+    "PlayerState_ChargeAttackMax2_Effects": []
   },
-  "PlayerState_ChargeLevel1": {
-    "Player": {
-      "animationSpeed": 60.0,
-      "blendTime": 0.25,
-      "endSlowMotionTime": 0.10000000149011612,
-      "startSlowMotionTime": 0.0
-    }
-  },
-  "PlayerState_ChargeLevel1_Effects": [
-    {
-      "Effect": "9e1dd652-e688-4b79-91bb-01d5901ad94a"
-    },
-    {
-      "Effect": "17fbf3cf-c210-4a38-afd2-e54ca3823939"
-    }
-  ],
-  "PlayerState_ChargeLevel2": {
-    "Player": {
-      "animationSpeed": 60.0,
-      "blendTime": 0.25
-    }
-  },
-  "PlayerState_ChargeLevel2_Effects": [
-    {
-      "Effect": "109de406-31fd-468f-b2fe-4feba663895a"
-    }
-  ],
-  "PlayerState_ChargeLevelMax": {
-    "Player": {
-      "animationSpeed": 60.0,
-      "blendTime": 0.25,
-      "endSlowMotionTime": 0.10000000149011612,
-      "startSlowMotionTime": 0.0
-    }
-  },
-  "PlayerState_ChargeLevelMax_Effects": [
-    {
-      "Effect": "9e1dd652-e688-4b79-91bb-01d5901ad94a"
-    },
-    {
-      "Effect": "17fbf3cf-c210-4a38-afd2-e54ca3823939"
-    }
-  ],
-  "PlayerState_FowardAvoid": {
+  "PlayerState_ForwardAvoid": {
     "Player": {
       "afterImageColor": {
         "w": 1.0,
@@ -356,9 +544,10 @@
       },
       "afterImageInterval": 0.10000000149011612,
       "afterImageMax": 5,
-      "animationSpeed": 100.0,
+      "animationSpeed": 60.0,
       "blendTime": 0.25,
-      "dashSpeed": 1.5,
+      "dashSpeed": 0.699999988079071,
+      "dashSpeedTime": 0.20000000298023224,
       "m_cameraBossTargetOffset": {
         "x": 0.0,
         "y": 1.0,
@@ -367,196 +556,361 @@
       "m_cameraTargetOffset": {
         "x": 0.0,
         "y": 1.0,
-        "z": -2.5
+        "z": -4.5
+      },
+      "m_justAvoidCameraOffset": {
+        "x": 0.0,
+        "y": 0.699999988079071,
+        "z": -1.2000000476837158
       }
     }
   },
-  "PlayerState_FowardAvoidFast": {
+  "PlayerState_ForwardAvoidFast": {
     "Player": {
       "afterImageColor": {
-        "w": 1.9607843160629272,
-        "x": 0.0,
-        "y": 1.9607843160629272,
-        "z": 1.9607843160629272
-      },
-      "afterImageInterval": 5.0,
-      "afterImageMax": 10,
-      "animationSpeed": 100.0,
-      "blendTime": 0.25
-    }
-  },
-  "PlayerState_FowardAvoidFast_Effects": [
-    {
-      "Effect": "a002751b-151a-488f-922c-5acabdd05b79"
-    }
-  ],
-  "PlayerState_Hit": {
-    "Player": {
-      "animationSpeed": 60.0,
-      "blendTime": 0.25,
-      "changeStateTime": 0.699999988079071,
-      "dashSpeed": -0.699999988079071,
-      "dashSpeedTime": 0.20000000298023224
-    }
-  },
-  "PlayerState_Idle": {
-    "Player": {
-      "animationSpeed": 60.0
-    }
-  },
-  "PlayerState_JustAvoidAttack": {
-    "Player": {
-      "afterImageColor": {
-        "w": 1.9607843160629272,
+        "w": 1.0,
         "x": 0.0,
         "y": 2.0,
         "z": 2.0
       },
-      "afterImageInterval": 5.0,
-      "afterImageMax": 6,
-      "animationSpeed": 60.0,
-      "attackCount": 1,
-      "attackDistance": 1.0,
-      "attackEndTime": 0.4000000059604645,
-      "attackInterval": 0.10000000149011612,
-      "attackRadius": 6.0,
-      "attackStartTime": 0.0,
-      "blendTime": 0.25,
-      "searchEnemyRadius": 50.0
-    }
-  },
-  "PlayerState_JustAvoidAttack_Effects": [
-    {
-      "Effect": "b381d742-4b6f-479c-a467-ca4616db81fd"
-    }
-  ],
-  "PlayerState_JustAvoidAttack_end": {
-    "Player": {
-      "animationSpeed": 60.0,
-      "attackCount": 8,
-      "attackDistance": 1.0,
-      "attackEndTime": 3.0,
-      "attackInterval": 0.3009999990463257,
-      "attackRadius": 6.0,
-      "attackStartTime": 0.0,
-      "blendTime": 0.25
-    }
-  },
-  "PlayerState_JustAvoidAttack_end_Effects": [
-    {
-      "Effect": "966b8a15-83c7-46fb-9332-b5a915fa3ed9"
-    },
-    {
-      "Effect": "d0da2e18-d576-486b-bde0-96a90f7e8239"
-    }
-  ],
-  "PlayerState_Run": {
-    "Player": {
-      "blendTime": 0.25
-    }
-  },
-  "PlayerState_RunEnd": {
-    "Player": {
+      "afterImageInterval": 0.10000000149011612,
+      "afterImageMax": 5,
       "animationSpeed": 60.0,
       "blendTime": 0.25,
       "dashSpeed": 0.699999988079071,
-      "dashSpeedTime": 0.20000000298023224
-    }
-  },
-  "PlayerState_SheathKatana": {
-    "Player": {
-      "blendTime": 0.25
-    }
-  },
-  "PlayerState_Skill": {
-    "Player": {
-      "AnimationSpeed": 60.0,
-      "AttackCount": 1,
-      "AttackDistance": 1.0,
-      "AttackEndTime": 0.4000000059604645,
-      "AttackRadius": 1.0,
-      "AttackStartTime": 0.0,
-      "AttackTime": 0.10000000149011612,
-      "BleedTime": 0.25,
-      "CameraShakeTime": 0.30000001192092896,
-      "CameraShakeX": 0.20000000298023224,
-      "CameraShakeY": 0.0,
-      "ChangeStateTime": 0.699999988079071,
-      "DashSpeed": 0.699999988079071,
-      "DashSpeedTime": 0.20000000298023224,
-      "MoveSpeedX": 0.0,
-      "MoveSpeedY": 0.0,
-      "MoveSpeedZ": 0.0
-    }
-  },
-  "PlayerState_SpecialAttack": {
-    "Player": {
-      "animationSpeed": 60.0,
-      "attackCount": 8,
-      "attackDistance": 1.0,
-      "attackEndTime": 3.0,
-      "attackInterval": 0.10000000149011612,
-      "attackRadius": 6.039999961853027,
-      "attackStartTime": 0.0,
-      "blendTime": 0.25,
-      "changeStateTime": 0.5,
-      "lastCameraPos": {
+      "dashSpeedTime": 0.20000000298023224,
+      "m_cameraBossTargetOffset": {
         "x": 0.0,
         "y": 1.0,
-        "z": -5.0
+        "z": -7.5
+      },
+      "m_cameraTargetOffset": {
+        "x": 0.0,
+        "y": 1.0,
+        "z": -4.5
+      },
+      "m_justAvoidCameraOffset": {
+        "x": 0.0,
+        "y": 0.699999988079071,
+        "z": -1.2000000476837158
       }
     }
   },
-  "PlayerState_SpecialAttack1": {
+  "PlayerState_Hit": {
+    "AfterImageColorA": 1.0,
+    "AfterImageColorB": 2.0,
+    "AfterImageColorG": 2.0,
+    "AfterImageColorR": 0.0,
+    "AfterImageInterval": 0.10000000149011612,
+    "AfterImageMax": 5,
+    "AnimationSpeed": 60.0,
+    "AnimeTime": 0.0,
+    "AttackCount": 1,
+    "AttackDistance": 1.0,
+    "AttackEndTime": 0.4000000059604645,
+    "AttackInterval": 0.10000000149011612,
+    "AttackRadius": 1.0,
+    "AttackStartTime": 0.0,
+    "AttackTime": 0.10000000149011612,
+    "BleedTime": 0.25,
+    "BlendTime": 0.25,
+    "CameraShakeTime": 0.30000001192092896,
+    "CameraShakeX": 0.20000000298023224,
+    "CameraShakeY": 0.0,
+    "ChangeStateTime": 0.699999988079071,
+    "DashSpeed": 0.699999988079071,
+    "DashSpeedTime": 0.20000000298023224,
+    "EndSlowMotionTime": 0.10000000149011612,
+    "LButtonKeyInput": false,
+    "MoveSpeedX": 0.0,
+    "MoveSpeedY": 0.0,
+    "MoveSpeedZ": 0.0,
     "Player": {
-      "animationSpeed": 20.0,
-      "attackCount": 8,
-      "attackDistance": 1.0,
-      "attackEndTime": 4.0,
-      "attackInterval": 0.10000000149011612,
-      "attackRadius": 6.099999904632568,
-      "attackStartTime": 0.0,
-      "blendTime": 0.25
-    }
-  },
-  "PlayerState_SpecialAttack1_Effects": [
-    {
-      "Effect": "ae011302-3445-4389-8e99-cf450163be55"
-    },
-    {
-      "Effect": "d0da2e18-d576-486b-bde0-96a90f7e8239"
-    }
-  ],
-  "PlayerState_SpecialAttackCutIn": {
-    "Player": {
-      "SearchEnemyRadius": 50.0,
-      "animationSpeed": 60.0,
-      "blendTime": 0.25,
-      "cameraCutInOffset": {
+      "knockback": {
         "x": 0.0,
-        "y": 0.6000000238418579,
-        "z": -1.7000000476837158
-      },
-      "cameraCutInRotation": {
-        "x": 10.0,
-        "y": 90.0,
-        "z": 5.0
-      },
-      "cameraStartDistanceSmooth": 5.0,
-      "cameraStartRotationSmooth": 5.0
-    }
+        "y": 0.0,
+        "z": 0.0
+      }
+    },
+    "RButtonKeyInput": false,
+    "StartSlowMotionTime": 0.0,
+    "searchEnemyRadius": 5.0
+  },
+  "PlayerState_Hit_Effects": [],
+  "PlayerState_Idle": {
+    "AfterImageColorA": 1.0,
+    "AfterImageColorB": 2.0,
+    "AfterImageColorG": 2.0,
+    "AfterImageColorR": 0.0,
+    "AfterImageInterval": 0.10000000149011612,
+    "AfterImageMax": 5,
+    "AnimationSpeed": 60.0,
+    "AnimeTime": 0.0,
+    "AttackCount": 1,
+    "AttackDistance": 1.0,
+    "AttackEndTime": 0.4000000059604645,
+    "AttackInterval": 0.10000000149011612,
+    "AttackRadius": 1.0,
+    "AttackStartTime": 0.0,
+    "AttackTime": 0.10000000149011612,
+    "BleedTime": 0.25,
+    "BlendTime": 0.25,
+    "CameraShakeTime": 0.30000001192092896,
+    "CameraShakeX": 0.20000000298023224,
+    "CameraShakeY": 0.0,
+    "ChangeStateTime": 0.699999988079071,
+    "DashSpeed": 0.699999988079071,
+    "DashSpeedTime": 0.20000000298023224,
+    "EndSlowMotionTime": 0.10000000149011612,
+    "LButtonKeyInput": false,
+    "MoveSpeedX": 0.0,
+    "MoveSpeedY": 0.0,
+    "MoveSpeedZ": 0.0,
+    "RButtonKeyInput": false,
+    "StartSlowMotionTime": 0.0,
+    "searchEnemyRadius": 5.0
+  },
+  "PlayerState_Idle_Effects": [],
+  "PlayerState_JustAvoidAttack": {
+    "AfterImageColorA": 1.0,
+    "AfterImageColorB": 2.0,
+    "AfterImageColorG": 2.0,
+    "AfterImageColorR": 0.0,
+    "AfterImageInterval": 0.10000000149011612,
+    "AfterImageMax": 5,
+    "AnimationSpeed": 60.0,
+    "AnimeTime": 0.0,
+    "AttackCount": 7,
+    "AttackDistance": 2.740000009536743,
+    "AttackEndTime": 3.0,
+    "AttackInterval": 0.10000000149011612,
+    "AttackRadius": 4.210000038146973,
+    "AttackStartTime": 0.0,
+    "AttackTime": 0.10000000149011612,
+    "BleedTime": 0.25,
+    "BlendTime": 0.25,
+    "CameraShakeTime": 0.30000001192092896,
+    "CameraShakeX": 0.20000000298023224,
+    "CameraShakeY": 0.0,
+    "ChangeStateTime": 0.699999988079071,
+    "DashSpeed": 0.699999988079071,
+    "DashSpeedTime": 0.20000000298023224,
+    "EndSlowMotionTime": 0.10000000149011612,
+    "LButtonKeyInput": false,
+    "MoveSpeedX": 0.0,
+    "MoveSpeedY": 0.0,
+    "MoveSpeedZ": 0.0,
+    "RButtonKeyInput": false,
+    "StartSlowMotionTime": 0.0,
+    "searchEnemyRadius": 20.0
+  },
+  "PlayerState_JustAvoidAttack_Effects": [],
+  "PlayerState_JustAvoidAttack_end": {
+    "AfterImageColorA": 1.0,
+    "AfterImageColorB": 2.0,
+    "AfterImageColorG": 2.0,
+    "AfterImageColorR": 0.0,
+    "AfterImageInterval": 0.10000000149011612,
+    "AfterImageMax": 5,
+    "AnimationSpeed": 60.0,
+    "AnimeTime": 0.0,
+    "AttackCount": 9,
+    "AttackDistance": 3.2899999618530273,
+    "AttackEndTime": 4.0,
+    "AttackInterval": 0.11599999666213989,
+    "AttackRadius": 5.119999885559082,
+    "AttackStartTime": 0.0,
+    "AttackTime": 0.11599999666213989,
+    "BleedTime": 0.25,
+    "BlendTime": 0.25,
+    "CameraShakeTime": 0.30000001192092896,
+    "CameraShakeX": 0.20000000298023224,
+    "CameraShakeY": 0.0,
+    "ChangeStateTime": 0.699999988079071,
+    "DashSpeed": 0.699999988079071,
+    "DashSpeedTime": 0.20000000298023224,
+    "EndSlowMotionTime": 0.10000000149011612,
+    "LButtonKeyInput": false,
+    "MoveSpeedX": 0.0,
+    "MoveSpeedY": 0.0,
+    "MoveSpeedZ": 0.0,
+    "RButtonKeyInput": false,
+    "StartSlowMotionTime": 0.0,
+    "searchEnemyRadius": 20.0
+  },
+  "PlayerState_JustAvoidAttack_end_Effects": [],
+  "PlayerState_Run": {
+    "AfterImageColorA": 1.0,
+    "AfterImageColorB": 2.0,
+    "AfterImageColorG": 2.0,
+    "AfterImageColorR": 0.0,
+    "AfterImageInterval": 0.10000000149011612,
+    "AfterImageMax": 5,
+    "AnimationSpeed": 60.0,
+    "AnimeTime": 0.0,
+    "AttackCount": 1,
+    "AttackDistance": 1.0,
+    "AttackEndTime": 0.4000000059604645,
+    "AttackInterval": 0.10000000149011612,
+    "AttackRadius": 1.0,
+    "AttackStartTime": 0.0,
+    "AttackTime": 0.10000000149011612,
+    "BleedTime": 0.25,
+    "BlendTime": 0.25,
+    "CameraShakeTime": 0.30000001192092896,
+    "CameraShakeX": 0.20000000298023224,
+    "CameraShakeY": 0.0,
+    "ChangeStateTime": 0.699999988079071,
+    "DashSpeed": 0.699999988079071,
+    "DashSpeedTime": 0.20000000298023224,
+    "EndSlowMotionTime": 0.10000000149011612,
+    "LButtonKeyInput": false,
+    "MoveSpeedX": 0.0,
+    "MoveSpeedY": 0.0,
+    "MoveSpeedZ": 0.0,
+    "RButtonKeyInput": false,
+    "StartSlowMotionTime": 0.0,
+    "searchEnemyRadius": 5.0
+  },
+  "PlayerState_RunEnd": {
+    "AfterImageColorA": 1.0,
+    "AfterImageColorB": 2.0,
+    "AfterImageColorG": 2.0,
+    "AfterImageColorR": 0.0,
+    "AfterImageInterval": 0.10000000149011612,
+    "AfterImageMax": 5,
+    "AnimationSpeed": 60.0,
+    "AnimeTime": 0.0,
+    "AttackCount": 1,
+    "AttackDistance": 1.0,
+    "AttackEndTime": 0.4000000059604645,
+    "AttackInterval": 0.10000000149011612,
+    "AttackRadius": 1.0,
+    "AttackStartTime": 0.0,
+    "AttackTime": 0.10000000149011612,
+    "BleedTime": 0.25,
+    "BlendTime": 0.25,
+    "CameraShakeTime": 0.30000001192092896,
+    "CameraShakeX": 0.20000000298023224,
+    "CameraShakeY": 0.0,
+    "ChangeStateTime": 0.699999988079071,
+    "DashSpeed": 0.699999988079071,
+    "DashSpeedTime": 0.20000000298023224,
+    "EndSlowMotionTime": 0.10000000149011612,
+    "LButtonKeyInput": false,
+    "MoveSpeedX": 0.0,
+    "MoveSpeedY": 0.0,
+    "MoveSpeedZ": 0.0,
+    "RButtonKeyInput": false,
+    "StartSlowMotionTime": 0.0,
+    "searchEnemyRadius": 5.0
+  },
+  "PlayerState_RunEnd_Effects": [],
+  "PlayerState_Run_Effects": [],
+  "PlayerState_SheathKatana": {
+    "AfterImageColorA": 1.0,
+    "AfterImageColorB": 2.0,
+    "AfterImageColorG": 2.0,
+    "AfterImageColorR": 0.0,
+    "AfterImageInterval": 0.10000000149011612,
+    "AfterImageMax": 5,
+    "AnimationSpeed": 60.0,
+    "AnimeTime": 0.0,
+    "AttackCount": 1,
+    "AttackDistance": 1.0,
+    "AttackEndTime": 0.4000000059604645,
+    "AttackInterval": 0.10000000149011612,
+    "AttackRadius": 1.0,
+    "AttackStartTime": 0.0,
+    "AttackTime": 0.10000000149011612,
+    "BleedTime": 0.25,
+    "BlendTime": 0.25,
+    "CameraShakeTime": 0.30000001192092896,
+    "CameraShakeX": 0.20000000298023224,
+    "CameraShakeY": 0.0,
+    "ChangeStateTime": 0.699999988079071,
+    "DashSpeed": 0.699999988079071,
+    "DashSpeedTime": 0.20000000298023224,
+    "EndSlowMotionTime": 0.10000000149011612,
+    "LButtonKeyInput": false,
+    "MoveSpeedX": 0.0,
+    "MoveSpeedY": 0.0,
+    "MoveSpeedZ": 0.0,
+    "RButtonKeyInput": false,
+    "StartSlowMotionTime": 0.0,
+    "searchEnemyRadius": 5.0
+  },
+  "PlayerState_SheathKatana_Effects": [],
+  "PlayerState_SpecialAttack": {
+    "AfterImageColorA": 1.0,
+    "AfterImageColorB": 2.0,
+    "AfterImageColorG": 2.0,
+    "AfterImageColorR": 0.0,
+    "AfterImageInterval": 0.10000000149011612,
+    "AfterImageMax": 5,
+    "AnimationSpeed": 60.0,
+    "AnimeTime": 0.0,
+    "AttackCount": 1,
+    "AttackDistance": 1.0,
+    "AttackEndTime": 0.4000000059604645,
+    "AttackInterval": 0.10000000149011612,
+    "AttackRadius": 1.0,
+    "AttackStartTime": 0.0,
+    "AttackTime": 0.10000000149011612,
+    "BleedTime": 0.25,
+    "BlendTime": 0.25,
+    "CameraShakeTime": 0.30000001192092896,
+    "CameraShakeX": 0.20000000298023224,
+    "CameraShakeY": 0.0,
+    "ChangeStateTime": 0.699999988079071,
+    "DashSpeed": 0.699999988079071,
+    "DashSpeedTime": 0.20000000298023224,
+    "EndSlowMotionTime": 0.10000000149011612,
+    "LButtonKeyInput": false,
+    "MoveSpeedX": 0.0,
+    "MoveSpeedY": 0.0,
+    "MoveSpeedZ": 0.0,
+    "RButtonKeyInput": false,
+    "StartSlowMotionTime": 0.0,
+    "searchEnemyRadius": 5.0
+  },
+  "PlayerState_SpecialAttackCutIn": {
+    "AfterImageColorA": 1.0,
+    "AfterImageColorB": 2.0,
+    "AfterImageColorG": 2.0,
+    "AfterImageColorR": 0.0,
+    "AfterImageInterval": 0.10000000149011612,
+    "AfterImageMax": 5,
+    "AnimationSpeed": 60.0,
+    "AnimeTime": 0.0,
+    "AttackCount": 1,
+    "AttackDistance": 1.0,
+    "AttackEndTime": 0.4000000059604645,
+    "AttackInterval": 0.10000000149011612,
+    "AttackRadius": 1.0,
+    "AttackStartTime": 0.0,
+    "AttackTime": 0.10000000149011612,
+    "BleedTime": 0.25,
+    "BlendTime": 0.25,
+    "CameraShakeTime": 0.30000001192092896,
+    "CameraShakeX": 0.20000000298023224,
+    "CameraShakeY": 0.0,
+    "ChangeStateTime": 0.699999988079071,
+    "DashSpeed": 0.699999988079071,
+    "DashSpeedTime": 0.20000000298023224,
+    "EndSlowMotionTime": 0.10000000149011612,
+    "LButtonKeyInput": false,
+    "MoveSpeedX": 0.0,
+    "MoveSpeedY": 0.0,
+    "MoveSpeedZ": 0.0,
+    "RButtonKeyInput": false,
+    "StartSlowMotionTime": 0.0,
+    "searchEnemyRadius": 5.0
   },
   "PlayerState_SpecialAttackCutIn_Effects": [
     {
       "Effect": "7f5ad687-cdc3-48c2-818d-d04942eba3f0"
     }
   ],
-  "PlayerState_SpecialAttack_Effects": [
-    {
-      "Effect": "d2d16787-ccbc-4396-95a2-e57c75b5487e"
-    },
-    {
-      "Effect": "bfd8ebf1-9e55-4a30-bec8-71644040b11e"
-    }
-  ]
+  "PlayerState_SpecialAttack_Effects": []
 }

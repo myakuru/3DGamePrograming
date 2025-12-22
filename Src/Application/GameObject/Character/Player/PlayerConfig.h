@@ -1,23 +1,20 @@
 ﻿#pragma once
-class PlayerStateBase;
+#include "Application/GameObject/Character/Player/Player.h"
+#include "MyFramework/State/StateBase/StateBase.h"
 
-class PlayerConfig
-{
+class PlayerConfig {
 public:
 	void InGuiInspector();
+	void DrawStateComboImGui();
 	void JsonInput(const nlohmann::json& js);
 	void JsonSave() const;
 	void CreateStates();
-	void ApplyPrototypeParametersTo(PlayerStateBase& runtime);
 
-	//　現在選択されているステート名取得
-	const std::string& GetSelectedStateName() const { return m_currentStateName; }
+	void ApplyPrototypeParametersTo(StateBase<Player>& _runtime);
 
 private:
-	// コンボ描画専用
-	void DrawStateComboImGui();
-
-	std::vector<std::unique_ptr<PlayerStateBase>> m_states;
+	
+	std::vector<std::unique_ptr<StateBase<Player>>> m_states;
 	std::vector<std::string> m_stateNames;
 	int m_selectedStateIndex = -1;
 	std::string m_currentStateName = "None";

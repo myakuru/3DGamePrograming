@@ -4,7 +4,7 @@
 #include "Application/Scene/SceneManager.h"
 #include "Application/Data/CharacterData/CharacterData.h"
 #include "MyFramework/Manager/JsonManager/JsonManager.h"
-#include "Application/GameObject/Collition/Collition.h"
+#include "Application/GameObject/Collision/Collision.h"
 #include "Application/GameObject/Effect/EffekseerEffect/EnemyHitEffect/EnemyHitEffect.h"
 
 void EnemyBase::Init()

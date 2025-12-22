@@ -4,9 +4,9 @@
 #include "Application/GameObject/Camera/PlayerCamera/PlayerCameraState/PlayerCameraState_WinnerCamera_3rd/PlayerCameraState_WinnerCamera_3rd.h"
 #include "MyFramework/Manager/JsonManager/JsonManager.h"
 
-void PlayerCameraState_WinnerCamera_2nd::StateStart()
+void PlayerCameraState_WinnerCamera_2nd::StateStart(PlayerCamera* _owner)
 {
-	auto* cam = m_playerCamera; if (!cam) return;
+	auto* cam = _owner; if (!cam) return;
 
 	// Winner 演出開始
 	auto& win = cam->WinnerState();
@@ -16,9 +16,9 @@ void PlayerCameraState_WinnerCamera_2nd::StateStart()
 	Application::Instance().SetFpsScale(0.0f);
 }
 
-void PlayerCameraState_WinnerCamera_2nd::StateUpdate()
+void PlayerCameraState_WinnerCamera_2nd::StateUpdate(PlayerCamera* _owner)
 {
-	auto* cam = m_playerCamera; if (!cam) return;
+	auto* cam = _owner; if (!cam) return;
 
 	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
 	auto& win = cam->WinnerState();
@@ -69,13 +69,13 @@ void PlayerCameraState_WinnerCamera_2nd::StateUpdate()
 	if (win.time > m_changeStateTime)
 	{
 		auto state = std::make_shared<PlayerCameraState_WinnerCamera_3rd>();
-		m_playerCamera->ChangeState(state);
+		_owner->ChangeState(state);
 		return;
 	}
 
 }
 
-void PlayerCameraState_WinnerCamera_2nd::StateEnd()
+void PlayerCameraState_WinnerCamera_2nd::StateEnd(PlayerCamera* _owner)
 {
 }
 

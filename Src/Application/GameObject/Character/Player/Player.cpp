@@ -7,16 +7,16 @@
 #include "MyFramework/Manager/JsonManager/JsonManager.h"
 #include "Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
 
-#include "PlayerState/PlayerState_Idle/PlayerState_Idle.h"
-#include "PlayerState/PlayerState_Hit/PlayerState_Hit.h"
+#include "PlayerState/PlayerState_MotionBase/PlayerState_Idle/PlayerState_Idle.h"
+#include "PlayerState/PlayerState_HitBase/PlayerState_Hit/PlayerState_Hit.h"
 
 #include "Application/Data/CharacterData/CharacterData.h"
 
-#include "Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
+#include "Application/GameObject/Character/EnemyBase/AetheriusEnemy/RedEnemy.h"
 #include "Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
-#include "Application/GameObject/Collition/Collition.h"
+#include "Application/GameObject/Collision/Collision.h"
 #include "Application/GameObject/Character/AfterImage/AfterImage.h"
-#include "Application/GameObject/Character/Player/PlayerState/PlayerState_Attack/PlayerState_Attack.h"
+#include "Application/GameObject/Character/Player/PlayerState/PlayerState_AttackBase/CommonAttack/PlayerState_Attack/PlayerState_Attack.h"
 #include "Application/GameObject/Character/Player/PlayerConfig.h"
 
 #include"Application/GameObject/Utility/Time.h"
@@ -286,13 +286,13 @@ void Player::Update()
 		if (GetInvincible()) return;
 
 		auto spDamageState = std::make_shared<PlayerState_Hit>();
-		ChangeState(spDamageState);
+		m_stateMachine.ChangeState(spDamageState);
 
 		SetHitCheck(false);
 		return;
 	}
 
-	GetStateManager().Update();
+	m_stateMachine.Update();
 
 	// スキル・スペシャル使用可能判定
 	{
@@ -420,9 +420,9 @@ void Player::UpdateAttackCollision(float _radius         , float         _distan
 			std::list<KdCollider::CollisionResult> results;
 			if (obj->Intersects(attackSphere, &results) && !results.empty())
 			{
-				if (obj->GetTypeID() == AetheriusEnemy::TypeID)
+				if (obj->GetTypeID() == RedEnemy::TypeID)
 				{
-					auto e = std::static_pointer_cast<AetheriusEnemy>(obj);
+					auto e = std::static_pointer_cast<RedEnemy>(obj);
 					e->Damage(GetCharacterData()->GetCharacterData().attack);
 					e->SetHitCheck(true);
 				}
@@ -532,19 +532,20 @@ void Player::JsonSave(nlohmann::json& _json) const
 
 void Player::StateInit()
 {
-	auto state = std::make_shared<PlayerState_Idle>();
-	ChangeState(state);
-}
+	// StateMachine を起動（owner を渡す）
+	m_stateMachine.Start(this);
 
-void Player::ChangeState(std::shared_ptr<PlayerStateBase> _state)
-{
-	_state->SetPlayer(this);
-	// Configからパラメータ注入（StateStart前に行う）
+	// 初期ステート
+	auto state = std::make_shared<PlayerState_Idle>();
+
+	// Configからパラメータ注入
 	if (m_playerConfig)
 	{
-		m_playerConfig->ApplyPrototypeParametersTo(*_state);
+		m_playerConfig->ApplyPrototypeParametersTo(*state);
 	}
-	GetStateManager().ChangeState(_state);
+
+	// 共有ポインタ版で遷移
+	m_stateMachine.ChangeState(state);
 }
 
 void Player::UpdateMoveDirectionFromInput()

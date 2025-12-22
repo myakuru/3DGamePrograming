@@ -6,15 +6,16 @@ public:
 	EnemyState_Attack() = default;
 	~EnemyState_Attack()override = default;
 
-private:
-	void StateStart() override;
-	void StateUpdate() override;
-	void StateEnd() override;
+	void StateStart(RedEnemy* _owner) override;
+	void StateUpdate(RedEnemy* _owner) override;
+	void StateEnd(RedEnemy* _owner) override;
 
 	void ApplyFromConfig(const EnemyStateBase& other) override;
 	void ExposeParametersImGui() override;
 	void LoadParametersJson(const nlohmann::json& js) override;
 	void SaveParametersJson(nlohmann::json& js) const override;
+
+private:
 
 	float m_fpsScale = 0.4f;
 

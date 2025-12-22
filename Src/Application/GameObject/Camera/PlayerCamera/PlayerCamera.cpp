@@ -8,6 +8,7 @@
 #include "Application/GameObject/Camera/PlayerCamera/PlayerCameraState/PlayerCameraState_WinnerCamera_1st/PlayerCameraState_WinnerCamera_1st.h"
 
 #include "Application/GameObject/Camera/PlayerCamera/PlayerCameraConfig/PlayerCameraConfig.h"
+#include "MyFramework/State/StateBase/StateBase.h"
 
 const uint32_t PlayerCamera::TypeID = KdGameObject::GenerateTypeID();
 
@@ -65,7 +66,7 @@ void PlayerCamera::Init()
 	intro.introTimer = 0.0f;
 	shake.shakeTime = 0.0f;
 
-	m_oneceFlag = false;
+	m_onceFlag = false;
 }
 
 void PlayerCamera::PostUpdate()
@@ -87,11 +88,11 @@ void PlayerCamera::PostUpdate()
 	}
 
 	// ステート更新（各ステートがlook/fov/m_degree等を更新する）
-	m_stateManager.Update();
+	m_stateMachine.Update();
 
-	if (SceneManager::Instance().m_gameClear && !m_oneceFlag)
+	if (SceneManager::Instance().m_gameClear && !m_onceFlag)
 	{
-		m_oneceFlag = true;
+		m_onceFlag = true;
 
 		auto winnerState = std::make_shared<PlayerCameraState_WinnerCamera_1st>();
 		ChangeState(winnerState);
@@ -278,13 +279,13 @@ void PlayerCamera::JsonInput(const nlohmann::json& _json)
 
 void PlayerCamera::ChangeState(std::shared_ptr<PlayerCameraState> _state)
 {
-	_state->SetPlayerCamera(this);
 	if (m_playerCameraConfig) m_playerCameraConfig->ApplyPrototypeParametersTo(*_state);
-	m_stateManager.ChangeState(_state);
+	m_stateMachine.ChangeState(_state);
 }
 
 void PlayerCamera::StateInit()
 {
+	m_stateMachine.Start(this);
 	ChangeState(std::make_shared<PlayerCameraState_IntroCamera>());
 }
 

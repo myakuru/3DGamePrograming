@@ -6,11 +6,9 @@ public:
 	EnemyState_Run() = default;
 	~EnemyState_Run()override = default;
 
-private:
-
-	void StateStart() override;
-	void StateUpdate() override;
-	void StateEnd() override;
+	void StateStart(RedEnemy* _owner) override;
+	void StateUpdate(RedEnemy* _owner) override;
+	void StateEnd(RedEnemy* _owner) override;
 
 	void ApplyFromConfig(const EnemyStateBase& other) override;
 	void ExposeParametersImGui() override;

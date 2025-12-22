@@ -4,7 +4,7 @@
 #include "Application/GameObject/Camera/PlayerCamera/PlayerCamera.h"
 #include "Application/GameObject/Weapon/EnemySword/EnemySword.h"
 #include "Application/GameObject/Weapon/EnemyShield/EnemyShield.h"
-#include "Application/GameObject/Collition/Collition.h"
+#include "Application/GameObject/Collision/Collision.h"
 #include "Application/main.h"
 #include "MyFramework/Manager/JsonManager/JsonManager.h"
 #include "BossEnemyState/BossEnemyState_Enter/BossEnemyState_Enter.h"
@@ -116,6 +116,8 @@ void BossEnemy::Update()
 		return;
 	}
 
+	m_stateMachine.Update();
+
 	// ブラー制御
 	if (GetEnableRadialBlur())
 	{
@@ -167,14 +169,14 @@ void BossEnemy::DrawLit()
 
 void BossEnemy::StateInit()
 {
+	m_stateMachine.Start(this);
+
 	auto enterState = std::make_shared<BossEnemyState_Enter>();
 	ChangeState(enterState);
 }
 
 void BossEnemy::ChangeState(std::shared_ptr<BossEnemyStateBase> _state)
 {
-	_state->SetBossEnemy(this);
-
 	Physics().hitStop = 1.0f;
 	ResetBlurTime();
 
@@ -182,7 +184,7 @@ void BossEnemy::ChangeState(std::shared_ptr<BossEnemyStateBase> _state)
 	{
 		m_bossEnemyConfig->ApplyPrototypeParametersTo(*_state);
 	}
-	GetStateManager().ChangeState(_state);
+	m_stateMachine.ChangeState(_state);
 }
 
 void BossEnemy::Damage(int _damage)

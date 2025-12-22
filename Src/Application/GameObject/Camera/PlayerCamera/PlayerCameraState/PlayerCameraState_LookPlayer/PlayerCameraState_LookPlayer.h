@@ -10,8 +10,8 @@ public:
 
 private:
 
-	void StateStart() override;
-	void StateUpdate() override;
-	void StateEnd() override;
+	void StateStart(PlayerCamera* _owner) override;
+	void StateUpdate(PlayerCamera* _owner) override;
+	void StateEnd(PlayerCamera* _owner) override;
 
 };

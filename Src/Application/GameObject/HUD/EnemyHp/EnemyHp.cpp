@@ -1,7 +1,7 @@
 ﻿#include "EnemyHp.h"
 #include"../../../Scene/SceneManager.h"
 #include"../../../main.h"
-#include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/RedEnemy.h"
 #include"../../Camera/PlayerCamera/PlayerCamera.h"
 #include"../../../Data/CharacterData/CharacterData.h"
 

@@ -9,28 +9,28 @@
 #include "Application/GameObject/Utility/EffectReference.h"
 #include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
 
-void EnemyState_Attack1::StateStart()
+void EnemyState_Attack1::StateStart(RedEnemy* _owner)
 {
-	EnemyStateBase::StateStart();
+	EnemyStateBase::StateStart(_owner);
 
-	auto anime = m_enemy->GetAnimeModel()->GetAnimation("Attack1");
-	m_enemy->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
+	auto anime = _owner->GetAnimeModel()->GetAnimation("Attack1");
+	_owner->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 
 	m_time = 0.0f;
 
 	// 当たり判定リセット
-	m_enemy->ResetAttackCollision();
+	_owner->ResetAttackCollision();
 }
 
-void EnemyState_Attack1::StateUpdate()
+void EnemyState_Attack1::StateUpdate(RedEnemy* _owner)
 {
 	// 攻撃中の移動方向で回転を更新
-	if (m_enemy->GetMovement() != Math::Vector3::Zero)
+	if (_owner->GetMovement() != Math::Vector3::Zero)
 	{
-		Math::Vector3 moveDir = m_enemy->GetMovement();
+		Math::Vector3 moveDir = _owner->GetMovement();
 		moveDir.y = 0.0f;
 		moveDir.Normalize();
-		m_enemy->UpdateQuaternionDirect(moveDir);
+		_owner->UpdateQuaternionDirect(moveDir);
 	}
 
 	if (m_animeTime >= 0.2)
@@ -47,17 +47,17 @@ void EnemyState_Attack1::StateUpdate()
 
 		if (m_hitStopTimer <= m_animationStopTime)
 		{
-			m_enemy->SetHitStop(m_hitStopTime);
+			_owner->SetHitStop(m_hitStopTime);
 		}
 		else
 		{
-			m_enemy->SetHitStop(m_KdefaultHitStopTime);
+			_owner->SetHitStop(m_KdefaultHitStopTime);
 		}
 	}
 
 	m_time += deltaTime;
 
-	m_animeTime = m_enemy->GetAnimator()->GetPlayProgress();
+	m_animeTime = _owner->GetAnimator()->GetPlayProgress();
 
 	// アニメーション時間の35％から100％の間、攻撃判定有効
 	if (m_animeTime >= m_stateParameter.attackActiveStartTime && m_animeTime <= m_stateParameter.attackActiveEndTime)
@@ -67,11 +67,11 @@ void EnemyState_Attack1::StateUpdate()
 		{
 			if (auto effect = ref->GetEffectBase().lock())
 			{
-				effect->PlayForTarget<AetheriusEnemy>(std::static_pointer_cast<AetheriusEnemy>(m_enemy->GetMyAdls()));
+				effect->PlayForTarget<RedEnemy>(std::static_pointer_cast<RedEnemy>(_owner->GetMyAdls()));
 			}
 		}
 
-		m_enemy->UpdateAttackCollision
+		_owner->UpdateAttackCollision
 		(
 			m_stateParameter.attackRadius,
 			m_stateParameter.attackDistance,
@@ -89,7 +89,7 @@ void EnemyState_Attack1::StateUpdate()
 			if (auto p = player.lock())
 			{
 				m_playerPos = p->GetPos();
-				m_enemyPos = m_enemy->GetPos();
+				m_enemyPos = _owner->GetPos();
 				break;
 			}
 		}
@@ -99,29 +99,29 @@ void EnemyState_Attack1::StateUpdate()
 		if (m_distance >= m_stateParameter.distanceThreshold)
 		{
 			auto state = std::make_shared<EnemyState_Run>();
-			m_enemy->ChangeState(state);
+			_owner->ChangeState(state);
 			return;
 		}
 	}
 
-	if (m_enemy->GetAnimator()->IsAnimationEnd())
+	if (_owner->GetAnimator()->IsAnimationEnd())
 	{
 		auto attack = std::make_shared<EnemyState_Attack2>();
-		m_enemy->ChangeState(attack);
+		_owner->ChangeState(attack);
 		return;
 	}
 
 	if (m_time < m_stateParameter.dashSpeedTime)
 	{
-		m_enemy->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
+		_owner->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
 	}
 	else
 	{
-		m_enemy->SetIsMoving(Math::Vector3::Zero);
+		_owner->SetIsMoving(Math::Vector3::Zero);
 	}
 }
 
-void EnemyState_Attack1::StateEnd()
+void EnemyState_Attack1::StateEnd(RedEnemy* _owner)
 {
 	for (const auto& ref : m_enemyEffects)
 	{
@@ -131,7 +131,7 @@ void EnemyState_Attack1::StateEnd()
 		}
 	}
 
-	m_enemy->SetInvincible(false);
+	_owner->SetInvincible(false);
 }
 
 void EnemyState_Attack1::ApplyFromConfig(const EnemyStateBase& other)

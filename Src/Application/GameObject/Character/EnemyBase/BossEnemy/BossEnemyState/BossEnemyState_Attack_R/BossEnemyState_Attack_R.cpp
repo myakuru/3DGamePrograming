@@ -10,30 +10,30 @@
 #include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
 
 
-void BossEnemyState_Attack_R::StateStart()
+void BossEnemyState_Attack_R::StateStart(BossEnemy* _owner)
 {
-	auto anime = m_bossEnemy->GetAnimeModel()->GetAnimation("Attack_R");
-	m_bossEnemy->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
-	BossEnemyStateBase::StateStart();
+	auto anime = _owner->GetAnimeModel()->GetAnimation("Attack_R");
+	_owner->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
+	BossEnemyStateBase::StateStart(_owner);
 	// アニメーション速度を変更
-	m_bossEnemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
+	_owner->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	// 当たり判定リセット
-	m_bossEnemy->ResetAttackCollision();
+	_owner->ResetAttackCollision();
 
 	// 近接CDと直前行動をセット
-	m_bossEnemy->SetMeleeCooldown(1.0f);
-	m_bossEnemy->SetLastAction(BossEnemy::ActionType::AttackR);
+	_owner->SetMeleeCooldown(1.0f);
+	_owner->SetLastAction(BossEnemy::ActionType::AttackR);
 }
 
-void BossEnemyState_Attack_R::StateUpdate()
+void BossEnemyState_Attack_R::StateUpdate(BossEnemy* _owner)
 {
 	float deltaTime = Application::Instance().GetDeltaTime();
 
 	m_time += deltaTime;
 
 	// アニメーション再生時間を取得
-	m_animeTime = m_bossEnemy->GetAnimator()->GetPlayProgress();
+	m_animeTime = _owner->GetAnimator()->GetPlayProgress();
 
 	KdDebugGUI::Instance().AddLog("EnemyAttackAnimeTime:%f", m_animeTime);
 	KdDebugGUI::Instance().AddLog("\n");
@@ -41,7 +41,7 @@ void BossEnemyState_Attack_R::StateUpdate()
 	// アニメーション時間の35％から100％の間、攻撃判定有効
 	if (m_animeTime >= m_stateParameter.attackActiveStartTime && m_animeTime <= m_stateParameter.attackActiveEndTime)
 	{
-		m_bossEnemy->UpdateAttackCollision
+		_owner->UpdateAttackCollision
 		(
 			m_stateParameter.attackRadius,
 			m_stateParameter.attackDistance,
@@ -59,32 +59,32 @@ void BossEnemyState_Attack_R::StateUpdate()
 		{
 			if (auto effect = ref->GetEffectBase().lock())
 			{
-				effect->PlayForTarget<BossEnemy>(std::static_pointer_cast<BossEnemy>(m_bossEnemy->GetMyAdls()));
+				effect->PlayForTarget<BossEnemy>(std::static_pointer_cast<BossEnemy>(_owner->GetMyAdls()));
 			}
 		}
 	}
 
 	// Rが終わったら必ずIdleで1秒休む
-	if (m_bossEnemy->GetAnimator()->IsAnimationEnd())
+	if (_owner->GetAnimator()->IsAnimationEnd())
 	{
 		auto next = std::make_shared<BossEnemyState_Idle>(1.0f);
-		m_bossEnemy->ChangeState(next);
+		_owner->ChangeState(next);
 		return;
 	}
 
 	if (m_time < m_stateParameter.dashSpeedTime)
 	{
-		m_bossEnemy->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
+		_owner->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
 	}
 	else
 	{
-		m_bossEnemy->SetIsMoving(Math::Vector3::Zero);
+		_owner->SetIsMoving(Math::Vector3::Zero);
 	}
 }
 
-void BossEnemyState_Attack_R::StateEnd()
+void BossEnemyState_Attack_R::StateEnd(BossEnemy* _owner)
 {
-	m_bossEnemy->SetInvincible(false);
+	_owner->SetInvincible(false);
 
 	for (const auto& ref : m_enemyEffects)
 	{

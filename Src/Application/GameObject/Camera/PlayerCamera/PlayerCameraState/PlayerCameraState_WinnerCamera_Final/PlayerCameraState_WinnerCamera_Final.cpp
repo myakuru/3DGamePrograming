@@ -4,9 +4,9 @@
 #include "Application/Scene/SceneManager.h"
 #include "MyFramework/Manager/JsonManager/JsonManager.h"
 
-void PlayerCameraState_WinnerCamera_Final::StateStart()
+void PlayerCameraState_WinnerCamera_Final::StateStart(PlayerCamera* _owner)
 {
-	auto* cam = m_playerCamera; if (!cam) return;
+	auto* cam = _owner; if (!cam) return;
 
 	// Winner 演出開始
 	auto& win = cam->WinnerState();
@@ -16,9 +16,9 @@ void PlayerCameraState_WinnerCamera_Final::StateStart()
 	Application::Instance().SetFpsScale(0.0f);
 }
 
-void PlayerCameraState_WinnerCamera_Final::StateUpdate()
+void PlayerCameraState_WinnerCamera_Final::StateUpdate(PlayerCamera* _owner)
 {
-	auto* cam = m_playerCamera; if (!cam) return;
+	auto* cam = _owner; if (!cam) return;
 
 	float deltaTime = Application::Instance().GetUnscaledDeltaTime();
 	auto& win = cam->WinnerState();
@@ -71,7 +71,7 @@ void PlayerCameraState_WinnerCamera_Final::StateUpdate()
 	}
 }
 
-void PlayerCameraState_WinnerCamera_Final::StateEnd()
+void PlayerCameraState_WinnerCamera_Final::StateEnd(PlayerCamera* _owner)
 {
 }
 

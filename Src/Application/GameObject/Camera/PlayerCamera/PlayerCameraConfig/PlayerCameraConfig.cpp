@@ -59,13 +59,13 @@ void PlayerCameraConfig::CreateStates()
 	m_states.emplace_back(std::make_unique<PlayerCameraState_WinnerCamera_Final>());      m_stateNames.emplace_back("WinnerCamera_Final");
 }
 
-void PlayerCameraConfig::ApplyPrototypeParametersTo(PlayerCameraState& runtime)
+void PlayerCameraConfig::ApplyPrototypeParametersTo(PlayerCameraState& _runtime)
 {
 	for (const auto& proto : m_states)
 	{
-		if (typeid(*proto) == typeid(runtime))
+		if (typeid(*proto) == typeid(_runtime))
 		{
-			runtime.ApplyFromConfig(*proto);
+			_runtime.ApplyFromConfig(*proto);
 			break;
 		}
 	}

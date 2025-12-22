@@ -1017,9 +1017,9 @@
     "moveSpeed": 0.14000000059604645,
     "path": "Asset\\Models\\Player\\Sapphy\\Sapphy.gltf",
     "pos": {
-      "x": 2.7224974632263184,
+      "x": 1.092727780342102,
       "y": 100.99998474121094,
-      "z": -3.139633893966675
+      "z": -2.3308351039886475
     },
     "rotateSpeed": 30.0,
     "scale": {
@@ -1034,9 +1034,9 @@
     "Guid": "2689886c-a2aa-41cc-92bc-4e6a797c74ea",
     "Name": "class PlayerCamera",
     "cameraPos": {
-      "x": 2.7224974632263184,
+      "x": 1.092727780342102,
       "y": 100.99998474121094,
-      "z": -3.139633893966675
+      "z": -2.3308351039886475
     },
     "color": {
       "w": 1.0,
@@ -1045,8 +1045,8 @@
       "z": 1.0
     },
     "deg": {
-      "x": 13.799994468688965,
-      "y": 319.9998474121094,
+      "x": 12.299993515014648,
+      "y": 308.5999755859375,
       "z": 0.0
     },
     "fov": 70.0,
@@ -1389,7 +1389,7 @@
         "Guid": "e4848941-93b6-48de-8612-3740fae8c4d6",
         "Name": "class MapGard",
         "color": {
-          "w": 0.800000011920929,
+          "w": 0.5,
           "x": 0.800000011920929,
           "y": 0.800000011920929,
           "z": 0.800000011920929
@@ -1533,7 +1533,7 @@
         "Guid": "449fe207-1f40-44e7-9c93-5c7a09b1db52",
         "Name": "class MapGard",
         "color": {
-          "w": 1.0,
+          "w": 0.800000011920929,
           "x": 0.800000011920929,
           "y": 0.800000011920929,
           "z": 0.800000011920929
@@ -4823,7 +4823,7 @@
         "path": "Asset\\Textures\\Time\\Digit01.png",
         "pos": {
           "x": 650.0,
-          "y": 366.6669921875,
+          "y": 279.996337890625,
           "z": 0.0
         },
         "scale": {
@@ -5117,61 +5117,12 @@
     }
   },
   {
-    "Class": "class AetheriusEnemy",
+    "Class": "class RedEnemy",
     "Expired": false,
     "GravitySpeed": 0.0,
-    "Guid": "cd0601d6-92cf-4ff5-987e-b2ca8423ae00",
+    "Guid": "577ac18a-f66d-4fb4-83a0-7bc216db258b",
     "LastDamage": 0,
-    "Name": "class AetheriusEnemy",
-    "color": {
-      "w": 1.9607843160629272,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "deg": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "dissolveColor": {
-      "x": 0.9509803652763367,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "dissolvePower": 1.0,
-    "drawFlags": {
-      "DrawBright": false,
-      "DrawGradation": false,
-      "DrawGrayScale": false,
-      "DrawLit": true,
-      "DrawToon": false,
-      "DrawUnLit": false,
-      "GenerateDepthMapFromLight": true
-    },
-    "fixedFps": 60.0,
-    "moveSpeed": 0.05000000074505806,
-    "path": "Asset\\Models\\Enemy\\Aetherius\\Aetherius.gltf",
-    "pos": {
-      "x": -12.96399974822998,
-      "y": 101.19999694824219,
-      "z": 16.923999786376953
-    },
-    "rotationspeed": 10.0,
-    "scale": {
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "type": 32
-  },
-  {
-    "Class": "class AetheriusEnemy",
-    "Expired": false,
-    "GravitySpeed": 0.0,
-    "Guid": "71a5d7d1-c0fa-4c40-80ef-32b40a2f966a",
-    "LastDamage": 0,
-    "Name": "class AetheriusEnemy",
+    "Name": "class RedEnemy",
     "color": {
       "w": 1.0,
       "x": 1.9607843160629272,
@@ -5187,108 +5138,6 @@
       "x": 1.0,
       "y": 0.0,
       "z": 0.0
-    },
-    "dissolvePower": 1.0,
-    "drawFlags": {
-      "DrawBright": false,
-      "DrawGradation": false,
-      "DrawGrayScale": false,
-      "DrawLit": true,
-      "DrawToon": false,
-      "DrawUnLit": false,
-      "GenerateDepthMapFromLight": true
-    },
-    "fixedFps": 60.0,
-    "moveSpeed": 0.05000000074505806,
-    "path": "Asset\\Models\\Enemy\\Aetherius\\Aetherius.gltf",
-    "pos": {
-      "x": -17.66415023803711,
-      "y": 101.19999694824219,
-      "z": 11.024412155151367
-    },
-    "rotationspeed": 10.0,
-    "scale": {
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "type": 32
-  },
-  {
-    "Class": "class AetheriusEnemy",
-    "Expired": false,
-    "GravitySpeed": 0.0,
-    "Guid": "78520251-8c27-4b43-9341-d5e62328abba",
-    "LastDamage": 15,
-    "Name": "class AetheriusEnemy",
-    "color": {
-      "w": 1.0,
-      "x": 1.9607843160629272,
-      "y": 1.9607843160629272,
-      "z": 1.9607843160629272
-    },
-    "deg": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "dissolveColor": {
-      "x": 1.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "dissolvePower": 1.0,
-    "drawFlags": {
-      "DrawBright": false,
-      "DrawGradation": false,
-      "DrawGrayScale": false,
-      "DrawLit": true,
-      "DrawToon": false,
-      "DrawUnLit": false,
-      "GenerateDepthMapFromLight": true
-    },
-    "fixedFps": 60.0,
-    "moveSpeed": 0.05000000074505806,
-    "path": "Asset\\Models\\Enemy\\Aetherius\\Aetherius.gltf",
-    "pos": {
-      "x": -0.15944838523864746,
-      "y": 100.80000305175781,
-      "z": 9.685054779052734
-    },
-    "rotationspeed": 10.0,
-    "scale": {
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "type": 32
-  },
-  {
-    "Boss_Expired": false,
-    "Boss_LastAction": 0,
-    "Boss_LastDamage": 0,
-    "Boss_MeleeCooldown": 0.0,
-    "Boss_WaterCooldown": 0.0,
-    "Boss_WaterFallCooldown": 0.0,
-    "Class": "class BossEnemy",
-    "GravitySpeed": 0.0,
-    "Guid": "b02aec4d-3202-41f5-9c4e-42523fb2c9a3",
-    "Name": "class BossEnemy",
-    "color": {
-      "w": 1.0,
-      "x": 1.0,
-      "y": 1.0,
-      "z": 1.0
-    },
-    "deg": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "dissolveColor": {
-      "x": 0.0,
-      "y": 0.6470589637756348,
-      "z": 1.0
     },
     "dissolvePower": 1.0,
     "drawFlags": {
@@ -5300,13 +5149,13 @@
       "DrawUnLit": false,
       "GenerateDepthMapFromLight": false
     },
-    "fixedFps": 0.0,
-    "moveSpeed": 0.10000000149011612,
-    "path": "Asset/Models/Sky/Sky.gltf",
+    "fixedFps": 60.0,
+    "moveSpeed": 0.0,
+    "path": "Asset\\Models\\Enemy\\Aetherius\\Aetherius.gltf",
     "pos": {
-      "x": -8.0,
+      "x": -15.899999618530273,
       "y": 101.0,
-      "z": 18.0
+      "z": 3.5999999046325684
     },
     "rotationspeed": 10.0,
     "scale": {
@@ -5327,16 +5176,16 @@
       "z": 1.0
     },
     "deg": {
-      "x": 17.999919891357422,
-      "y": 273.5814208984375,
+      "x": 21.450021743774414,
+      "y": 297.4306945800781,
       "z": 0.0
     },
     "moveSpeed": 10.0,
     "path": "Asset/Models/Sky/Sky.gltf",
     "pos": {
-      "x": 30.730104446411133,
-      "y": 135.7718048095703,
-      "z": 10.941843032836914
+      "x": 7.517758846282959,
+      "y": 106.02915954589844,
+      "z": -5.605552673339844
     },
     "scale": {
       "x": 1.0,

@@ -834,6 +834,8 @@ void KdStandardShader::GetProjectctionDecompose(float& _OutFov, float& _outAspec
 
 void KdStandardShader::CascadeShadowMapChangea(const DirectX::BoundingBox& _BBox)
 {
+	return;
+
 	// 1. カメラ情報から FOV/アスペクト/near/far を取得
 	float fov, aspect, nearClip, farClip;
 	Math::Matrix mProj;

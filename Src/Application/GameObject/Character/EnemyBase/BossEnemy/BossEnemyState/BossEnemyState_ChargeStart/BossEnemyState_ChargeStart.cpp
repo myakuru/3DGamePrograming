@@ -1,33 +1,33 @@
 ﻿#include "BossEnemyState_ChargeStart.h"
-#include"../BossEnemyState_ChrgeLoop/BossEnemyState_ChrgeLoop.h"
+#include "Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemyState/BossEnemyState_ChrgeLoop/BossEnemyState_ChargeLoop.h"
 
-void BossEnemyState_ChargeStart::StateStart()
+void BossEnemyState_ChargeStart::StateStart(BossEnemy* _owner)
 {
-	auto anime = m_bossEnemy->GetAnimeModel()->GetAnimation("ChargeStart");
-	m_bossEnemy->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
-	BossEnemyStateBase::StateStart();
+	auto anime = _owner->GetAnimeModel()->GetAnimation("ChargeStart");
+	_owner->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
+	BossEnemyStateBase::StateStart(_owner);
 
 	// アニメーション速度を変更
-	m_bossEnemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
+	_owner->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	// 当たり判定リセット
-	m_bossEnemy->ResetAttackCollision();
+	_owner->ResetAttackCollision();
 }
 
-void BossEnemyState_ChargeStart::StateUpdate()
+void BossEnemyState_ChargeStart::StateUpdate(BossEnemy* _owner)
 {
 	// アニメーション終了で次のステートへ
-	if (m_bossEnemy->GetAnimator()->IsAnimationEnd())
+	if (_owner->GetAnimator()->IsAnimationEnd())
 	{
-		auto nextState = std::make_shared<BossEnemyState_ChrgeLoop>();
-		m_bossEnemy->ChangeState(nextState);
+		auto nextState = std::make_shared<BossEnemyState_ChargeLoop>();
+		_owner->ChangeState(nextState);
 		return;
 	}
 
-	m_bossEnemy->SetIsMoving(Math::Vector3::Zero);
+	_owner->SetIsMoving(Math::Vector3::Zero);
 }
 
-void BossEnemyState_ChargeStart::StateEnd()
+void BossEnemyState_ChargeStart::StateEnd(BossEnemy* _owner)
 {
 }
 

@@ -9,9 +9,9 @@ public:
 	~BossEnemyState_Idle()override = default;
 
 private:
-	void StateStart() override;
-	void StateUpdate() override;
-	void StateEnd() override;
+	void StateStart(BossEnemy* _owner) override;
+	void StateUpdate(BossEnemy* _owner) override;
+	void StateEnd(BossEnemy* _owner) override;
 
 	void ApplyFromConfig(const BossEnemyStateBase& other) override;
 	void ExposeParametersImGui() override;

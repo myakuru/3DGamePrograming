@@ -5,11 +5,10 @@
 
 // 前方宣言（依存の最小化）
 class PlayerCamera;
-class StateManager;
 class CharacterData;
 class Collision;
 class Player;
-class AetheriusEnemy;
+class RedEnemy;
 class BossEnemy;
 
 class CharacterBase : public SelectDraw3dModel
@@ -146,9 +145,6 @@ private:
 	DirectX::BoundingSphere			m_sphere{};										// バウンディングスフィア
 	std::shared_ptr<CharacterData>	m_characterData;								// キャラクターデータ
 
-	// ===== ステート管理 =====
-	StateManager m_stateManager;
-
 	TransformState	m_transform{};		// 行列関係
 	MovementState	m_movement{};		// 移動関係
 	PhysicsState	m_physics{};		// 物理関係
@@ -184,9 +180,8 @@ protected:
 	// ===== アクセサ =====
 	DirectX::BoundingSphere GetBoundingSphere() const { return m_sphere; }
 	std::shared_ptr<KdAnimator> GetAnimatorShared() { return m_animator; }
-	std::shared_ptr<CharacterData> GetCharacterData() const { return m_characterData; }
+	const std::shared_ptr<CharacterData>& GetCharacterData() const { return m_characterData; }
 
-	// ===== ステート管理 =====
-	StateManager& GetStateManager() { return m_stateManager; }
+	StateManager<CharacterBase> m_stateMachine;
 
 };

@@ -5,7 +5,7 @@
 class Player;
 class EffectReference;
 
-class BossEnemyStateBase : public StateBase
+class BossEnemyStateBase : public StateBase<BossEnemy>
 {
 	struct StateParameter
 	{
@@ -33,8 +33,6 @@ public:
 	BossEnemyStateBase();
 	~BossEnemyStateBase() override = default;
 
-	void SetBossEnemy(BossEnemy* enemy) { m_bossEnemy = enemy; }
-
 	void ExposeParametersImGui() override {}
 	// JSON 読み込み
 	virtual void LoadParametersJson(const nlohmann::json& _json) { (void)_json; }
@@ -46,9 +44,9 @@ public:
 
 protected:
 
-	void StateStart() override = 0;
-	void StateUpdate() override = 0;
-	void StateEnd() override = 0;
+	void StateStart(BossEnemy* _owner) override;
+	void StateUpdate(BossEnemy* _owner) override { (void)_owner; }
+	void StateEnd(BossEnemy* _owner) override { (void)_owner; }
 
 
 	Math::Vector3 m_attackDirection = Math::Vector3::Zero;
@@ -56,7 +54,6 @@ protected:
 	Math::Vector3 m_playerPos = Math::Vector3::Zero;
 	Math::Vector3 m_enemyPos = Math::Vector3::Zero;
 
-	BossEnemy* m_bossEnemy = nullptr;
 	float m_time = 0.0f;
 
 	bool m_hasHitPlayer = false;

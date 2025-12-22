@@ -6,45 +6,45 @@
 #include "Application/GameObject/Utility/EffectReference.h"
 #include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
 
-void BossEnemyState_WaterFall::StateStart()
+void BossEnemyState_WaterFall::StateStart(BossEnemy* _owner)
 {
-	auto anime = m_bossEnemy->GetAnimeModel()->GetAnimation("Attack_WaterFall");
-	m_bossEnemy->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
-	BossEnemyStateBase::StateStart();
+	auto anime = _owner->GetAnimeModel()->GetAnimation("Attack_WaterFall");
+	_owner->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
+	BossEnemyStateBase::StateStart(_owner);
 	// アニメーション速度を変更
-	m_bossEnemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
+	_owner->SetAnimeSpeed(m_stateParameter.animationSpeed);
 	// 当たり判定リセット
-	m_bossEnemy->ResetAttackCollision();
+	_owner->ResetAttackCollision();
 
-	m_bossEnemy->SetInvincible(true);
+	_owner->SetInvincible(true);
 
 	// 追加: 行動CDと直前行動
-	m_bossEnemy->SetWaterCooldown(2.0f);
-	m_bossEnemy->SetLastAction(BossEnemy::ActionType::WaterFall);
+	_owner->SetWaterCooldown(2.0f);
+	_owner->SetLastAction(BossEnemy::ActionType::WaterFall);
 
 	// エフェクト再生・移動停止（複数）
 	for (const auto& ref : m_enemyEffects)
 	{
 		if (auto effect = ref->GetEffectBase().lock())
 		{
-			effect->PlayForTarget<BossEnemy>(std::static_pointer_cast<BossEnemy>(m_bossEnemy->GetMyAdls()));
+			effect->PlayForTarget<BossEnemy>(std::static_pointer_cast<BossEnemy>(_owner->GetMyAdls()));
 		}
 	}
 
 	m_oneSound = false;
 }
 
-void BossEnemyState_WaterFall::StateUpdate()
+void BossEnemyState_WaterFall::StateUpdate(BossEnemy* _owner)
 {
 	float deltaTime = Application::Instance().GetDeltaTime();
 	m_time += deltaTime;
 
 	// アニメーション再生時間を取得
-	m_animeTime = m_bossEnemy->GetAnimator()->GetPlayProgress();
+	m_animeTime = _owner->GetAnimator()->GetPlayProgress();
 
 	if (m_animeTime >= m_stateParameter.attackActiveStartTime)
 	{
-		m_bossEnemy->UpdateAttackCollision
+		_owner->UpdateAttackCollision
 		(
 			m_stateParameter.attackRadius,
 			m_stateParameter.attackDistance,
@@ -64,25 +64,25 @@ void BossEnemyState_WaterFall::StateUpdate()
 
 	if (m_time < m_stateParameter.dashSpeedTime)
 	{
-		m_bossEnemy->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
+		_owner->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
 	}
 	else
 	{
-		m_bossEnemy->SetIsMoving(Math::Vector3::Zero);
+		_owner->SetIsMoving(Math::Vector3::Zero);
 	}
 
 	// アニメーションが終了したら必ずIdleへ遷移し、1秒待機
-	if (m_bossEnemy->GetAnimator()->IsAnimationEnd())
+	if (_owner->GetAnimator()->IsAnimationEnd())
 	{
 		auto next = std::make_shared<BossEnemyState_Idle>(1.0f);
-		m_bossEnemy->ChangeState(next);
+		_owner->ChangeState(next);
 		return;
 	}
 }
 
-void BossEnemyState_WaterFall::StateEnd()
+void BossEnemyState_WaterFall::StateEnd(BossEnemy* _owner)
 {
-	m_bossEnemy->SetInvincible(false);
+	_owner->SetInvincible(false);
 
 	// エフェクト停止（複数）
 	for (const auto& ref : m_enemyEffects)

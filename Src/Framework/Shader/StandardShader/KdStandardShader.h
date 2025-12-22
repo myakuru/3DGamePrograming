@@ -11,7 +11,7 @@ namespace Cascade
 	constexpr float MaxClip = 300.0f; // CSMのFarクリップ距離
 	constexpr float MinClip = 0.01f; // CSMのNearクリップ距離
 	constexpr float SplitLambda = 0.9f; // 分割の偏り具合(0～1)
-	constexpr int MaxExp = 11; // シャドウマップの解像度
+	constexpr int MaxExp = 12; // シャドウマップの解像度
 }
 
 class KdStandardShader

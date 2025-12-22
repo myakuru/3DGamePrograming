@@ -5,16 +5,16 @@
 #include"Application/main.h"
 #include"Application/GameObject/Character/Player/Player.h"
 
-void EnemyState_Walk_Left::StateStart()
+void EnemyState_Walk_Left::StateStart(RedEnemy* _owner)
 {
-	EnemyStateBase::StateStart();
+	EnemyStateBase::StateStart(_owner);
 
-	auto anime = m_enemy->GetAnimeModel()->GetAnimation("Walk_Left");
-	m_enemy->GetAnimator()->SetAnimation(anime);
-	m_enemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
+	auto anime = _owner->GetAnimeModel()->GetAnimation("Walk_Left");
+	_owner->GetAnimator()->SetAnimation(anime);
+	_owner->SetAnimeSpeed(m_stateParameter.animationSpeed);
 }
 
-void EnemyState_Walk_Left::StateUpdate()
+void EnemyState_Walk_Left::StateUpdate(RedEnemy* _owner)
 {
 	float deltaTime = Application::Instance().GetDeltaTime();
 
@@ -27,7 +27,7 @@ void EnemyState_Walk_Left::StateUpdate()
 			if (auto p = player.lock())
 			{
 				m_playerPos = p->GetPos();
-				m_enemyPos = m_enemy->GetPos();
+				m_enemyPos = _owner->GetPos();
 				break;
 			}
 		}
@@ -37,7 +37,7 @@ void EnemyState_Walk_Left::StateUpdate()
 		if (m_distance >= m_stateParameter.distanceThreshold)
 		{
 			auto state = std::make_shared<EnemyState_Run>();
-			m_enemy->ChangeState(state);
+			_owner->ChangeState(state);
 			return;
 		}
 	}
@@ -47,24 +47,24 @@ void EnemyState_Walk_Left::StateUpdate()
 	Math::Vector3 right = Math::Vector3::TransformNormal
 	(
 		Math::Vector3::Right,
-		Math::Matrix::CreateFromQuaternion(m_enemy->GetRotationQuaternion())
+		Math::Matrix::CreateFromQuaternion(_owner->GetRotationQuaternion())
 	);
 
 	right.Normalize();
 
 	// 右に少しずつ移動
-	m_enemy->SetIsMoving(right * m_stateParameter.dashSpeed);
+	_owner->SetIsMoving(right * m_stateParameter.dashSpeed);
 
 	if (m_time >= m_stateParameter.changeStateTime)
 	{
 		//Attackステートに移行
 		auto attack = std::make_shared<EnemyState_Attack>();
-		m_enemy->ChangeState(attack);
+		_owner->ChangeState(attack);
 		return;
 	}
 }
 
-void EnemyState_Walk_Left::StateEnd()
+void EnemyState_Walk_Left::StateEnd(RedEnemy* _owner)
 {
 }
 

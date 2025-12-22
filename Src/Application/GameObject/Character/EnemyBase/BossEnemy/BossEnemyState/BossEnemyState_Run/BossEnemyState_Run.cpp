@@ -4,28 +4,28 @@
 #include"Application/GameObject/Character/Player/Player.h"
 #include"../BossEnemyAI.h" 
 
-void BossEnemyState_Run::StateStart()
+void BossEnemyState_Run::StateStart(BossEnemy* _owner)
 {
-	auto anime = m_bossEnemy->GetAnimeModel()->GetAnimation("Walk");
-	m_bossEnemy->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, true);
-	BossEnemyStateBase::StateStart();
+	auto anime = _owner->GetAnimeModel()->GetAnimation("Walk");
+	_owner->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, true);
+	BossEnemyStateBase::StateStart(_owner);
 	// アニメーション速度を変更
-	m_bossEnemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
+	_owner->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	// 行動記録
-	m_bossEnemy->SetLastAction(BossEnemy::ActionType::Run);
+	_owner->SetLastAction(BossEnemy::ActionType::Run);
 }
 
-void BossEnemyState_Run::StateUpdate()
+void BossEnemyState_Run::StateUpdate(BossEnemy* _owner)
 {
-	const auto wp = m_bossEnemy->GetPlayerList();
+	const auto wp = _owner->GetPlayerList();
 
 	for (auto& weakPlayer : wp)
 	{
 		if (auto sp = weakPlayer.lock())
 		{
 			m_playerPos = sp->GetPos();
-			m_enemyPos = m_bossEnemy->GetPos();
+			m_enemyPos = _owner->GetPos();
 		}
 	}
 
@@ -43,15 +43,15 @@ void BossEnemyState_Run::StateUpdate()
 
 		// LookRotationで正しい向きに（ゼロベクトルは渡さない）
 		Math::Quaternion rot = Math::Quaternion::LookRotation(dir, Math::Vector3::Up);
-		m_bossEnemy->SetRotation(rot);
+		_owner->SetRotation(rot);
 	}
 
-	m_bossEnemy->SetIsMoving(dir);
+	_owner->SetIsMoving(dir);
 
 	// 10m未満になったらAIに委譲
 	if (m_distance < m_targetDistance)
 	{
-		auto next = m_bossEnemy->GetBossEnemyAI()->DecideNext(m_bossEnemy);
+		auto next = _owner->GetBossEnemyAI()->DecideNext(_owner);
 
 		// 自分と同じ Run への再遷移は行わない（毎フレームアニメを張り直すのを防ぐ）
 		if (typeid(*next) == typeid(BossEnemyState_Run))
@@ -60,12 +60,12 @@ void BossEnemyState_Run::StateUpdate()
 			return;
 		}
 
-		m_bossEnemy->ChangeState(next);
+		_owner->ChangeState(next);
 		return;
 	}
 }
 
-void BossEnemyState_Run::StateEnd()
+void BossEnemyState_Run::StateEnd(BossEnemy* _owner)
 {
 }
 

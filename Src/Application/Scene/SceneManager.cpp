@@ -36,7 +36,7 @@
 #include"../GameObject/HUD/InvestigationComplete/InvestigationComplete.h"
 #include"../GameObject/HUD/BlackBanner/BlackBanner.h"
 #include"../GameObject/ResultScore/ResultScore.h"
-#include"../GameObject/Collition/Collition.h"
+#include"../GameObject/Collision/Collision.h"
 #include"../GameObject/Weapon/WeaponKatanaScabbard/WeaponKatanaScabbard.h"
 #include"../GameObject/Weapon/EnemySword/EnemySword.h"
 #include"../GameObject/Weapon/EnemyShield/EnemyShield.h"
@@ -50,7 +50,7 @@
 #include"../GameObject/HUD/SpecialAttackUI/SpecialAttackUI.h"
 #include"../GameObject/HUD/BossEnemyUI/BossEnemyUI.h"
 #include"../GameObject/HUD/BossEnemyBlackBarUI/BossEnemyBlackBarUI.h"
-#include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
+#include"Application/GameObject/Character/EnemyBase/AetheriusEnemy/RedEnemy.h"
 #include"Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemy.h"
 #include"Application/GameObject/Effect/EffekseerEffect/EnemyHitEffect/EnemyHitEffect.h"
 #include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectManager.h"
@@ -106,7 +106,7 @@ void SceneManager::Register() const
 	// キャラクター系
 	RegisterObject::GetInstance().Register<Player>();
 	RegisterObject::GetInstance().Register<BossEnemy>();
-	RegisterObject::GetInstance().Register<AetheriusEnemy>();
+	RegisterObject::GetInstance().Register<RedEnemy>();
 
 	// 武器系
 	RegisterObject::GetInstance().Register<Katana>();

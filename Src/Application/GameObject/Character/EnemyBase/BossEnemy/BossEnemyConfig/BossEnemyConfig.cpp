@@ -9,7 +9,7 @@
 
 // ===== チャージ系 =====
 #include "Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemyState/BossEnemyState_ChargeStart/BossEnemyState_ChargeStart.h"
-#include "Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemyState/BossEnemyState_ChrgeLoop/BossEnemyState_ChrgeLoop.h"
+#include "Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemyState/BossEnemyState_ChrgeLoop/BossEnemyState_ChargeLoop.h"
 #include "Application/GameObject/Character/EnemyBase/BossEnemy/BossEnemyState/BossEnemyState_ChargeEnd/BossEnemyState_ChargeEnd.h"
 
 // ===== 行動 / 回避 / 登場 =====
@@ -68,7 +68,7 @@ void BossEnemyConfig::CreateStates()
 
 	// ===== チャージ系 =====
 	m_states.emplace_back(std::make_unique<BossEnemyState_ChargeStart>());     m_stateNames.emplace_back("ChargeStart");
-	m_states.emplace_back(std::make_unique<BossEnemyState_ChrgeLoop>());       m_stateNames.emplace_back("ChrgeLoop");
+	m_states.emplace_back(std::make_unique<BossEnemyState_ChargeLoop>());       m_stateNames.emplace_back("ChargeLoop");
 	m_states.emplace_back(std::make_unique<BossEnemyState_ChargeEnd>());       m_stateNames.emplace_back("ChargeEnd");
 
 	// ===== 行動 / 回避 / 登場 =====

@@ -2,18 +2,18 @@
 #include"../BossEnemyState_ChargeStart/BossEnemyState_ChargeStart.h"
 #include"Application/main.h"
 
-void BossEnemyState_Dodge::StateStart()
+void BossEnemyState_Dodge::StateStart(BossEnemy* _owner)
 {
-	auto anime = m_bossEnemy->GetAnimeModel()->GetAnimation("Dodge");
-	m_bossEnemy->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
-	BossEnemyStateBase::StateStart();
+	auto anime = _owner->GetAnimeModel()->GetAnimation("Dodge");
+	_owner->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
+	BossEnemyStateBase::StateStart(_owner);
 
-	m_bossEnemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
+	_owner->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
-	m_bossEnemy->SetInvincible(true);
+	_owner->SetInvincible(true);
 }
 
-void BossEnemyState_Dodge::StateUpdate()
+void BossEnemyState_Dodge::StateUpdate(BossEnemy* _owner)
 {
 
 	float deltaTime = Application::Instance().GetDeltaTime();
@@ -21,23 +21,23 @@ void BossEnemyState_Dodge::StateUpdate()
 
 	if (m_time < m_stateParameter.dashSpeedTime)
 	{
-		m_bossEnemy->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
+		_owner->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
 	}
 	else
 	{
-		m_bossEnemy->SetIsMoving(Math::Vector3::Zero);
+		_owner->SetIsMoving(Math::Vector3::Zero);
 	}
 
 	// アニメーション終了で次のステートへ
-	if (m_bossEnemy->GetAnimator()->IsAnimationEnd())
+	if (_owner->GetAnimator()->IsAnimationEnd())
 	{
 		auto nextState = std::make_shared<BossEnemyState_ChargeStart>();
-		m_bossEnemy->ChangeState(nextState);
+		_owner->ChangeState(nextState);
 		return;
 	}
 }
 
-void BossEnemyState_Dodge::StateEnd()
+void BossEnemyState_Dodge::StateEnd(BossEnemy* _owner)
 {
 }
 

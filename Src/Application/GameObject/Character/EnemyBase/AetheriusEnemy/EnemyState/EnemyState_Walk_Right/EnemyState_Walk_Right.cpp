@@ -5,16 +5,16 @@
 #include"Application/main.h"
 #include"Application/GameObject/Character/Player/Player.h"
 
-void EnemyState_Walk_Right::StateStart()
+void EnemyState_Walk_Right::StateStart(RedEnemy* _owner)
 {
-	EnemyStateBase::StateStart();
+	EnemyStateBase::StateStart(_owner);
 
-	auto anime = m_enemy->GetAnimeModel()->GetAnimation("Walk_Right");
-	m_enemy->GetAnimator()->SetAnimation(anime);
-	m_enemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
+	auto anime = _owner->GetAnimeModel()->GetAnimation("Walk_Right");
+	_owner->GetAnimator()->SetAnimation(anime);
+	_owner->SetAnimeSpeed(m_stateParameter.animationSpeed);
 }
 
-void EnemyState_Walk_Right::StateUpdate()
+void EnemyState_Walk_Right::StateUpdate(RedEnemy* _owner)
 {
 
 	float deltaTime = Application::Instance().GetDeltaTime();
@@ -28,7 +28,7 @@ void EnemyState_Walk_Right::StateUpdate()
 			if (auto p = player.lock())
 			{
 				m_playerPos = p->GetPos();
-				m_enemyPos = m_enemy->GetPos();
+				m_enemyPos = _owner->GetPos();
 				break;
 			}
 		}
@@ -38,7 +38,7 @@ void EnemyState_Walk_Right::StateUpdate()
 		if (m_distance >= m_stateParameter.distanceThreshold)
 		{
 			auto state = std::make_shared<EnemyState_Run>();
-			m_enemy->ChangeState(state);
+			_owner->ChangeState(state);
 			return;
 		}
 	}
@@ -48,25 +48,25 @@ void EnemyState_Walk_Right::StateUpdate()
 	Math::Vector3 left = Math::Vector3::TransformNormal
 	(
 		Math::Vector3::Left, 
-		Math::Matrix::CreateFromQuaternion(m_enemy->GetRotationQuaternion())
+		Math::Matrix::CreateFromQuaternion(_owner->GetRotationQuaternion())
 	);
 
 	left.Normalize();
 
 	// 右に少しずつ移動
-	m_enemy->SetIsMoving(left * m_stateParameter.dashSpeed);
+	_owner->SetIsMoving(left * m_stateParameter.dashSpeed);
 
 	if(m_time >= m_stateParameter.changeStateTime)
 	{
 		//Attackステートに移行
 		auto state = std::make_shared<EnemyState_Walk_Left>();
-		m_enemy->ChangeState(state);
+		_owner->ChangeState(state);
 		return;
 	}
 	
 }
 
-void EnemyState_Walk_Right::StateEnd()
+void EnemyState_Walk_Right::StateEnd(RedEnemy* _owner)
 {
 }
 

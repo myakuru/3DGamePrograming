@@ -5,13 +5,13 @@
 #include "Application/GameObject/Utility/EffectReference.h"
 #include "Application/GameObject/Effect/EffekseerEffect/EffekseerEffectBase.h"
 
-void BossEnemyState_Enter::StateStart()
+void BossEnemyState_Enter::StateStart(BossEnemy* _owner)
 {
-	auto anime = m_bossEnemy->GetAnimeModel()->GetAnimation("Anim_Enter");
-	m_bossEnemy->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
-	BossEnemyStateBase::StateStart();
+	auto anime = _owner->GetAnimeModel()->GetAnimation("Anim_Enter");
+	_owner->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
+	BossEnemyStateBase::StateStart(_owner);
 	// アニメーション速度を変更
-	m_bossEnemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
+	_owner->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	m_effectPlayed = false;
 
@@ -21,10 +21,10 @@ void BossEnemyState_Enter::StateStart()
 	}
 }
 
-void BossEnemyState_Enter::StateUpdate()
+void BossEnemyState_Enter::StateUpdate(BossEnemy* _owner)
 {
 	// アニメーションの再生時間を取得
-	m_animeTime = m_bossEnemy->GetAnimator()->GetPlayProgress();
+	m_animeTime = _owner->GetAnimator()->GetPlayProgress();
 
 	if (!m_effectPlayed)
 	{
@@ -33,22 +33,22 @@ void BossEnemyState_Enter::StateUpdate()
 		{
 			if (auto effect = ref->GetEffectBase().lock())
 			{
-				effect->PlayForTarget<BossEnemy>(std::static_pointer_cast<BossEnemy>(m_bossEnemy->GetMyAdls()));
+				effect->PlayForTarget<BossEnemy>(std::static_pointer_cast<BossEnemy>(_owner->GetMyAdls()));
 			}
 		}
 	}
 
-	if (m_bossEnemy->GetAnimator()->IsAnimationEnd())
+	if (_owner->GetAnimator()->IsAnimationEnd())
 	{
 		auto state = std::make_shared<BossEnemyState_Idle>();
-		m_bossEnemy->ChangeState(state);
+		_owner->ChangeState(state);
 		return;
 	}
 
-	m_bossEnemy->SetIsMoving(Math::Vector3::Zero);
+	_owner->SetIsMoving(Math::Vector3::Zero);
 }
 
-void BossEnemyState_Enter::StateEnd()
+void BossEnemyState_Enter::StateEnd(BossEnemy* _owner)
 {
 	for (const auto& ref : m_enemyEffects)
 	{

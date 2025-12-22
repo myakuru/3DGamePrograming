@@ -7,9 +7,9 @@ public:
 	EnemyState_Attack2() = default;
 	~EnemyState_Attack2()override = default;
 
-	void StateStart() override;
-	void StateUpdate() override;
-	void StateEnd() override;
+	void StateStart(RedEnemy* _owner) override;
+	void StateUpdate(RedEnemy* _owner) override;
+	void StateEnd(RedEnemy* _owner) override;
 
 	void ApplyFromConfig(const EnemyStateBase& other) override;
 	void ExposeParametersImGui() override;

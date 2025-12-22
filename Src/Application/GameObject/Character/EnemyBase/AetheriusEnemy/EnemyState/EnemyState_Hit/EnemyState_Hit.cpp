@@ -4,55 +4,55 @@
 #include"Application/GameObject/Character/Player/Player.h"
 #include"Application/Scene/SceneManager.h"
 
-void EnemyState_Hit::StateStart()
+void EnemyState_Hit::StateStart(RedEnemy* _owner)
 {
-	EnemyStateBase::StateStart();
+	EnemyStateBase::StateStart(_owner);
 
-	auto anime = m_enemy->GetAnimeModel()->GetAnimation("Hit");
-	m_enemy->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
+	auto anime = _owner->GetAnimeModel()->GetAnimation("Hit");
+	_owner->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
 
-	m_enemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
+	_owner->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	// 累積ヒット回数は Enemy 本体で管理
-	m_enemy->IncrementHitCount();
+	_owner->IncrementHitCount();
 }
 
-void EnemyState_Hit::StateUpdate()
+void EnemyState_Hit::StateUpdate(RedEnemy* _owner)
 {
-	if (m_enemy->GetInvincible())
+	if (_owner->GetInvincible())
 	{
 		// 無敵状態ならAttackへ
 		auto spIdleState = std::make_shared<EnemyState_Attack>();
-		m_enemy->ChangeState(spIdleState);
+		_owner->ChangeState(spIdleState);
 		return;
 	}
 
 
-	if (m_enemy->GetAnimator()->IsAnimationEnd())
+	if (_owner->GetAnimator()->IsAnimationEnd())
 	{
 		// Idleステートに移行
 		auto spIdleState = std::make_shared<EnemyState_Idle>();
-		m_enemy->ChangeState(spIdleState);
+		_owner->ChangeState(spIdleState);
 		return;
 	}
 
 	if (m_time < m_stateParameter.dashSpeedTime)
 	{
-		m_enemy->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
+		_owner->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
 	}
 	else
 	{
-		m_enemy->SetIsMoving(Math::Vector3::Zero);
+		_owner->SetIsMoving(Math::Vector3::Zero);
 	}
 }
 
-void EnemyState_Hit::StateEnd()
+void EnemyState_Hit::StateEnd(RedEnemy* _owner)
 {
 	// 10回以上で無敵
-	if (m_enemy->GetHitCount() >= 5)
+	if (_owner->GetHitCount() >= 5)
 	{
-		m_enemy->SetInvincible(true);
-		m_enemy->ResetHitCount();
+		_owner->SetInvincible(true);
+		_owner->ResetHitCount();
 	}
 }
 

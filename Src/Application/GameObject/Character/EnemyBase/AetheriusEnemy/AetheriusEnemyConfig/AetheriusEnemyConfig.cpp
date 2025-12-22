@@ -1,5 +1,5 @@
 ﻿#include "AetheriusEnemyConfig.h"
-#include "Application/GameObject/Character/EnemyBase/AetheriusEnemy/AetheriusEnemy.h"
+#include "Application/GameObject/Character/EnemyBase/AetheriusEnemy/RedEnemy.h"
 #include "Application/GameObject/Character/EnemyBase/AetheriusEnemy/EnemyState/EnemyStateBase.h"
 #include "Application/main.h"
 #include "MyFramework/Manager/JsonManager/JsonManager.h"
@@ -8,7 +8,7 @@
 #include "Application/GameObject/Character/EnemyBase/AetheriusEnemy/EnemyState/EnemyState_Attack/EnemyState_Attack.h"
 #include "Application/GameObject/Character/EnemyBase/AetheriusEnemy/EnemyState/EnemyState_Attack1/EnemyState_Attack1.h"
 #include "Application/GameObject/Character/EnemyBase/AetheriusEnemy/EnemyState/EnemyState_Attack2/EnemyState_Attack2.h"
-#include "Application/GameObject/Character/EnemyBase/AetheriusEnemy/EnemyState/EnemyState_Attack3/EnemState_Attack3.h"
+#include "Application/GameObject/Character/EnemyBase/AetheriusEnemy/EnemyState/EnemyState_Attack3/EnemyState_Attack3.h"
 
 // 行動系ステート
 #include "Application/GameObject/Character/EnemyBase/AetheriusEnemy/EnemyState/EnemyState_Idle/EnemyState_Idle.h"
@@ -60,7 +60,7 @@ void AetheriusEnemyConfig::CreateStates()
 	m_states.emplace_back(std::make_unique<EnemyState_Attack>());   m_stateNames.emplace_back("Attack");
 	m_states.emplace_back(std::make_unique<EnemyState_Attack1>());  m_stateNames.emplace_back("Attack1");
 	m_states.emplace_back(std::make_unique<EnemyState_Attack2>());  m_stateNames.emplace_back("Attack2");
-	m_states.emplace_back(std::make_unique<EnemState_Attack3>());   m_stateNames.emplace_back("Attack3");
+	m_states.emplace_back(std::make_unique<EnemyState_Attack3>());   m_stateNames.emplace_back("Attack3");
 
 	// ===== 行動系 =====
 	m_states.emplace_back(std::make_unique<EnemyState_Idle>());     m_stateNames.emplace_back("Idle");

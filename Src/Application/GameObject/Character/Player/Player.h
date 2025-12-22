@@ -5,10 +5,12 @@
 // 前方宣言
 class Katana;
 class WeaponKatanaScabbard;
-class AetheriusEnemy;
+class RedEnemy;
 class AfterImage;
 class PlayerConfig;
 class PlayerStateBase;
+template<typename OwnerType>
+class StateMachine;
 
 class Player : public CharacterBase
 {
@@ -68,7 +70,6 @@ public:
 
 	// ステート管理
 	void StateInit();
-	void ChangeState(std::shared_ptr<PlayerStateBase> _state);
 
 	// 入力から移動方向を更新
 	void UpdateMoveDirectionFromInput();
@@ -161,6 +162,12 @@ public:
 	std::weak_ptr<KdGameObject> GetLastHitEnemy() const { return m_lastHitEnemy; }
 	void ClearLastHitEnemy() { m_lastHitEnemy.reset(); }
 
+	// ステートマシン取得
+	const StateManager<Player>& GetStateMachine() const { return m_stateMachine; }
+	StateManager<Player>& GetStateMachine() { return m_stateMachine; }
+
+	std::shared_ptr<PlayerConfig> GetPlayerConfig() const { return m_playerConfig; }
+
 private:
 
 	// 内部移動処理
@@ -175,8 +182,8 @@ private:
 	Player::VisualState       m_visual      = {};	// 残像関係
 
 	float		m_attackBossEnemyRadius = 2.0f;		// ボスに対する当たり判定半径
-	float		m_unScaledeltaTime = 0.0f;			// デフォルトのdeltaTime保存
-	bool 		m_isRightHanded = false;				// 右手に刀を持っているか
+	float		m_unScaleDeltaTime = 0.0f;			// デフォルトのdeltaTime保存
+	bool 		m_isRightHanded = false;			// 右手に刀を持っているか
 
 	std::shared_ptr<PlayerConfig>  m_playerConfig;	// プレイヤーの設定
 
@@ -187,4 +194,6 @@ private:
 	// 装備
 	std::vector <std::weak_ptr<Katana>> m_katana;
 	std::vector <std::weak_ptr<WeaponKatanaScabbard>> m_sheaths;
+
+	StateManager<Player> m_stateMachine;
 };

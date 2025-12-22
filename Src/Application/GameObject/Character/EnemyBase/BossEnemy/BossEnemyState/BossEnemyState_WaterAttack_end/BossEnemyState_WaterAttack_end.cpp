@@ -2,26 +2,26 @@
 #include"../BossEnemyState_Idle/BossEnemyState_Idle.h"
 #include"../BossEnemyAI.h"
 
-void BossEnemyState_WaterAttack_end::StateStart()
+void BossEnemyState_WaterAttack_end::StateStart(BossEnemy* _owner)
 {
-	auto anime = m_bossEnemy->GetAnimeModel()->GetAnimation("Dodge");
-	m_bossEnemy->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
-	BossEnemyStateBase::StateStart();
+	auto anime = _owner->GetAnimeModel()->GetAnimation("Dodge");
+	_owner->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
+	BossEnemyStateBase::StateStart(_owner);
 	// アニメーション速度を変更
-	m_bossEnemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
+	_owner->SetAnimeSpeed(m_stateParameter.animationSpeed);
 	// 当たり判定リセット
-	m_bossEnemy->ResetAttackCollision();
+	_owner->ResetAttackCollision();
 }
 
-void BossEnemyState_WaterAttack_end::StateUpdate()
+void BossEnemyState_WaterAttack_end::StateUpdate(BossEnemy* _owner)
 {
 	// アニメーション再生時間を取得
-	m_animeTime = m_bossEnemy->GetAnimator()->GetPlayProgress();
+	m_animeTime = _owner->GetAnimator()->GetPlayProgress();
 
 	// アニメーション時間の35％から100％の間、攻撃判定有効（必要なら残す）
 	if (m_animeTime >= m_stateParameter.attackActiveStartTime && m_animeTime <= m_stateParameter.attackActiveEndTime)
 	{
-		m_bossEnemy->UpdateAttackCollision
+		_owner->UpdateAttackCollision
 		(
 			m_stateParameter.attackRadius,
 			m_stateParameter.attackDistance,
@@ -33,17 +33,17 @@ void BossEnemyState_WaterAttack_end::StateUpdate()
 	}
 
 	// アニメーションが終了したら必ずIdleへ遷移し、1秒待機
-	if (m_bossEnemy->GetAnimator()->IsAnimationEnd())
+	if (_owner->GetAnimator()->IsAnimationEnd())
 	{
 		auto next = std::make_shared<BossEnemyState_Idle>(1.0f);
-		m_bossEnemy->ChangeState(next);
+		_owner->ChangeState(next);
 		return;
 	}
 
-	m_bossEnemy->SetIsMoving(Math::Vector3::Zero);
+	_owner->SetIsMoving(Math::Vector3::Zero);
 }
 
-void BossEnemyState_WaterAttack_end::StateEnd()
+void BossEnemyState_WaterAttack_end::StateEnd(BossEnemy* _owner)
 {
 }
 

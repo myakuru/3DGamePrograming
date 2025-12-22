@@ -6,23 +6,23 @@
 #include"Application/main.h"
 #include"Application/GameObject/Character/Player/Player.h"
 
-void EnemyState_Run::StateStart()
+void EnemyState_Run::StateStart(RedEnemy* _owner)
 {
-	EnemyStateBase::StateStart();
+	EnemyStateBase::StateStart(_owner);
 
-	auto anime = m_enemy->GetAnimeModel()->GetAnimation("Run");
-	m_enemy->GetAnimator()->SetAnimation(anime);
-	m_enemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
+	auto anime = _owner->GetAnimeModel()->GetAnimation("Run");
+	_owner->GetAnimator()->SetAnimation(anime);
+	_owner->SetAnimeSpeed(m_stateParameter.animationSpeed);
 }
 
-void EnemyState_Run::StateUpdate()
+void EnemyState_Run::StateUpdate(RedEnemy* _owner)
 {
 	for (const auto& player : m_player)
 	{
 		if (auto p = player.lock())
 		{
 			m_playerPos = p->GetPos();
-			m_enemyPos = m_enemy->GetPos();
+			m_enemyPos = _owner->GetPos();
 			break;
 		}
 	}
@@ -34,7 +34,7 @@ void EnemyState_Run::StateUpdate()
 	{
 		// Idleステートに移行
 		auto spIdleState = std::make_shared<EnemyState_Idle>();
-		m_enemy->ChangeState(spIdleState);
+		_owner->ChangeState(spIdleState);
 		return;
 	}
 	else if (m_distance >= 3.0f)
@@ -46,20 +46,20 @@ void EnemyState_Run::StateUpdate()
 
 		// LookRotationで正しい向きに
 		Math::Quaternion rot = Math::Quaternion::LookRotation(dir, Math::Vector3::Up);
-		m_enemy->SetRotation(rot);
+		_owner->SetRotation(rot);
 
-		m_enemy->SetIsMoving(dir);
+		_owner->SetIsMoving(dir);
 	}
 	else
 	{
 		//Attackステートに移行
 		auto attack = std::make_shared<EnemyState_Walk_Right>();
-		m_enemy->ChangeState(attack);
+		_owner->ChangeState(attack);
 		return;
 	}
 }
 
-void EnemyState_Run::StateEnd()
+void EnemyState_Run::StateEnd(RedEnemy* _owner)
 {
 }
 

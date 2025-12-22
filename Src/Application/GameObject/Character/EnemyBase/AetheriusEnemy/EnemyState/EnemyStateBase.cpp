@@ -9,7 +9,7 @@ EnemyStateBase::EnemyStateBase()
 	m_enemyEffects.emplace_back(std::make_shared<EffectReference>());
 }
 
-void EnemyStateBase::StateStart()
+void EnemyStateBase::StateStart(RedEnemy* _owner)
 {
 
 	SceneManager::Instance().GetObjectWeakPtrByTag(ObjTag::PlayerLike, m_player);
@@ -21,14 +21,14 @@ void EnemyStateBase::StateStart()
 		{
 			if (p->GetInvincible())
 			{
-				m_enemy->SetInvincible(false);
+				_owner->SetInvincible(false);
 			}
 			m_playerPos = p->GetPos();
 		}
 	}
 
 	// 敵の方向ベクトルを計算
-	m_attackDirection = m_playerPos - m_enemy->GetPos();
+	m_attackDirection = m_playerPos - _owner->GetPos();
 
 	// Y方向の成分を無視
 	m_attackDirection.y = 0.0f;
@@ -41,7 +41,7 @@ void EnemyStateBase::StateStart()
 		// 敵の向きをプレイヤー方向に設定
 		const float yaw = atan2(-m_attackDirection.x, -m_attackDirection.z);
 		Math::Quaternion rot = Math::Quaternion::CreateFromAxisAngle(Math::Vector3::Up, yaw);
-		m_enemy->SetRotation(rot);
+		_owner->SetRotation(rot);
 	}
 
 	m_time = 0.0f;				// ステート経過時間リセット

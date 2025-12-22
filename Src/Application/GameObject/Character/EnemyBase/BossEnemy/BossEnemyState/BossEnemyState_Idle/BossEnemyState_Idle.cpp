@@ -4,34 +4,34 @@
 #include"../BossEnemyAI.h"
 #include"Application/main.h"
 
-void BossEnemyState_Idle::StateStart()
+void BossEnemyState_Idle::StateStart(BossEnemy* _owner)
 {
-	auto anime = m_bossEnemy->GetAnimeModel()->GetAnimation("Idle");
-	m_bossEnemy->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, true);
-	BossEnemyStateBase::StateStart();
-	m_bossEnemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
+	auto anime = _owner->GetAnimeModel()->GetAnimation("Idle");
+	_owner->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, true);
+	BossEnemyStateBase::StateStart(_owner);
+	_owner->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
-	m_bossEnemy->SetLastAction(BossEnemy::ActionType::Idle);
+	_owner->SetLastAction(BossEnemy::ActionType::Idle);
 }
 
-void BossEnemyState_Idle::StateUpdate()
+void BossEnemyState_Idle::StateUpdate(BossEnemy* _owner)
 {
 	const float deltaTime = Application::Instance().GetDeltaTime();
 	m_time += deltaTime;
 
 	// 停止
-	m_bossEnemy->SetIsMoving(Math::Vector3::Zero);
+	_owner->SetIsMoving(Math::Vector3::Zero);
 
 	// 最低待機時間まではそのまま
 	if (m_time < m_minWaitSec) return;
 
 	// 待機後はAIに委譲
-	auto next = m_bossEnemy->GetBossEnemyAI()->DecideNext(m_bossEnemy);
-	m_bossEnemy->ChangeState(next);
+	auto next = _owner->GetBossEnemyAI()->DecideNext(_owner);
+	_owner->ChangeState(next);
 	return;
 }
 
-void BossEnemyState_Idle::StateEnd()
+void BossEnemyState_Idle::StateEnd(BossEnemy* _owner)
 {
 }
 

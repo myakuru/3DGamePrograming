@@ -1,5 +1,5 @@
 ﻿#include"../EffekseerEffectBase.h"
-class AetheriusEnemy;
+class RedEnemy;
 class KdEffekseerObject;
 class BossEnemy;
 
@@ -14,12 +14,12 @@ public:
 	void EffectUpdate() override;
 
 	// 指定エネミーに対してエフェクトを即時再生
-	void PlayForEnemy(const std::shared_ptr<AetheriusEnemy>& enemy);
+	void PlayForEnemy(const std::shared_ptr<RedEnemy>& enemy);
 	void PlayForBossEnemy(const std::shared_ptr<BossEnemy>& enemy);
 
 private:
 
-	std::vector<std::weak_ptr<AetheriusEnemy>> m_enemies;
+	std::vector<std::weak_ptr<RedEnemy>> m_enemies;
 
 	// 複数同時再生を管理
 	std::vector<std::weak_ptr<KdEffekseerObject>> m_effects;

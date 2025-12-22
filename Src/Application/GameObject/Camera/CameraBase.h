@@ -110,6 +110,4 @@ protected:
 
 	// カメラ回転用マウス座標の差分
 	POINT										m_FixMousePos{};
-
-	StateManager m_stateManager;
 };

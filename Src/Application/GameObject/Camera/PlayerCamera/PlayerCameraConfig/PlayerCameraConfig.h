@@ -1,4 +1,7 @@
 ﻿#pragma once
+#include "Application/GameObject/Character/Player/Player.h"
+#include "MyFramework/State/StateBase/StateBase.h"
+
 class PlayerCameraState;
 
 class PlayerCameraConfig
@@ -9,6 +12,7 @@ public:
 	void JsonSave() const;
 	void CreateStates();
 	void ApplyPrototypeParametersTo(PlayerCameraState& runtime);
+
 
 	//　現在選択されているステート名取得
 	const std::string& GetSelectedStateName() const { return m_currentStateName; }

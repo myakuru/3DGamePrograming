@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include"../Utility/SelectDraw3dModel.h"
-class AetheriusEnemy;
+class RedEnemy;
 class WeaponBase : public SelectDraw3dModel
 {
 public:
@@ -25,8 +25,8 @@ public:
 	virtual void SetEnemyMatrix(const Math::Matrix& _matrix) { m_enemyRightSwordData.m_enemyWorldMatrix = _matrix; }
 	virtual const Math::Matrix& GetEnemyRightHandMatrix() const { return m_enemyRightSwordData.m_weaponMatrix; }
 
-	void SetOwnerEnemy(const std::weak_ptr<AetheriusEnemy>& owner) { m_ownerEnemy = owner; }
-	const std::weak_ptr<AetheriusEnemy>& GetOwnerEnemy() const { return m_ownerEnemy; }
+	void SetOwnerEnemy(const std::weak_ptr<RedEnemy>& owner) { m_ownerEnemy = owner; }
+	const std::weak_ptr<RedEnemy>& GetOwnerEnemy() const { return m_ownerEnemy; }
 
 	const bool HasOwner() const { return !m_ownerEnemy.expired(); }
 
@@ -83,6 +83,6 @@ protected:
 	float m_rimLightUVOffsetSpeed = 0.5f; // リムライトのUVスクロール速度
 	float m_rimLightUVOffset = 0.0f; // リムライトのUVオフセット
 
-	std::weak_ptr<AetheriusEnemy> m_ownerEnemy;									// この武器を持っている敵
+	std::weak_ptr<RedEnemy> m_ownerEnemy;									// この武器を持っている敵
 
 };

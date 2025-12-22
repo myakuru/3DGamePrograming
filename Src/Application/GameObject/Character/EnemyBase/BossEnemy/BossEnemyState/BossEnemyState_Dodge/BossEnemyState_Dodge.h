@@ -9,9 +9,9 @@ public:
 
 private:
 
-	void StateStart() override;
-	void StateUpdate() override;
-	void StateEnd() override;
+	void StateStart(BossEnemy* _owner) override;
+	void StateUpdate(BossEnemy* _owner) override;
+	void StateEnd(BossEnemy* _owner) override;
 
 	std::list<std::weak_ptr<EnemyShineBlue>> m_shineEffectBlues;
 

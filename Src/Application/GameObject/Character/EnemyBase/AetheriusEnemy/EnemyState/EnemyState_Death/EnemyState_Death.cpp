@@ -1,45 +1,45 @@
 ﻿#include "EnemyState_Death.h"
 
-void EnemyState_Death::StateStart()
+void EnemyState_Death::StateStart(RedEnemy* _owner)
 {
-	EnemyStateBase::StateStart();
+	EnemyStateBase::StateStart(_owner);
 
-	auto anime = m_enemy->GetAnimeModel()->GetAnimation("Death");
-	m_enemy->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
-	m_enemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
+	auto anime = _owner->GetAnimeModel()->GetAnimation("Death");
+	_owner->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
+	_owner->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
-	m_enemy->SetInvincible(true); // 無敵状態にする
+	_owner->SetInvincible(true); // 無敵状態にする
 
 	m_time = 0.0f;
 }
 
-void EnemyState_Death::StateUpdate()
+void EnemyState_Death::StateUpdate(RedEnemy* _owner)
 {
 	float deltaTime = Application::Instance().GetDeltaTime();
 
-	m_enemy->SetIsMoving(Math::Vector3::Zero);
+	_owner->SetIsMoving(Math::Vector3::Zero);
 
 	// 死亡アニメが終わったらディゾルブ開始
-	if (m_enemy->GetAnimator()->IsAnimationEnd())
+	if (_owner->GetAnimator()->IsAnimationEnd())
 	{
-		float d = m_enemy->GetDissolve();
+		float d = _owner->GetDissolve();
 		d += 2.0f * deltaTime;
 
 		if (d >= 1.0f)
 		{
-			m_enemy->SetDissolve(1.0f);
-			m_enemy->SetExpired(true);
+			_owner->SetDissolve(1.0f);
+			_owner->SetExpired(true);
 		}
 		else
 		{
-			m_enemy->SetDissolve(d);
+			_owner->SetDissolve(d);
 		}
 	}
 }
 
-void EnemyState_Death::StateEnd()
+void EnemyState_Death::StateEnd(RedEnemy* _owner)
 {
-	m_enemy->SetInvincible(false); // 無敵状態にする
+	_owner->SetInvincible(false); // 無敵状態にする
 }
 
 void EnemyState_Death::ApplyFromConfig(const EnemyStateBase& other)

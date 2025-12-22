@@ -3,56 +3,56 @@
 #include"../BossEnemyState_Attack_L/BossEnemyState_Attack_L.h"
 #include"../BossEnemyAI.h"
 
-void BossEnemyState_Hit::StateStart()
+void BossEnemyState_Hit::StateStart(BossEnemy* _owner)
 {
-	auto anime = m_bossEnemy->GetAnimeModel()->GetAnimation("Hit");
-	m_bossEnemy->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
-	BossEnemyStateBase::StateStart();
+	auto anime = _owner->GetAnimeModel()->GetAnimation("Hit");
+	_owner->GetAnimator()->SetAnimation(anime, m_stateParameter.blendTime, false);
+	BossEnemyStateBase::StateStart(_owner);
 	// アニメーション速度を変更
-	m_bossEnemy->SetAnimeSpeed(m_stateParameter.animationSpeed);
+	_owner->SetAnimeSpeed(m_stateParameter.animationSpeed);
 
 	// 累積ヒット回数は Enemy 本体で管理
-	m_bossEnemy->IncrementHitCount();
+	_owner->IncrementHitCount();
 
 	m_hitCount = 10;
 
 	// 10回以上で無敵
-	if (m_bossEnemy->GetHitCount() >= m_hitCount)
+	if (_owner->GetHitCount() >= m_hitCount)
 	{
-		m_bossEnemy->SetInvincible(true);
-		m_bossEnemy->ResetHitCount();
+		_owner->SetInvincible(true);
+		_owner->ResetHitCount();
 	}
 }
 
-void BossEnemyState_Hit::StateUpdate()
+void BossEnemyState_Hit::StateUpdate(BossEnemy* _owner)
 {
 	// 無敵中
-	if (m_bossEnemy->GetInvincible())
+	if (_owner->GetInvincible())
 	{
-		auto next = m_bossEnemy->GetBossEnemyAI()->DecideNext(m_bossEnemy);
-		m_bossEnemy->ChangeState(next);
+		auto next = _owner->GetBossEnemyAI()->DecideNext(_owner);
+		_owner->ChangeState(next);
 		return;
 	}
 
 	// アニメーション終了
-	if (m_bossEnemy->GetAnimator()->IsAnimationEnd())
+	if (_owner->GetAnimator()->IsAnimationEnd())
 	{
-		auto next = m_bossEnemy->GetBossEnemyAI()->DecideNext(m_bossEnemy);
-		m_bossEnemy->ChangeState(next);
+		auto next = _owner->GetBossEnemyAI()->DecideNext(_owner);
+		_owner->ChangeState(next);
 		return;
 	}
 
 	if (m_time < m_stateParameter.dashSpeedTime)
 	{
-		m_bossEnemy->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
+		_owner->SetIsMoving(m_attackDirection * m_stateParameter.dashSpeed);
 	}
 	else
 	{
-		m_bossEnemy->SetIsMoving(Math::Vector3::Zero);
+		_owner->SetIsMoving(Math::Vector3::Zero);
 	}
 }
 
-void BossEnemyState_Hit::StateEnd()
+void BossEnemyState_Hit::StateEnd(BossEnemy* _owner)
 {
 }
 
