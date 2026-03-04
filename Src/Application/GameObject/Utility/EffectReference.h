@@ -8,7 +8,7 @@ public:
 
 	~EffectReference() = default;
 
-	std::weak_ptr<KdGameObject> AttachhObject() const
+	std::weak_ptr<KdGameObject> AttachObject() const
 	{
 		return m_wpObject;
 	}

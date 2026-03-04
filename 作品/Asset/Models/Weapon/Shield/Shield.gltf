@@ -1,0 +1,251 @@
+{
+	"asset":
+	{
+		"version": "2.0",
+		"generator": "Unreal Engine 5.5.4"
+	},
+	"scene": 0,
+	"accessors": [
+		{
+			"bufferView": 0,
+			"count": 1,
+			"type": "MAT4",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 1,
+			"count": 6204,
+			"type": "SCALAR",
+			"componentType": 5123
+		},
+		{
+			"bufferView": 2,
+			"count": 1218,
+			"type": "VEC3",
+			"componentType": 5126,
+			"min": [ -0.123133488, -0.691273093, -0.194309294 ],
+			"max": [ 0.112220131, 0.709176362, 0.655599892 ]
+		},
+		{
+			"bufferView": 3,
+			"count": 1218,
+			"type": "VEC3",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 4,
+			"count": 1218,
+			"type": "VEC4",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 5,
+			"count": 1218,
+			"type": "VEC2",
+			"componentType": 5126
+		},
+		{
+			"bufferView": 6,
+			"count": 1218,
+			"type": "VEC4",
+			"componentType": 5123
+		},
+		{
+			"bufferView": 7,
+			"count": 1218,
+			"type": "VEC4",
+			"componentType": 5123,
+			"normalized": true
+		}
+	],
+	"buffers": [
+		{
+			"uri": "Shield.bin",
+			"byteLength": 90424
+		}
+	],
+	"bufferViews": [
+		{
+			"buffer": 0,
+			"byteLength": 64
+		},
+		{
+			"buffer": 0,
+			"byteLength": 12408,
+			"byteOffset": 64,
+			"target": 34963
+		},
+		{
+			"buffer": 0,
+			"byteLength": 14616,
+			"byteOffset": 12472,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 14616,
+			"byteOffset": 27088,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 19488,
+			"byteOffset": 41704,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 9744,
+			"byteOffset": 61192,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 9744,
+			"byteOffset": 70936,
+			"target": 34962
+		},
+		{
+			"buffer": 0,
+			"byteLength": 9744,
+			"byteOffset": 80680,
+			"target": 34962
+		}
+	],
+	"images": [
+		{
+			"uri": "MI_FireRevenant_Shield_Rd_BaseColor.png"
+		},
+		{
+			"uri": "MI_FireRevenant_Shield_Rd_MetallicRoughness.png"
+		},
+		{
+			"uri": "MI_FireRevenant_Shield_Rd_Emissive.png"
+		},
+		{
+			"uri": "MI_FireRevenant_Shield_Rd_Normal.png"
+		},
+		{
+			"uri": "MI_FireRevenant_Shield_Rd_Occlusion.png"
+		}
+	],
+	"materials": [
+		{
+			"name": "MI_FireRevenant_Shield_Rd",
+			"pbrMetallicRoughness":
+			{
+				"baseColorTexture":
+				{
+					"index": 0
+				},
+				"metallicRoughnessTexture":
+				{
+					"index": 1
+				}
+			},
+			"normalTexture":
+			{
+				"index": 3
+			},
+			"occlusionTexture":
+			{
+				"index": 4
+			},
+			"emissiveTexture":
+			{
+				"index": 2
+			},
+			"emissiveFactor": [ 1, 1, 1 ],
+			"alphaMode": "MASK",
+			"alphaCutoff": 0.333299994,
+			"extensions":
+			{
+				"KHR_materials_emissive_strength":
+				{
+					"emissiveStrength": 1.31933594
+				}
+			}
+		}
+	],
+	"meshes": [
+		{
+			"name": "SK_Shield_FireRevenant",
+			"primitives": [
+				{
+					"attributes":
+					{
+						"POSITION": 2,
+						"NORMAL": 3,
+						"TANGENT": 4,
+						"TEXCOORD_0": 5,
+						"JOINTS_0": 6,
+						"WEIGHTS_0": 7
+					},
+					"indices": 1,
+					"material": 0
+				}
+			]
+		}
+	],
+	"nodes": [
+		{
+			"name": "SK_Shield_FireRevenant",
+			"skin": 0,
+			"mesh": 0,
+			"children": [ 1 ]
+		},
+		{
+			"name": "root"
+		}
+	],
+	"samplers": [
+		{
+			"minFilter": 9987,
+			"magFilter": 9729
+		}
+	],
+	"scenes": [
+		{
+			"name": "ThirdPersonMap",
+			"nodes": [ 0 ]
+		}
+	],
+	"skins": [
+		{
+			"name": "SK_Shield_FireRevenant",
+			"inverseBindMatrices": 0,
+			"skeleton": 0,
+			"joints": [ 1 ]
+		}
+	],
+	"textures": [
+		{
+			"name": "MI_FireRevenant_Shield_Rd_BaseColor",
+			"sampler": 0,
+			"source": 0
+		},
+		{
+			"name": "MI_FireRevenant_Shield_Rd_MetallicRoughness",
+			"sampler": 0,
+			"source": 1
+		},
+		{
+			"name": "MI_FireRevenant_Shield_Rd_Emissive",
+			"sampler": 0,
+			"source": 2
+		},
+		{
+			"name": "MI_FireRevenant_Shield_Rd_Normal",
+			"sampler": 0,
+			"source": 3
+		},
+		{
+			"name": "MI_FireRevenant_Shield_Rd_Occlusion",
+			"sampler": 0,
+			"source": 4
+		}
+	],
+	"extensionsUsed": [
+		"KHR_materials_emissive_strength"
+	]
+}

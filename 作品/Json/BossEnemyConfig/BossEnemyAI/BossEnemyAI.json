@@ -1,0 +1,12 @@
+{
+  "BossEnemyAI": {
+    "chaseRange": 20.0,
+    "justAvoidWaterCooldown": 8.0,
+    "meleeAttackCooldown": 1.0,
+    "meleeRange": 4.0,
+    "randomRangeMaxExclusive": 100,
+    "waterAttackCooldown": 20.0,
+    "waterAttackProbability": 0.4000000059604645,
+    "waterFallCooldown": 7.0
+  }
+}

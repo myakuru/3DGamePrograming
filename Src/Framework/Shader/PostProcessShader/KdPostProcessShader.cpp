@@ -253,7 +253,7 @@ void KdPostProcessShader::PostEffectProcess()
 	KdShaderManager::Instance().m_spriteShader.End();
 
 	// --- 最終合成結果を画面に出力 --- 
-	KdShaderManager::Instance().m_spriteShader.DrawTex(m_noiseRTPack.m_RTTexture.get(), 0, 0, vp.width, vp.height);
+	KdShaderManager::Instance().m_spriteShader.DrawTex(KdShaderManager::Instance().m_StandardShader.GetDepthTex(0), 0, 0, vp.width, vp.height);
 
 	//KdShaderManager::Instance().m_StandardShader.GetDepthTex(0)
 }

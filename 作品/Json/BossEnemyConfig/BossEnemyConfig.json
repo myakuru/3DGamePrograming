@@ -1,0 +1,164 @@
+{
+  "BossEnemyState_Attack_L": {
+    "BossEnemy": {
+      "attackActiveEndTime": 1.0,
+      "attackActiveStartTime": 0.3499999940395355,
+      "attackCount": 1,
+      "attackDistance": 1.0,
+      "attackEndTime": 0.4000000059604645,
+      "attackInterval": 0.10000000149011612,
+      "attackRadius": 3.0,
+      "attackStartTime": 0.0,
+      "blendTime": 0.25,
+      "dashSpeed": 0.699999988079071,
+      "dashSpeedTime": 0.20000000298023224
+    }
+  },
+  "BossEnemyState_Attack_L_Effects": [
+    {
+      "Effect": "a6b96254-1571-4085-9281-29f297fcc020"
+    }
+  ],
+  "BossEnemyState_Attack_R": {
+    "BossEnemy": {
+      "attackActiveEndTime": 1.0,
+      "attackActiveStartTime": 0.3499999940395355,
+      "attackCount": 1,
+      "attackDistance": 1.0,
+      "attackEndTime": 0.4000000059604645,
+      "attackInterval": 0.10000000149011612,
+      "attackRadius": 3.0,
+      "attackStartTime": 0.0,
+      "blendTime": 0.25,
+      "dashSpeed": 0.699999988079071,
+      "dashSpeedTime": 0.20000000298023224
+    }
+  },
+  "BossEnemyState_Attack_R_Effects": [
+    {
+      "Effect": "a6b96254-1571-4085-9281-29f297fcc020"
+    }
+  ],
+  "BossEnemyState_ChargeEnd": {
+    "BossEnemy": {
+      "animationSpeed": 60.0,
+      "attackActiveEndTime": 1.0,
+      "attackActiveStartTime": 0.3499999940395355,
+      "attackCount": 1,
+      "attackDistance": 1.0,
+      "attackEndTime": 0.4000000059604645,
+      "attackInterval": 0.10000000149011612,
+      "attackRadius": 3.0,
+      "attackStartTime": 0.0,
+      "blendTime": 0.25
+    }
+  },
+  "BossEnemyState_ChargeStart": {
+    "BossEnemy": {
+      "animationSpeed": 60.0,
+      "blendTime": 0.25
+    }
+  },
+  "BossEnemyState_ChrgeLoop": {
+    "BossEnemy": {
+      "animationSpeed": 60.0,
+      "blendTime": 0.25,
+      "chargeTime": 10.0
+    }
+  },
+  "BossEnemyState_Dodge": {
+    "BossEnemy": {
+      "animationSpeed": 60.0,
+      "blendTime": 0.25,
+      "dashSpeed": 0.699999988079071,
+      "dashSpeedTime": 0.20000000298023224
+    }
+  },
+  "BossEnemyState_Enter": {
+    "BossEnemy": {
+      "animationSpeed": 60.0,
+      "blendTime": 0.25
+    }
+  },
+  "BossEnemyState_Enter_Effects": [
+    {
+      "Effect": "5f5b0db6-bb30-425e-bf87-3459cd3da6e4"
+    }
+  ],
+  "BossEnemyState_Hit": {
+    "BossEnemy": {
+      "animationSpeed": 60.0,
+      "blendTime": 0.25,
+      "dashSpeed": -0.6000000238418579,
+      "dashSpeedTime": 0.20000000298023224,
+      "hitCount": 5
+    }
+  },
+  "BossEnemyState_Idle": {
+    "BossEnemy": {
+      "animationSpeed": 60.0,
+      "blendTime": 0.25
+    }
+  },
+  "BossEnemyState_Run": {
+    "BossEnemy": {
+      "animationSpeed": 60.0,
+      "blendTime": 0.25,
+      "targetDistance": 10.0
+    }
+  },
+  "BossEnemyState_WaterAttack": {
+    "BossEnemy": {
+      "attackActiveStartTime": 0.6000000238418579,
+      "attackCount": 5,
+      "attackDistance": 7.0,
+      "attackEndTime": 3.0,
+      "attackInterval": 0.10000000149011612,
+      "attackRadius": 15.0,
+      "attackStartTime": 0.0,
+      "blendTime": 0.25,
+      "dashSpeed": 0.699999988079071,
+      "dashSpeedTime": 0.20000000298023224
+    }
+  },
+  "BossEnemyState_WaterAttack_Effects": [
+    {
+      "Effect": "a8ebc8e3-0f7a-4660-b91b-39ef845b27b1"
+    }
+  ],
+  "BossEnemyState_WaterAttack_end": {
+    "BossEnemy": {
+      "attackActiveEndTime": 1.0,
+      "attackActiveStartTime": 0.3499999940395355,
+      "attackCount": 1,
+      "attackDistance": 1.0,
+      "attackEndTime": 0.4000000059604645,
+      "attackInterval": 0.10000000149011612,
+      "attackRadius": 3.0,
+      "attackStartTime": 0.0,
+      "blendTime": 0.25,
+      "dashSpeed": 0.699999988079071,
+      "dashSpeedTime": 0.20000000298023224
+    }
+  },
+  "BossEnemyState_WaterFall": {
+    "BossEnemy": {
+      "animationSpeed": 40.0,
+      "attackActiveStartTime": 0.4000000059604645,
+      "attackCount": 3,
+      "attackDistance": 1.0,
+      "attackEndTime": 3.0,
+      "attackInterval": 0.10000000149011612,
+      "attackRadius": 4.0,
+      "attackStartTime": 1.0,
+      "blendTime": 0.25,
+      "dashSpeed": 0.699999988079071,
+      "dashSpeedTime": 0.20000000298023224
+    }
+  },
+  "BossEnemyState_WaterFall_Effects": [
+    {
+      "Effect": "342cc760-0deb-4dbb-9c05-149c2b05643a"
+    }
+  ]
+}

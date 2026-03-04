@@ -1,0 +1,131 @@
+{
+  "EnemState_Attack3": {
+    "AetheriusEnemy": {
+      "attackActiveEndTime": 1.0,
+      "attackActiveStartTime": 0.3499999940395355,
+      "attackCount": 1,
+      "attackDistance": 1.0,
+      "attackEndTime": 0.4000000059604645,
+      "attackInterval": 0.10000000149011612,
+      "attackRadius": 3.0,
+      "attackStartTime": 0.0,
+      "blendTime": 0.25,
+      "dashSpeed": 0.699999988079071,
+      "dashSpeedTime": 0.20000000298023224,
+      "distanceThreshold": 10.0
+    }
+  },
+  "EnemyState_Attack": {
+    "AetheriusEnemy": {
+      "animationSpeed": 60.0,
+      "attackActiveEndTime": 1.0,
+      "attackActiveStartTime": 0.3499999940395355,
+      "attackCount": 1,
+      "attackDistance": 1.0,
+      "attackEndTime": 0.4000000059604645,
+      "attackInterval": 0.10000000149011612,
+      "attackRadius": 3.0,
+      "attackStartTime": 0.0,
+      "blendTime": 0.25,
+      "dashSpeed": 0.699999988079071,
+      "dashSpeedTime": 0.20000000298023224,
+      "distanceThreshold": 10.0,
+      "fpsScale": 0.4000000059604645,
+      "hitStopTime": 0.10000000149011612
+    }
+  },
+  "EnemyState_Attack1": {
+    "AetheriusEnemy": {
+      "animationSpeed": 60.0,
+      "attackActiveEndTime": 1.0,
+      "attackActiveStartTime": 0.3499999940395355,
+      "attackCount": 1,
+      "attackDistance": 1.0,
+      "attackEndTime": 0.4000000059604645,
+      "attackInterval": 0.10000000149011612,
+      "attackRadius": 3.0,
+      "attackStartTime": 0.0,
+      "blendTime": 0.25,
+      "dashSpeed": 0.699999988079071,
+      "dashSpeedTime": 0.20000000298023224,
+      "distanceThreshold": 10.0,
+      "hitStopTime": 0.10000000149011612
+    }
+  },
+  "EnemyState_Attack1_Effects": [
+    {
+      "Effect": "5f4f9524-de96-41fe-a950-bc9d7863ef31"
+    }
+  ],
+  "EnemyState_Attack2": {
+    "AetheriusEnemy": {
+      "attackActiveEndTime": 1.0,
+      "attackActiveStartTime": 0.3499999940395355,
+      "attackCount": 1,
+      "attackDistance": 1.0,
+      "attackEndTime": 0.4000000059604645,
+      "attackInterval": 0.10000000149011612,
+      "attackRadius": 3.0,
+      "attackStartTime": 0.0,
+      "blendTime": 0.25,
+      "dashSpeed": 0.699999988079071,
+      "dashSpeedTime": 0.20000000298023224,
+      "distanceThreshold": 10.0
+    }
+  },
+  "EnemyState_Attack2_Effects": [
+    {
+      "Effect": "c08dfad5-477c-4846-86de-55aa18bb726f"
+    }
+  ],
+  "EnemyState_Attack3_Effects": [
+    {
+      "Effect": "df818d29-a7ac-4334-a0f3-8043538c8454"
+    }
+  ],
+  "EnemyState_Attack_Effects": [
+    {
+      "Effect": "2e820282-792f-4ce0-a6ce-bff0c5d56abd"
+    }
+  ],
+  "EnemyState_Death": {
+    "AetheriusEnemy": {
+      "blendTime": 0.25
+    }
+  },
+  "EnemyState_Hit": {
+    "AetheriusEnemy": {
+      "blendTime": 0.25,
+      "dashSpeed": -0.699999988079071,
+      "dashSpeedTime": 0.20000000298023224
+    }
+  },
+  "EnemyState_Idle": {
+    "AetheriusEnemy": {
+      "animationSpeed": 60.0,
+      "distanceThreshold": 10.0
+    }
+  },
+  "EnemyState_Run": {
+    "AetheriusEnemy": {
+      "animationSpeed": 60.0,
+      "distanceThreshold": 10.0
+    }
+  },
+  "EnemyState_Walk_Left": {
+    "AetheriusEnemy": {
+      "animationSpeed": 60.0,
+      "changeStateTime": 0.699999988079071,
+      "dashSpeed": 0.699999988079071,
+      "distanceThreshold": 10.0
+    }
+  },
+  "EnemyState_Walk_Right": {
+    "AetheriusEnemy": {
+      "animationSpeed": 60.0,
+      "changeStateTime": 0.699999988079071,
+      "dashSpeed": 0.699999988079071,
+      "distanceThreshold": 10.0
+    }
+  }
+}
